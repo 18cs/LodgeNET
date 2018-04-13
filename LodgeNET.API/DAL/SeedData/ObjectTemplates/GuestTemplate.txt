@@ -1,0 +1,18 @@
+[
+    '{{repeat(5)}}',
+    {
+      Id: '{{index()}}',
+      DodId: '{{integer(1000000, 2000000)}}',
+      FirstName: '{{firstName("male")}}',
+      MiddleInitial: 'M',
+      LastName: '{{surname()}}',
+      Gender: '{{gender()}}',
+      Email: '{{email()}}',
+      CommPhone: '{{phone()}}',
+      DsnPhone: '{{phone()}}',
+      Chalk: '{{integer(1, 10)}}',
+      ServiceId: '{{integer(0, 3)}}',
+      RankId: '{{integer(0, 6)}}',
+      UnitId: '{{integer(0, 6)}}',
+    }
+  ]

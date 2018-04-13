@@ -1,0 +1,25 @@
+#backgroud {
+    opacity: 1;
+    filter: brightness(45%);
+    z-index: 0;
+    position: absolute
+}
+
+#logo {
+    z-index: 2;
+    position: absolute;
+    margin: auto;
+    left: 0; 
+    right: 0;
+    top: 0;
+    bottom: 0;
+    max-width: 928px;
+    max-height: 1516px;
+}
+
+#footer {
+    position : absolute;
+    bottom: 0%;
+    font-size: 9px;
+    color: #FFFFFF;
+}

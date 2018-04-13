@@ -1,0 +1,9 @@
+[
+  '{{repeat(4)}}',
+  {
+  
+    index: '{{index()}}',
+    Name: '{{String()}}',
+    BuildingCategory: '{{integer()}}'
+  }
+]

@@ -1,0 +1,12 @@
+[
+  '{{repeat(1)}}',
+  {
+    index: '{{index()}}',
+    RoomNumber: '{{integer(100, 10000)}}',
+    SurgeMultiplier: '{{integer(2)}}',
+    Capacity: '{{integer(2)}}',
+    SquareFootage: '{{integer(2)}}',
+    Floor: '{{integer(2)}}',
+    BuildingId: '{{integer(2)}}'
+  }
+]

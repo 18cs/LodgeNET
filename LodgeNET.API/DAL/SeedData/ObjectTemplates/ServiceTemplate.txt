@@ -1,0 +1,7 @@
+[
+  '{{repeat(4)}}',
+  {
+    index: '{{index()}}',
+    ServiceName: '{{company()}}'
+  }
+]

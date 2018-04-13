@@ -1,0 +1,67 @@
+[
+    {
+      "DodId": 1435151,
+      "FirstName": "Cunningham",
+      "MiddleInitial": "M",
+      "LastName": "Jackson",
+      "AccountTypeId": 3,
+      "Approved": false,
+      "Email": "cunninghamjackson@mangelica.com",
+      "CommPhone": "(840) 549-3943",
+      "DsnPhone": "(982) 585-2970",
+      "RankId": 1,
+      "UnitId": 0
+    },
+    {
+      "DodId": 1862725,
+      "FirstName": "Langley",
+      "MiddleInitial": "M",
+      "LastName": "Butler",
+      "AccountTypeId": 2,
+      "Approved": true,
+      "Email": "langleybutler@mangelica.com",
+      "CommPhone": "(849) 587-3660",
+      "DsnPhone": "(951) 491-3462",
+      "RankId": 0,
+      "UnitId": 4
+    },
+    {
+      "DodId": 1118188,
+      "FirstName": "Palmer",
+      "MiddleInitial": "M",
+      "LastName": "James",
+      "AccountTypeId": 2,
+      "Approved": true,
+      "Email": "palmerjames@mangelica.com",
+      "CommPhone": "(958) 495-3018",
+      "DsnPhone": "(865) 508-2944",
+      "RankId": 5,
+      "UnitId": 4
+    },
+    {
+      "DodId": 1910613,
+      "FirstName": "Petersen",
+      "MiddleInitial": "M",
+      "LastName": "Mooney",
+      "AccountTypeId": 0,
+      "Approved": false,
+      "Email": "petersenmooney@mangelica.com",
+      "CommPhone": "(847) 526-3480",
+      "DsnPhone": "(877) 564-3775",
+      "RankId": 0,
+      "UnitId": 4
+    },
+    {
+      "DodId": 1770311,
+      "FirstName": "Houston",
+      "MiddleInitial": "M",
+      "LastName": "Maxwell",
+      "AccountTypeId": 1,
+      "Approved": false,
+      "Email": "houstonmaxwell@mangelica.com",
+      "CommPhone": "(955) 506-3936",
+      "DsnPhone": "(971) 524-2995",
+      "RankId": 0,
+      "UnitId": 0
+    }
+  ]

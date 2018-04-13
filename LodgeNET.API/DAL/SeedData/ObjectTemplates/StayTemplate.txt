@@ -1,0 +1,12 @@
+[
+  '{{repeat(10)}}',
+  {
+    index: '{{index(0, 9)}}',
+    GuestId: '{{integer(0, 9)}}',
+    DateCheckedIn: '{{date(new Date(2018, 0, 1), new Date(2018, 2, 31), "YYYY-MM-dd")}}',
+    DateCheckedOut:  '{{date( new Date(2018, 2, 31), new Date(), "YYYY-MM-dd")}}',
+    ReservationId: '{{integer(0,9)}}',
+    RoomId: '{{integer()}}',
+    BuildingId: '{{integer()}}'
+  }
+]

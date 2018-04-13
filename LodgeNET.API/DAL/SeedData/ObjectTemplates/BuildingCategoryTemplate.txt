@@ -1,0 +1,8 @@
+[
+  '{{repeat(4)}}',
+  {
+  
+    index: '{{index()}}',
+    AccountType: '{{String()}}'
+  }
+]

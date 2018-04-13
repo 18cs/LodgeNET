@@ -1,0 +1,825 @@
+[
+    {
+        "Name": "Department of Defence"
+    },
+    {
+        "Name": "Pacific Command",
+        "ParentUnitId": 1
+    },
+    {
+        "Name": "Pacific Air Forces",
+        "ParentUnitId": 2
+    },
+    {
+        "Name": "Pacific Fleet",
+        "ParentUnitId": 2
+    },
+    {
+        "Name": "Marine Corps Forces Pacific",
+        "ParentUnitId": 2
+    },
+    {
+        "Name": "Army Pacific",
+        "ParentUnitId": 2
+    },
+    {
+        "Name": "5 AF",
+        "ParentUnitId": 3
+    },
+    {
+        "Name": "7 AF",
+        "ParentUnitId": 3
+    },
+    {
+        "Name": "11 AF",
+        "ParentUnitId": 3
+    },
+    {
+        "Name": "3rd Fleet",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "7th Fleet",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "US Naval Forces Japan",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "US Naval Forces Korea",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "Joint Region Marianas",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "Navy Region Hawaii",
+        "ParentUnitId": 4
+    },
+    {
+        "Name": "I MEF",
+        "ParentUnitId": 5
+    },
+    {
+        "Name": "III MEF",
+        "ParentUnitId": 5
+    },
+    {
+        "Name": "Marine Corps Activity Guam",
+        "ParentUnitId": 5
+    },
+    {
+        "Name": "Marine Rotational Force - Darwin",
+        "ParentUnitId": 5
+    },
+    {
+        "Name": "8th Army",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "7th Infantry Division",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "25th Infantry Division",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "US Army Alaska",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "US Army Japan",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "8th Theater Sustainment Command",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "311th Signal Command",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "94th Army Air & Missile Defense Command",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "9th Mission Support Command",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "196th Infantry Brigade",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "500th Military Intelligence Brigade",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "18th Medical Command",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "5th Battlefield Coordination Detachment",
+        "ParentUnitId": 6
+    },
+    {
+        "Name": "18th Wing",
+        "ParentUnitId": 7
+    },
+    {
+        "Name": "35th Fighter Wing",
+        "ParentUnitId": 7
+    },
+    {
+        "Name": "374th Airlift Wing",
+        "ParentUnitId": 7
+    },
+    {
+        "Name": "51st Fighter Wing",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "8th Fighter Wing",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "607th Air and Space Operations Center",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "607th Air Support Group",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "607th Air Support Operations Group",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "607th Support Group",
+        "ParentUnitId": 8
+    },
+    {
+        "Name": "3d Wing",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "354th Fighter Wing",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "36th Wing",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "611th Air and Space Operations Center",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "611th Air Support Group",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "Missile Defense Flight",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "11 AF/ANR Logistics Flight",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "168th Air Refueling Wing",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "176th Wing",
+        "ParentUnitId": 9
+    },
+    {
+        "Name": "CSG-1",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "CSG-3",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "CSG-9",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "CSG-11",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "ESG-3",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Naval Surface Group Mid-Pacific",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "LCCS-1",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Helicopter Maritime Strike Wing",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "CSFTP",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "EOD Group 1",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Coastal Riverine Group 1",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Navy Air and Missile Defense Command",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Naval Mine and Anti-Sub Warfare Command",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Sub and Theater Anti-Sub Warfare Force 3d Fleet",
+        "ParentUnitId": 10
+    },
+    {
+        "Name": "Task Force 71",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 72",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 73/Logistics Gp Western Pacific",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 74",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 75",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 76",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 77",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 78",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Task Force 79",
+        "ParentUnitId": 11
+    },
+    {
+        "Name": "Naval Air Facility Atsugi",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "Naval Air Facility Misawa",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "Naval Support Facility Diego Garcia",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "US Fleet Activities Yokosuka",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "US Fleet Activities Sasebo",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "Fleet Activities Okinawa",
+        "ParentUnitId": 12
+    },
+    {
+        "Name": "1st Marine Division",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "3rd MAW",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "1st MLG",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "I MEF Information Group",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "1st MEB",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "11th MEU",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "13th MEU",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "15th MEU",
+        "ParentUnitId": 16
+    },
+    {
+        "Name": "3rd Marine Division",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "1st MAW",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd MLG",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "III MEF Information Group",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "III Marine Expeditionary HQ",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd Intelligence Battalion",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd Law Enforcement Battalion",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd Radio Battalion",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "7th Communication Battalion",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "5th Air Naval Gunfire Liaison Company",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd MEB",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "31st MEU",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "3rd Radio Battalion",
+        "ParentUnitId": 17
+    },
+    {
+        "Name": "2nd Infantry Division",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "19th Sustainment Command",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "35th Air Defense Artillery Brigade",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "501st Military Intelligence Brigade",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "1st Signal Brigade",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "65th Medical Brigade",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "4th Battalion",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "106th Medical Detachment",
+        "ParentUnitId": 20
+    },
+    {
+        "Name": "1st Stryker BCT",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "2nd Stryker BCT",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "81st Stryker BCT",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "Division Artillery",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "16th Combat Aviation Brigade",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "17th Field Artillery Brigade",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "555th Engineer Brigade",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "201st Expeditionary Military Intelligence Brigade",
+        "ParentUnitId": 21
+    },
+    {
+        "Name": "1st Stryker BCT",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "2nd Infantry BCT",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "3rd Infantry BCT",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "4th Infantry BCT",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "Division Artillery",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "Combat Aviation Brigade",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "25th Sustainment Brigade",
+        "ParentUnitId": 22
+    },
+    {
+        "Name": "NWTC",
+        "ParentUnitId": 23
+    },
+    {
+        "Name": "NCOA",
+        "ParentUnitId": 23
+    },
+    {
+        "Name": "17th Combat Sustainment Battalion",
+        "ParentUnitId": 23
+    },
+    {
+        "Name": "Army Field Support Battalion-Alaska",
+        "ParentUnitId": 23
+    },
+    {
+        "Name": "297th Regional Support Group",
+        "ParentUnitId": 23
+    },
+    {
+        "Name": "US Army Garrison, Japan",
+        "ParentUnitId": 24
+    },
+    {
+        "Name": "10th Support Group, Okinawa, Japan",
+        "ParentUnitId": 24
+    },
+    {
+        "Name": "US Army Corps of Engineers, Japan District",
+        "ParentUnitId": 24
+    },
+    {
+        "Name": "US Army Japan Band",
+        "ParentUnitId": 24
+    },
+    {
+        "Name": "US Army Aviation Battalion Japan",
+        "ParentUnitId": 24
+    },
+    {
+        "Name": "8th Special Troops Battalion",
+        "ParentUnitId": 25
+    },
+    {
+        "Name": "45th Sustainment Brigade",
+        "ParentUnitId": 25
+    },
+    {
+        "Name": "8th Military Police Brigade",
+        "ParentUnitId": 25
+    },
+    {
+        "Name": "130th Engineer Brigade",
+        "ParentUnitId": 25
+    },
+    {
+        "Name": "1st Signal Brigade",
+        "ParentUnitId": 26
+    },
+    {
+        "Name": "516th Signal Brigade",
+        "ParentUnitId": 26
+    },
+    {
+        "Name": "HQ and HQ Battery",
+        "ParentUnitId": 27
+    },
+    {
+        "Name": "1st Battalion, 1st Air Defense Artillery Regiment",
+        "ParentUnitId": 27
+    },
+    {
+        "Name": "10th Missile Defense Detachment",
+        "ParentUnitId": 27
+    },
+    {
+        "Name": "14th Missile Defense Detachment",
+        "ParentUnitId": 27
+    },
+    {
+        "Name": "US Army Pacific Support Unit",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "3rd Mobilization Support Group",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "658th Regional Support Group",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "Theater Support Group Pacific",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "303rd Maneuver Enhancement Brigade",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "322nd Civil Affairs Brigade",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "4960th Multi Functional Training Brigade",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "1984th US Army Hospital",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "302nd Transportation Terminal Battalion",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "411th Engineer Battalion",
+        "ParentUnitId": 28
+    },
+    {
+        "Name": "HQ & HQ Company",
+        "ParentUnitId": 30
+    },
+    {
+        "Name": "205th Military Intelligence Battalion",
+        "ParentUnitId": 30
+    },
+    {
+        "Name": "301st Military Intelligence Battalion",
+        "ParentUnitId": 30
+    },
+    {
+        "Name": "441st Military Intelligence Battalion",
+        "ParentUnitId": 30
+    },
+    {
+        "Name": "715th Military Intelligence Battalion",
+        "ParentUnitId": 30
+    },
+    {
+        "Name": "18th Operations Group",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "18th Mission Support Group",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "18th Maintenance Group",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "18th Medical Group",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "18th Civil Engineer Group",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "35th Operations Group",
+        "ParentUnitId": 34
+    },
+    {
+        "Name": "35th Maintenance Group",
+        "ParentUnitId": 34
+    },
+    {
+        "Name": "35th Mission Support Group",
+        "ParentUnitId": 34
+    },
+    {
+        "Name": "374th Operations Group",
+        "ParentUnitId": 35
+    },
+    {
+        "Name": "374th Maintenance Group",
+        "ParentUnitId": 35
+    },
+    {
+        "Name": "374th Mission Group",
+        "ParentUnitId": 35
+    },
+    {
+        "Name": "51st Operations Group",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "51st Mission Support Group",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "51st Maintenance Group",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "51st Medical Group",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "51st Fighter Wing staff Agencies",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "8th Operations Group",
+        "ParentUnitId": 37
+    },
+    {
+        "Name": "8th Maintenance Group",
+        "ParentUnitId": 37
+    },
+    {
+        "Name": "8th Mission Support Group",
+        "ParentUnitId": 37
+    },
+    {
+        "Name": "8th Medical Group",
+        "ParentUnitId": 37
+    },
+    {
+        "Name": "3d Operations Group",
+        "ParentUnitId": 42
+    },
+    {
+        "Name": "3d Maintenance Group",
+        "ParentUnitId": 42
+    },
+    {
+        "Name": "3d Mission Support Group",
+        "ParentUnitId": 42
+    },
+    {
+        "Name": "3d Medical Group",
+        "ParentUnitId": 42
+    },
+    {
+        "Name": "3d Wing Staff Agencies",
+        "ParentUnitId": 42
+    },
+    {
+        "Name": "354th Operations Group",
+        "ParentUnitId": 43
+    },
+    {
+        "Name": "354th Maintenance Group",
+        "ParentUnitId": 43
+    },
+    {
+        "Name": "354th Mission Support Group",
+        "ParentUnitId": 43
+    },
+    {
+        "Name": "354th Medical Group",
+        "ParentUnitId": 43
+    },
+    {
+        "Name": "36th Operations Group",
+        "ParentUnitId": 44
+    },
+    {
+        "Name": "36th Maintenance Group",
+        "ParentUnitId": 44
+    },
+    {
+        "Name": "36th Contingency Response Group",
+        "ParentUnitId": 44
+    },
+    {
+        "Name": "36th Medical Group",
+        "ParentUnitId": 44
+    },
+    {
+        "Name": "36th Mission Support Group",
+        "ParentUnitId": 44
+    },
+    {
+        "Name": "611th Air Support Squadron",
+        "ParentUnitId": 46
+    },
+    {
+        "Name": "611th Air Communications Squadron",
+        "ParentUnitId": 46
+    },
+    {
+        "Name": "611th Civil Engineer Squadron",
+        "ParentUnitId": 46
+    },
+    {
+        "Name": "168th Operations Group",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "168th Maintenance Group",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "168th Mission Support Group",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "168th Medical Group",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "213th Space Warning Squadron",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "176th Operations Group",
+        "ParentUnitId": 50
+    },
+    {
+        "Name": "176th Maintenance Group",
+        "ParentUnitId": 50
+    },
+    {
+        "Name": "176th Mission Support Group",
+        "ParentUnitId": 50
+    },
+    {
+        "Name": "176th Medical Group",
+        "ParentUnitId": 50
+    },
+    {
+        "Name": "11th Rescue Coordination Center",
+        "ParentUnitId": 50
+    },
+    {
+        "Name": "176th Wing Staff",
+        "ParentUnitId": 50
+    }
+]

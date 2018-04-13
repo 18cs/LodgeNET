@@ -1,0 +1,10 @@
+[
+  '{{repeat(10)}}',
+  {
+    index: '{{index()}}',
+    CheckinDate: '{{date(new Date(2018, 0, 1), new Date(2018, 2, 31), "YYYY-MM-dd")}}',
+    CheckoutDate:  '{{date( new Date(2018, 2, 31), new Date(), "YYYY-MM-dd")}}',
+    Canceled: '{{bool()}}',
+    DateCreated: '{{date(new Date(2017,6,1), new Date(2018, 0, 1), "YYYY-MM-dd")}}'
+  }
+]

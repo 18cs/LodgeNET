@@ -1,0 +1,17 @@
+[
+    '{{repeat(5)}}',
+    {
+      DodId: '{{integer(1000000, 2000000)}}',
+      FirstName: '{{firstName("male")}}',
+      MiddleInitial: 'M',
+      LastName: '{{surname()}}',
+      AccountTypeId: '{{integer(0,3)}}',
+      Approved: '{{bool()}}',
+      Email: '{{email()}}',
+      CommPhone: '{{phone()}}',
+      DsnPhone: '{{phone()}}',
+      ServiceId: '{{integer(0, 3)}}',
+      RankId: '{{integer(0, 6)}}',
+      UnitId: '{{integer(0, 6)}}',
+    }
+  ]

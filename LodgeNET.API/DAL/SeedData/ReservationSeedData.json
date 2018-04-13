@@ -1,0 +1,62 @@
+[
+    {
+      "CheckinDate": "2018-02-07",
+      "CheckoutDate": "2018-03-24",
+      "Canceled": false,
+      "DateCreated": "2017-07-09"
+    },
+    {
+      "CheckinDate": "2018-02-14",
+      "CheckoutDate": "2018-03-27",
+      "Canceled": false,
+      "DateCreated": "2017-09-10"
+    },
+    {
+      "CheckinDate": "2018-02-21",
+      "CheckoutDate": "2018-03-30",
+      "Canceled": false,
+      "DateCreated": "2017-12-21"
+    },
+    {
+      "CheckinDate": "2018-02-14",
+      "CheckoutDate": "2018-03-29",
+      "Canceled": true,
+      "DateCreated": "2017-10-05"
+    },
+    {
+      "CheckinDate": "2018-03-16",
+      "CheckoutDate": "2018-03-28",
+      "Canceled": false,
+      "DateCreated": "2017-11-08"
+    },
+    {
+      "CheckinDate": "2018-01-03",
+      "CheckoutDate": "2018-03-27",
+      "Canceled": false,
+      "DateCreated": "2017-10-14"
+    },
+    {
+      "CheckinDate": "2018-03-28",
+      "CheckoutDate": "2018-03-30",
+      "Canceled": true,
+      "DateCreated": "2017-10-10"
+    },
+    {
+      "CheckinDate": "2018-02-19",
+      "CheckoutDate": "2018-03-28",
+      "Canceled": false,
+      "DateCreated": "2017-07-26"
+    },
+    {
+      "CheckinDate": "2018-02-18",
+      "CheckoutDate": "2018-03-30",
+      "Canceled": false,
+      "DateCreated": "2017-07-31"
+    },
+    {
+      "CheckinDate": "2018-02-27",
+      "CheckoutDate": "2018-03-27",
+      "Canceled": true,
+      "DateCreated": "2017-10-14"
+    }
+  ]

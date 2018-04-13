@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="userscomponent">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" routerLink="/users/login" href="" routerLinkActive="active">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" routerLink="/users/signup" href="" routerLinkActive="active">Sign Up</a>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active show" id="login">
+            <div class="container">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- [ngClass]="{'active show': }" -->
