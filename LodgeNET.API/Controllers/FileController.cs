@@ -39,7 +39,8 @@ namespace LodgeNET.API.Controllers {
 
         [HttpPost]
         public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) {
-            var user = await _userRepo.GetByID (userId);
+            var user = await _userRepo.GetByID(1);
+            
 
             if (user == null) {
                 return BadRequest ("Server could not authenticate");
@@ -58,8 +59,13 @@ namespace LodgeNET.API.Controllers {
 
                     for (int i = 1; i <= reader.NumberOfPages; i++) {
                         //text.Append (PdfTextExtractor.GetTextFromPage (reader, i));
-                        string[] guestStays = PdfTextExtractor.GetTextFromPage (reader, i).Split ("\n");
+                        string[] guestStays = PdfTextExtractor.GetTextFromPage (reader, i).Split("\n");
                         foreach (string guestStay in guestStays) {
+                            if(!Regex.Match(guestStay, @"^\d").Success)
+                            {
+                                continue;
+                            }
+
                             string[] stayData = guestStay.Split (" ");
                              int firstnameIndex = 0;
 
@@ -72,7 +78,7 @@ namespace LodgeNET.API.Controllers {
                             //removes tailing ',' from lastname
                             guest.LastName = stayData[1].Remove(stayData[1].Length - 1).ToUpper();
 
-                            var rank = _rankRepo.Get(r => r.RankName == stayData[2]);
+                            var rank = await _rankRepo.Get(r => r.RankName.Equals(stayData[2]));
 
                             //Indices of the data are not static, they vary depending on the data included
                             //if index was not rank, check if followinging index is MI or account number
@@ -89,13 +95,14 @@ namespace LodgeNET.API.Controllers {
                             }
 
                             //logic to find checkin an dout date of row
-                            for(int j = firstnameIndex; i < stayData.Length; i++)
+                            for(int j = firstnameIndex; j < stayData.Length; j++)
                             {
-                                if(Regex.Match(stayData[j], @"\\d.*").Success)
+                                if(Regex.Match(stayData[j], @"^\d").Success)
                                 {
                                    stay.DateCheckedIn = DateTime.Parse(stayData[j+1]);
                                    reservation.CheckInDate = DateTime.Parse(stayData[j+1]);
                                    reservation.CheckOutDate = DateTime.Parse(stayData[j+2]);
+                                   break;
                                 }
                             }
 
