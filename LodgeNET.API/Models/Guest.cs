@@ -9,7 +9,7 @@ namespace LodgeNET.API.Models
     {
         [Key]
         public int Id { get; set; }
-        public int DodId { get; set; }
+        public int? DodId { get; set; }
         public string FirstName { get; set; }
         [MaxLength(1)]
         public string MiddleInitial { get; set; }
@@ -18,14 +18,14 @@ namespace LodgeNET.API.Models
         public string Email { get; set; }
         public string CommPhone { get; set; }
         public string DsnPhone { get; set; }
-        public int Chalk { get; set; }
+        public int? Chalk { get; set; }
         public int? ServiceId { get; set; }
         [ForeignKey("ServiceId")]
         public Service Service { get; set; }
-        public int RankId { get; set; }
+        public int? RankId { get; set; }
         [ForeignKey("RankId")]
         public Rank Rank { get; set; }
-        public int UnitId { get; set; }
+        public int? UnitId { get; set; }
         [ForeignKey("UnitId")]
         public Unit Unit { get; set; }
 

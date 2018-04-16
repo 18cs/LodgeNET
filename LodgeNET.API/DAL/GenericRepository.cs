@@ -81,6 +81,7 @@ namespace LodgeNET.API.DAL
         public async virtual void Insert(TEntity entity)
         {
             await _context.Set<TEntity>().AddAsync(entity);
+            Save();
         }
 
         /// <summary>
@@ -91,6 +92,7 @@ namespace LodgeNET.API.DAL
         {
             TEntity entityToDelete = await _context.Set<TEntity>().FindAsync(id);
             Delete(entityToDelete);
+            Save();
         }
 
         /// <summary>
@@ -104,6 +106,7 @@ namespace LodgeNET.API.DAL
                 _context.Set<TEntity>().Attach(entityToDelete);
             }
             _context.Set<TEntity>().Remove(entityToDelete);
+            Save();
         }
 
         /// <summary>
@@ -114,6 +117,14 @@ namespace LodgeNET.API.DAL
         {
             _context.Set<TEntity>().Attach(entityToUpdate);
             _context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        /// <summary>
+        /// Saves current context to database
+        /// </summary>
+        public async virtual void Save()
+        {
+            await _context.SaveChangesAsync();
         }
         #endregion
     }

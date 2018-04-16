@@ -12635,11 +12635,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
+      "projectUniqueName": "C:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
       "projectName": "LodgeNET.API",
-      "projectPath": "c:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
+      "projectPath": "C:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
       "packagesPath": "C:\\Users\\1469779153A\\.nuget\\packages\\",
-      "outputPath": "c:\\Projects\\LodgeNET\\LodgeNET.API\\obj\\",
+      "outputPath": "C:\\Projects\\LodgeNET\\LodgeNET.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

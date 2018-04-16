@@ -18,5 +18,6 @@ namespace LodgeNET.API.DAL
          void Delete (object id);
          void Delete(TEntity entityToDelete);
          void Update (TEntity entityToUpdate );
+         void Save();
     }
 }

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "fe70310ba875e64f1cf15f3bb1d360bd4f052327"
+    "signature": "d068c0e0989421e69b1bb3d97dbde7084de7c473"
   },
   "compilationOptions": {
     "defines": [
@@ -26,7 +26,8 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "3.2.0",
           "Microsoft.AspNetCore.All": "2.0.6",
           "Microsoft.AspNetCore.Server.Kestrel.Https": "2.0.2",
-          "Microsoft.NETCore.App": "2.0.0"
+          "Microsoft.NETCore.App": "2.0.0",
+          "iTextSharp": "5.5.13"
         },
         "runtime": {
           "LodgeNET.API.dll": {}
@@ -74,6 +75,14 @@
         },
         "compile": {
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
+        }
+      },
+      "iTextSharp/5.5.13": {
+        "runtime": {
+          "lib/itextsharp.dll": {}
+        },
+        "compile": {
+          "lib/itextsharp.dll": {}
         }
       },
       "Libuv/1.10.0": {
@@ -4034,6 +4043,13 @@
       "sha512": "sha512-528nEpAwniNn8Z6Ae9qTiM/kN4f0BxmWE9mDMEkqKKGxbuElmv6Kj9DVvTXECJkIt6ARerb9+vYbOifNpcwvXQ==",
       "path": "automapper.extensions.microsoft.dependencyinjection/3.2.0",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.3.2.0.nupkg.sha512"
+    },
+    "iTextSharp/5.5.13": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MigtmZrqjrJ4QERhgNZc+zhl+XSNV5y3JoH5nNxzdNjPvZJgzYN2qLRQhqtWsF9F/1H28SnOkoS6uIlSduSrXQ==",
+      "path": "itextsharp/5.5.13",
+      "hashPath": "itextsharp.5.5.13.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
