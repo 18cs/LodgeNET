@@ -27,7 +27,7 @@ export class NavbarComponent implements OnInit {
     } else {
       this.alertify.error('Logout failed');
     }
-    //this.isOpen = false;
+    // this.isOpen = false;
   }
 
 }

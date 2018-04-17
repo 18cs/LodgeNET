@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
+using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.SeedData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -70,21 +71,22 @@ namespace LodgeNET.API {
                         var error = context.Features.Get<IExceptionHandlerFeature>();
                         if (error != null)
                         {
+                            context.Response.AddApplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
                         }
                     });
                 });
             }
 
-            seeder.SeedAccountTypes();
-            seeder.SeedBuildingCategories();
-            seeder.SeedBuildings();
-            seeder.SeedReservation();
-            seeder.SeedServices();
-            seeder.SeedRanks();
-            seeder.SeedRooms();
-            seeder.SeedUnits();
-            //seeder.SeedGuests();
+            // seeder.SeedAccountTypes();
+            // seeder.SeedBuildingCategories();
+            // seeder.SeedBuildings();
+            // seeder.SeedReservation();
+            // seeder.SeedServices();
+            // seeder.SeedRanks();
+            // seeder.SeedRooms();
+            // seeder.SeedUnits();
+            // seeder.SeedGuests();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();

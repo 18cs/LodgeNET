@@ -63,14 +63,11 @@ export class AuthService {
     }
 
     private handleError(error: any) {
-        console.log(error);
         const applicationError = error.headers.get('Application-Error');
         if (applicationError) {
-            console.log(applicationError);
             return Observable.throw(applicationError);
         }
-        const serverError = error.json();
-        console.log(serverError);
+        const serverError = error['error'];
         let modelStateErrors = '';
         if (serverError) {
             for (const key in serverError) {

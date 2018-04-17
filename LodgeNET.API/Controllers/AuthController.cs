@@ -43,8 +43,11 @@ namespace LodgeNET.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-
+            if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
+            {
+                userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
+            }
+            
             if (await _repo.UserExists(userForRegisterDto.UserName))
             {
                 ModelState.AddModelError("Username", "Username already exists");
@@ -71,11 +74,12 @@ namespace LodgeNET.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
 
             if (userFromRepo == null)
             {
-                return Unauthorized();
+                ModelState.AddModelError("Unauthorized", "Username or password was incorrect.");
+                return BadRequest(ModelState);
             }
 
             // generate token
