@@ -16,9 +16,10 @@ namespace LodgeNET.API.Models
 
         public ICollection<GuestReservation> GuestReservations { get; set; }
 
-        // public Reservation()
-        // {
-        //     Guests = new Collection<Guest>();
-        // }
+        public Reservation()
+        {
+            DateCreated = DateTime.Now;
+            // Guests = new Collection<Guest>();
+        }
     }
 }

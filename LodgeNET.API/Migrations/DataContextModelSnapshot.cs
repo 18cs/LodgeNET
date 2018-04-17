@@ -67,11 +67,11 @@ namespace LodgeNET.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("Chalk");
+                    b.Property<int?>("Chalk");
 
                     b.Property<string>("CommPhone");
 
-                    b.Property<int>("DodId");
+                    b.Property<int?>("DodId");
 
                     b.Property<string>("DsnPhone");
 
@@ -88,11 +88,15 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int?>("RankId");
 
-                    b.Property<int>("UnitId");
+                    b.Property<int?>("ServiceId");
+
+                    b.Property<int?>("UnitId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RankId");
+
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("UnitId");
 
@@ -163,6 +167,8 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int>("RoomNumber");
 
+                    b.Property<string>("RoomType");
+
                     b.Property<int>("SquareFootage");
 
                     b.Property<int>("SurgeMultiplier");
@@ -195,13 +201,13 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<DateTime>("DateCheckedIn");
 
+                    b.Property<DateTime>("DateCheckedOut");
+
                     b.Property<int>("GuestId");
 
-                    b.Property<int>("ReservationId");
+                    b.Property<int?>("ReservationId");
 
                     b.Property<int?>("RoomId");
-
-                    b.Property<DateTime>("dateCheckedOut");
 
                     b.HasKey("Id");
 
@@ -291,10 +297,13 @@ namespace LodgeNET.API.Migrations
                         .WithMany()
                         .HasForeignKey("RankId");
 
+                    b.HasOne("LodgeNET.API.Models.Service", "Service")
+                        .WithMany()
+                        .HasForeignKey("ServiceId");
+
                     b.HasOne("LodgeNET.API.Models.Unit", "Unit")
                         .WithMany()
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UnitId");
                 });
 
             modelBuilder.Entity("LodgeNET.API.Models.GuestReservation", b =>
@@ -340,8 +349,7 @@ namespace LodgeNET.API.Migrations
 
                     b.HasOne("LodgeNET.API.Models.Reservation", "Reservation")
                         .WithMany()
-                        .HasForeignKey("ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ReservationId");
 
                     b.HasOne("LodgeNET.API.Models.Room", "Room")
                         .WithMany()

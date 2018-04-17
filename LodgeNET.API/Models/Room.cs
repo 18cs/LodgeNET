@@ -15,5 +15,6 @@ namespace LodgeNET.API.Models
         public int BuildingId { get; set; }
         [ForeignKey("BuildingId")]
         public Building Building { get; set; }
+        public string RoomType { get; set; }
     }
 }
