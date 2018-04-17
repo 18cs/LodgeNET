@@ -19,6 +19,7 @@ import { FilterNumPipe } from './_pipes/filterNum.pipe';
 import { SortPipe } from './_pipes/sort.pipe';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { DropdownDirective } from './_directives/dropdown.directive';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AuthGuard } from './_guards/auth.guard';
     DashboardComponent,
     FilterPipe,
     FilterNumPipe,
-    SortPipe
+    SortPipe,
+    DropdownDirective
 ],
   imports: [
     BrowserModule,

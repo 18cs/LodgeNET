@@ -74,6 +74,12 @@ namespace LodgeNET.API.DAL
            return await _context.Set<TEntity>().FindAsync(id);
         }
 
+        public async virtual Task<TEntity> GetFirstOrDefault(Expression<Func<TEntity, bool>> filter)
+        {
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+            return await query.Where(filter).FirstOrDefaultAsync();
+        }
+
         /// <summary>
         /// Inserts entity record into database context
         /// </summary>

@@ -14,6 +14,7 @@ namespace LodgeNET.API.DAL
             System.Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "");
          Task<TEntity> GetByID(object id);
+         Task<TEntity> GetFirstOrDefault(Expression<Func<TEntity, bool>> filter);
          void Insert (TEntity entity);
          void Delete (object id);
          void Delete(TEntity entityToDelete);

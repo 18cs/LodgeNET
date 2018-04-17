@@ -62,7 +62,8 @@ namespace LodgeNET.API.Controllers
             // };
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            userToCreate.UnitId = _unitRepo.Get(u => u.Name.Equals(userForRegisterDto.UserUnit)).Id;
+            userToCreate.UnitId = (await _unitRepo.GetFirstOrDefault(u => u.Name.Equals(userForRegisterDto.UserUnit))).Id;
+            
             var createUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
@@ -71,7 +72,7 @@ namespace LodgeNET.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
 
             if (userFromRepo == null)
             {

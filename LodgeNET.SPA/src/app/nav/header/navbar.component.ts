@@ -10,15 +10,16 @@ import { AlertifyService } from '../../_services/alertify.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private authService: AuthService, private alertify: AlertifyService) { }
-  isOpen = false;
+  isUserDropdownOpen = false;
+  isUploadDropdownOpen = false;
+  isNavbarOpen = false;
 
   ngOnInit() {
   }
 
-  toggleDropDown() {
-    console.log('yupyupyup');
-    this.isOpen = !this.isOpen;
-    return this.isOpen;
+  toggleUserDropDown() {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+    return this.isUserDropdownOpen;
   }
 
   logout() {
@@ -27,7 +28,6 @@ export class NavbarComponent implements OnInit {
     } else {
       this.alertify.error('Logout failed');
     }
-    //this.isOpen = false;
   }
 
 }

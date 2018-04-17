@@ -56,14 +56,14 @@ namespace LodgeNET.API {
                 app.UseDeveloperExceptionPage ();
             }
 
-            seeder.SeedAccountTypes();
-            seeder.SeedBuildingCategories();
-            seeder.SeedBuildings();
-            seeder.SeedReservation();
-            seeder.SeedServices();
-            seeder.SeedRanks();
-            seeder.SeedRooms();
-            seeder.SeedUnits();
+            // seeder.SeedAccountTypes();
+            // seeder.SeedBuildingCategories();
+            // seeder.SeedBuildings();
+            // seeder.SeedReservation();
+            // seeder.SeedServices();
+            // seeder.SeedRanks();
+            // seeder.SeedRooms();
+            // seeder.SeedUnits();
             // seeder.SeedGuests();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -35,6 +36,7 @@ namespace LodgeNET.API.Controllers {
             _rankRepo = rankRepo;
             _guestRepo = guestRepo;
             _stayRepo = stayRepo;
+            _reservationRepo = reservationRepo;
         }
 
         [HttpPost]
@@ -97,11 +99,25 @@ namespace LodgeNET.API.Controllers {
                             //logic to find checkin an dout date of row
                             for(int j = firstnameIndex; j < stayData.Length; j++)
                             {
-                                if(Regex.Match(stayData[j], @"^\d").Success)
+                                // if(Regex.Match(stayData[j], @"^\d").Success)
+                                // {
+                                //     //TODO account for the open column
+                                //    stay.DateCheckedIn = DateTime.Parse(stayData[j+1]);
+                                //    reservation.CheckInDate = DateTime.Parse(stayData[j+1]);
+                                //    reservation.CheckOutDate = DateTime.Parse(stayData[j+2]);
+                                //    break;
+                                // }
+                                if(DateTime.TryParseExact(
+                                    stayData[j],
+                                    "MM/dd/yyyy",
+                                    CultureInfo.InvariantCulture,
+                                    DateTimeStyles.None,
+                                    out DateTime checkInDate))
                                 {
-                                   stay.DateCheckedIn = DateTime.Parse(stayData[j+1]);
-                                   reservation.CheckInDate = DateTime.Parse(stayData[j+1]);
-                                   reservation.CheckOutDate = DateTime.Parse(stayData[j+2]);
+                                    //TODO account for the open column
+                                   stay.DateCheckedIn = checkInDate;
+                                   reservation.CheckInDate = checkInDate;
+                                   reservation.CheckOutDate = DateTime.Parse(stayData[j+1]);
                                    break;
                                 }
                             }
@@ -115,8 +131,6 @@ namespace LodgeNET.API.Controllers {
                             
                         }
                     }
-
-                    string yup = text.ToString ();
                 }
             }
 
