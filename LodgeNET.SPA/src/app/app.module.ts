@@ -17,9 +17,13 @@ import { AlertifyService } from './_services/alertify.service';
 import { UnitsService } from './_services/units.service';
 import { FilterNumPipe } from './_pipes/filterNum.pipe';
 import { SortPipe } from './_pipes/sort.pipe';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_guards/auth.guard';
-
+import { DropdownDirective } from './_directives/dropdown.directive';
+import { FileUploadModule } from 'ng2-file-upload';
+import { AuthappComponent } from './authapp/authapp.component';
+import { DashboardComponent } from './authapp/dashboard/dashboard.component';
+import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
+import { LoggedinGuard } from './_guards/loggedin.guard';
 
 @NgModule({
   declarations: [
@@ -29,15 +33,19 @@ import { AuthGuard } from './_guards/auth.guard';
     UsersComponent,
     LoginComponent,
     SignupComponent,
+    AuthappComponent,
     DashboardComponent,
+    LodgingfileuploadComponent,
     FilterPipe,
     FilterNumPipe,
-    SortPipe
+    SortPipe,
+    DropdownDirective
 ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    FileUploadModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -52,7 +60,8 @@ import { AuthGuard } from './_guards/auth.guard';
     AuthService,
     AlertifyService,
     UnitsService,
-    AuthGuard
+    AuthGuard,
+    LoggedinGuard
   ],
   bootstrap: [AppComponent]
 })

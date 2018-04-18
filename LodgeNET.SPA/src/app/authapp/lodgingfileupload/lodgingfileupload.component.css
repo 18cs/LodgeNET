@@ -1,0 +1,29 @@
+/* #dropzone {
+    padding: 20px;
+    margin: 1%;
+    background-color: lightgrey;
+}
+
+#dropzone:hover {
+    border-width: 1px;
+    border: green;
+} */
+
+.my-drop-zone { 
+    padding: 20px;
+    margin: 1%;
+    background-color: lightgrey;
+    border: solid 1px grey; 
+}
+
+.nv-file-over {
+     border: solid 1px green;
+ } /* Default class applied to drop zones on over */
+
+.another-file-over-class { 
+    border: dotted 1px red; 
+}
+
+html, body { 
+    height: 100%; 
+}

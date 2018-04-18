@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
 import { AlertifyService } from '../../_services/alertify.service';
 
@@ -8,17 +8,20 @@ import { AlertifyService } from '../../_services/alertify.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('userdropdown') userDropdown: ElementRef;
+  @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
 
-  constructor(private authService: AuthService, private alertify: AlertifyService) { }
-  isOpen = false;
+  constructor(private authService: AuthService, private alertify: AlertifyService, private _eref: ElementRef) { }
+  isUserDropdownOpen = false;
+  isUploadDropdownOpen = false;
+  isNavbarOpen = false;
 
   ngOnInit() {
   }
 
-  toggleDropDown() {
-    console.log('yupyupyup');
-    this.isOpen = !this.isOpen;
-    return this.isOpen;
+  toggleUserDropDown() {
+    this.isUserDropdownOpen = !this.isUserDropdownOpen;
+    return this.isUserDropdownOpen;
   }
 
   logout() {
@@ -27,7 +30,16 @@ export class NavbarComponent implements OnInit {
     } else {
       this.alertify.error('Logout failed');
     }
-    // this.isOpen = false;
+  }
+
+  @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {
+    if (!this.userDropdown.nativeElement.contains(eventData.target)) {
+      this.isUserDropdownOpen = false;
+    }
+
+    if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
+      this.isUploadDropdownOpen = false;
+    }
   }
 
 }
