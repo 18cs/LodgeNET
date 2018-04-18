@@ -88,15 +88,11 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int?>("RankId");
 
-                    b.Property<int?>("ServiceId");
-
                     b.Property<int?>("UnitId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RankId");
-
-                    b.HasIndex("ServiceId");
 
                     b.HasIndex("UnitId");
 
@@ -201,7 +197,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<DateTime>("DateCheckedIn");
 
-                    b.Property<DateTime>("DateCheckedOut");
+                    b.Property<DateTime?>("DateCheckedOut");
 
                     b.Property<int>("GuestId");
 
@@ -296,10 +292,6 @@ namespace LodgeNET.API.Migrations
                     b.HasOne("LodgeNET.API.Models.Rank", "Rank")
                         .WithMany()
                         .HasForeignKey("RankId");
-
-                    b.HasOne("LodgeNET.API.Models.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId");
 
                     b.HasOne("LodgeNET.API.Models.Unit", "Unit")
                         .WithMany()

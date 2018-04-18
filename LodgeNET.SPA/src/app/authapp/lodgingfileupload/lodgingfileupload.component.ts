@@ -25,16 +25,15 @@ export class LodgingfileuploadComponent implements OnInit {
 
   initializeUploader() {
     console.log('yupyupyup');
-    //this.uploader = new FileUploader({});
     this.uploader =  new FileUploader({
       url: this.baseUrl + 'file/lodging',
-      authToken: 'Bearer' + localStorage.getItem('token'),
+      authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['pdf'],
       removeAfterUpload: true,
       autoUpload: false,
       maxFileSize: 10 * 1024 * 1024
-    }); //maxFileSize = 10MB
+    }); // maxFileSize = 10MB
 
     this.uploader.onWhenAddingFileFailed = () => {
       this.alertify.warning('Please select a PDF file');

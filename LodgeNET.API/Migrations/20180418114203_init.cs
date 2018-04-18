@@ -168,7 +168,6 @@ namespace LodgeNET.API.Migrations
                     LastName = table.Column<string>(nullable: true),
                     MiddleInitial = table.Column<string>(maxLength: 1, nullable: true),
                     RankId = table.Column<int>(nullable: true),
-                    ServiceId = table.Column<int>(nullable: true),
                     UnitId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -178,12 +177,6 @@ namespace LodgeNET.API.Migrations
                         name: "FK_Guests_Ranks_RankId",
                         column: x => x.RankId,
                         principalTable: "Ranks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Guests_Services_ServiceId",
-                        column: x => x.ServiceId,
-                        principalTable: "Services",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -270,7 +263,7 @@ namespace LodgeNET.API.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BuildingId = table.Column<int>(nullable: false),
                     DateCheckedIn = table.Column<DateTime>(nullable: false),
-                    DateCheckedOut = table.Column<DateTime>(nullable: false),
+                    DateCheckedOut = table.Column<DateTime>(nullable: true),
                     GuestId = table.Column<int>(nullable: false),
                     ReservationId = table.Column<int>(nullable: true),
                     RoomId = table.Column<int>(nullable: true)
@@ -318,11 +311,6 @@ namespace LodgeNET.API.Migrations
                 name: "IX_Guests_RankId",
                 table: "Guests",
                 column: "RankId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Guests_ServiceId",
-                table: "Guests",
-                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Guests_UnitId",

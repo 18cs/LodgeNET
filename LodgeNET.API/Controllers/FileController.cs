@@ -75,17 +75,28 @@ namespace LodgeNET.API.Controllers {
                             var stay = new Stay ();
                             var reservation = new Reservation ();
                             
-                            stay.RoomId = _roomRepo.Get(r => r.RoomNumber == int.Parse(stayData[0])).Id;
+                            var rooms = _roomRepo.Get(r => r.RoomNumber == int.Parse(stayData[0]));
+                            
+                            foreach(Room room in rooms.Result)
+                            {
+                                stay.RoomId = room.Id;
+                                stay.BuildingId = room.BuildingId;
+                            }
                             
                             //removes tailing ',' from lastname
                             guest.LastName = stayData[1].Remove(stayData[1].Length - 1).ToUpper();
 
-                            var rank = await _rankRepo.Get(r => r.RankName.Equals(stayData[2]));
+                            var ranks = await _rankRepo.Get(r => r.RankName.Equals(stayData[2]));
+                           Rank rank = null;
+                            foreach(var r in ranks)
+                            {
+                                 rank = r;
+                            }
 
                             //Indices of the data are not static, they vary depending on the data included
                             //if index was not rank, check if followinging index is MI or account number
                             //meaning the rank was not include. The else means that the rank was included but was not found in DB
-                            if(rank == null && (stayData[3].Length == 1 || Regex.Match(stayData[3], @"\\d.*").Success)) 
+                            if(rank == null && (stayData[3].Length == 1 || Regex.Match(stayData[3], @"^\d").Success)) 
                             {
                                 guest.FirstName = stayData[2].ToUpper();
                                 firstnameIndex = 2;
@@ -123,11 +134,14 @@ namespace LodgeNET.API.Controllers {
                             }
 
                             _reservationRepo.Insert(reservation);
-                            // _reservationRepo.Save();
+                            _reservationRepo.Save();
                             stay.ReservationId = reservation.Id;
                             _guestRepo.Insert(guest);
+                            _guestRepo.Save();
                             stay.GuestId = guest.Id;
+                            
                             _stayRepo.Insert(stay);
+                            _stayRepo.Save();
                             
                         }
                     }

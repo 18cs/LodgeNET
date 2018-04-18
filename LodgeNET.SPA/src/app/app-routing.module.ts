@@ -9,6 +9,10 @@ import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
 import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
+import { CheckinComponent } from './authapp/checkin/checkin.component';
+import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
+import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
+import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 
  const appRoutes: Routes = 
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -33,6 +37,12 @@ import { LoggedinGuard } from './_guards/loggedin.guard';
     {path: 'upload',  children: [
       {path: '', redirectTo: 'lodging',  pathMatch: 'full'},
       {path: 'lodging', component: LodgingfileuploadComponent}
+    ]},
+    {path: 'checkin', component: CheckinComponent, children: [
+      {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
+      {path: 'guestinfo', component: GuestinfoComponent},
+      {path: 'roomselect', component: RoomselectComponent},
+      {path: 'reviewcheckin', component: ReviewcheckinComponent}
     ]}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },

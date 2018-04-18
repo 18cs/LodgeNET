@@ -4,7 +4,7 @@ import { FormGroup, FormControl, FormArray, Validators, AbstractControl } from '
 import { AuthService } from '../../_services/auth.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { UnitsService } from '../../_services/units.service';
-import { RegisterForm } from '../../_models/registerForm';
+import { FormData } from '../../_models/formData';
 import { Unit } from '../../_models/unit';
 import { Service } from '../../_models/service';
 
@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   selectedUnit: Unit;
   selectedService: any;
   filterStatus = '';
-  registerForm: RegisterForm;
+  registerForm: FormData;
 
   constructor(private authService: AuthService,
               private alertify: AlertifyService,
@@ -35,12 +35,10 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-   console.log(this.signupForm.value);
     this.authService.register(this.signupForm.value).subscribe(() => {
       this.alertify.success('Registration Successful Please Wait for Approval');
       this.router.navigate(['/']);
     }, error => {
-      console.log(error);
       this.alertify.error('An error occured');
     });
   }
@@ -65,11 +63,9 @@ export class SignupComponent implements OnInit {
   }
 
   getFormData() {
-    this.authService.registerFormData().subscribe((registerForm: RegisterForm) => {
-      console.log(registerForm);
+    this.authService.formData().subscribe((registerForm: FormData) => {
       this.registerForm = registerForm;
     }, error => {
-     console.log(error);
       this.alertify.error(error);
     });
   }

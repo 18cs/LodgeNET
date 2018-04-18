@@ -33,12 +33,14 @@ export class NavbarComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {
-    if (!this.userDropdown.nativeElement.contains(eventData.target)) {
-      this.isUserDropdownOpen = false;
-    }
-
-    if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
-      this.isUploadDropdownOpen = false;
+    if (this.authService.loggedIn()) {
+      if (!this.userDropdown.nativeElement.contains(eventData.target)) {
+        this.isUserDropdownOpen = false;
+      }
+  
+      if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
+        this.isUploadDropdownOpen = false;
+      }
     }
   }
 
