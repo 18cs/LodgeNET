@@ -72,8 +72,9 @@ namespace LodgeNET.API.DAL.SeedData
             foreach(var building in buildings)
             {
                 _context.Buildings.Add(building);
+                _context.SaveChanges();
             }
-            _context.SaveChanges();
+            
         }
 
         public void SeedReservation()
