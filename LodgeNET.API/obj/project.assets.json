@@ -12629,7 +12629,11 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\1362309995A\\.nuget\\packages\\": {},
+=======
+    "C:\\Users\\1469779153A\\.nuget\\packages\\": {},
+>>>>>>> 0def3693c66a46040e13048f752d6516c46886ff
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -12638,14 +12642,18 @@
       "projectUniqueName": "C:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
       "projectName": "LodgeNET.API",
       "projectPath": "C:\\Projects\\LodgeNET\\LodgeNET.API\\LodgeNET.API.csproj",
-      "packagesPath": "C:\\Users\\1362309995A\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\1469779153A\\.nuget\\packages\\",
       "outputPath": "C:\\Projects\\LodgeNET\\LodgeNET.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\1362309995A\\AppData\\Roaming\\NuGet\\NuGet.Config"
+=======
+        "C:\\Users\\1469779153A\\AppData\\Roaming\\NuGet\\NuGet.Config"
+>>>>>>> 0def3693c66a46040e13048f752d6516c46886ff
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"

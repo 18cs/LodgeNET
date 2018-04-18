@@ -1,4 +1,4 @@
 # IDE - VSCode
 .vscode/*
-./LodgeNET.API/bin/
-./LodgeNET.API/obj/
+/LodgeNET.API/bin/
+/LodgeNET.API/obj/
