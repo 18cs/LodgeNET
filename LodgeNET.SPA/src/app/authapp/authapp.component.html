@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="authappcomponent">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" routerLink="/dashboard" href="" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
+            style="cursor: pointer;" routerLinkActive="active">Upload</a>
+            <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">
+              <a class="dropdown-item" routerLink="/upload" href=""  routerLinkActive="active">Lodging Data</a>
+              <a class="dropdown-item" href="">Dorms Data</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Separated link</a>
+            </div>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active show" id="login">
+            <div id="authappcontent">
+              <router-outlet></router-outlet>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

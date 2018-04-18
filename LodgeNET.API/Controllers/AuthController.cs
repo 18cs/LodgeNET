@@ -23,10 +23,10 @@ namespace LodgeNET.API.Controllers
         private readonly IGenericRepository<Rank> _rankRepo;
         private readonly IConfiguration _config;
         private IMapper _mapper { get; set; }
-        public AuthController(IAuthRepository repo, 
-                            IConfiguration config, 
-                            IGenericRepository<Unit> unitRepo, 
-                            IGenericRepository<Service> serviceRepo, 
+        public AuthController(IAuthRepository repo,
+                            IConfiguration config,
+                            IGenericRepository<Unit> unitRepo,
+                            IGenericRepository<Service> serviceRepo,
                             IGenericRepository<AccountType> accountTypeRepo,
                             IGenericRepository<Rank> rankRepo,
                             IMapper mapper)
@@ -43,8 +43,11 @@ namespace LodgeNET.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
-
+            if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
+            {
+                userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
+            }
+            
             if (await _repo.UserExists(userForRegisterDto.UserName))
             {
                 ModelState.AddModelError("Username", "Username already exists");
@@ -76,7 +79,8 @@ namespace LodgeNET.API.Controllers
 
             if (userFromRepo == null)
             {
-                return Unauthorized();
+                ModelState.AddModelError("Unauthorized", "Username or password was incorrect.");
+                return BadRequest(ModelState);
             }
 
             // generate token
@@ -87,8 +91,8 @@ namespace LodgeNET.API.Controllers
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                    new Claim(ClaimTypes.Name, userFromRepo.UserName),
-                    new Claim(ClaimTypes.Role, userFromRepo.AccountType.Type)
+                        new Claim(ClaimTypes.Name, userFromRepo.UserName),
+                        new Claim(ClaimTypes.Role, userFromRepo.AccountType.Type)
                 }),
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature)
@@ -104,12 +108,12 @@ namespace LodgeNET.API.Controllers
         {
             var registerFormDto = new RegisterFormDto()
             {
-                   ServiceList = await _serviceRepo.Get(),
-                   AccountTypeList = await _accountTypeRepo.Get(),
-                   UnitList = await _unitRepo.Get()
+                ServiceList = await _serviceRepo.Get(),
+                AccountTypeList = await _accountTypeRepo.Get(),
+                UnitList = await _unitRepo.Get()
             };
 
-            foreach (var service in registerFormDto.ServiceList) 
+            foreach (var service in registerFormDto.ServiceList)
             {
                 service.Ranks = await _rankRepo.Get(r => r.ServiceId == service.Id);
             }

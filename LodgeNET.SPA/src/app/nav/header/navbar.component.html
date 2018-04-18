@@ -21,15 +21,15 @@
     </ul>
     <ul *ngIf="this.authService.loggedIn()" class="nav navbar-nav navbar-right" style="margin-right: 4rem;">
       <li class="nav-item dropdown">
-        <a (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+        <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">Upload</a>
-        <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}" id="uploaddropdownMenu">
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Logout</a>
-        </div>
+          <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">
+            <a class="dropdown-item" routerLink="/upload" href=""  routerLinkActive="active">Lodging Data</a>
+            <a class="dropdown-item" href="">Dorms Data</a>
+          </div>
       </li>
       <li class="nav-item dropdown">
-        <a (click)="isUserDropdownOpen = !isUserDropdownOpen" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
+        <a #userdropdown (click)="isUserDropdownOpen = !isUserDropdownOpen" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">
           <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
         </a>

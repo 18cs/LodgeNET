@@ -39,18 +39,18 @@ namespace LodgeNET.API.Controllers {
             _reservationRepo = reservationRepo;
         }
 
-        [HttpPost]
+        [HttpPost("lodging")]
         public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) {
-            var user = await _userRepo.GetByID(1);
+            // var user = await _userRepo.GetByID(1);
             
 
-            if (user == null) {
-                return BadRequest ("Server could not authenticate");
-            }
+            // if (user == null) {
+            //     return BadRequest ("Server could not authenticate");
+            // }
 
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
 
-            if (currentUserId != user.Id) {
+            if (currentUserId == null) {
                 return Unauthorized ();
             }
 
