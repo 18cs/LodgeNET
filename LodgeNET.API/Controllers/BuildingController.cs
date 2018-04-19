@@ -71,7 +71,7 @@ namespace LodgeNET.API.Controllers
                 int capacitySum = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
                 if(capacitySum != 0)
                 {
-                    b.BuildingOccupancy = (int)((staysCount / capacitySum) * 100);
+                    b.BuildingOccupancy = (int)(((double)staysCount / capacitySum) * 100);
                 }
                 else
                 {
