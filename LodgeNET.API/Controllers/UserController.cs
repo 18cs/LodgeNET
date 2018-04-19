@@ -21,7 +21,7 @@ namespace LodgeNET.API.Controllers
 
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _repo.Get();
+            var users = await _repo.GetAsync();
 
             return Ok(users);
             

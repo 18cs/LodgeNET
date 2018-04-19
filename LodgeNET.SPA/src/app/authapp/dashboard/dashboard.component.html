@@ -10,19 +10,24 @@
   <thead>
     <tr>
       <th scope="col">Building Type</th>
+      <th scope="col">Occupancy</th>
+      <th scope="col">Occupancy Rate</th>
     </tr>
   </thead>
-  <tbody>
-    <div *ngFor="let building of buildingDashboard.buildingTypeList ;let i = index;">
-      <tr class="table-active">
-        <th scope="row">{{ buildingDashboard.buildingTypeList[i].type }}</th>
+  <tbody *ngFor="let building of buildingDashboard.buildingTypeList ;let i = index;">
+    <tr class="table-active">
+      <th scope="row">{{ buildingDashboard.buildingTypeList[i].type }}</th>
+      <td>Occupancy</td>
+      <td [ngClass]="{
+        'table-danger':buildingDashboard.buildingOccupancy >= .95,
+        'table-warning':(buildingDashboard.buildingOccupancy >= .75 && building.buildingDashboard.buildingOccupancy <= .94)}">Rate %</td>
+    </tr>
+    <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
+      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard.buildingTypeList[i].id">
+        <th scope="row">{{ bldg.name }}</th>
+        <td>Occupancy</td>
+        <td>{{ bldg.buildingOccupancy }}</td>
       </tr>
-      <div *ngFor="let building of buildingDashboard.buildingList;">
-        <tr *ngIf="building.buildingCategoryId == buildingDashboard.buildingTypeList[i].id">
-          <th scope="row">{{ building.name }}</th>
-          <td>Column content</td>
-        </tr>
-      </div>
-    </div>
+    </ng-container>
   </tbody>
 </table>

@@ -10,6 +10,7 @@ using LodgeNET.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 
 namespace LodgeNET.API.Controllers
 {
@@ -18,23 +19,26 @@ namespace LodgeNET.API.Controllers
     {
         private readonly IGenericRepository<Building> _repo;
         private readonly IGenericRepository<BuildingCategory> _buildingCategoryRepo;
-        private readonly IConfiguration _config;
-        private IMapper _mapper { get; set; }
+        private readonly IGenericRepository<Stay> _stayRepo;
+        private readonly IGenericRepository<Room> _roomRepo;
+        private readonly IMapper _mapper;
         public BuildingController(IGenericRepository<Building> repo,
                             IGenericRepository<BuildingCategory> buildingCategoryRepo,
-                            IConfiguration config,
+                            IGenericRepository<Stay> stayRepo,
+                            IGenericRepository<Room> roomRepo,
                             IMapper mapper)
         {
+            _mapper = mapper;
             _repo = repo;
             _buildingCategoryRepo = buildingCategoryRepo;
-            _config = config;
-            _mapper = mapper;
+            _stayRepo = stayRepo;
+            _roomRepo = roomRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBuildings()
         {
-            var buildings = await _repo.Get();
+            var buildings = await _repo.GetAsync();
 
             return Ok(buildings);
         }
@@ -51,13 +55,32 @@ namespace LodgeNET.API.Controllers
         [HttpGet("dashboard")]
         public async Task<IActionResult> buildingDashboardData()
         {
-            var buildingDashboardDto = new BuildingDashboardDto()
+            var buildingListResult = await _repo.GetAsync();
+            var buildingsDataDto = new BuildingsDataDto()
             {
-                BuildingList = await _repo.Get(),
-                BuildingTypeList = await _buildingCategoryRepo.Get(),
+                BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>>(buildingListResult),
+                BuildingTypeList = await _buildingCategoryRepo.GetAsync()
             };
+            
+            // var BuildingList = await _repo.Get();
+            while(buildingsDataDto.BuildingList == null) {}
 
-            return Ok(buildingDashboardDto);
+            foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
+            {
+                int staysCount = _stayRepo.GetCount(s => s.DateCheckedOut == null && s.BuildingId == b.Id);
+                int capacitySum = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
+                if(capacitySum != 0)
+                {
+                    b.BuildingOccupancy = (int)((staysCount / capacitySum) * 100);
+                }
+                else
+                {
+                    b.BuildingOccupancy = 0;
+                }
+                
+            }
+
+            return Ok(buildingsDataDto);
         }
     }
 }

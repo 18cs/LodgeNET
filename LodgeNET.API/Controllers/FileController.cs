@@ -75,7 +75,7 @@ namespace LodgeNET.API.Controllers {
                             var stay = new Stay ();
                             var reservation = new Reservation ();
                             
-                            var rooms = _roomRepo.Get(r => r.RoomNumber == int.Parse(stayData[0]));
+                            var rooms = _roomRepo.GetAsync(r => r.RoomNumber == int.Parse(stayData[0]));
                             
                             foreach(Room room in rooms.Result)
                             {
@@ -86,7 +86,7 @@ namespace LodgeNET.API.Controllers {
                             //removes tailing ',' from lastname
                             guest.LastName = stayData[1].Remove(stayData[1].Length - 1).ToUpper();
 
-                            var ranks = await _rankRepo.Get(r => r.RankName.Equals(stayData[2]));
+                            var ranks = await _rankRepo.GetAsync(r => r.RankName.Equals(stayData[2]));
                            Rank rank = null;
                             foreach(var r in ranks)
                             {
