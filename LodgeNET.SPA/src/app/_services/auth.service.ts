@@ -6,7 +6,7 @@ import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RegisterForm } from '../_models/registerForm';
+import { FormData } from '../_models/formData';
 import { AuthUser } from '../_models/authUser';
 import { Router } from '@angular/router';
 
@@ -44,7 +44,6 @@ export class AuthService {
 
     register(model: any) {
         const url = this.baseUrl + 'auth/register';
-        console.log(model);
         return this.http.post(this.baseUrl + 'auth/register', model, {headers: new HttpHeaders()
             .set('Content-Type', 'application/json')}).catch(this.handleError);
     }
@@ -57,8 +56,8 @@ export class AuthService {
         return !this.jwtHelperService.isTokenExpired(token);
     }
 
-    registerFormData() {
-        return this.http.get<RegisterForm>(this.baseUrl + 'auth/register')
+    formData() {
+        return this.http.get<FormData>(this.baseUrl + 'auth/register')
         .catch(this.handleError);
     }
 

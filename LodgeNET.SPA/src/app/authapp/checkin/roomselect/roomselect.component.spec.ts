@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { DatafileuploadComponent } from './datafileupload.component';
+import { RoomselectComponent } from './roomselect.component';
 
-describe('DatafileuploadComponent', () => {
-  let component: DatafileuploadComponent;
-  let fixture: ComponentFixture<DatafileuploadComponent>;
+describe('RoomselectComponent', () => {
+  let component: RoomselectComponent;
+  let fixture: ComponentFixture<RoomselectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DatafileuploadComponent ]
+      declarations: [ RoomselectComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DatafileuploadComponent);
+    fixture = TestBed.createComponent(RoomselectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

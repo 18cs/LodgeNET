@@ -7,7 +7,9 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 })
 export class AuthappComponent implements OnInit {
   @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
+  @ViewChild('checkinoutdropdown') checkinoutDropDown: ElementRef;
   isUploadDropdownOpen = false;
+  isCheckinOutDropdownOpen = false;
 
   constructor() { }
 
@@ -18,6 +20,11 @@ export class AuthappComponent implements OnInit {
     if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
       this.isUploadDropdownOpen = false;
     }
+
+    if (!this.checkinoutDropDown.nativeElement.contains(eventData.target)) {
+      this.isCheckinOutDropdownOpen = false;
+    }
+
   }
 
 }

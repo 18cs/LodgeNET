@@ -1,0 +1,138 @@
+<div class="row">
+  <div class="col-xs-12 col-md-12 col-lg-12">
+    <!-- [formGroup]="signupForm" (ngSubmit)="onSubmit()" -->
+    <form [formGroup]="guestInfoForm" (ngSubmit)="onSubmit()">
+      <br/>
+      <legend>Personal Information</legend>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="dodId">DoD ID</label>
+            <input type="number" id="dodId" formControlName="dodId" class="form-control">
+          </div>
+        </div>
+        <div class="col col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+          <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="" (click)="idScanCheckin = !idScanCheckin">
+            <label class="custom-control-label" for="customRadio1">Manual Check-In</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input" (click)="idScanCheckin = !idScanCheckin">
+            <label class="custom-control-label" for="customRadio2">ID Scan</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName" class="form-control">
+          </div>
+        </div>
+        <div class="col-1 col-md-offset-1 col-lg-offset-1">
+          <div class="form-group">
+            <label for="middleInitial">MI</label>
+            <input type="text" id="middleInitial" formControlName="middleInitial" class="form-control">
+          </div>
+        </div>
+        <div class="col col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label>Gender:</label>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="male" name="gender" class="custom-control-input" checked="" (click)="idScanCheckin = !idScanCheckin">
+              <label class="custom-control-label" for="male">Male</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="female" name="gender" class="custom-control-input" (click)="idScanCheckin = !idScanCheckin">
+              <label class="custom-control-label" for="female">Female</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="service">Service</label>
+            <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService">
+              <option [ngValue]="service" *ngFor="let service of formData.serviceList">{{ service.serviceName }}</option>
+            </select>
+            <div *ngIf="!guestInfoForm.get('service').valid && guestInfoForm.get('service').touched" class="invalid-feedback">
+              Please select a service
+            </div>
+          </div>
+        </div>
+        <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
+          <div *ngIf="selectedService != undefined" class="form-group">
+            <label for="rankId">Rank</label>
+            <select class="form-control is-invalid" id="rankId" formControlName="rankId">
+              <option [ngValue]="rank.id" *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']">{{ rank.rankName }}</option>
+            </select>
+            <div *ngIf="!guestInfoForm.get('rankId').valid && guestInfoForm.get('rankId').touched" class="invalid-feedback">
+              Please select a rank
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="userUnit">Unit</label>
+            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="unitFocus()"
+              (focusout)="unitFocus()">
+            <div *ngIf="!guestInfoForm.get('userUnit').valid && guestInfoForm.get('userUnit').touched" class="invalid-feedback">
+              Please select a unit
+            </div>
+            <div class="row">
+              <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
+                <div *ngFor="let unit of formData.unitList | filter: filterStatus: 'name'; let i=index;">
+                  <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
+                    <a href="">
+                      {{ unit.name }}
+                    </a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <legend>Contact Information</legend>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="commPhone">Comm Phone</label>
+            <input type="tel" id="commPhone" formControlName="commPhone" class="form-control">
+          </div>
+        </div>
+        <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="dsnPhone">DSN Phone</label>
+            <input type="tel" id="dsnPhone" formControlName="dsnPhone" class="form-control">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <button type="submit" class="btn btn-primary" [disabled]="!guestInfoForm.valid">Submit</button>
+          <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
