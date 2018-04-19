@@ -24,6 +24,7 @@ import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
 import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
+import { BuildingService } from './_services/building.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { LoggedinGuard } from './_guards/loggedin.guard';
     AlertifyService,
     UnitsService,
     AuthGuard,
-    LoggedinGuard
+    LoggedinGuard,
+    BuildingService
   ],
   bootstrap: [AppComponent]
 })
