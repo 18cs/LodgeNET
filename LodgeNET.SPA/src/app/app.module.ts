@@ -24,11 +24,15 @@ import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
 import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
+<<<<<<< HEAD
+import { BuildingService } from './_services/building.service';
+=======
 import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 import { CheckinService } from './_services/checkin.service';
+>>>>>>> a5edb35fd1125c7d2f4d2d5caef1e426ebdcbeb1
 
 @NgModule({
   declarations: [
@@ -71,7 +75,8 @@ import { CheckinService } from './_services/checkin.service';
     UnitsService,
     CheckinService,
     AuthGuard,
-    LoggedinGuard
+    LoggedinGuard,
+    BuildingService
   ],
   bootstrap: [AppComponent]
 })
