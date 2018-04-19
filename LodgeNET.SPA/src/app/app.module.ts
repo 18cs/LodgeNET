@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -56,6 +56,7 @@ import { CheckinService } from './_services/checkin.service';
     ReactiveFormsModule,
     AppRoutingModule,
     FileUploadModule,
+    FormsModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {

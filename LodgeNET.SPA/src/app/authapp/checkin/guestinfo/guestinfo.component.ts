@@ -30,8 +30,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   //  console.log(this.guestInfoForm.value);
-    this.checkinService.saveGuestInfo(this.guestInfoForm.value);
-    
+    this.checkinService.saveGuestInfo(this.guestInfoForm.value); 
   }
 
   getFormData() {
@@ -59,6 +58,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
         'dsnPhone': new FormControl(guestStay.formData['dsnPhone']),
         'commPhone': new FormControl(guestStay.formData['commPhone'], Validators.required),
       });
+      console.log(guestStay);
     } else {
       console.log('fdsafdsafd');
       this.guestInfoForm = new FormGroup({

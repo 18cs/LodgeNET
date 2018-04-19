@@ -11,6 +11,9 @@ import { AlertifyService } from '../../../_services/alertify.service';
 export class RoomselectComponent implements OnInit {
 
   buildingDashboard: BuildingDashboard;
+  buildingTypeIdSelected = 1;
+
+  yup(){console.log(this.buildingTypeIdSelected);}
 
   constructor(private buildingService: BuildingService, private alertify: AlertifyService) { }
 
