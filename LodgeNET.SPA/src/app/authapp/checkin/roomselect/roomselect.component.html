@@ -1,8 +1,11 @@
+<div *ngFor="let building of buildingDashboard.buildingTypeList; let i = index;">
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="" (click)="idScanCheckin = !idScanCheckin">
+    <label class="custom-control-label" for="customRadio1">{{ building.type }}</label>
+  </div>
+</div>
+
 <div class="btn-group-vertical btn-group-toggle" role="group" data-toggle="buttons">
-  <button type="button" class="btn btn-primary">Button</button>
-  <button type="button" class="btn btn-primary">Button</button>
-  <button type="button" class="btn btn-primary">Button</button>
-  <button type="button" class="btn btn-primary">Button</button>
-  <button type="button" class="btn btn-primary">Button</button>
+
   <button type="button" class="btn btn-primary">Button</button>
 </div>

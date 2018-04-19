@@ -16,7 +16,7 @@ namespace LodgeNET.API.DAL
         {
             var rooms = _context.Rooms;
 
-            return await PagedList<Room>.CreateAsync(rooms, userParams.PageNumber, userParams.PageSize)
+            return await PagedList<Room>.CreateAsync(rooms, userParams.PageNumber, userParams.PageSize);
         }
     }
 }
