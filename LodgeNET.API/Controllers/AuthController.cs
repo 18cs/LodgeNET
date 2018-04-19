@@ -108,14 +108,14 @@ namespace LodgeNET.API.Controllers
         {
             var registerFormDto = new RegisterFormDto()
             {
-                ServiceList = await _serviceRepo.Get(),
-                AccountTypeList = await _accountTypeRepo.Get(),
-                UnitList = await _unitRepo.Get()
+                ServiceList = await _serviceRepo.GetAsync(),
+                AccountTypeList = await _accountTypeRepo.GetAsync(),
+                UnitList = await _unitRepo.GetAsync()
             };
 
             foreach (var service in registerFormDto.ServiceList)
             {
-                service.Ranks = await _rankRepo.Get(r => r.ServiceId == service.Id);
+                service.Ranks = await _rankRepo.GetAsync(r => r.ServiceId == service.Id);
             }
             return Ok(registerFormDto);
         }

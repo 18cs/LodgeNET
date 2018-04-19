@@ -3,5 +3,6 @@ export interface Building {
     number: number;
     name: string;
     buildingCategoryId: number;
+    buildingOccupancy: number;
 }
 

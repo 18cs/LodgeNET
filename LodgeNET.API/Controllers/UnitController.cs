@@ -19,7 +19,7 @@ namespace LodgeNET.API.Controllers
 
         public async Task<IActionResult> GetUnits()
         {
-            var units = await _repo.Get();
+            var units = await _repo.GetAsync();
 
             return Ok(units);
         }

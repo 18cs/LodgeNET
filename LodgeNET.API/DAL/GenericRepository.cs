@@ -35,7 +35,7 @@ namespace LodgeNET.API.DAL
         /// <param name="orderBy">attribute to orderby</param>
         /// <param name="includeProperties">Properties of specified entity to be included in query results</param>
         /// <returns>Emumerable set of results from database</returns>
-        public async virtual Task<IEnumerable<TEntity>> Get(
+        public async virtual Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
@@ -64,6 +64,67 @@ namespace LodgeNET.API.DAL
             }
         }
 
+        public virtual IEnumerable<TEntity> Get(
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = "")
+        {
+            // IQueryable<TEntity> query = DbSet; 
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            else
+            {
+                return query.ToList();
+            }
+        }
+
+        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
+        {
+            int countResult;
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (filter != null)
+            {
+                countResult = query.Where(filter).Count();
+            }
+            else
+            {
+                countResult = query.Count();
+            }
+            return countResult;
+        }
+
+        public virtual int GetSum(Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null)
+        {
+            int sumResult;
+            IQueryable<TEntity> query = _context.Set<TEntity>();
+
+            if (filter != null)
+            {
+                sumResult = query.Where(filter).Sum(sumOf);
+            }
+            else
+            {
+                sumResult = query.Sum(sumOf);
+            }
+            return sumResult;
+        }
+
         /// <summary>
         /// Gets specific record from database bases on primary key
         /// </summary>
@@ -71,7 +132,7 @@ namespace LodgeNET.API.DAL
         /// <returns>Record of DB information stored in Entity model instance</returns>
         public async virtual Task<TEntity> GetByID(object id)
         {
-           return await _context.Set<TEntity>().FindAsync(id);
+            return await _context.Set<TEntity>().FindAsync(id);
         }
 
         public async virtual Task<TEntity> GetFirstOrDefault(Expression<Func<TEntity, bool>> filter)
@@ -132,7 +193,7 @@ namespace LodgeNET.API.DAL
 
         public async virtual void SaveAsync()
         {
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
         #endregion
     }
