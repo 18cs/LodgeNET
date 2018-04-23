@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <div *ngFor="let building of buildingDashboard.buildingTypeList; let i = index;">
+    <div *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
       <div class="custom-control custom-radio">
         <input type="radio" [attr.id]="building.id" name="buildingType" class="custom-control-input" [(ngModel)]="buildingTypeIdSelected"
           [value]="building.id" (click)="yup()">
@@ -10,83 +10,31 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-lg-3">
+  <div class="col-lg-2">
     <div class="btn-group-vertical btn-group-toggle" role="group" data-toggle="buttons">
-      <div *ngFor="let building of buildingDashboard.buildingList;">
-        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary">{{ building.name }}</button>
+      <div *ngFor="let building of buildingDashboard?.buildingList;">
+        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary" (click)="onClickGetRooms(building.id)">{{ (building.name.length>20) ? (building.name | slice:0:17)+'...':(building.name)}}</button>
       </div>
     </div>
   </div>
-  <div class="col-lg-9">
+  <div class="col-lg">
       <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Type</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
+              <th scope="col">Room Number</th>
+              <th scope="col">Capacity</th>
+              <th scope="col">Floor</th>
+              <th scope="col">Room Type</th>
+              <th scope="col">Surge</th>
             </tr>
           </thead>
           <tbody>
-            <tr class="table-active">
-              <th scope="row">Active</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr>
-              <th scope="row">Default</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-primary">
-              <th scope="row">Primary</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-secondary">
-              <th scope="row">Secondary</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-success">
-              <th scope="row">Success</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-danger">
-              <th scope="row">Danger</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-warning">
-              <th scope="row">Warning</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-info">
-              <th scope="row">Info</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-light">
-              <th scope="row">Light</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-            </tr>
-            <tr class="table-dark">
-              <th scope="row">Dark</th>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
+            <tr *ngFor="let room of rooms" (click)="yup()">
+              <th scope="row">{{room.roomNumber}}</th>
+              <td>{{room.capacity}}</td>
+              <td>{{room.floor}}</td>
+              <td>{{room.roomType}}</td>
+              <td>{{room.surgeMultiplier}}</td>
             </tr>
           </tbody>
         </table> 

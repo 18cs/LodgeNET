@@ -30,6 +30,7 @@ import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.compon
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 import { CheckinService } from './_services/checkin.service';
+import { GueststayService } from './_services/gueststay.service';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { CheckinService } from './_services/checkin.service';
     AlertifyService,
     UnitsService,
     CheckinService,
+    GueststayService,
     AuthGuard,
     LoggedinGuard,
     BuildingService

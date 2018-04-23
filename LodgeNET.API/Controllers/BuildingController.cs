@@ -56,30 +56,74 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> buildingDashboardData()
         {
             var buildingListResult = await _repo.GetAsync();
+            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync();
             var buildingsDataDto = new BuildingsDataDto()
             {
                 BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>>(buildingListResult),
-                BuildingTypeList = await _buildingCategoryRepo.GetAsync()
+                BuildingTypeList = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypeListResult)
             };
             
             // var BuildingList = await _repo.Get();
-            while(buildingsDataDto.BuildingList == null) {}
+            int totalLodgeingCapacity = 0;
+            int totalLodgeingCurrentGuests = 0;
+
+            int totalVacentCapacity = 0;
+            int totalVacentCurrentGuests = 0;
+
+            int totalUnaccompanyCapacity = 0;
+            int totalUnaccompanyGuests = 0;
+
+            int totalEmergencyCapaicty = 0;
+            int totalEmergencyGuests = 0;
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
             {
-                int staysCount = _stayRepo.GetCount(s => s.DateCheckedOut == null && s.BuildingId == b.Id);
-                int capacitySum = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
-                if(capacitySum != 0)
-                {
-                    b.BuildingOccupancy = (int)(((double)staysCount / capacitySum) * 100);
-                }
-                else
-                {
-                    b.BuildingOccupancy = 0;
-                }
+                b.CurrentGuests = _stayRepo.GetCount(s => s.DateCheckedOut == null && s.BuildingId == b.Id);
+                b.Capacity = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);    
                 
+                if(b.BuildingCategoryId == 1) {
+                    totalLodgeingCapacity += b.Capacity;
+                    totalLodgeingCurrentGuests += b.CurrentGuests;
+                }
+                else if(b.BuildingCategoryId == 2) {
+                    totalVacentCapacity += b.Capacity;
+                    totalVacentCurrentGuests += b.CurrentGuests;
+                }
+                else if(b.BuildingCategoryId == 3)
+                {
+                    totalUnaccompanyCapacity += b.Capacity;
+                    totalUnaccompanyGuests += b.CurrentGuests;
+                }
+                else if(b.BuildingCategoryId == 4)
+                {
+                    totalEmergencyCapaicty += b.Capacity;
+                    totalEmergencyCapaicty += b.CurrentGuests;
+                }
             }
 
+            foreach (BuildingCategoryDataDto bcat in buildingsDataDto.BuildingTypeList)
+            {
+                if (bcat.Id == 1)
+                {
+                    bcat.Capacity = totalLodgeingCapacity;
+                    bcat.CurrentGuests = totalLodgeingCurrentGuests;
+                }
+                else if(bcat.Id == 2)
+                {
+                    bcat.Capacity = totalVacentCapacity;
+                    bcat.CurrentGuests = totalVacentCurrentGuests;
+                }
+                else if(bcat.Id == 3) 
+                {
+                    bcat.Capacity = totalUnaccompanyCapacity;
+                    bcat.CurrentGuests = totalUnaccompanyGuests;
+                }
+                else if(bcat.Id == 4)
+                {
+                    bcat.Capacity = totalEmergencyCapaicty;
+                    bcat.CurrentGuests = totalEmergencyGuests;
+                }
+            }
             return Ok(buildingsDataDto);
         }
     }

@@ -11,23 +11,32 @@
     <tr>
       <th scope="col">Building Type</th>
       <th scope="col">Occupancy</th>
-      <th scope="col">Occupancy Rate</th>
+      <th scope="col">Rate</th>
     </tr>
   </thead>
   <tbody *ngFor="let building of buildingDashboard.buildingTypeList ;let i = index;">
-    <tr class="table-active">
-      <th scope="row">{{ buildingDashboard.buildingTypeList[i].type }}</th>
-      <td>Occupancy</td>
+    <tr class="table-active" (click)="tableCollapseToggle(building.id)">
+      <th scope="row">{{ building.type }}</th>
+      <td>{{building.currentGuests +' / '+ building.capacity}}</td>
       <td [ngClass]="{
-        'table-danger':buildingDashboard.buildingOccupancy >= .95,
-        'table-warning':(buildingDashboard.buildingOccupancy >= .75 && building.buildingDashboard.buildingOccupancy <= .94)}">Rate %</td>
+        'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= .95,
+        'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= .75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= .94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
     </tr>
     <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
-      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard.buildingTypeList[i].id">
+      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
+        'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .94) }">
         <th scope="row">{{ bldg.name }}</th>
-        <td>Occupancy</td>
-        <td>{{ bldg.buildingOccupancy }}</td>
+        <td>{{bldg.currentGuests +' / '+ bldg.capacity}}</td>
+        <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}%</td>
       </tr>
     </ng-container>
   </tbody>
-</table>
+  <!-- <tbody>
+    <tr>
+      <th scope="row">Total</th>
+      <td></td>
+      <td>{{getTotalOccupancyRate()}}</td>
+    </tr>
+  </tbody> -->
+  <!-- 'table-danger':buildingDashboard.buildingOccupancy >= .95,
+  'table-warning':(buildingDashboard.buildingOccupancy >= .75 && building.buildingDashboard.buildingOccupancy <= .94) -->

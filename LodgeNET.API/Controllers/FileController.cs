@@ -110,14 +110,6 @@ namespace LodgeNET.API.Controllers {
                             //logic to find checkin an dout date of row
                             for(int j = firstnameIndex; j < stayData.Length; j++)
                             {
-                                // if(Regex.Match(stayData[j], @"^\d").Success)
-                                // {
-                                //     //TODO account for the open column
-                                //    stay.DateCheckedIn = DateTime.Parse(stayData[j+1]);
-                                //    reservation.CheckInDate = DateTime.Parse(stayData[j+1]);
-                                //    reservation.CheckOutDate = DateTime.Parse(stayData[j+2]);
-                                //    break;
-                                // }
                                 if(DateTime.TryParseExact(
                                     stayData[j],
                                     "MM/dd/yyyy",

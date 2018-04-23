@@ -6,6 +6,6 @@ namespace LodgeNET.API.Dtos
     public class BuildingsDataDto
     {
         public IEnumerable<BuildingDataDto> BuildingList { get; set; }
-        public IEnumerable<BuildingCategory> BuildingTypeList { get; set; }
+        public IEnumerable<BuildingCategoryDataDto> BuildingTypeList { get; set; }
     }
 }

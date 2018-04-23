@@ -30,7 +30,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
   //  console.log(this.guestInfoForm.value);
-    this.checkinService.saveGuestInfo(this.guestInfoForm.value); 
+    this.checkinService.saveGuestInfo(this.guestInfoForm.value);
   }
 
   getFormData() {
@@ -47,16 +47,22 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     if (guestStay) {
       console.log(guestStay);
       this.guestInfoForm = new FormGroup({
-        'dodId': new FormControl(guestStay.formData['dodId'], Validators.required),
-        'firstName': new FormControl(guestStay.formData['firstName'], Validators.required),
-        'middleInitial': new FormControl(guestStay.formData['middleInitial']),
-        'lastName': new FormControl(guestStay.formData['lastName'], Validators.required),
-        'service': new FormControl(guestStay.formData['service'].name, Validators.required),
-        'rankId': new FormControl(guestStay.formData['rankId']),
-        'userUnit': new FormControl(guestStay.formData['userUnit'], [Validators.required, this.unitConfirming.bind(this)]),
-        'email': new FormControl(guestStay.formData['email'], [Validators.required, Validators.email]),
-        'dsnPhone': new FormControl(guestStay.formData['dsnPhone']),
-        'commPhone': new FormControl(guestStay.formData['commPhone'], Validators.required),
+        'dodId': new FormControl((guestStay.formData['dodId'] == null) ? null : guestStay.formData['dodId'], 
+          Validators.required),
+        'firstName': new FormControl((guestStay.formData['firstName'] == null) ? null : guestStay.formData['firstName'], 
+          Validators.required),
+        'middleInitial': new FormControl((guestStay.formData['middleInitial'] == null) ? null : guestStay.formData['middleInitial']),
+        'lastName': new FormControl((guestStay.formData['lastName'] == null) ? null : guestStay.formData['lastName'], 
+          Validators.required),
+        'gender': new FormControl(guestStay.formData['gender']),
+        'service': new FormControl(null, Validators.required),
+        'rankId': new FormControl(null),
+        'userUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
+        'email': new FormControl((guestStay.formData['email'] == null) ? null : guestStay.formData['email'], 
+          [Validators.required, Validators.email]),
+        'dsnPhone': new FormControl((guestStay.formData['dsnPhone'] == null) ? null : guestStay.formData['dsnPhone']),
+        'commPhone': new FormControl((guestStay.formData['commPhone'] == null) ? null : guestStay.formData['commPhone'], 
+          Validators.required),
       });
       console.log(guestStay);
     } else {
@@ -66,6 +72,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
         'firstName': new FormControl(null, Validators.required),
         'middleInitial': new FormControl(),
         'lastName': new FormControl(null, Validators.required),
+        'gender': new FormControl(1),
         'service': new FormControl(null, Validators.required),
         'rankId': new FormControl(null),
         'userUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),

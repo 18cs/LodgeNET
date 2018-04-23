@@ -47,11 +47,11 @@
           <div class="form-group">
             <label>Gender:</label>
             <div class="custom-control custom-radio">
-              <input type="radio" id="male" name="gender" class="custom-control-input" checked="" (click)="idScanCheckin = !idScanCheckin">
+              <input type="radio" id="male" name="gender" formControlName="gender" [value]="0" class="custom-control-input" [ngModel]="" checked="">
               <label class="custom-control-label" for="male">Male</label>
             </div>
             <div class="custom-control custom-radio">
-              <input type="radio" id="female" name="gender" class="custom-control-input" (click)="idScanCheckin = !idScanCheckin">
+              <input type="radio" id="female" name="gender" formControlName="gender" [value]="1" [ngModel]="" class="custom-control-input">
               <label class="custom-control-label" for="female">Female</label>
             </div>
           </div>
@@ -62,9 +62,9 @@
           <div class="form-group">
             <label for="service">Service</label>
             <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService">
-              <option [ngValue]="service" *ngFor="let service of formData.serviceList">{{ service.serviceName }}</option>
+              <option [ngValue]="service" *ngFor="let service of formData?.serviceList">{{ service.serviceName }}</option>
             </select>
-            <div *ngIf="!guestInfoForm.get('service').valid && guestInfoForm.get('service').touched" class="invalid-feedback">
+            <div *ngIf="!guestInfoForm?.get('service').valid && guestInfoForm?.get('service').touched" class="invalid-feedback">
               Please select a service
             </div>
           </div>

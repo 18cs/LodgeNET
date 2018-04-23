@@ -11,6 +11,8 @@ namespace LodgeNET.API.ConfigHelpers
         {
             CreateMap<UserForRegisterDto, User>();
             CreateMap<Building, BuildingDataDto>();
+            CreateMap<BuildingCategory, BuildingCategoryDataDto>();
+            CreateMap<Room, RoomForDisplayDto>();
         }
     }
 }
