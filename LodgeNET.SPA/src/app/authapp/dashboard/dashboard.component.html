@@ -14,29 +14,30 @@
       <th scope="col">Rate</th>
     </tr>
   </thead>
-  <tbody *ngFor="let building of buildingDashboard.buildingTypeList ;let i = index;">
+  <tbody *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
     <tr class="table-active" (click)="tableCollapseToggle(building.id)">
       <th scope="row">{{ building.type }}</th>
-      <td>{{building.currentGuests +' / '+ building.capacity}}</td>
+      <td>{{ building.currentGuests +' / '+ building.capacity }}</td>
       <td [ngClass]="{
         'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= .95,
         'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= .75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= .94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
     </tr>
     <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
-      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
+      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard?.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
         'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .94) }">
         <th scope="row">{{ bldg.name }}</th>
-        <td>{{bldg.currentGuests +' / '+ bldg.capacity}}</td>
+        <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
         <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}%</td>
       </tr>
     </ng-container>
   </tbody>
-  <!-- <tbody>
-    <tr>
+  <tbody *ngIf="buildingDashboard != null">
+    <tr class="table-dark">
       <th scope="row">Total</th>
-      <td></td>
-      <td>{{getTotalOccupancyRate()}}</td>
+      <td>{{ getTotalOccupancy() }}</td>
+      <td>{{ getTotalOccupancyRate() }}%</td>
     </tr>
-  </tbody> -->
+  </tbody>
+  </table>
   <!-- 'table-danger':buildingDashboard.buildingOccupancy >= .95,
   'table-warning':(buildingDashboard.buildingOccupancy >= .75 && building.buildingDashboard.buildingOccupancy <= .94) -->

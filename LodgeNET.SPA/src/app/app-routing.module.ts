@@ -14,7 +14,7 @@ import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.compon
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 
- const appRoutes: Routes = 
+ const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
 //   {path: 'dashboard',
 //     component: DashboardComponent,
