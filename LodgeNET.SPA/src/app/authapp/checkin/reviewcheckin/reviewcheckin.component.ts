@@ -26,7 +26,7 @@ export class ReviewcheckinComponent implements OnInit {
   }
 
   onCancel() {
-    this.checkinService.guestStay = null;
+    this.checkinService.guestStay = {};
     this.router.navigate(['/']);
   }
 

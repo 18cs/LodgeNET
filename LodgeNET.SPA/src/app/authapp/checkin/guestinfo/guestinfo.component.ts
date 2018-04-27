@@ -86,7 +86,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.checkinService.guestStay = null;
+    this.checkinService.guestStay = {};
     this.router.navigate(['/']);
   }
 
