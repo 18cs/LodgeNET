@@ -1,3 +1,87 @@
-<p>
-  reviewcheckin works!
-</p>
+<br />
+<div class="section">
+  <div class="row">
+    <div class="col-lg-12">
+      <br />
+      <h2>Personal Information</h2>
+      <label>DoD ID:</label>
+      <p class="lead">{{ guestStay?.dodId }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2">
+      <label>First Name:</label>
+      <p class="lead">{{ guestStay?.firstName }}</p>
+    </div>
+    <div class="col-lg-2">
+      <label>Middle Initial:</label>
+      <p class="lead">{{ guestStay?.middleInitial }}</p>
+    </div>
+    <div class="col-lg">
+      <label>Last Name:</label>
+      <p class="lead">{{ guestStay?.lastName }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg">
+      <label>Gender:</label>
+      <p class="lead">{{ guestStay?.gender }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2">
+      <label>Service:</label>
+      <p class="lead">{{ guestStay?.service?.serviceName }}</p>
+    </div>
+    <div class="col-lg">
+      <label>Rank:</label>
+      <p class="lead">{{ guestStay?.rank?.rankName }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg">
+      <label>Unit:</label>
+      <p class="lead">{{ guestStay?.guestUnit?.name }}</p>
+    </div>
+  </div>
+</div>
+<br />
+<div class="section">
+  <h2>Contact Information</h2>
+  <div class="row">
+    <div class="col-lg">
+      <label>Email:</label>
+      <p class="lead">{{ guestStay?.email }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-2">
+      <label>DSN:</label>
+      <p class="lead">{{ guestStay?.dsnPhone }}</p>
+    </div>
+    <div class="col-lg">
+      <label>Comm:</label>
+      <p class="lead">{{ guestStay?.commPhone }}</p>
+    </div>
+  </div>
+</div>
+<br />
+<div class="section">
+  <h2>Room Details</h2>
+  <div class="row">
+    <div class="col-lg">
+      <label>Room Number:</label>
+      <p class="lead">{{ guestStay?.room?.roomNumber }}</p>
+    </div>
+  </div>
+</div>
+<br />
+<div class="row">
+  <div class="col-lg">
+      <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="">Submit</button>
+      <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+  </div>
+</div>
+
+<li class="nav-item" routerLinkActive="active">
+    <a class="nav-link" routerLink="/users/signup">

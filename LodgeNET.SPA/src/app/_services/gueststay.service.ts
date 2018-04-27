@@ -11,7 +11,7 @@ export class GueststayService {
 
     constructor(private http: HttpClient) { }
 
-    getRooms(page?, itemsPerPage?): Observable< PaginatedResult<Room[]>> {
+    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
@@ -20,8 +20,16 @@ export class GueststayService {
             params = params.append('pageSize', itemsPerPage);
         }
 
+        if (buildingId != null) {
+            params = params.append('buildingId', buildingId);
+        }
+
+        if (onlyAvailableRooms != null) {
+            params = params.append('onlyAvailableRooms', onlyAvailableRooms);
+        }
+
         return this.http.
-            get<Room[]>(this.baseUrl + 'gueststay/rooms', { observe: 'response', params })
+            get<Room[]>(this.baseUrl + 'gueststay/availableRooms', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 

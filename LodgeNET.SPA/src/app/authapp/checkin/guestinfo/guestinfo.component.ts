@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { Unit } from '../../../_models/unit';
+import { Service } from '../../../_models/service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CheckinService } from '../../../_services/checkin.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-guestinfo',
@@ -15,21 +17,29 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   guestInfoForm: FormGroup;
   isUnitFocused = false;
   idScanCheckin = false;
-  selectedUnit: Unit;
-  selectedService: any;
-  filterStatus = '';
+  selectedUnit: Unit = { id: 0, name: '' };
+  selectedService: Service;
 
-  constructor(private authService: AuthService, 
-              private alertify: AlertifyService,
-              private checkinService: CheckinService) { }
+  constructor(private authService: AuthService,
+    private alertify: AlertifyService,
+    private checkinService: CheckinService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getFormData();
     this.initForm();
+    this.guestInfoForm.valueChanges.subscribe(data => this.checkinService.setGuestInfoValid(this.guestInfoForm.valid));
+    console.log(this.selectedService);
   }
 
   ngOnDestroy() {
-  //  console.log(this.guestInfoForm.value);
+    if (this.guestInfoForm.value['gender'] != null) {
+      this.guestInfoForm.value['gender'] = (this.guestInfoForm.value['gender'] === 0) ? 'Male' : 'Female';
+    }
+    console.log(this.guestInfoForm);
+
+    this.guestInfoForm.value['guestUnit'] = this.selectedUnit;
     this.checkinService.saveGuestInfo(this.guestInfoForm.value);
   }
 
@@ -42,45 +52,29 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-     let guestStay = this.checkinService.guestStay;
+    let guestStay = this.checkinService.guestStay;
 
-    if (guestStay) {
-      console.log(guestStay);
-      this.guestInfoForm = new FormGroup({
-        'dodId': new FormControl((guestStay.formData['dodId'] == null) ? null : guestStay.formData['dodId'], 
-          Validators.required),
-        'firstName': new FormControl((guestStay.formData['firstName'] == null) ? null : guestStay.formData['firstName'], 
-          Validators.required),
-        'middleInitial': new FormControl((guestStay.formData['middleInitial'] == null) ? null : guestStay.formData['middleInitial']),
-        'lastName': new FormControl((guestStay.formData['lastName'] == null) ? null : guestStay.formData['lastName'], 
-          Validators.required),
-        'gender': new FormControl(guestStay.formData['gender']),
-        'service': new FormControl(null, Validators.required),
-        'rankId': new FormControl(null),
-        'userUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
-        'email': new FormControl((guestStay.formData['email'] == null) ? null : guestStay.formData['email'], 
-          [Validators.required, Validators.email]),
-        'dsnPhone': new FormControl((guestStay.formData['dsnPhone'] == null) ? null : guestStay.formData['dsnPhone']),
-        'commPhone': new FormControl((guestStay.formData['commPhone'] == null) ? null : guestStay.formData['commPhone'], 
-          Validators.required),
-      });
-      console.log(guestStay);
-    } else {
-      console.log('fdsafdsafd');
-      this.guestInfoForm = new FormGroup({
-        'dodId': new FormControl(null, Validators.required),
-        'firstName': new FormControl(null, Validators.required),
-        'middleInitial': new FormControl(),
-        'lastName': new FormControl(null, Validators.required),
-        'gender': new FormControl(1),
-        'service': new FormControl(null, Validators.required),
-        'rankId': new FormControl(null),
-        'userUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
-        'email': new FormControl(null, [Validators.required, Validators.email]),
-        'dsnPhone': new FormControl(),
-        'commPhone': new FormControl(null, Validators.required),
-      });
+    if (guestStay.guestUnit) {
+      this.onUnitSelected(guestStay.guestUnit);
     }
+
+    if (guestStay.service) {
+      this.selectedService = guestStay.service;
+    }
+
+    this.guestInfoForm = new FormGroup({
+      'dodId': new FormControl(guestStay.dodId == null ? null : guestStay.dodId, Validators.required),
+      'firstName': new FormControl(guestStay.firstName == null ? null : guestStay.firstName, Validators.required),
+      'middleInitial': new FormControl(guestStay.middleInitial == null ? null : guestStay.middleInitial, Validators.maxLength(1)),
+      'lastName': new FormControl(guestStay.lastName == null ? null : guestStay.lastName, Validators.required),
+      'gender': new FormControl(guestStay.gender == null || guestStay.gender == 'Male' ? 0 : 1),
+      'service': new FormControl(null, Validators.required),
+      'rank': new FormControl(guestStay.rank == null ? null : guestStay.rank),
+      'guestUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
+      'email': new FormControl(guestStay.email == null ? null : guestStay.email, [Validators.required, Validators.email]),
+      'dsnPhone': new FormControl(guestStay.dsnPhone == null ? null : guestStay.dsnPhone),
+      'commPhone': new FormControl(guestStay.commPhone == null ? null : guestStay.commPhone),
+    });
   }
 
   private unitFocus() {
@@ -89,13 +83,20 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   onUnitSelected(selectedUnit) {
     this.selectedUnit = selectedUnit;
-     this.filterStatus = this.selectedUnit.name;
-
   }
 
-  unitConfirming(c: FormControl): {[s: string]: boolean} {
-    if (this.filterStatus === '') {
-      return {'invalidUnit': true};
+  onCancel() {
+    this.checkinService.guestStay = null;
+    this.router.navigate(['/']);
+  }
+
+  onNext() {
+    this.router.navigate(['../roomselect'], {relativeTo: this.route});
+  }
+
+  unitConfirming(c: FormControl): { [s: string]: boolean } {
+    if (this.selectedUnit.id === 0) {
+      return { 'invalidUnit': true };
     }
     return null;
   }

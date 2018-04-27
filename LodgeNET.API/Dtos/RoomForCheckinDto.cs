@@ -1,6 +1,6 @@
 namespace LodgeNET.API.Dtos
 {
-    public class RoomForDisplayDto
+    public class RoomForCheckinDto
     {
         public int Id { get; set; }
         public int RoomNumber { get; set; }

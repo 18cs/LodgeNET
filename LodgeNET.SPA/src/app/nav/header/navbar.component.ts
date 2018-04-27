@@ -11,7 +11,7 @@ export class NavbarComponent implements OnInit {
   @ViewChild('userdropdown') userDropdown: ElementRef;
   @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
 
-  constructor(private authService: AuthService, private alertify: AlertifyService, private _eref: ElementRef) { }
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
   isUserDropdownOpen = false;
   isUploadDropdownOpen = false;
   isNavbarOpen = false;

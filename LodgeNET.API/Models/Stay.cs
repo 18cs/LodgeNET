@@ -14,10 +14,10 @@ namespace LodgeNET.API.Models
         public int? ReservationId { get; set; }
         [ForeignKey("ReservationId")]
         public Reservation Reservation { get; set; }
-        public int? RoomId { get; set; }
+        public int RoomId { get; set; }
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
-        public int BuildingId { get; set; }
+        public int? BuildingId { get; set; }
         [ForeignKey("BuildingId")]
         public Building Building { get; set; }
         public DateTime DateCheckedIn { get; set; }

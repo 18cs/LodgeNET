@@ -3,6 +3,7 @@
     <!-- [formGroup]="signupForm" (ngSubmit)="onSubmit()" -->
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
       <br/>
+      <div class="section">
       <legend>Account Information</legend>
       <div class="row">
         <div class="col col-md-5 col-lg-5">
@@ -36,12 +37,14 @@
             <div class="form-group">
               <label for="accountTypeId">AccountType</label>
               <select class="form-control" id="accountTypeId" formControlName="accountTypeId">
-                <option [ngValue]="accountType.id" *ngFor="let accountType of registerForm.accountTypeList">{{ accountType.type }}</option>
+                <option [ngValue]="accountType.id" *ngFor="let accountType of registerForm?.accountTypeList">{{ accountType.type }}</option>
               </select>
             </div>
           </div>
       </div>
+    </div>
       <br/>
+      <div class="section">
       <legend>Personal Information</legend>
       <div class="row">
         <div class="col col-md-4 col-lg-4">
@@ -61,7 +64,7 @@
         <div class="col-1 col-md-offset-1 col-lg-offset-1">
           <div class="form-group">
             <label for="middleInitial">MI</label>
-            <input type="text" id="middleInitial" formControlName="middleInitial" class="form-control">
+            <input type="text" id="middleInitial" formControlName="middleInitial" class="form-control" maxlength="1">
           </div>
         </div>
         <div class="col col-md-4 col-lg-4 col-md-offset-1 col-lg-offset-1">
@@ -76,7 +79,7 @@
           <div class="form-group">
             <label for="service">Service</label>
             <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService">
-              <option [ngValue]="service" *ngFor="let service of registerForm.serviceList">{{ service.serviceName }}</option>
+              <option [ngValue]="service" *ngFor="let service of registerForm?.serviceList">{{ service.serviceName }}</option>
             </select>
             <div *ngIf="!signupForm.get('service').valid && signupForm.get('service').touched" class="invalid-feedback">
               Please select a service
@@ -99,14 +102,14 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="userUnit">Unit</label>
-            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="unitFocus()"
+            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="selectedUnit.name" (focus)="unitFocus()"
               (focusout)="unitFocus()">
               <div *ngIf="!signupForm.get('userUnit').valid && signupForm.get('userUnit').touched" class="invalid-feedback">
                 Please select a unit
               </div>
             <div class="row">
               <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
-                <div *ngFor="let unit of registerForm.unitList | filter: filterStatus: 'name'; let i=index;">
+                <div *ngFor="let unit of registerForm.unitList | filter: selectedUnit.name: 'name'; let i=index;">
                     <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
                         <a href="">
                           {{ unit.name }} 
@@ -118,7 +121,9 @@
           </div>
         </div>
       </div>
+      </div>
       <br/>
+      <div class="section">
       <legend>Contact Information</legend>
       <div class="row">
         <div class="col col-md-4 col-lg-4">
@@ -142,12 +147,15 @@
           </div>
         </div>
       </div>
+    </div>
+    <br />
       <div class="row">
         <div class="col-xs-12">
           <button type="submit" class="btn btn-primary" [disabled]="!signupForm.valid">Submit</button>
           <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
         </div>
       </div>
+      
     </form>
     <br/><br/>
   </div>

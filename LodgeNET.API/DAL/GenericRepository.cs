@@ -40,7 +40,7 @@ namespace LodgeNET.API.DAL
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
-            // IQueryable<TEntity> query = DbSet; 
+            // IQueryable<TEntity> query = DbSet;
             IQueryable<TEntity> query = _context.Set<TEntity>();
 
             if (filter != null)
