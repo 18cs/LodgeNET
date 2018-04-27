@@ -64,16 +64,16 @@ namespace LodgeNET.API.Controllers
             };
             
             // var BuildingList = await _repo.Get();
-            int totalLodgeingCapacity = 0;
-            int totalLodgeingCurrentGuests = 0;
+            int totalLodgingCapacity = 0;
+            int totalLodgingCurrentGuests = 0;
 
-            int totalVacentCapacity = 0;
-            int totalVacentCurrentGuests = 0;
+            int totalVacantCapacity = 0;
+            int totalVacantCurrentGuests = 0;
 
             int totalUnaccompanyCapacity = 0;
             int totalUnaccompanyGuests = 0;
 
-            int totalEmergencyCapaicty = 0;
+            int totalEmergencyCapacity = 0;
             int totalEmergencyGuests = 0;
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
@@ -82,12 +82,12 @@ namespace LodgeNET.API.Controllers
                 b.Capacity = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);    
                 
                 if(b.BuildingCategoryId == 1) {
-                    totalLodgeingCapacity += b.Capacity;
-                    totalLodgeingCurrentGuests += b.CurrentGuests;
+                    totalLodgingCapacity += b.Capacity;
+                    totalLodgingCurrentGuests += b.CurrentGuests;
                 }
                 else if(b.BuildingCategoryId == 2) {
-                    totalVacentCapacity += b.Capacity;
-                    totalVacentCurrentGuests += b.CurrentGuests;
+                    totalVacantCapacity += b.Capacity;
+                    totalVacantCurrentGuests += b.CurrentGuests;
                 }
                 else if(b.BuildingCategoryId == 3)
                 {
@@ -96,8 +96,8 @@ namespace LodgeNET.API.Controllers
                 }
                 else if(b.BuildingCategoryId == 4)
                 {
-                    totalEmergencyCapaicty += b.Capacity;
-                    totalEmergencyCapaicty += b.CurrentGuests;
+                    totalEmergencyCapacity += b.Capacity;
+                    totalEmergencyCapacity += b.CurrentGuests;
                 }
             }
 
@@ -105,13 +105,13 @@ namespace LodgeNET.API.Controllers
             {
                 if (bcat.Id == 1)
                 {
-                    bcat.Capacity = totalLodgeingCapacity;
-                    bcat.CurrentGuests = totalLodgeingCurrentGuests;
+                    bcat.Capacity = totalLodgingCapacity;
+                    bcat.CurrentGuests = totalLodgingCurrentGuests;
                 }
                 else if(bcat.Id == 2)
                 {
-                    bcat.Capacity = totalVacentCapacity;
-                    bcat.CurrentGuests = totalVacentCurrentGuests;
+                    bcat.Capacity = totalVacantCapacity;
+                    bcat.CurrentGuests = totalVacantCurrentGuests;
                 }
                 else if(bcat.Id == 3) 
                 {
@@ -120,7 +120,7 @@ namespace LodgeNET.API.Controllers
                 }
                 else if(bcat.Id == 4)
                 {
-                    bcat.Capacity = totalEmergencyCapaicty;
+                    bcat.Capacity = totalEmergencyCapacity;
                     bcat.CurrentGuests = totalEmergencyGuests;
                 }
             }
