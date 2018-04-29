@@ -6,6 +6,9 @@ import { Service } from '../../../_models/service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CheckinService } from '../../../_services/checkin.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GueststayService } from '../../../_services/gueststay.service';
+import { GuestStay } from '../../../_models/guestStay';
+import { Rank } from '../../../_models/rank';
 
 @Component({
   selector: 'app-guestinfo',
@@ -18,19 +21,19 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   isUnitFocused = false;
   idScanCheckin = false;
   selectedUnit: Unit = { id: 0, name: '' };
-  selectedService: Service;
+  selectedService: Service = {  id: 0, serviceName: '' };
+  dodIdDisabled = this.checkinService.guestStay.guestId !== 0; //angular disabled att for controls has errors, only ,ethod found that works
 
   constructor(private authService: AuthService,
     private alertify: AlertifyService,
     private checkinService: CheckinService,
+    private guestStaySevice: GueststayService,
     private router: Router,
     private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getFormData();
     this.initForm();
-    this.guestInfoForm.valueChanges.subscribe(data => this.checkinService.setGuestInfoValid(this.guestInfoForm.valid));
-    console.log(this.selectedService);
   }
 
   ngOnDestroy() {
@@ -63,7 +66,9 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     }
 
     this.guestInfoForm = new FormGroup({
-      'dodId': new FormControl(guestStay.dodId == null ? null : guestStay.dodId, Validators.required),
+      'dodId': new FormControl(
+        guestStay.dodId == null ? null : guestStay.dodId, 
+        Validators.required),
       'firstName': new FormControl(guestStay.firstName == null ? null : guestStay.firstName, Validators.required),
       'middleInitial': new FormControl(guestStay.middleInitial == null ? null : guestStay.middleInitial, Validators.maxLength(1)),
       'lastName': new FormControl(guestStay.lastName == null ? null : guestStay.lastName, Validators.required),
@@ -71,10 +76,16 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
       'service': new FormControl(null, Validators.required),
       'rank': new FormControl(guestStay.rank == null ? null : guestStay.rank),
       'guestUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
+      'guestChalk': new FormControl(guestStay.chalk == null ? null : guestStay.chalk),
       'email': new FormControl(guestStay.email == null ? null : guestStay.email, [Validators.required, Validators.email]),
       'dsnPhone': new FormControl(guestStay.dsnPhone == null ? null : guestStay.dsnPhone),
       'commPhone': new FormControl(guestStay.commPhone == null ? null : guestStay.commPhone),
     });
+    
+    this.dodIdDisabled =  guestStay.guestId !== 0;
+    
+    this.guestInfoForm.statusChanges.subscribe(data => {
+      console.log(data); this.checkinService.setGuestInfoValid(this.guestInfoForm.valid);} );
   }
 
   private unitFocus() {
@@ -86,12 +97,33 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.checkinService.guestStay = {};
+    this.checkinService.clearGuestStay();
     this.router.navigate(['/']);
   }
 
   onNext() {
     this.router.navigate(['../roomselect'], {relativeTo: this.route});
+  }
+
+  onDodIdFocusOut(dodId: number) {
+    this.guestStaySevice.getExistentGuest(dodId).subscribe((guestStay: GuestStay) => {
+      console.log(this.checkinService.guestStay);
+      if (!guestStay || this.checkinService.guestStay.guestId !== 0) {
+        return;
+      }
+console.log(guestStay);
+    this.alertify.confirm('We have found this guest in the Database. Do you want to autopopulate?' + 
+      '<br /><br />WARNING: Changed information will be updated in database.', () => {
+          this.checkinService.saveRetrievedGuestInfo(guestStay);
+          console.log(this.checkinService.guestStay);
+          this.initForm();
+        });
+    }, error => {
+    this.alertify.error(error);});
+  }
+
+  disableDodId() {
+    this.guestInfoForm.controls['dodId'].disable();
   }
 
   unitConfirming(c: FormControl): { [s: string]: boolean } {
@@ -100,4 +132,14 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     }
     return null;
   }
+
+  compareService(serviceFromList: Service, selectedService: Service): boolean {
+     return serviceFromList && selectedService ? serviceFromList.id === selectedService.id : serviceFromList === selectedService;
+  }
+
+  compareRank(rankFromList: Rank, selectedRank: Rank): boolean {
+    return rankFromList && selectedRank ? rankFromList.id === selectedRank.id : rankFromList === selectedRank;
+ }
+
+
 }

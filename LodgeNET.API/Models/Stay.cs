@@ -11,16 +11,23 @@ namespace LodgeNET.API.Models
         public int GuestId { get; set; }
         [ForeignKey("GuestId")]        
         public Guest Guest { get; set; }
-        public int? ReservationId { get; set; }
-        [ForeignKey("ReservationId")]
-        public Reservation Reservation { get; set; }
         public int RoomId { get; set; }
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
         public int? BuildingId { get; set; }
         [ForeignKey("BuildingId")]
         public Building Building { get; set; }
-        public DateTime DateCheckedIn { get; set; }
-        public DateTime? DateCheckedOut { get; set; }
+        public DateTime CheckInDate { get; set; }
+        public DateTime CheckOutDate { get; set; }
+        public bool Canceled { get; set; }
+        public bool CheckedIn { get; set; }
+        public bool CheckedOut { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public Stay()
+        {
+            DateCreated = DateTime.Now;
+            CheckInDate = DateTime.Today;
+        }
     }
 }

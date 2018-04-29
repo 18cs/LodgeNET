@@ -5,7 +5,6 @@ import { Unit } from './unit';
 import { Room } from './room';
 
 export interface GuestStay {
-    //formData: FormGroup;
     dodId?: number;
     firstName?: string;
     middleInitial?: string;
@@ -14,8 +13,10 @@ export interface GuestStay {
     service?: Service;
     rank?: Rank;
     guestUnit?: Unit;
+    chalk?: number;
     email?: string;
     dsnPhone?: number;
     commPhone?: number;
     room?: Room;
+    guestId?: number;
 }

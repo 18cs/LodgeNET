@@ -5,13 +5,7 @@
       <div class="section">
         <legend>Personal Information</legend>
         <div class="row">
-          <div class="col col-md-4 col-lg-4">
-            <div class="form-group">
-              <label for="dodId">DoD ID</label>
-              <input type="number" id="dodId" formControlName="dodId" class="form-control">
-            </div>
-          </div>
-          <div class="col col-md-4 col-lg-4 offset-md-2 offset-lg-2">
+          <div class="col">
             <div class="custom-control custom-radio">
               <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input" checked="" (click)="idScanCheckin = !idScanCheckin">
               <label class="custom-control-label" for="customRadio1">Manual Check-In</label>
@@ -22,6 +16,7 @@
             </div>
           </div>
         </div>
+        <br/>
         <div class="row">
           <div class="col col-md-4 col-lg-4">
             <div class="form-group">
@@ -58,54 +53,72 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col col-md-4 col-lg-4">
-            <div class="form-group">
-              <label for="service">Service</label>
-              <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService">
-                <option [ngValue]="service" *ngFor="let service of formData?.serviceList">{{ service.serviceName }}</option>
-              </select>
-              <div *ngIf="!guestInfoForm?.get('service').valid && guestInfoForm?.get('service').touched" class="invalid-feedback">
-                Please select a service
-              </div>
-            </div>
+      </div>
+      <br />
+<div class="section">
+      <legend>Service Information</legend>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="dodId">DoD ID</label>
+            <input type="number" #dodId id="dodId" formControlName="dodId" class="form-control" min="0" (focusout)='onDodIdFocusOut(dodId.value)' [attr.disabled]="dodIdDisabled?'':null">
           </div>
-          <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
-            <div *ngIf="selectedService != undefined" class="form-group">
-              <label for="rankId">Rank</label>
-              <select class="form-control is-invalid" id="rank" formControlName="rank">
-                <option [ngValue]="rank" *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']">{{ rank.rankName }}</option>
-              </select>
-              <div *ngIf="!guestInfoForm.get('rank').valid && guestInfoForm.get('rank').touched" class="invalid-feedback">
-                Please select a rank
-              </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="service">Service</label>
+            <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService" [compareWith]="compareService">
+              <option [ngValue]="service" *ngFor="let service of formData?.serviceList">{{ service.serviceName }}</option>
+            </select>
+            <div *ngIf="!guestInfoForm?.get('service').valid && guestInfoForm?.get('service').touched" class="invalid-feedback">
+              Please select a service
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col col-md-4 col-lg-4">
-            <div class="form-group">
-              <label for="userUnit">Unit</label>
-              <input type="text" id="guestUnit" formControlName="guestUnit" class="form-control is-invalid" [(ngModel)]="selectedUnit.name"
-                (focus)="unitFocus()" (focusout)="unitFocus()">
-              <div *ngIf="!guestInfoForm.get('guestUnit').valid && guestInfoForm.get('guestUnit').touched" class="invalid-feedback">
-                Please select a unit
-              </div>
-              <div class="row">
-                <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
-                  <div *ngFor="let unit of formData.unitList | filter: selectedUnit.name: 'name'; let i=index;">
-                    <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
-                      <a href="">
-                        {{ unit.name }}
-                      </a>
-                    </li>
-                  </div>
-                </ul>
-              </div>
+        <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
+          <div *ngIf="selectedService.id != 0" class="form-group">
+            <label for="rankId">Rank</label>
+            <select class="form-control is-invalid" id="rank" formControlName="rank" [compareWith]="compareRank" >
+              <option [ngValue]="rank" *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']">{{ rank.rankName }}</option>
+            </select>
+            <div *ngIf="!guestInfoForm.get('rank').valid && guestInfoForm.get('rank').touched" class="invalid-feedback">
+              Please select a rank
             </div>
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="userUnit">Unit</label>
+            <input type="text" id="guestUnit" formControlName="guestUnit" class="form-control is-invalid" [(ngModel)]="selectedUnit.name"
+              (focus)="unitFocus()" (focusout)="unitFocus()">
+            <div *ngIf="!guestInfoForm.get('guestUnit').valid && guestInfoForm.get('guestUnit').touched" class="invalid-feedback">
+              Please select a unit
+            </div>
+            <div class="row">
+              <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
+                <div *ngFor="let unit of formData.unitList | filter: selectedUnit.name: 'name'; let i=index;">
+                  <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
+                    <a href="">
+                      {{ unit.name }}
+                    </a>
+                  </li>
+                </div>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col col-md-4 col-lg-4">
+          <div class="form-group">
+            <label for="guestChalk">Chalk</label>
+            <input type="number" id="guestChalk" formControlName="guestChalk" class="form-control" min="0" max="1000">
+          </div>
+        </div>
+      </div>
+    </div>
       <br/>
       <div class="section">
         <legend>Contact Information</legend>

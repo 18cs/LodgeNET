@@ -25,13 +25,6 @@ namespace LodgeNET.API.Models
         public int? UnitId { get; set; }
         [ForeignKey("UnitId")]
         public Unit Unit { get; set; }
-
-        public ICollection<GuestReservation> GuestReservations { get; set; }
-
-        // public Guest()
-        // {
-        //     Reservations = new Collection<Reservation>();
-        // }
     }
 }
 

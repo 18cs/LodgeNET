@@ -36,22 +36,6 @@ namespace LodgeNET.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reservations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Canceled = table.Column<bool>(nullable: false),
-                    CheckInDate = table.Column<DateTime>(nullable: false),
-                    CheckOutDate = table.Column<DateTime>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Services",
                 columns: table => new
                 {
@@ -232,41 +216,20 @@ namespace LodgeNET.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "GuestReservation",
-                columns: table => new
-                {
-                    GuestId = table.Column<int>(nullable: false),
-                    ReservationId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GuestReservation", x => new { x.GuestId, x.ReservationId });
-                    table.ForeignKey(
-                        name: "FK_GuestReservation_Guests_GuestId",
-                        column: x => x.GuestId,
-                        principalTable: "Guests",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GuestReservation_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Stays",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BuildingId = table.Column<int>(nullable: false),
-                    DateCheckedIn = table.Column<DateTime>(nullable: false),
-                    DateCheckedOut = table.Column<DateTime>(nullable: true),
+                    BuildingId = table.Column<int>(nullable: true),
+                    Canceled = table.Column<bool>(nullable: false),
+                    CheckInDate = table.Column<DateTime>(nullable: false),
+                    CheckOutDate = table.Column<DateTime>(nullable: false),
+                    CheckedIn = table.Column<bool>(nullable: false),
+                    CheckedOut = table.Column<bool>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     GuestId = table.Column<int>(nullable: false),
-                    ReservationId = table.Column<int>(nullable: true),
-                    RoomId = table.Column<int>(nullable: true)
+                    RoomId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -276,7 +239,7 @@ namespace LodgeNET.API.Migrations
                         column: x => x.BuildingId,
                         principalTable: "Buildings",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Stays_Guests_GuestId",
                         column: x => x.GuestId,
@@ -284,28 +247,17 @@ namespace LodgeNET.API.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Stays_Reservations_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_Stays_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Buildings_BuildingCategoryId",
                 table: "Buildings",
                 column: "BuildingCategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GuestReservation_ReservationId",
-                table: "GuestReservation",
-                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Guests_RankId",
@@ -338,11 +290,6 @@ namespace LodgeNET.API.Migrations
                 column: "GuestId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stays_ReservationId",
-                table: "Stays",
-                column: "ReservationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Stays_RoomId",
                 table: "Stays",
                 column: "RoomId");
@@ -371,9 +318,6 @@ namespace LodgeNET.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GuestReservation");
-
-            migrationBuilder.DropTable(
                 name: "Stays");
 
             migrationBuilder.DropTable(
@@ -381,9 +325,6 @@ namespace LodgeNET.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "Guests");
-
-            migrationBuilder.DropTable(
-                name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Rooms");

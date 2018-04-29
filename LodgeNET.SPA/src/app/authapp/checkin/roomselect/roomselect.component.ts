@@ -42,7 +42,9 @@ export class RoomselectComponent implements OnInit, OnDestroy {
       this.router.navigate(['../'], { relativeTo: this.route });
     }
     this.loadBuildings();
-    this.selectedRoom = this.checkinService.guestStay.room == null ? null : this.checkinService.guestStay.room; 
+    this.onRoomSelected(this.checkinService.guestStay.room);
+   // this.selectedRoom = this.checkinService.guestStay.room == null ? null : this.checkinService.guestStay.room; 
+    console.log(this.selectedRoom);
   }
 
   ngOnDestroy() {

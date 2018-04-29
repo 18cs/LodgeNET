@@ -7,7 +7,7 @@ using System;
 
 namespace LodgeNET.API.DAL
 {
-    public class RoomRepository : GenericRepository<Room>, IRoomRepository
+    public class RoomRepository : GenericRepository<Room>, IRoomRepository, IGenericRepository<Room>
     {
 
         public RoomRepository(DataContext context)
@@ -22,7 +22,11 @@ namespace LodgeNET.API.DAL
 
             if(userParams.OnlyAvailableRooms == true && userParams.BuildingId != 0)
             {
-                stays = _context.Stays.Where(s => s.DateCheckedOut == null && s.BuildingId == userParams.BuildingId);
+                stays = _context.Stays.Where(s => s.CheckedOut == false &&
+                                                 s.CheckedIn == true && 
+                                                !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) && 
+                                                s.BuildingId == userParams.BuildingId);
+
                 //var rooms = _context.Rooms.OrderBy(r => r.RoomNumber).AsQueryable();
             }
             
@@ -40,7 +44,7 @@ namespace LodgeNET.API.DAL
 
             if(userParams.OnlyAvailableRooms)
             {
-                rooms = rooms.Where(r => (stays.Where(s => s.RoomId == r.Id).Count()) <= r.Capacity);
+                rooms = rooms.Where(r => (stays.Where(s => s.RoomId == r.Id).Count()) < r.Capacity);
             }
             return await PagedList<Room>.CreateAsync(rooms, userParams.PageNumber, userParams.PageSize);
         }

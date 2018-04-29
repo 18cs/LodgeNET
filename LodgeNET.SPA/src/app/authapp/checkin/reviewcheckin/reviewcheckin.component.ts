@@ -26,13 +26,14 @@ export class ReviewcheckinComponent implements OnInit {
   }
 
   onCancel() {
-    this.checkinService.guestStay = {};
+    this.checkinService.clearGuestStay();
     this.router.navigate(['/']);
   }
 
   onSubmit() {
     this.checkinService.checkinGuest().subscribe(() => {
       this.alertify.success('Checkin Successful');
+      this.checkinService.clearGuestStay();
       this.router.navigate(['/']);
     }, error => {
       this.alertify.error(error);

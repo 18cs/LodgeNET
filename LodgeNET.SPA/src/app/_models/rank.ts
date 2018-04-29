@@ -1,3 +1,5 @@
+import { Service } from './service';
+
 export interface Rank {
     id: number;
     grade: number;

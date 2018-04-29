@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.signupForm.value['userUnit'] = this.selectedUnit;
+    this.signupForm.value['userUnit'] = this.selectedUnit.id;
 
     this.authService.register(this.signupForm.value).subscribe(() => {
       this.alertify.success('Registration Successful Please Wait for Approval');
