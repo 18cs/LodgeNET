@@ -12,12 +12,12 @@ namespace LodgeNET.API.DAL
         Task<IEnumerable<TEntity>> GetAsync(
            Expression<Func<TEntity, bool>> filter = null,
            System.Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "");
+            Expression<Func<TEntity, object>>[] includeProperties = null);
 
         IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
+             Expression<Func<TEntity, object>>[] includeProperties = null);
          Task<TEntity> GetByID(object id);
         int GetCount(Expression<Func<TEntity, bool>> filter = null);
         int GetSum(Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null);

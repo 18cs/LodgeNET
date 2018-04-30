@@ -107,11 +107,10 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   onDodIdFocusOut(dodId: number) {
     this.guestStaySevice.getExistentGuest(dodId).subscribe((guestStay: GuestStay) => {
-      console.log(this.checkinService.guestStay);
       if (!guestStay || this.checkinService.guestStay.guestId !== 0) {
         return;
       }
-console.log(guestStay);
+
     this.alertify.confirm('We have found this guest in the Database. Do you want to autopopulate?' + 
       '<br /><br />WARNING: Changed information will be updated in database.', () => {
           this.checkinService.saveRetrievedGuestInfo(guestStay);

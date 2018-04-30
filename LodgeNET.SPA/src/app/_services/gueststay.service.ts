@@ -28,7 +28,7 @@ export class GueststayService {
         if (onlyAvailableRooms != null) {
             params = params.append('onlyAvailableRooms', onlyAvailableRooms);
         }
-console.log(params);
+
         return this.http.
             get<Room[]>(this.baseUrl + 'gueststay/availableRooms', { observe: 'response', params })
             .map((response) => {
@@ -46,8 +46,25 @@ console.log(params);
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);
-        console.log(params);
         return this.http.get<GuestStay>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
+    }
+
+    getGuestStays(dodId?, lastName?, roomNumber?) {
+        let params = new HttpParams();
+
+        if (dodId != null) {
+            params = params.append('dodId', dodId);
+        }
+
+        if (lastName != null) {
+            params = params.append('lastName', lastName);
+        }
+
+        if (roomNumber != null) {
+            params = params.append('roomNumber', roomNumber);
+        }
+
+        return this.http.get<GuestStay[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError));
     }
 
     private handleError(error: any) {

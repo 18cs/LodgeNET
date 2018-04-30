@@ -32,6 +32,7 @@ import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.com
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 import { CheckinService } from './_services/checkin.service';
 import { GueststayService } from './_services/gueststay.service';
+import { CheckoutComponent } from './authapp/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { GueststayService } from './_services/gueststay.service';
     DashboardComponent,
     LodgingfileuploadComponent,
     CheckinComponent,
+    CheckoutComponent,
     GuestinfoComponent,
     RoomselectComponent,
     ReviewcheckinComponent,

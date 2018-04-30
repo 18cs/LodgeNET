@@ -2,10 +2,7 @@
 <div class="section">
   <div class="row">
     <div class="col-lg-12">
-      <br />
       <h2>Personal Information</h2>
-      <label>DoD ID:</label>
-      <p class="lead">{{ guestStay?.dodId }}</p>
     </div>
   </div>
   <div class="row">
@@ -28,22 +25,32 @@
       <p class="lead">{{ guestStay?.gender }}</p>
     </div>
   </div>
+</div>
+<br/>
+<div class="section">
+  <h2>Service Information</h2>
   <div class="row">
-    <div class="col-lg-2">
-      <label>Service:</label>
-      <p class="lead">{{ guestStay?.service?.serviceName }}</p>
-    </div>
     <div class="col-lg">
-      <label>Rank:</label>
-      <p class="lead">{{ guestStay?.rank?.rankName }}</p>
+        <label>DoD ID:</label>
+        <p class="lead">{{ guestStay?.dodId }}</p>
     </div>
   </div>
   <div class="row">
-    <div class="col-lg">
-      <label>Unit:</label>
-      <p class="lead">{{ guestStay?.guestUnit?.name }}</p>
+      <div class="col-lg-2">
+        <label>Service:</label>
+        <p class="lead">{{ guestStay?.service?.serviceName }}</p>
+      </div>
+      <div class="col-lg">
+        <label>Rank:</label>
+        <p class="lead">{{ guestStay?.rank?.rankName }}</p>
+      </div>
     </div>
-  </div>
+    <div class="row">
+      <div class="col-lg">
+        <label>Unit:</label>
+        <p class="lead">{{ guestStay?.guestUnit?.name }}</p>
+      </div>
+    </div>
 </div>
 <br />
 <div class="section">

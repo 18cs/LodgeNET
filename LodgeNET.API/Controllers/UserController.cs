@@ -10,9 +10,9 @@ namespace LodgeNET.API.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
-        private readonly GenericRepository<User> _repo;
+        private readonly IGenericRepository<User> _repo;
 
-        public UserController(GenericRepository<User> repo)
+        public UserController(IGenericRepository<User> repo)
         {
             _repo = repo;
         }

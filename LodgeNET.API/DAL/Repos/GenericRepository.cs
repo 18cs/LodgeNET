@@ -35,7 +35,7 @@ namespace LodgeNET.API.DAL {
         public async virtual Task<IEnumerable<TEntity>> GetAsync (
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "") {
+             Expression<Func<TEntity, object>>[] includeProperties = null) {
             // IQueryable<TEntity> query = DbSet;
             IQueryable<TEntity> query = _context.Set<TEntity> ();
 
@@ -43,8 +43,10 @@ namespace LodgeNET.API.DAL {
                 query = query.Where (filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
-                query = query.Include (includeProperty);
+            if (includeProperties != null) {
+                foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties) {
+                    query = query.Include<TEntity, object> (includeProperty);
+                }
             }
 
             if (orderBy != null) {
@@ -57,7 +59,7 @@ namespace LodgeNET.API.DAL {
         public virtual IEnumerable<TEntity> Get (
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "") {
+             Expression<Func<TEntity, object>>[] includeProperties = null) {
             // IQueryable<TEntity> query = DbSet; 
             IQueryable<TEntity> query = _context.Set<TEntity> ();
 
@@ -65,8 +67,10 @@ namespace LodgeNET.API.DAL {
                 query = query.Where (filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)) {
-                query = query.Include (includeProperty);
+            if (includeProperties != null) {
+                foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties) {
+                    query = query.Include<TEntity, object> (includeProperty);
+                }
             }
 
             if (orderBy != null) {

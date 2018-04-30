@@ -15,11 +15,17 @@ namespace LodgeNET.API.ConfigHelpers
             CreateMap<Building, BuildingDataDto>();
             CreateMap<BuildingCategory, BuildingCategoryDataDto>();
             CreateMap<Room, RoomForCheckinDto>();
-            CreateMap<GuestStayForCheckinDto, Stay>();
-            CreateMap<GuestStayForCheckinDto, Guest>()
+            CreateMap<GuestStayForCheckInOutDto, Stay>();
+            CreateMap<Stay, GuestStayForCheckInOutDto>()
+            .ForMember(guestStayForCheckInOutDto => guestStayForCheckInOutDto.GuestId,
+                    opt => opt.MapFrom(stay => stay.Guest.Id));
+            CreateMap<Guest, GuestStayForCheckInOutDto>()
+                .ForMember(guestStayForCheckInOutDto => guestStayForCheckInOutDto.GuestId,
+                    opt => opt.MapFrom(guest => guest.Id));
+            CreateMap<GuestStayForCheckInOutDto, Guest>()
                 .ForMember(guest => guest.Id,
                     opt => opt.MapFrom(guestStayForCheckin => guestStayForCheckin.GuestId));
-            CreateMap<Guest, GuestStayForRetrieveDto>()
+            CreateMap<Guest, GuestForCheckinDto>()
                 .ForMember(guestStayForRetrieve => guestStayForRetrieve.GuestUnit,
                     opt => opt.MapFrom(guest => guest.Unit))
                 .ForMember(guestStayForRetrieve => guestStayForRetrieve.GuestId,

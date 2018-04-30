@@ -13,6 +13,7 @@ import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
+import { CheckoutComponent } from './authapp/checkout/checkout.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,7 +44,8 @@ import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewch
       {path: 'guestinfo', component: GuestinfoComponent},
       {path: 'roomselect', component: RoomselectComponent},
       {path: 'reviewcheckin', component: ReviewcheckinComponent}
-    ]}
+    ]},
+    {path: 'checkout', component: CheckoutComponent}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },
   {path: 'users', component: UsersComponent, canActivate: [LoggedinGuard], children: [

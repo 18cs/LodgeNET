@@ -2,7 +2,7 @@ using LodgeNET.API.Models;
 
 namespace LodgeNET.API.Dtos
 {
-    public class GuestStayForRetrieveDto
+    public class GuestStayForCheckInOutDto
     {
         public int DodId { get; set; }
         public string FirstName { get; set; }
@@ -12,14 +12,11 @@ namespace LodgeNET.API.Dtos
         public int ServiceId { get; set; }
         public int RankId { get; set; }
         public int UnitId { get; set; }
-        public int Chalk { get; set; }
+        public int? Chalk { get; set; }
         public string Email { get; set; }
         public string DsnPhone { get; set; }
         public string CommPhone { get; set; }
         public int roomId { get; set; }
         public int GuestId { get; set; }
-        public Rank Rank { get; set; }
-        public Unit GuestUnit { get; set; }
-        public Service Service { get; set; }
     }
 }
