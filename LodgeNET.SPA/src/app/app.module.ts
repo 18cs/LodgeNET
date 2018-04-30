@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/header/navbar.component';
 import { HomeComponent } from './home/home.component';
@@ -29,6 +28,12 @@ import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
+import { ViewComponent } from './authapp/view/view.component';
+import { ViewbuildingsComponent } from './authapp/view/viewbuildings/viewbuildings.component';
+import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.component';
+import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
+import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
+import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
 import { CheckinService } from './_services/checkin.service';
 import { GueststayService } from './_services/gueststay.service';
 
@@ -47,6 +52,12 @@ import { GueststayService } from './_services/gueststay.service';
     GuestinfoComponent,
     RoomselectComponent,
     ReviewcheckinComponent,
+    ViewComponent,
+    ViewbuildingsComponent,
+    ViewguestsComponent,
+    ViewroomsComponent,
+    ViewunitsComponent,
+    ViewusersComponent,
     FilterPipe,
     FilterNumPipe,
     SortPipe,

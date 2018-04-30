@@ -13,6 +13,12 @@ import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
+import { ViewComponent } from './authapp/view/view.component';
+import { ViewbuildingsComponent } from './authapp/view/viewbuildings/viewbuildings.component';
+import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.component';
+import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
+import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
+import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,6 +49,14 @@ import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewch
       {path: 'guestinfo', component: GuestinfoComponent},
       {path: 'roomselect', component: RoomselectComponent},
       {path: 'reviewcheckin', component: ReviewcheckinComponent}
+    ]},
+    {path: 'view', component: ViewComponent, children: [
+      {path: '', redirectTo: 'guests', pathMatch: 'full'},
+      {path: 'buildings', component: ViewbuildingsComponent},
+      {path: 'guests', component: ViewguestsComponent},
+      {path: 'rooms', component: ViewroomsComponent},
+      {path: 'units', component: ViewunitsComponent},
+      {path: 'users', component: ViewusersComponent}
     ]}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },
