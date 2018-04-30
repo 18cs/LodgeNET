@@ -39,6 +39,7 @@ namespace LodgeNET.API {
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddMvc().AddJsonOptions(opt =>
             {
               opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;  
@@ -82,12 +83,12 @@ namespace LodgeNET.API {
             // seeder.SeedAccountTypes();
             // seeder.SeedBuildingCategories();
             // seeder.SeedBuildings();
-            // seeder.SeedReservation();
             // seeder.SeedServices();
             // seeder.SeedRanks();
             // seeder.SeedRooms();
             // seeder.SeedUnits();
             // seeder.SeedGuests();
+            // seeder.SeedReservation();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();
             app.UseMvc();

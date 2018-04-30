@@ -78,7 +78,10 @@ namespace LodgeNET.API.Controllers
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
             {
-                b.CurrentGuests = _stayRepo.GetCount(s => s.DateCheckedOut == null && s.BuildingId == b.Id);
+                b.CurrentGuests = _stayRepo.GetCount(s => s.CheckedOut == false && 
+                                                        s.CheckedIn == true &&
+                                                        !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) && 
+                                                        s.BuildingId == b.Id);
                 b.Capacity = _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);    
                 
                 if(b.BuildingCategoryId == 1) {

@@ -12,7 +12,7 @@ namespace LodgeNET.API.Dtos
         public string Password { get; set; }
         public int? DodId { get; set; }
         public int? RankId { get; set; }
-        public string UserUnit { get; set; }
+        public int UserUnit { get; set; }
         public int AccountTypeId { get; set; }
         public string FirstName { get; set; }
         public string MiddleInitial { get; set; }

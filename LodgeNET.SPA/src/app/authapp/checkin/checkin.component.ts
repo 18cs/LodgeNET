@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CheckinService } from '../../_services/checkin.service';
 
 @Component({
   selector: 'app-checkin',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CheckinComponent implements OnInit {
 
-  constructor() { }
+  constructor(private checkinService: CheckinService) { }
 
   ngOnInit() {
   }

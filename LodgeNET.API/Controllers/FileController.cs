@@ -20,7 +20,6 @@ namespace LodgeNET.API.Controllers {
         private readonly IGenericRepository<Room> _roomRepo;
         private readonly IGenericRepository<Rank> _rankRepo;
         private readonly IGenericRepository<Guest> _guestRepo;
-        private readonly IGenericRepository<Reservation> _reservationRepo;
         private readonly IGenericRepository<Stay> _stayRepo;
         
 
@@ -29,14 +28,12 @@ namespace LodgeNET.API.Controllers {
             IGenericRepository<Room> roomRepo,
             IGenericRepository<Rank> rankRepo,
             IGenericRepository<Guest> guestRepo,
-            IGenericRepository<Reservation> reservationRepo,
             IGenericRepository<Stay> stayRepo) {
             _userRepo = userRepo;
             _roomRepo = roomRepo;
             _rankRepo = rankRepo;
             _guestRepo = guestRepo;
             _stayRepo = stayRepo;
-            _reservationRepo = reservationRepo;
         }
 
         [HttpPost("lodging")]
@@ -50,7 +47,7 @@ namespace LodgeNET.API.Controllers {
 
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
 
-            if (currentUserId == null) {
+            if (currentUserId == 0) {
                 return Unauthorized ();
             }
 
@@ -73,7 +70,6 @@ namespace LodgeNET.API.Controllers {
 
                             var guest = new Guest ();
                             var stay = new Stay ();
-                            var reservation = new Reservation ();
                             
                             var rooms = _roomRepo.GetAsync(r => r.RoomNumber == int.Parse(stayData[0]));
                             
@@ -118,20 +114,15 @@ namespace LodgeNET.API.Controllers {
                                     out DateTime checkInDate))
                                 {
                                     //TODO account for the open column
-                                   stay.DateCheckedIn = checkInDate;
-                                   reservation.CheckInDate = checkInDate;
-                                   reservation.CheckOutDate = DateTime.Parse(stayData[j+1]);
+                                    stay.CheckedIn = true;
+                                   stay.CheckInDate = checkInDate;
+                                   stay.CheckOutDate = DateTime.Parse(stayData[j+1]);
                                    break;
                                 }
                             }
-
-                            _reservationRepo.Insert(reservation);
-                            _reservationRepo.Save();
-                            stay.ReservationId = reservation.Id;
                             _guestRepo.Insert(guest);
                             _guestRepo.Save();
                             stay.GuestId = guest.Id;
-                            
                             _stayRepo.Insert(stay);
                             _stayRepo.Save();
                             

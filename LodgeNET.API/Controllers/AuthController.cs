@@ -65,7 +65,7 @@ namespace LodgeNET.API.Controllers
             // };
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            userToCreate.UnitId = (await _unitRepo.GetFirstOrDefault(u => u.Name.Equals(userForRegisterDto.UserUnit))).Id;
+            //userToCreate.UnitId = (await _unitRepo.GetFirstOrDefault(u => u.Name.Equals(userForRegisterDto.UserUnit))).Id;
             
             var createUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
 

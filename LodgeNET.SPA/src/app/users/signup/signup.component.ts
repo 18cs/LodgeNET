@@ -18,9 +18,9 @@ export class SignupComponent implements OnInit {
 
   signupForm: FormGroup;
   isUnitFocused = false;
-  selectedUnit: Unit;
+  selectedUnit: Unit = { id: 0, name: '' };
   selectedService: any;
-  filterStatus = '';
+  // filterStatus = '';
   registerForm: FormData;
 
   constructor(private authService: AuthService,
@@ -35,6 +35,8 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
+    this.signupForm.value['userUnit'] = this.selectedUnit.id;
+
     this.authService.register(this.signupForm.value).subscribe(() => {
       this.alertify.success('Registration Successful Please Wait for Approval');
       this.router.navigate(['/']);
@@ -58,7 +60,7 @@ export class SignupComponent implements OnInit {
       'userUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'dsnPhone': new FormControl(),
-      'commPhone': new FormControl(null, Validators.required),
+      'commPhone': new FormControl(null),
     });
   }
 
@@ -76,7 +78,7 @@ export class SignupComponent implements OnInit {
 
   onUnitSelected(selectedUnit) {
     this.selectedUnit = selectedUnit;
-     this.filterStatus = this.selectedUnit.name;
+    //  this.filterStatus = this.selectedUnit.name;
 
   }
 
@@ -101,7 +103,7 @@ export class SignupComponent implements OnInit {
 }
 
 unitConfirming(c: FormControl): {[s: string]: boolean} {
-  if (this.filterStatus === '') {
+  if (this.selectedUnit.id === 0) {
     return {'invalidUnit': true};
   }
   return null;

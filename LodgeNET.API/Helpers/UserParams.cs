@@ -10,5 +10,8 @@ namespace LodgeNET.API.Helpers
             get { return pageSize; }
             set { pageSize = (value > MaxPageSize)? MaxPageSize : value; }
         }
+
+        public int BuildingId { get; set; }
+        public bool OnlyAvailableRooms { get; set; }
     }
 }

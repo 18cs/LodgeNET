@@ -77,16 +77,16 @@ namespace LodgeNET.API.DAL.SeedData
             
         }
 
-        public void SeedReservation()
-        {
-            var reservationData = System.IO.File.ReadAllText("DAL/SeedData/ReservationSeedData.json");
-            var reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationData);
-            foreach(var reservation in reservations)
-            {
-                _context.Reservations.Add(reservation);
-            }
-            _context.SaveChanges();
-        }
+        // public void SeedReservation()
+        // {
+        //     var reservationData = System.IO.File.ReadAllText("DAL/SeedData/ReservationSeedData.json");
+        //     var reservations = JsonConvert.DeserializeObject<List<Reservation>>(reservationData);
+        //     foreach(var reservation in reservations)
+        //     {
+        //         _context.Reservations.Add(reservation);
+        //     }
+        //     _context.SaveChanges();
+        // }
 
         public void SeedServices()
         {

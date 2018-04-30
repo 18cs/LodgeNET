@@ -1,42 +1,60 @@
+<br/>
 <div class="row">
   <div class="col-lg-12">
-    <div *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
+    <div *ngFor="let buildingType of buildingDashboard?.buildingTypeList; let i = index;">
       <div class="custom-control custom-radio">
-        <input type="radio" [attr.id]="building.id" name="buildingType" class="custom-control-input" [(ngModel)]="buildingTypeIdSelected"
-          [value]="building.id" (click)="yup()">
-        <label class="custom-control-label" [attr.for]="building.id">{{ building.type }}</label>
+        <input type="radio" [attr.id]="buildingType.id" name="buildingType" class="custom-control-input" [(ngModel)]="buildingTypeIdSelected"
+          [value]="buildingType.id">
+        <label class="custom-control-label" [attr.for]="buildingType.id">{{ buildingType.type }}</label>
       </div>
     </div>
   </div>
 </div>
+<br />
 <div class="row">
-  <div class="col-lg-2">
+  <div class="col-lg-2 v-divider">
     <div class="btn-group-vertical btn-group-toggle" role="group" data-toggle="buttons">
       <div *ngFor="let building of buildingDashboard?.buildingList;">
-        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary" (click)="onClickGetRooms(building.id)">{{ (building.name.length>20) ? (building.name | slice:0:17)+'...':(building.name)}}</button>
+        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary" (click)="onClickBuilding(building.id)">{{ (building.name.length>20) ? (building.name | slice:0:17)+'...':(building.name)}}</button>
       </div>
     </div>
   </div>
+  <div class="col-lg-8">
+    <h5 class="text-right" *ngIf="pagination != null;">Avalible Rooms Found: {{ pagination.totalItems }}</h5>
+    <table class="table table-hover">
+      <caption *ngIf="pagination?.totalItems == 0">No Avalible Rooms</caption>
+      <thead>
+        <tr>
+          <th scope="col">Room Number</th>
+          <th scope="col">Capacity</th>
+          <th scope="col">Floor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let room of rooms" (click)="onRoomSelected(room)">
+          <th scope="row">{{room.roomNumber}}</th>
+          <td>{{room.currentGuestCount +'/'+ room.capacity}}</td>
+          <td>{{room.floor}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center" *ngIf="pagination != null">
+      <pagination 
+        [totalItems]="pagination.totalItems" 
+        [itemsPerPage]="pagination.itemsPerPage"
+        [(ngModel)]="pagination.currentPage" 
+        [maxSize]="pageSize"
+        (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  </div>
   <div class="col-lg">
-      <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Room Number</th>
-              <th scope="col">Capacity</th>
-              <th scope="col">Floor</th>
-              <th scope="col">Room Type</th>
-              <th scope="col">Surge</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let room of rooms" (click)="yup()">
-              <th scope="row">{{room.roomNumber}}</th>
-              <td>{{room.capacity}}</td>
-              <td>{{room.floor}}</td>
-              <td>{{room.roomType}}</td>
-              <td>{{room.surgeMultiplier}}</td>
-            </tr>
-          </tbody>
-        </table> 
+      <h5 *ngIf="selectedRoom != null">Selected Room:</h5>
+      <ul class="list-group" *ngIf="selectedRoom != null">
+          <li *ngIf="selectedRoom != null" class="list-group-item d-flex justify-content-between align-items-center">
+            {{selectedRoom.roomNumber}}
+            <button class="btn btn-danger btn-sm" (click)="onRoomRemoved(selectedRoom)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+          </li>
+        </ul>
   </div>
 </div>

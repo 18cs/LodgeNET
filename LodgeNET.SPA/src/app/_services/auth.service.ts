@@ -43,6 +43,7 @@ export class AuthService {
     }
 
     register(model: any) {
+        console.log(model);
         const url = this.baseUrl + 'auth/register';
         return this.http.post(this.baseUrl + 'auth/register', model, {headers: new HttpHeaders()
             .set('Content-Type', 'application/json')}).catch(this.handleError);

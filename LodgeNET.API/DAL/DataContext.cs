@@ -12,7 +12,6 @@ namespace LodgeNET.API.DAL
         public DbSet<BuildingCategory> BuildingCategories { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Rank> Ranks { get; set; }
-        public DbSet<Reservation> Reservations  { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Stay> Stays { get; set; }
@@ -21,18 +20,18 @@ namespace LodgeNET.API.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GuestReservation>()
-                .HasKey(t => new { t.GuestId, t.ReservationId});
+            // modelBuilder.Entity<GuestReservation>()
+            //     .HasKey(t => new { t.GuestId, t.ReservationId});
 
-            modelBuilder.Entity<GuestReservation>()
-                .HasOne(gr => gr.Guest)
-                .WithMany(g => g.GuestReservations)
-                .HasForeignKey(gr => gr.GuestId);
+            // modelBuilder.Entity<GuestReservation>()
+            //     .HasOne(gr => gr.Guest)
+            //     .WithMany(g => g.GuestReservations)
+            //     .HasForeignKey(gr => gr.GuestId);
 
-            modelBuilder.Entity<GuestReservation>()
-                .HasOne(gr => gr.Reservation)
-                .WithMany(r => r.GuestReservations)
-                .HasForeignKey(gr => gr.ReservationId);
+            // modelBuilder.Entity<GuestReservation>()
+            //     .HasOne(gr => gr.Reservation)
+            //     .WithMany(r => r.GuestReservations)
+            //     .HasForeignKey(gr => gr.ReservationId);
 
             modelBuilder.Entity<Unit>()
                 .HasOne(u => u.ParentUnit);

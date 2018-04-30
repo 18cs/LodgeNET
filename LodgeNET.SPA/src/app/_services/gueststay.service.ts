@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Room } from '../_models/room';
+import { GuestStay } from '../_models/guestStay';
 
 @Injectable()
 export class GueststayService {
@@ -11,7 +12,7 @@ export class GueststayService {
 
     constructor(private http: HttpClient) { }
 
-    getRooms(page?, itemsPerPage?): Observable< PaginatedResult<Room[]>> {
+    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
@@ -20,8 +21,16 @@ export class GueststayService {
             params = params.append('pageSize', itemsPerPage);
         }
 
+        if (buildingId != null) {
+            params = params.append('buildingId', buildingId);
+        }
+
+        if (onlyAvailableRooms != null) {
+            params = params.append('onlyAvailableRooms', onlyAvailableRooms);
+        }
+console.log(params);
         return this.http.
-            get<Room[]>(this.baseUrl + 'gueststay/rooms', { observe: 'response', params })
+            get<Room[]>(this.baseUrl + 'gueststay/availableRooms', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 
@@ -32,6 +41,13 @@ export class GueststayService {
                 return paginatedResult;
             })
             .catch(this.handleError);
+    }
+
+    getExistentGuest(dodId) {
+        let params = new HttpParams();
+        params = params.append('dodId', dodId);
+        console.log(params);
+        return this.http.get<GuestStay>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
     }
 
     private handleError(error: any) {
