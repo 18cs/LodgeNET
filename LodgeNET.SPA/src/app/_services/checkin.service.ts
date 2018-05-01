@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { GuestStay } from '../_models/guestStay';
+import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
 import { Room } from '../_models/room';
 import { FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -9,7 +9,7 @@ import { GuestStayDto } from '../_models/guestStayDto';
 
 @Injectable()
 export class CheckinService {
-    guestStay: GuestStay = { guestId: 0};
+    guestStay: GuestStayCheckIn = { guestId: 0};
     baseUrl = environment.apiUrl;
 
     isGuestInfoValid = false;
@@ -17,7 +17,7 @@ export class CheckinService {
 
     constructor(private http: HttpClient) { }
 
-    saveRetrievedGuestInfo(guestInfo: GuestStay) {
+    saveRetrievedGuestInfo(guestInfo: GuestStayCheckIn) {
         if (guestInfo.guestId !== 0 && guestInfo.guestId != null) {
             this.guestStay = guestInfo;
             this.guestStay.room = null;

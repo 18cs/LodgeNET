@@ -1,26 +1,149 @@
 <div class="container-fluid">
-  <div class="section">
+  <form [formGroup]="retrieveGuestStayForm" (ngSubmit)="onSearch()">
+    <div class="section">
+      <div class="row">
+        <div class="col-lg">
+          <div class="form-group">
+            <label for="dodId">DoD ID</label>
+            <input type="number" id="dodId" formControlName="dodId" class="form-control" [(ngModel)]="dodId">
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="search" id="lastName" formControlName="lastName" class="form-control" [(ngModel)]="lastName">
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="form-group">
+            <label for="roomNumber">Room Number</label>
+            <input type="number" id="roomNumber" formControlName="roomNumber" class="form-control" [(ngModel)]="roomNumber">
+          </div>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1">
+          <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
+        </div>
+      </div>
+    </div>
+  </form>
+  <br />
+  <table class="table table-hover" *ngIf="guestStay == null && guestStayList != null">
+    <thead>
+      <tr>
+        <th scope="col">Room Number</th>
+        <th scope="col">Rank</th>
+        <th scope="col">First Name</th>
+        <th scope="col">Last Name</th>
+        <th scope="col">Check In Date</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let guestStay of guestStayList">
+      <tr class="table-default" (click)="onSelectedGuestStay(guestStay)">
+        <th scope="row">{{ guestStay.room.roomNumber }}</th>
+        <td>{{ guestStay.guest.rank.rankName }}</td>
+        <td>{{ guestStay.guest.firstName }}</td>
+        <td>{{ guestStay.guest.lastName }}</td>
+        <td>{{ guestStay.checkInDate | date }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="guestStay != null">
+    <div class="section">
+      <h2>Room Details</h2>
+      <div class="row">
+        <div class="col-lg-2">
+          <label>Room Number:</label>
+          <p class="lead">{{ guestStay?.room?.roomNumber }}</p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="section">
+      <h2>Personal Information</h2>
+      <div class="row">
+        <div class="col-lg-2">
+          <div class="form-group">
+            <label for="">First Name:</label>
+            <p class="lead">{{guestStay.guest.firstName}}</p>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="form-group">
+            <label for="">MI:</label>
+            <p class="lead">{{guestStay.guest?.middleInitial}}</p>
+          </div>
+        </div>
+        <div class="col-lg">
+          <div class="form-group">
+            <label for="">Last Name:</label>
+            <p class="lead">{{guestStay.guest.lastName}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg">
+          <label>Gender:</label>
+          <p class="lead">{{ guestStay.guest?.gender }}</p>
+        </div>
+      </div>
+    </div>
+    <br/>
+    <div class="section">
+      <h2>Contact Information</h2>
+      <div class="row">
+        <div class="col-lg">
+          <label>Email:</label>
+          <p class="lead">{{ guestStay?.guest?.email }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <label>DSN:</label>
+          <p class="lead">{{ guestStay?.guest?.dsnPhone }}</p>
+        </div>
+        <div class="col-lg">
+          <label>Comm:</label>
+          <p class="lead">{{ guestStay?.guest?.commPhone }}</p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="section">
+      <h2>Service Information</h2>
+      <div class="row">
+        <div class="col-lg">
+          <div class="form-Group">
+            <label for="">Dod Id</label>
+            <p class="lead">{{guestStay.guest.dodId}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <label>Service:</label>
+          <p class="lead">{{ guestStay.guest?.service?.serviceName }}</p>
+        </div>
+        <div class="col-lg">
+          <label>Rank:</label>
+          <p class="lead">{{ guestStay.guest?.rank?.rankName }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-2">
+          <label>Unit:</label>
+          <p class="lead">{{ guestStay.guest?.unit?.name }}</p>
+        </div>
+        <div class="col-lg">
+          <label>Chalk:</label>
+          <p class="lead">{{ guestStay.guest?.chalk }}</p>
+        </div>
+      </div>
+    </div>
+    <br/>
     <div class="row">
       <div class="col-lg">
-        <div class="form-group">
-          <label for="dodId">DoD ID</label>
-          <input type="number" id="dodId" formControlName="dodId" class="form-control">
-        </div>
-      </div>
-      <div class="col-lg">
-        <div class="form-group">
-          <label for="lastName">Last Name</label>
-          <input type="search" id="lastName" formControlName="lastName" class="form-control">
-        </div>
-      </div>
-      <div class="col-lg">
-        <div class="form-group">
-          <label for="roomNumber">roomNumber</label>
-          <input type="number" id="roomNumber" formControlName="Room Number" class="form-control">
-        </div>
-      </div>
-      <div class="col-lg-1 col-md-1 col-sm-1">
-          <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
+        <button type="button" class="btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="">Check Out</button>
+        <button type="button" class="btn btn-danger btn-lg" (click)="onCancel()">Cancel</button>
       </div>
     </div>
   </div>

@@ -4,7 +4,7 @@ import { Rank } from './rank';
 import { Unit } from './unit';
 import { Room } from './room';
 
-export interface GuestStay {
+export interface GuestStayCheckIn {
     dodId?: number;
     firstName?: string;
     middleInitial?: string;

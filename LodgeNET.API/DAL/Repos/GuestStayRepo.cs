@@ -16,13 +16,20 @@ namespace LodgeNET.API.DAL {
             this._context = context;
         }
 
-        public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayRetUserParams userParams, Expression<Func<Stay, object>>[] includeProperties = null) {
+        public async Task<IEnumerable<Stay>> GetGuestStays (
+            GuestStayRetUserParams userParams, 
+            Expression<Func<Stay, object>>[] includeProperties = null,
+            Expression<Func<Stay, bool>> filter = null) {
             var stays = _context.Stays.AsQueryable ();
 
             if (includeProperties != null) {
                 foreach (Expression<Func<Stay, object>> includeProperty in includeProperties) {
                     stays = stays.Include<Stay, object> (includeProperty);
                 }
+            }
+            
+            if (filter != null) {
+                stays = stays.Where (filter);
             }
 
             if (userParams.DodId != null) {

@@ -4,7 +4,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Room } from '../_models/room';
-import { GuestStay } from '../_models/guestStay';
+import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
+import { GuestStayCheckOut } from '../_models/guestStayCheckOut';
 
 @Injectable()
 export class GueststayService {
@@ -46,7 +47,7 @@ export class GueststayService {
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);
-        return this.http.get<GuestStay>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
+        return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
     }
 
     getGuestStays(dodId?, lastName?, roomNumber?) {
@@ -64,7 +65,11 @@ export class GueststayService {
             params = params.append('roomNumber', roomNumber);
         }
 
-        return this.http.get<GuestStay[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError));
+        return this.http.get<GuestStayCheckOut[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);
+    }
+
+    checkOutGuest(guestStay: GuestStayCheckOut) {
+        return this.http.post(this.baseUrl + 'gueststay/checkout', guestStay).catch(this.handleError);
     }
 
     private handleError(error: any) {

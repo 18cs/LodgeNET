@@ -1,8 +1,8 @@
-import { Component, OnInit } from "@angular/core";
-import { AlertifyService } from "../../_services/alertify.service";
-import { BuildingService } from "../../_services/building.service";
-import { Building } from "../../_models/building";
-import { BuildingDashboard } from "../../_models/buildingDashboard";
+import { Component, OnInit } from '@angular/core';
+import { AlertifyService } from '../../_services/alertify.service';
+import { BuildingService } from '../../_services/building.service';
+import { Building } from '../../_models/building';
+import { BuildingDashboard } from '../../_models/buildingDashboard';
 
 @Component({
   selector: 'app-dashboard',

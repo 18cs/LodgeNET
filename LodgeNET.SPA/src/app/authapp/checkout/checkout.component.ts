@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GueststayService } from '../../_services/gueststay.service';
 import { AlertifyService } from '../../_services/alertify.service';
-import { GuestStay } from '../../_models/guestStay';
+import { GuestStayCheckOut } from '../../_models/guestStayCheckOut';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -16,11 +17,12 @@ export class CheckoutComponent implements OnInit {
   lastName: string;
   roomNumber: number;
 
-  guestStayList: GuestStay[];
-  guestStay: GuestStay;
+  guestStayList: GuestStayCheckOut[];
+  guestStay: GuestStayCheckOut;
 
   constructor(private guestStayService: GueststayService,
-              private alertify: AlertifyService) { }
+              private alertify: AlertifyService,
+              private router: Router) { }
 
   ngOnInit() {
     this.initForm();
@@ -35,23 +37,51 @@ export class CheckoutComponent implements OnInit {
   }
 
   onSearch() {
+    this.guestStay = null;
+    this.guestStayList = null;
+
     if (this.dodId == null && this.lastName == null && this.roomNumber == null) {
       this.alertify.message('Please enter search value');
       return;
     }
 
-    this.guestStayService.getGuestStays(this.dodId, this.lastName, this.roomNumber).subscribe((guestStays: GuestStay[]) => {
-      console.log(guestStays);
-      if (guestStays.length > 1) {
-        this.guestStayList = guestStays;
-      } else if (guestStays.length === 1) {
-        this.guestStay = guestStays[0];
-      } else {
-        this.alertify.warning('Guest not found');
-      }
+    this.guestStayService.getGuestStays(this.dodId, this.lastName, this.roomNumber)
+      .subscribe((guestStays: GuestStayCheckOut[]) => {
+        if (guestStays.length > 1) {
+          this.guestStayList = guestStays;
+          console.log(this.guestStay);
+          console.log(this.guestStayList);
+        } else if (guestStays.length === 1) {
+          this.guestStay = guestStays[0];
+        } else {
+          this.alertify.warning('Guest not found');
+        }
+      }, error => {
+        this.alertify.error(error);
+      });
+
+    this.dodId = null;
+    this.lastName = null;
+    this.roomNumber = null;
+  }
+
+  onSelectedGuestStay(selectedGuestStay: GuestStayCheckOut) {
+    if (selectedGuestStay != null) {
+      this.guestStay = selectedGuestStay;
+    }
+  }
+
+  onSubmit() {
+    this.guestStayService.checkOutGuest(this.guestStay).subscribe(() => {
+      this.alertify.success('Guest Checked Out');
+      this.router.navigate(['/']);
     }, error => {
       this.alertify.error(error);
     });
+  }
+
+  onCancel() {
+    this.router.navigate(['/']);
   }
 
 }
