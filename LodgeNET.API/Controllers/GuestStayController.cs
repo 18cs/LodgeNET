@@ -64,20 +64,15 @@ namespace LodgeNET.API.Controllers {
 
             var guest = await _guestRepo.GetFirstOrDefault(g => g.DodId == guestStayDto.DodId);
             
-            guest = _mapper.Map<Guest> (guestStayDto);
+            _mapper.Map(guestStayDto, guest);
 
             if (await _guestRepo.IsGuestCheckedIn (guest.Id)) {
                 ModelState.AddModelError ("Guest", "Guest Already Checked In");
                 return BadRequest (ModelState);
             }
 
-            // if (await _guestRepo.GetFirstOrDefault(g => g.DodId == guest.DodId) != null){
-            //     ModelState.AddModelError ("GuestExists", "DoD ID already exists in Database");
-            // }
-
-
             if (guest.Id != 0) {
-                _guestRepo.SaveAsync();
+                _guestRepo.Save();
             } else {
                 _guestRepo.Insert (guest);
                 _guestRepo.Save();
