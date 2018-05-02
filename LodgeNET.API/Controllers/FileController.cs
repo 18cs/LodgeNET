@@ -36,8 +36,15 @@ namespace LodgeNET.API.Controllers {
             _stayRepo = stayRepo;
         }
 
+        [HttpPost("unaccompanied")]
+        public async Task<IActionResult> UploadUnaccompaniedOccupancy(int userId, FileForUploadDto fileDto) 
+        {
+            return Ok();
+        }
+
         [HttpPost("lodging")]
-        public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) {
+        public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) 
+        {
             // var user = await _userRepo.GetByID(1);
             
 

@@ -7,7 +7,7 @@ import { LoginComponent } from './users/login/login.component';
 import { SignupComponent } from './users/signup/signup.component';
 import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
-import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
+import { FileuploadComponent } from './authapp/fileupload/fileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
 import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
@@ -20,6 +20,7 @@ import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component
 import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
 import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
+import { LostComponent } from './home/lost/lost.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -41,10 +42,12 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
   data: { authGuardRedirect: 'home' }, children: [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard',  component: DashboardComponent},
-    {path: 'upload',  children: [
-      {path: '', redirectTo: 'lodging',  pathMatch: 'full'},
-      {path: 'lodging', component: LodgingfileuploadComponent}
-    ]},
+    {path: 'upload/:type', component: FileuploadComponent}, 
+    {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full'},  
+    //children: [
+      // {path: '', redirectTo: 'lodging',  pathMatch: 'full'},
+      // {path: 'lodging', component: FileuploadComponent}
+   // ]},
     {path: 'checkin', component: CheckinComponent, children: [
       {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
       {path: 'guestinfo', component: GuestinfoComponent},
@@ -66,7 +69,9 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
     {path: '', redirectTo: 'login',  pathMatch: 'full'},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent}
-  ]}
+  ]},
+  {path: 'lost', component: LostComponent},
+  {path: '**', redirectTo: 'lost'}
 ];
 // , canActivate: [AuthGuard], data: { authGuardRedirect: '/home' }
 @NgModule({
