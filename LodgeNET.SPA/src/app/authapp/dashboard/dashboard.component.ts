@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertifyService } from '../../_services/alertify.service';
 import { BuildingService } from '../../_services/building.service';
 import { Building } from '../../_models/building';
-import { BuildingDashboard } from '../../_models/buildingDashboard';
+import { BuildingTable } from '../../_models/buildingTable';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +10,7 @@ import { BuildingDashboard } from '../../_models/buildingDashboard';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  buildingDashboard: BuildingDashboard;
+  buildingDashboard: BuildingTable;
 
   isLodgingOpen = false;
   isUnaccompaniedHousingOpen = false;
@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
   loadBuildings() {
     this.buildingService.buildingDashboardData().subscribe(
-      (buildingDashboard: BuildingDashboard) => {
+      (buildingDashboard: BuildingTable) => {
         // console.log(buildingDashboard);
         this.buildingDashboard = buildingDashboard;
       },

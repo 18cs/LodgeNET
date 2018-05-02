@@ -1,7 +1,7 @@
 import { Building } from './building';
 import { BuildingType } from './buildingType';
 
-export interface BuildingDashboard {
+export interface BuildingTable {
     buildingList: Building[];
     buildingTypeList: BuildingType[];
 }

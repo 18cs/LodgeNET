@@ -6,18 +6,31 @@
       <th scope="col">Rate</th>
     </tr>
   </thead>
-  <tbody>
-    <tr class="table-active">
-      <th scope="row">Active</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td>Column content</td>
+  <tbody *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
+    <tr class="table-active" (click)="tableCollapseToggle(building.id)">
+      <th scope="row">{{ building.type }}</th>
+      <td>{{ building.currentGuests +' / '+ building.capacity }}</td>
+      <td [ngClass]="{
+        'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= .95,
+        'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= .75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= .94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
     </tr>
-    <tr>
-      <th scope="row">Default</th>
-      <td>Column content</td>
-      <td>Column content</td>
-      <td><i class="fa fa-pencil-square-o" aria-hidden="true"></i></td>
-    </tr>
+    <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
+      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard?.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
+        'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .94) }">
+        <th scope="row">{{ bldg.name }}</th>
+        <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
+        <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}% &emsp;
+          <button class="btn btn-primary btn-sm">
+            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit {{bldg.name}}"></i>
+          </button>
+          <button class="btn btn-success btn-sm">
+            <i class="fa fa-check-square" aria-hidden="true" title="Save"></i>
+          </button>&emsp;
+          <button class="btn btn-danger btn-sm">
+            <i class="fa fa-window-close" aria-hidden="true" title="Cancel"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>

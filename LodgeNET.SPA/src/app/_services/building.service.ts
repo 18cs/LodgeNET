@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BuildingDashboard } from '../_models/buildingDashboard';
+import { BuildingTable } from '../_models/buildingTable';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class BuildingService {
 // }
 
 buildingDashboardData() {
-    return this.http.get<BuildingDashboard>(this.baseUrl + 'building/dashboard')
+    return this.http.get<BuildingTable>(this.baseUrl + 'building/dashboard')
     .catch(this.handleError);
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BuildingService } from '../../../_services/building.service';
-import { BuildingDashboard } from '../../../_models/buildingDashboard';
+import { BuildingTable } from '../../../_models/buildingTable';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class RoomselectComponent implements OnInit, OnDestroy {
 
-  buildingDashboard: BuildingDashboard;
+  buildingDashboard: BuildingTable;
   buildingTypeIdSelected = 1;
   buildingSelectedId: number;
 
@@ -27,8 +27,8 @@ export class RoomselectComponent implements OnInit, OnDestroy {
 
   selectedRoom: Room;
 
-  constructor(private buildingService: BuildingService, 
-              private alertify: AlertifyService, 
+  constructor(private buildingService: BuildingService,
+              private alertify: AlertifyService,
               private guestStayService: GueststayService,
               private checkinService: CheckinService,
               private router: Router,
@@ -37,13 +37,13 @@ export class RoomselectComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    //TODO put the request into a resolver
-    if(!this.checkinService.isGuestInfoValid) {
+    // TODO put the request into a resolver
+    if (!this.checkinService.isGuestInfoValid) {
       this.router.navigate(['../'], { relativeTo: this.route });
     }
     this.loadBuildings();
     this.onRoomSelected(this.checkinService.guestStay.room);
-   // this.selectedRoom = this.checkinService.guestStay.room == null ? null : this.checkinService.guestStay.room; 
+   // this.selectedRoom = this.checkinService.guestStay.room == null ? null : this.checkinService.guestStay.room;
     console.log(this.selectedRoom);
   }
 
@@ -52,7 +52,7 @@ export class RoomselectComponent implements OnInit, OnDestroy {
   }
 
   loadBuildings() {
-    this.buildingService.buildingDashboardData().subscribe((buildingDashboard: BuildingDashboard) => {
+    this.buildingService.buildingDashboardData().subscribe((buildingDashboard: BuildingTable) => {
       this.buildingDashboard = buildingDashboard;
     }, error => {
       this.alertify.error(error);
@@ -70,13 +70,13 @@ export class RoomselectComponent implements OnInit, OnDestroy {
       .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
         this.rooms = paginatedResult.result;
         this.pagination = paginatedResult.pagination;
-      }, error => {this.alertify.error(error);});
+      }, error => {this.alertify.error(error); });
     } else {
       this.guestStayService.getAvaliableRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.buildingSelectedId, true)
       .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
         this.rooms = paginatedResult.result;
         this.pagination = paginatedResult.pagination;
-      }, error => {this.alertify.error(error);});
+      }, error => {this.alertify.error(error); });
     }
 
   }

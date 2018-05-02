@@ -31,4 +31,6 @@ export class AlertifyService {
     message(message: string) {
         alertify.message(message);
     }
+
+
 }
