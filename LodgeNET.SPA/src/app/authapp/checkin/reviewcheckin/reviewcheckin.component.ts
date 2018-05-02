@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CheckinService } from '../../../_services/checkin.service';
 import { AlertifyService } from '../../../_services/alertify.service';
-import { GuestStay } from '../../../_models/guestStay';
+import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./reviewcheckin.component.css']
 })
 export class ReviewcheckinComponent implements OnInit {
-  guestStay: GuestStay;
+  guestStay: GuestStayCheckIn;
 
 
   constructor(private alertify: AlertifyService,

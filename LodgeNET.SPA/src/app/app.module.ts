@@ -37,6 +37,7 @@ import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component
 import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
 import { CheckinService } from './_services/checkin.service';
 import { GueststayService } from './_services/gueststay.service';
+import { CheckoutComponent } from './authapp/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { GueststayService } from './_services/gueststay.service';
     DashboardComponent,
     LodgingfileuploadComponent,
     CheckinComponent,
+    CheckoutComponent,
     GuestinfoComponent,
     RoomselectComponent,
     ReviewcheckinComponent,

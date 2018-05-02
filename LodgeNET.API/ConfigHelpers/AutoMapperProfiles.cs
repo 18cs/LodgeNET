@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AutoMapper;
 using LodgeNET.API.Dtos;
@@ -15,11 +16,17 @@ namespace LodgeNET.API.ConfigHelpers
             CreateMap<Building, BuildingDataDto>();
             CreateMap<BuildingCategory, BuildingCategoryDataDto>();
             CreateMap<Room, RoomForCheckinDto>();
-            CreateMap<GuestStayForCheckinDto, Stay>();
-            CreateMap<GuestStayForCheckinDto, Guest>()
+            CreateMap<Stay, GuestStayForCheckOutDto>();
+            CreateMap<GuestStayForCheckInDto, Stay>();
+                // .ForMember(guestStayForCheckInOutDto => guestStayForCheckInOutDto.GuestId,
+                //         opt => opt.MapFrom(stay => stay.Guest.Id));
+            CreateMap<Guest, GuestStayForCheckInDto>()
+                .ForMember(guestStayForCheckInOutDto => guestStayForCheckInOutDto.GuestId,
+                    opt => opt.MapFrom(guest => guest.Id));
+            CreateMap<GuestStayForCheckInDto, Guest>()
                 .ForMember(guest => guest.Id,
                     opt => opt.MapFrom(guestStayForCheckin => guestStayForCheckin.GuestId));
-            CreateMap<Guest, GuestStayForRetrieveDto>()
+            CreateMap<Guest, GuestForCheckinDto>()
                 .ForMember(guestStayForRetrieve => guestStayForRetrieve.GuestUnit,
                     opt => opt.MapFrom(guest => guest.Unit))
                 .ForMember(guestStayForRetrieve => guestStayForRetrieve.GuestId,

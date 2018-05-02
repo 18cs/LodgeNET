@@ -7,7 +7,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { CheckinService } from '../../../_services/checkin.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GueststayService } from '../../../_services/gueststay.service';
-import { GuestStay } from '../../../_models/guestStay';
+import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
 import { Rank } from '../../../_models/rank';
 
 @Component({
@@ -106,12 +106,11 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   onDodIdFocusOut(dodId: number) {
-    this.guestStaySevice.getExistentGuest(dodId).subscribe((guestStay: GuestStay) => {
-      console.log(this.checkinService.guestStay);
+    this.guestStaySevice.getExistentGuest(dodId).subscribe((guestStay: GuestStayCheckIn) => {
       if (!guestStay || this.checkinService.guestStay.guestId !== 0) {
         return;
       }
-console.log(guestStay);
+
     this.alertify.confirm('We have found this guest in the Database. Do you want to autopopulate?' + 
       '<br /><br />WARNING: Changed information will be updated in database.', () => {
           this.checkinService.saveRetrievedGuestInfo(guestStay);

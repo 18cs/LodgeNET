@@ -19,6 +19,7 @@ import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.compon
 import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
 import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
 import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
+import { CheckoutComponent } from './authapp/checkout/checkout.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -57,7 +58,8 @@ import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component
       {path: 'rooms', component: ViewroomsComponent},
       {path: 'units', component: ViewunitsComponent},
       {path: 'users', component: ViewusersComponent}
-    ]}
+    ]},
+    {path: 'checkout', component: CheckoutComponent}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },
   {path: 'users', component: UsersComponent, canActivate: [LoggedinGuard], children: [

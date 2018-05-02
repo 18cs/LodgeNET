@@ -1,6 +1,6 @@
 namespace LodgeNET.API.Helpers
 {
-    public class UserParams
+    public class RoomPagUserParams
     {
         private const int MaxPageSize = 50;
         public int PageNumber { get; set; } = 1;

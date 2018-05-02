@@ -16,7 +16,7 @@ namespace LodgeNET.API.DAL
  
         }
 
-        public async Task<PagedList<Room>> GetRooms(UserParams userParams,  Expression<Func<Room, bool>> filter = null)
+        public async Task<PagedList<Room>> GetRooms(RoomPagUserParams userParams,  Expression<Func<Room, bool>> filter = null)
         {
             var stays = _context.Stays.AsQueryable();
 
@@ -26,8 +26,6 @@ namespace LodgeNET.API.DAL
                                                  s.CheckedIn == true && 
                                                 !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) && 
                                                 s.BuildingId == userParams.BuildingId);
-
-                //var rooms = _context.Rooms.OrderBy(r => r.RoomNumber).AsQueryable();
             }
             
             var rooms = _context.Rooms.OrderBy(r => r.RoomNumber).AsQueryable();
