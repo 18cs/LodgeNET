@@ -10,8 +10,8 @@
             <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
             style="cursor: pointer;" routerLinkActive="active">Upload</a>
             <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">
-              <a class="dropdown-item" routerLink="/upload" href=""  routerLinkActive="active">Lodging Data</a>
-              <a class="dropdown-item" href="">Dorms Data</a>
+              <a class="dropdown-item" routerLink="/upload/lodging" href=""  routerLinkActive="active">Lodging Data</a>
+              <a class="dropdown-item" routerLink="/upload/unaccompanied" href=""  routerLinkActive="active">Dorms Data</a>
             </div>
           </li>
           <li class="nav-item dropdown">

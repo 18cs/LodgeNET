@@ -2,7 +2,8 @@
  
     <div class="col-md-3">
 
-        <h3>Select Lodging Report</h3>
+       <div *ngIf="type == 'unaccompanied'; else lodging"><h3 >Select Unaccompanied Report</h3></div>
+        <ng-template #lodging><h3>Select Lodging Report</h3></ng-template>
 
         <div ng2FileDrop
              [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"

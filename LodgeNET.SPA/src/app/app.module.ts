@@ -22,7 +22,7 @@ import { DropdownDirective } from './_directives/dropdown.directive';
 import { FileUploadModule } from 'ng2-file-upload';
 import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
-import { LodgingfileuploadComponent } from './authapp/lodgingfileupload/lodgingfileupload.component';
+import { FileuploadComponent } from './authapp/fileupload/fileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
 import { BuildingService } from './_services/building.service';
 import { CheckinComponent } from './authapp/checkin/checkin.component';
@@ -41,6 +41,7 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { MaterialModule } from './material.module';
 import { BuildingsdialogComponent } from './authapp/view/dialogcomponents/buildingsdialog/buildingsdialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LostComponent } from './home/lost/lost.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SignupComponent,
     AuthappComponent,
     DashboardComponent,
-    LodgingfileuploadComponent,
+    FileuploadComponent,
     CheckinComponent,
     CheckoutComponent,
     GuestinfoComponent,
@@ -64,6 +65,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ViewroomsComponent,
     ViewunitsComponent,
     ViewusersComponent,
+    LostComponent,
     FilterPipe,
     FilterNumPipe,
     SortPipe,
