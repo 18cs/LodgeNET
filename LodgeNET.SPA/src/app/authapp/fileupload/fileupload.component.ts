@@ -69,7 +69,7 @@ export class FileuploadComponent implements OnInit {
     };
 
     this.uploader.onErrorItem = (item, response, status, headers) => {
-      this.alertify.error('Error occured');
+      this.alertify.error('File Upload Failed');
     };
   }
 
