@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Edit {{building.name}}</h2>
+
+<mat-dialog-content [formGroup]="form">
+  
+    <mat-form-field>
+        <input matInput
+                placeholder="Building Name"
+               formControlName="name">
+    </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button class="btn btn-danger btn-sm"(click)="close()">Close</button>
+    <button class="btn btn-primary btn-sm"(click)="save()">Save</button>
+</mat-dialog-actions>

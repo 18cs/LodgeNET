@@ -38,6 +38,9 @@ import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component
 import { CheckinService } from './_services/checkin.service';
 import { GueststayService } from './_services/gueststay.service';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
+import { MaterialModule } from './material.module';
+import { BuildingsdialogComponent } from './authapp/view/dialogcomponents/buildingsdialog/buildingsdialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,8 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
     FilterPipe,
     FilterNumPipe,
     SortPipe,
-    DropdownDirective
+    DropdownDirective,
+    BuildingsdialogComponent
 ],
   imports: [
     BrowserModule,
@@ -81,7 +85,9 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
         },
         whitelistedDomains: ['localhost:5000']
       }
-    })
+    }),
+    MaterialModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
@@ -93,6 +99,8 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
     LoggedinGuard,
     BuildingService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [BuildingsdialogComponent]
+  // exports: [MatFormField]
 })
 export class AppModule { }

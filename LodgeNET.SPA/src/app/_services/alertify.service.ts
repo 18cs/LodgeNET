@@ -32,5 +32,7 @@ export class AlertifyService {
         alertify.message(message);
     }
 
-
+    prompt(message: string) {
+        alertify.prompt(message);
+    }
 }

@@ -22,7 +22,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   idScanCheckin = false;
   selectedUnit: Unit = { id: 0, name: '' };
   selectedService: Service = {  id: 0, serviceName: '' };
-  dodIdDisabled = this.checkinService.guestStay.guestId !== 0; //angular disabled att for controls has errors, only ,ethod found that works
+  dodIdDisabled = this.checkinService.guestStay.guestId !== 0; // angular disabled att for controls has errors, only ,ethod found that works
 
   constructor(private authService: AuthService,
     private alertify: AlertifyService,

@@ -3,6 +3,8 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { BuildingService } from '../../../_services/building.service';
 import { Building } from '../../../_models/building';
 import { BuildingTable } from '../../../_models/buildingTable';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/buildingsdialog.component';
 
 
 @Component({
@@ -20,7 +22,8 @@ export class ViewbuildingsComponent implements OnInit {
 
   constructor(
     private buildingService: BuildingService,
-    private alertify: AlertifyService
+    private alertify: AlertifyService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -49,6 +52,28 @@ export class ViewbuildingsComponent implements OnInit {
     } else if (buildingId === 4) {
       this.isEmergencyQuartersOpen = !this.isEmergencyQuartersOpen;
     }
+  }
+
+  editBuilding(buildingId) {
+  }
+
+  openDialog(bldg) {
+
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      id: 1,
+      title: 'Test Title',
+      building: bldg
+    };
+
+    console.log(dialogConfig);
+
+    this.dialog.open(BuildingsdialogComponent, dialogConfig);
+
   }
 
   getOccupancyRate(currentGuests, capacity) {
