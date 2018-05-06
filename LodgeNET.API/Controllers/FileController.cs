@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using AutoMapper;
 using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using LodgeNET.API.DAL;
@@ -30,7 +31,7 @@ namespace LodgeNET.API.Controllers {
         private readonly IGenericRepository<Guest> _guestRepo;
         private readonly IGenericRepository<Stay> _stayRepo;
         private readonly IGenericRepository<Building> _buildingRepo;
-
+        private IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
 
         public FileController (
@@ -40,6 +41,7 @@ namespace LodgeNET.API.Controllers {
             IGenericRepository<Guest> guestRepo,
             IGenericRepository<Stay> stayRepo,
             IGenericRepository<Building> buildingRepo,
+            IMapper mapper,
             IHostingEnvironment environment) {
             _userRepo = userRepo;
             _roomRepo = roomRepo;
@@ -48,11 +50,13 @@ namespace LodgeNET.API.Controllers {
             _stayRepo = stayRepo;
             _buildingRepo = buildingRepo;
             _hostingEnvironment = environment;
+            _mapper = mapper;
         }
 
         [HttpPost ("unaccompanied")]
         public async Task<IActionResult> UploadUnaccompaniedOccupancy (int userId, FileForUploadDto fileDto) {
             ArrayList headers = new ArrayList ();
+            ArrayList returnRows = new ArrayList();
 
             IFormFile file = Request.Form.Files[0];
             string folderName = "Upload";
@@ -82,58 +86,89 @@ namespace LodgeNET.API.Controllers {
                     for (int j = 0; j < cellCount; j++) {
                         NPOI.SS.UserModel.ICell cell = headerRow.GetCell (j);
                         if (cell == null || string.IsNullOrWhiteSpace (cell.ToString ())) continue;
-                        headers.Add (cell.ToString ());
+                        headers.Add (cell.ToString ().Trim().ToUpper());
                     }
 
                     for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
                     {
+                        var rowForUpload = new RowForUploadDto();
                         IRow row = sheet.GetRow (i);
                         if (row == null) continue;
                         if (row.Cells.All (d => d.CellType == CellType.Blank)) continue;
 
-                        //TODO add unit parse
-                        var guest = new Guest ();
-                        var stay = new Stay () {
-                            DateCreated = DateTime.Today,
-                            CheckInDate = DateTime.Today,
-                            CheckedIn = true,
-                        };
+                        
 
                         for (int j = row.FirstCellNum; j < cellCount; j++) {
                             if (row.GetCell (j) == null)
                                 continue;
 
                             if (headers[j].Equals ("LAST NAME"))
-                                guest.LastName = row.GetCell (j).ToString ();
+                                rowForUpload.LastName = row.GetCell (j).ToString ();
 
                             if (headers[j].Equals ("FIRST NAME"))
-                                guest.FirstName = row.GetCell (j).ToString ();
+                                rowForUpload.FirstName = row.GetCell (j).ToString ();
 
-                            if (headers[j].Equals ("BLDG") || stay.BuildingId == null)
-                                stay.BuildingId = _buildingRepo.GetFirstOrDefault (b => b.Number == int.Parse (row.GetCell (j).ToString ())).Id;
+                            if (headers[j].Equals ("BLDG") && rowForUpload.BuildingId == 0)
+                                rowForUpload.BuildingNumber = row.GetCell (j).ToString ();
+                                rowForUpload.BuildingId = _buildingRepo.GetFirstOrDefault (b => b.Number == int.Parse (row.GetCell (j).ToString ()))?.Result?.Id ?? 0;
 
-                            if (headers[j].Equals ("ROOM")) {
-                                stay.RoomId = _roomRepo.GetFirstOrDefault (r => r.RoomNumber == int.Parse (row.GetCell (j).ToString ()) &&
-                                    r.BuildingId == stay.BuildingId).Id;
+                            if (headers[j].Equals ("ROOM")) 
+                            {
+                                rowForUpload.RoomNumber = row.GetCell (j).ToString ();
+                                if (rowForUpload.BuildingId == 0) 
+                                {
+                                    var bldgIndex = headers.IndexOf("BLDG");
+
+                                    if (bldgIndex == -1) 
+                                    {
+                                        continue;
+                                    }
+
+                                    var rowBldgNum = int.Parse (row.GetCell (bldgIndex).ToString ());
+                                    var buildingResult = _buildingRepo.GetFirstOrDefault (b => b.Number == rowBldgNum)?.Result;
+
+                                    if (buildingResult != null) 
+                                    {
+                                        rowForUpload.BuildingId = buildingResult.Id;
+                                    }    
+                                }
+
+                                if (rowForUpload.BuildingId == 0){
+                                    int rowRoomNum = int.Parse (row.GetCell (j).ToString ());
+                                    var yup = _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.BuildingId == rowForUpload.BuildingId)?.Result;
+                                    rowForUpload.RoomId = _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.BuildingId == rowForUpload.BuildingId)?.Result?.Id ?? 0;
+                                }
                             }
                         }
 
-                        if(stay.RoomId == 0 || stay.BuildingId == 0) {
-                            ModelState.AddModelError("BadFormat", "File upload failed");
-                            return BadRequest(ModelState);
+                        //stay buildingId is nullable
+                        if(rowForUpload.RoomId == 0 || rowForUpload.BuildingId == 0) {
+                            // ModelState.AddModelError("BadFormat", "File upload failed");
+                            // return BadRequest(ModelState);
+                            returnRows.Add(rowForUpload);
                         }
                         else
                         {
+                            //TODO add unit parse
+                            var guest = new Guest ();
+                            var stay = new Stay () {
+                                DateCreated = DateTime.Today,
+                                CheckInDate = DateTime.Today,
+                                CheckedIn = true,
+                            };
+                            guest = _mapper.Map<Guest>(rowForUpload);
+                            stay = _mapper.Map<Stay>(rowForUpload);
+
                             _guestRepo.Insert(guest);
                             _stayRepo.Insert(stay);
                         }
 
                     }
                 }
-                _guestRepo.SaveAsync();
-                _stayRepo.SaveAsync();
+                // _guestRepo.SaveAsync();
+                // _stayRepo.SaveAsync();
             }
-            return Ok ();
+            return Ok (returnRows);
         }
 
         [HttpPost ("lodging")]

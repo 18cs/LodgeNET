@@ -16,7 +16,7 @@ namespace LodgeNET.API.Dtos
         public string Email { get; set; }
         public string DsnPhone { get; set; }
         public string CommPhone { get; set; }
-        public int roomId { get; set; }
+        public int RoomId { get; set; }
         public int GuestId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 import { AlertifyService } from '../../_services/alertify.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { DataRow } from '../../_models/dataRow';
 
 @Component({
   selector: 'app-fileupload',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./fileupload.component.css']
 })
 export class FileuploadComponent implements OnInit {
+  dataRows: DataRow[];
   uploader: FileUploader;
   hasBaseDropZoneOver = false;
   baseUrl = environment.apiUrl;
@@ -45,10 +47,9 @@ export class FileuploadComponent implements OnInit {
       }); // maxFileSize = 10MB
   
       this.uploader.onWhenAddingFileFailed = () => {
-        this.alertify.warning('Please select a PDF file');
+        this.alertify.warning('Please select a XLSX file');
       };
-    }
-    else {
+    } else {
       this.uploader =  new FileUploader({
         url: this.baseUrl + 'file/lodging',
         authToken: 'Bearer ' + localStorage.getItem('token'),
@@ -65,6 +66,9 @@ export class FileuploadComponent implements OnInit {
     }
     
     this.uploader.onSuccessItem = (item, response, status, headers) => {
+      console.log(response);
+      // this.dataRows = response.;
+      console.log(this.dataRows);
       this.alertify.success('Upload Successful');
     };
 
