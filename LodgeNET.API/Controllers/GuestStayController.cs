@@ -89,7 +89,7 @@ namespace LodgeNET.API.Controllers
                 _guestRepo.Save();
             } 
 
-            var room = await _roomsRepo.GetFirstOrDefault (r => r.Id == guestStayDto.roomId);
+            var room = await _roomsRepo.GetFirstOrDefault (r => r.Id == guestStayDto.RoomId);
             var stay = _mapper.Map<Stay> (guestStayDto);
 
             stay.GuestId = guest.Id;
