@@ -131,7 +131,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpPost("edit")]
-        public async Task<IActionResult> SaveBuilding([FromBody] Building building)
+        public async Task<IActionResult> SaveBuilding([FromBody] BuildingDataDto building)
         {
             var bldg = await _repo.GetFirstOrDefault(b => b.Id == building.Id);
 

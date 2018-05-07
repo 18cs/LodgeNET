@@ -72,7 +72,11 @@ export class ViewbuildingsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(
-      data => this.buildingService.saveBuildingEdit(data)
+      data => this.buildingService.saveBuildingEdit(data).subscribe((success) => {
+        console.log(success);
+      }, error => {
+        console.log(error);
+      })
     );
 
   }

@@ -28,7 +28,8 @@ export class BuildingService {
   saveBuildingEdit(model: Building) {
     console.log(model);
 
-    return this.http.post(this.baseUrl + 'building/edit', model).catch(this.handleError);
+    return this.http.post(this.baseUrl + 'building/edit', model, {headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')}).catch(this.handleError);
   }
 
   // private jwt(){
