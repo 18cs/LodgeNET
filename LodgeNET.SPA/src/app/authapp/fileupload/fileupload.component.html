@@ -1,45 +1,42 @@
 <div class="row">
- 
     <div class="col-md-3">
-
-       <div *ngIf="type == 'unaccompanied'; else lodging"><h3 >Select Unaccompanied Report</h3></div>
-        <ng-template #lodging><h3>Select Lodging Report</h3></ng-template>
-
-        <div ng2FileDrop
-             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
-             (fileOver)="fileOverBase($event)"
-             [uploader]="uploader"
-             class="well my-drop-zone">
+        <div *ngIf="type == 'unaccompanied'; else lodging">
+            <h3>Select Unaccompanied Report</h3>
+        </div>
+        <ng-template #lodging>
+            <h3>Select Lodging Report</h3>
+        </ng-template>
+        <div ng2FileDrop [ngClass]="{'nv-file-over': hasBaseDropZoneOver}" (fileOver)="fileOverBase($event)" [uploader]="uploader"
+            class="well my-drop-zone">
             Drop File Here
         </div>
         <br/>
         <h5>Multiple</h5>
-        <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+        <input type="file" ng2FileSelect [uploader]="uploader" multiple />
+        <br/>
         <br />
         <h5>Single</h5>
         <input type="file" ng2FileSelect [uploader]="uploader" />
     </div>
-
-    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length">
-
+    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length && totalFileRows == null">
         <h3>Upload queue</h3>
         <p>Queue length: {{ uploader?.queue?.length }}</p>
-
         <table class="table">
             <thead>
-            <tr>
-                <th width="50%">Name</th>
-                <th>Size</th>
-            </tr>
+                <tr>
+                    <th width="50%">Name</th>
+                    <th>Size</th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let item of uploader.queue">
-                <td><strong>{{ item?.file?.name }}</strong></td>
-                <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-            </tr>
+                <tr *ngFor="let item of uploader.queue">
+                    <td>
+                        <strong>{{ item?.file?.name }}</strong>
+                    </td>
+                    <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                </tr>
             </tbody>
         </table>
-
         <div>
             <div>
                 Queue progress:
@@ -47,20 +44,50 @@
                     <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
                 </div>
             </div>
-            <button type="button" class="btn btn-success btn-s"
-                    (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
                 <span class="glyphicon glyphicon-upload"></span> Upload all
             </button>
-            <button type="button" class="btn btn-warning btn-s"
-                    (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+            <button type="button" class="btn btn-warning btn-s" (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
                 <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
             </button>
-            <button type="button" class="btn btn-danger btn-s"
-                    (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+            <button type="button" class="btn btn-danger btn-s" (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
                 <span class="glyphicon glyphicon-trash"></span> Remove all
             </button>
         </div>
-
     </div>
+    <div class="col-lg-9" *ngIf="fileRows.length > 0">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Building Number</th>
+                    <th scope="col">Room Number</th>
+                    <th scope="col">Unit</th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let fileRow of fileRows; let i = index;">
+                <tr class="table-Default">
+                    <th scope="row">{{ fileRow.firstName }}</th>
+                    <td>{{ fileRow.lastName }}</td>
+                    <td>{{ fileRow.buildingNumber }}</td>
+                    <td>{{ fileRow.roomNumber }}</td>
+                    <td>{{ fileRow.unitName }}
+                        <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(fileRow)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-center" *ngIf="fileRows != null">
+            <pagination [totalItems]="totalFileRows.length" [itemsPerPage]="itemsPerPage" [(ngModel)]="currentPage" [maxSize]=10 (pageChanged)="pageChanged($event)">
+            </pagination>
+        </div>
+        <div class="row">
+            <button class="btn btn-primary" (click)="OnSubmitClick()">Submit</button>
+            <button class="btn btn-danger" (click)="OnDiscard()">Discard</button>
 
+        </div>
+    </div>
 </div>

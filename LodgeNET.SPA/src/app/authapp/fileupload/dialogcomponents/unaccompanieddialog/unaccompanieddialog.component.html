@@ -1,0 +1,32 @@
+<h2 mat-dialog-title>Edit {{fileRow.firstName +' '+ fileRow.lastName}}</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="First Name" formControlName="firstName">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Last Name" formControlName="lastName">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Building Number" formControlName="bldgNum">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Room Number" formControlName="roomNum">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Unit Name" formControlName="unitName" [matAutocomplete]="unitAuto" (focusout)="unitFocusOut()" [(ngModel)]="unitName">
+  </mat-form-field>
+  <mat-autocomplete #unitAuto>
+      <mat-option *ngFor="let unit of filteredOptions | async" [value]="unit.name" (click)="onUnitSelected(unit)">
+        {{ unit.name }}
+      </mat-option>
+    </mat-autocomplete>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="btn btn-danger btn-sm" (click)="close()">Close</button>
+  <button class="btn btn-primary btn-sm" (click)="save()">Save</button>
+</mat-dialog-actions>

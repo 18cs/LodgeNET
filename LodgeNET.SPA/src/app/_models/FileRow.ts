@@ -1,4 +1,4 @@
-export interface DataRow {
+export interface FileRow {
     firstName: string;
     lastName: string;
     roomId: number;

@@ -1,13 +1,13 @@
 namespace LodgeNET.API.Dtos
 {
-    public class RowForUploadDto
+    public class FileRowForUploadDto
     {
          public string FirstName { get; set; }
          public string LastName { get; set; }
          public int RoomId { get; set; }
-         public string RoomNumber { get; set; }
+         public int RoomNumber { get; set; }
          public int BuildingId { get; set; }
-         public string BuildingNumber { get; set; }
+         public int BuildingNumber { get; set; }
          public int UnitId { get; set; }
          public string UnitName { get; set; }
     }

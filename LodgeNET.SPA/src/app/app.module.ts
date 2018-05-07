@@ -42,6 +42,8 @@ import { MaterialModule } from './material.module';
 import { BuildingsdialogComponent } from './authapp/view/dialogcomponents/buildingsdialog/buildingsdialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LostComponent } from './home/lost/lost.component';
+import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
+import { FileuploadService } from './_services/fileupload.service';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,8 @@ import { LostComponent } from './home/lost/lost.component';
     FilterNumPipe,
     SortPipe,
     DropdownDirective,
-    BuildingsdialogComponent
+    BuildingsdialogComponent,
+    UnaccompanieddialogComponent
 ],
   imports: [
     BrowserModule,
@@ -99,10 +102,11 @@ import { LostComponent } from './home/lost/lost.component';
     GueststayService,
     AuthGuard,
     LoggedinGuard,
-    BuildingService
+    BuildingService,
+    FileuploadService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [BuildingsdialogComponent]
+  entryComponents: [BuildingsdialogComponent, UnaccompanieddialogComponent]
   // exports: [MatFormField]
 })
 export class AppModule { }

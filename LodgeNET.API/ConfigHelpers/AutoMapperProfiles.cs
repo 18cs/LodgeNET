@@ -31,8 +31,8 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(guest => guest.Unit))
                 .ForMember(guestStayForRetrieve => guestStayForRetrieve.GuestId,
                     opt => opt.MapFrom(guest => guest.Id));
-            CreateMap<RowForUploadDto, Guest>();
-            CreateMap<RowForUploadDto, Stay>();
+            CreateMap<FileRowForUploadDto, Guest>();
+            CreateMap<FileRowForUploadDto, Stay>();
 
         }
     }
