@@ -129,5 +129,17 @@ namespace LodgeNET.API.Controllers
             }
             return Ok(buildingsDataDto);
         }
+
+        [HttpPost("edit")]
+        public async Task<IActionResult> SaveBuilding([FromBody] Building building)
+        {
+            var bldg = await _repo.GetFirstOrDefault(b => b.Id == building.Id);
+
+            bldg.Name = building.Name;
+
+            _repo.SaveAsync();
+
+            return Ok();
+        }
     }
 }

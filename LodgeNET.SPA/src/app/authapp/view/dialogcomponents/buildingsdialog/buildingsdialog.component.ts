@@ -36,8 +36,9 @@ export class BuildingsdialogComponent implements OnInit {
   }
 
   save() {
+    this.building.name = this.form.value['name'];
     console.log(this.building.name);
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close(this.building);
   }
 
   close() {

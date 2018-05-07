@@ -65,14 +65,15 @@ export class ViewbuildingsComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      id: 1,
-      title: 'Test Title',
       building: bldg
     };
 
-    console.log(dialogConfig);
+    console.log(dialogConfig.data);
 
-    this.dialog.open(BuildingsdialogComponent, dialogConfig);
+    const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(
+      data => this.buildingService.saveBuildingEdit(data)
+    );
 
   }
 

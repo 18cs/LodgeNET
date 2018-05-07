@@ -53,7 +53,7 @@ export class CheckinService {
     }
 
     checkinGuest() {
-        //guest members are populated at different points, reason for nullable members
+        // guest members are populated at different points, reason for nullable members
         if (this.guestStay.dodId == null || this.guestStay.room == null) {
             return null;
         }
