@@ -18,7 +18,7 @@
         <h5>Single</h5>
         <input type="file" ng2FileSelect [uploader]="uploader" />
     </div>
-    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length && totalFileRows == null">
+    <div class="col-md-9" style="margin-bottom: 40px" *ngIf="uploader?.queue?.length && (fileRows == null || fileRows?.length == 0)">
         <h3>Upload queue</h3>
         <p>Queue length: {{ uploader?.queue?.length }}</p>
         <table class="table">
@@ -87,7 +87,6 @@
         <div class="row">
             <button class="btn btn-primary" (click)="OnSubmitClick()">Submit</button>
             <button class="btn btn-danger" (click)="OnDiscard()">Discard</button>
-
         </div>
     </div>
 </div>

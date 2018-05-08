@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { environment } from '../../../environments/environment';
 import { AlertifyService } from '../../_services/alertify.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FileRow } from '../../_models/fileRow';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UnaccompanieddialogComponent } from './dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
@@ -27,6 +27,7 @@ export class FileuploadComponent implements OnInit {
   itemsPerPage = 10;
 
   constructor(private alertify: AlertifyService,
+              private router: Router,
               private route: ActivatedRoute,
               private dialog: MatDialog,
               private unitsService: UnitsService,
@@ -34,6 +35,8 @@ export class FileuploadComponent implements OnInit {
 
   ngOnInit() {
     this.type = this.route.snapshot.params['type'];
+    this.totalFileRows = []; // uploader.queue has error when fileRows isn't init
+    this.fileRows = [];
     this.route.params
       .subscribe((params: Params) => {
         this.type = params['type'];
@@ -69,14 +72,14 @@ export class FileuploadComponent implements OnInit {
         allowedFileType: ['pdf'],
         removeAfterUpload: true,
         autoUpload: false,
-        maxFileSize: 10 * 1024 * 1024
+        maxFileSize: 10 * 1024 * 1024,
       }); // maxFileSize = 10MB
   
       this.uploader.onWhenAddingFileFailed = () => {
         this.alertify.warning('Please select a PDF file');
       };
     }
-    
+
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       let json = JSON.parse(response);
       this.totalFileRows = json;
@@ -145,11 +148,15 @@ export class FileuploadComponent implements OnInit {
 
   OnSubmitClick() {
     this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe((fileRows: FileRow[]) => {
+      console.log(fileRows);
       this.totalFileRows = fileRows;
+      console.log(this.totalFileRows);
       if (this.totalFileRows.length > 0) {
+        this.changePaginationDisplay();
         this.alertify.warning('Problem with some records');
       } else {
         this.alertify.success('Upload Successful');
+        this.router.navigate(['/']);
       }
     }, error => {
       this.alertify.error(error);
@@ -157,9 +164,9 @@ export class FileuploadComponent implements OnInit {
   }
 
   OnDiscard() {
-    console.log('yu[');
-    this.totalFileRows = null;
-    this.fileRows = null;
-    this.uploader.queue = null;
+    //this.router.navigate(['upload', this.type]);
+    this.totalFileRows = [];
+    this.fileRows = [];
+    this.uploader.queue = [];
   }
 }

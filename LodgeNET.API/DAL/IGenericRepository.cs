@@ -27,6 +27,6 @@ namespace LodgeNET.API.DAL
         void Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
         void Save();
-        void SaveAsync();
+        Task SaveAsync();
     }
 }

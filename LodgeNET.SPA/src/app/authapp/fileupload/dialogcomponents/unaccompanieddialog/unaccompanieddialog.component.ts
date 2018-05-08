@@ -15,6 +15,7 @@ export class UnaccompanieddialogComponent implements OnInit {
   form: FormGroup;
   fileRow: FileRow;
   units: Unit[];
+  selectedUnit: Unit;
   filteredOptions: Observable<Unit[]>;
   unitName: string;
 
@@ -51,29 +52,28 @@ export class UnaccompanieddialogComponent implements OnInit {
   }
 
   onUnitSelected(unit: Unit) {
-    this.fileRow.unitId = unit.id;
-    this.fileRow.unitName = unit.name;
+    this.selectedUnit = unit;
   }
 
   unitFocusOut() {
-    this.unitName = this.fileRow.unitName;
+    this.unitName = this.selectedUnit.name;
   }
 
   unitConfirm(c: FormControl): {[s: string]: boolean} {
-    
-    if (this.fileRow.unitId === 0) {
+    if (this.selectedUnit == null) {
       return {'invalidUnit': true};
     }
     return null;
   }
 
-  
-
   save() {
-    // this.building.name = this.form.value['name'];
-    // console.log(this.building.name);
-    // this.dialogRef.close(this.building);
-    this.fileRow = this.form.value;
+    this.fileRow.firstName = this.form.value['firstName'];
+    this.fileRow.lastName = this.form.value['lastName'];
+    this.fileRow.buildingNumber = this.form.value['bldgNum'];
+    this.fileRow.roomNumber = this.form.value['roomNum'];
+    this.fileRow.unitId = this.selectedUnit.id;
+    this.fileRow.unitName = this.selectedUnit.name;
+
     this.dialogRef.close(this.fileRow);
   }
 

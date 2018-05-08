@@ -169,7 +169,7 @@ namespace LodgeNET.API.DAL {
             _context.SaveChanges ();
         }
 
-        public async virtual void SaveAsync () {
+        public async virtual Task SaveAsync () {
             await _context.SaveChangesAsync ();
         }
         #endregion
