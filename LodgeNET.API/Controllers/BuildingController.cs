@@ -137,7 +137,7 @@ namespace LodgeNET.API.Controllers
 
             bldg.Name = building.Name;
 
-            _repo.SaveAsync();
+            await _repo.SaveAsync();
 
             return Ok();
         }
