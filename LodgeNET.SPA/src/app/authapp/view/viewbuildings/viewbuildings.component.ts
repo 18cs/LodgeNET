@@ -6,7 +6,6 @@ import { BuildingTable } from '../../../_models/buildingTable';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/buildingsdialog.component';
 
-
 @Component({
   selector: 'app-viewbuildings',
   templateUrl: './viewbuildings.component.html',
@@ -24,7 +23,7 @@ export class ViewbuildingsComponent implements OnInit {
     private buildingService: BuildingService,
     private alertify: AlertifyService,
     private dialog: MatDialog
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loadBuildings();
@@ -54,11 +53,9 @@ export class ViewbuildingsComponent implements OnInit {
     }
   }
 
-  editBuilding(buildingId) {
-  }
+  editBuilding(buildingId) {}
 
   openDialog(bldg) {
-
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -71,14 +68,38 @@ export class ViewbuildingsComponent implements OnInit {
     console.log(dialogConfig.data);
 
     const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(
-      data => this.buildingService.saveBuildingEdit(data).subscribe((success) => {
-        console.log(success);
-      }, error => {
-        console.log(error);
-      })
-    );
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+      if (data != null) {
+        this.buildingService.saveBuildingEdit(data).subscribe(
+          success => {
+            console.log(success);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
 
+  deleteBuildingById(bldg) {
+    console.log(bldg.id);
+    if (bldg != null) {
+      this.alertify.confirm(
+        'Are you sure you wish to delete ' + bldg.name,
+        () => {
+          this.buildingService.deleteBuildingById(bldg.id).subscribe(
+            success => {
+              console.log(success);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      );
+    }
   }
 
   getOccupancyRate(currentGuests, capacity) {

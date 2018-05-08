@@ -135,7 +135,22 @@ namespace LodgeNET.API.Controllers
         {
             var bldg = await _repo.GetFirstOrDefault(b => b.Id == building.Id);
 
-            bldg.Name = building.Name;
+            if (bldg != null)
+            {
+                bldg.Name = building.Name;
+            }
+
+            await _repo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBuildingById(int id)
+        {
+            var bldg = await _repo.GetFirstOrDefault(b => b.Id == id);
+
+            _repo.Delete(id);
 
             await _repo.SaveAsync();
 

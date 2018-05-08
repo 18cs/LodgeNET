@@ -32,6 +32,11 @@ export class BuildingService {
       .set('Content-Type', 'application/json')}).catch(this.handleError);
   }
 
+  deleteBuildingById(buildingId:  number) {
+    return this.http.delete(this.baseUrl + 'building' + '/' + buildingId).catch(this.handleError);
+    // {headers: new HttpHeaders().set('Content-Type', 'application/json')}
+  }
+
   // private jwt(){
   //     let token = localStorage.getItem('token');
   //     if(token) {
