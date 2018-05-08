@@ -39,11 +39,11 @@
     </thead>
     <tbody *ngFor="let guestStay of guestStayList">
       <tr class="table-default" (click)="onSelectedGuestStay(guestStay)">
-        <th scope="row">{{ guestStay.room.roomNumber }}</th>
-        <td>{{ guestStay.guest.rank.rankName }}</td>
-        <td>{{ guestStay.guest.firstName }}</td>
-        <td>{{ guestStay.guest.lastName }}</td>
-        <td>{{ guestStay.checkInDate | date }}</td>
+        <th scope="row">{{ guestStay?.room?.roomNumber }}</th>
+        <td>{{ guestStay?.guest?.rank?.rankName }}</td>
+        <td>{{ guestStay?.guest?.firstName }}</td>
+        <td>{{ guestStay?.guest?.lastName }}</td>
+        <td>{{ guestStay?.checkInDate | date }}</td>
       </tr>
     </tbody>
   </table>

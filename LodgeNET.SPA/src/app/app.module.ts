@@ -44,6 +44,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LostComponent } from './home/lost/lost.component';
 import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
 import { FileuploadService } from './_services/fileupload.service';
+import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lodgingDialog/lodgingDialog.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { FileuploadService } from './_services/fileupload.service';
     SortPipe,
     DropdownDirective,
     BuildingsdialogComponent,
-    UnaccompanieddialogComponent
+    UnaccompanieddialogComponent,
+    LodgingDialogComponent
 ],
   imports: [
     BrowserModule,
@@ -106,7 +108,10 @@ import { FileuploadService } from './_services/fileupload.service';
     FileuploadService
   ],
   bootstrap: [AppComponent],
-  entryComponents: [BuildingsdialogComponent, UnaccompanieddialogComponent]
+  entryComponents: [BuildingsdialogComponent, 
+    UnaccompanieddialogComponent,
+    LodgingDialogComponent
+  ]
   // exports: [MatFormField]
 })
 export class AppModule { }
