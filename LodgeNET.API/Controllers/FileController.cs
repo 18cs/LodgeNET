@@ -183,28 +183,23 @@ namespace LodgeNET.API.Controllers {
                 return Unauthorized ();
             }
 
-            
-
             ArrayList returnRows = new ArrayList ();
 
             foreach (FileRowForUploadDto fileRow in fileRows) {
-                if(fileRow.BuildingId == 0)
-                {
+                if (fileRow.BuildingId == 0) {
                     var buildingResult = await _buildingRepo.GetFirstOrDefault (b => b.Number == fileRow.BuildingNumber);
                     fileRow.BuildingId = buildingResult != null ? buildingResult.Id : 0;
                 }
 
-                if (fileRow.RoomId == 0)
-                {
+                if (fileRow.RoomId == 0) {
                     var roomResult = await _roomRepo.GetFirstOrDefault (r => r.RoomNumber == fileRow.RoomNumber &&
-                                        r.BuildingId == fileRow.BuildingId
-                                    );
+                        r.BuildingId == fileRow.BuildingId
+                    );
                     fileRow.RoomId = roomResult != null ? roomResult.Id : 0;
                 }
 
-                if (fileRow.UnitId == 0)
-                {
-                    var unitResult = await _unitRepo.GetFirstOrDefault (u => u.Name.ToUpper().Equals(fileRow.UnitName.ToUpper()));
+                if (fileRow.UnitId == 0 && fileRow.UnitName != null) {
+                    var unitResult = await _unitRepo.GetFirstOrDefault (u => u.Name.ToUpper ().Equals (fileRow.UnitName.ToUpper ()));
                     fileRow.UnitId = unitResult != null ? unitResult.Id : 0;
                 }
 
@@ -221,21 +216,18 @@ namespace LodgeNET.API.Controllers {
                     var stay = new Stay () {
                         DateCreated = DateTime.Today,
                         CheckInDate = DateTime.Today,
-                        CheckedIn = true,
+                        CheckedIn = true
                     };
                     guest = _mapper.Map<Guest> (fileRow);
                     stay = _mapper.Map<Stay> (fileRow);
-
+                    stay.CheckedIn = true;
                     _guestRepo.Insert (guest);
                     _guestRepo.Save ();
                     stay.GuestId = guest.Id;
                     _stayRepo.Insert (stay);
-                    _stayRepo.SaveAsync ();                            
+                    _stayRepo.Save ();
                 }
-
             }
-            
-           
             return Ok (returnRows);
         }
 
@@ -252,16 +244,19 @@ namespace LodgeNET.API.Controllers {
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
+              ArrayList returnRows = new ArrayList ();
 
             var file = fileDto.File;
             if (file.Length > 0) {
                 using (PdfReader reader = new PdfReader (file.OpenReadStream ())) {
-                    StringBuilder text = new StringBuilder ();
 
                     for (int i = 1; i <= reader.NumberOfPages; i++) {
                         //text.Append (PdfTextExtractor.GetTextFromPage (reader, i));
                         string[] guestStays = PdfTextExtractor.GetTextFromPage (reader, i).Split ("\n");
                         foreach (string guestStay in guestStays) {
+
+                            var rowForUpload = new FileRowForUploadDto ();
+
                             if (!Regex.Match (guestStay, @"^\d").Success) {
                                 continue;
                             }
@@ -269,33 +264,49 @@ namespace LodgeNET.API.Controllers {
                             string[] stayData = guestStay.Split (" ");
                             int firstnameIndex = 0;
 
-                            var guest = new Guest ();
-                            var stay = new Stay ();
+                            // var guest = new Guest ();
+                            // var stay = new Stay ();
 
-                            var rooms = _roomRepo.GetAsync (r => r.RoomNumber == int.Parse (stayData[0]));
+                            int.TryParse (stayData[0], out int rowRoomNum);
+                            var room = _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Equals ("Lodging"));
 
-                            foreach (Room room in rooms.Result) {
-                                stay.RoomId = room.Id;
-                                stay.BuildingId = room.BuildingId;
+                            if (room != null) {
+                                rowForUpload.RoomId = room.Result.Id;
+                                rowForUpload.BuildingId = room.Result.BuildingId;
                             }
 
                             //removes tailing ',' from lastname
-                            guest.LastName = stayData[1].Remove (stayData[1].Length - 1).ToUpper ();
+                            //rowForUpload.LastName = stayData[1].Remove (stayData[1].Length - 1).ToUpper ();
 
-                            var ranks = await _rankRepo.GetAsync (r => r.RankName.Equals (stayData[2]));
-                            Rank rank = null;
-                            foreach (var r in ranks) {
-                                rank = r;
+                            rowForUpload.LastName = stayData[1];
+
+                            Rank rank;
+                            // accounts to spaced (two) last names
+                            if (rowForUpload.LastName.EndsWith (',')) {
+                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[2]));
+                                rank = retrievedRank;
+                            } else {
+                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[3]));
+                                rank = retrievedRank;
                             }
+
+                            //removes tailing ',' from lastname
+                            rowForUpload.LastName = rowForUpload.LastName.Remove (stayData[1].Length - 1).ToUpper ();
+
+                            //var rank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[2]));
+                            // Rank rank = null;
+                            // foreach (var r in ranks) {
+                            //     rank = r;
+                            // }
 
                             //Indices of the data are not static, they vary depending on the data included
                             //if index was not rank, check if followinging index is MI or account number
                             //meaning the rank was not include. The else means that the rank was included but was not found in DB
                             if (rank == null && (stayData[3].Length == 1 || Regex.Match (stayData[3], @"^\d").Success)) {
-                                guest.FirstName = stayData[2].ToUpper ();
+                                rowForUpload.FirstName = stayData[2].ToUpper ();
                                 firstnameIndex = 2;
                             } else {
-                                guest.FirstName = stayData[3].ToUpper ();
+                                rowForUpload.FirstName = stayData[3].ToUpper ();
                                 firstnameIndex = 3;
                             }
 
@@ -308,24 +319,45 @@ namespace LodgeNET.API.Controllers {
                                         DateTimeStyles.None,
                                         out DateTime checkInDate)) {
                                     //TODO account for the open column
-                                    stay.CheckedIn = true;
-                                    stay.CheckInDate = checkInDate;
-                                    stay.CheckOutDate = DateTime.Parse (stayData[j + 1]);
+                                    rowForUpload.CheckedIn = true;
+                                    rowForUpload.CheckInDate = checkInDate;
+                                    rowForUpload.CheckOutDate = DateTime.Parse (stayData[j + 1]);
                                     break;
                                 }
                             }
-                            _guestRepo.Insert (guest);
-                            _guestRepo.Save ();
-                            stay.GuestId = guest.Id;
-                            _stayRepo.Insert (stay);
-                            _stayRepo.Save ();
 
+                            if (rowForUpload.RoomId == 0 ||
+                                rowForUpload.BuildingId == 0 ||
+                                rowForUpload.FirstName == null ||
+                                rowForUpload.LastName == null ||
+                                rowForUpload.UnitId == 0 ||
+                                rowForUpload.CheckInDate == null ||
+                                rowForUpload.CheckOutDate == null) {
+                                // ModelState.AddModelError("BadFormat", "File upload failed");
+                                // return BadRequest(ModelState);
+                                returnRows.Add (rowForUpload);
+                            } else {
+                                //TODO add unit parse
+                                var guest = new Guest ();
+                                var stay = new Stay () {
+                                    DateCreated = DateTime.Today,
+                                    CheckInDate = DateTime.Today,
+                                    CheckedIn = true,
+                                };
+                                guest = _mapper.Map<Guest> (rowForUpload);
+                                stay = _mapper.Map<Stay> (rowForUpload);
+
+                                _guestRepo.Insert (guest);
+                                _guestRepo.Save ();
+                                stay.GuestId = guest.Id;
+                                _stayRepo.Insert (stay);
+                                _stayRepo.Save ();
+                            }
                         }
                     }
                 }
             }
-
-            return Ok ();
+            return Ok (returnRows);
         }
     }
 }

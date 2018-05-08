@@ -1,3 +1,5 @@
+using System;
+
 namespace LodgeNET.API.Dtos
 {
     public class FileRowForUploadDto
@@ -10,5 +12,9 @@ namespace LodgeNET.API.Dtos
          public int BuildingNumber { get; set; }
          public int UnitId { get; set; }
          public string UnitName { get; set; }
+         public DateTime? CheckInDate { get; set; }
+         public DateTime? CheckOutDate { get; set; }
+         public bool CheckedIn { get; set; }
+         
     }
 }
