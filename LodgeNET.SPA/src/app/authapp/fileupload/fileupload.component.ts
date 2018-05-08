@@ -9,6 +9,7 @@ import { UnaccompanieddialogComponent } from './dialogcomponents/unaccompanieddi
 import { UnitsService } from '../../_services/units.service';
 import { Unit } from '../../_models/unit';
 import { FileuploadService } from '../../_services/fileupload.service';
+import { LodgingDialogComponent } from './dialogcomponents/lodgingDialog/lodgingDialog.component';
 
 @Component({
   selector: 'app-fileupload',
@@ -27,11 +28,11 @@ export class FileuploadComponent implements OnInit {
   itemsPerPage = 10;
 
   constructor(private alertify: AlertifyService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private dialog: MatDialog,
-              private unitsService: UnitsService,
-              private fileuploadService: FileuploadService) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private unitsService: UnitsService,
+    private fileuploadService: FileuploadService) { }
 
   ngOnInit() {
     this.type = this.route.snapshot.params['type'];
@@ -40,6 +41,7 @@ export class FileuploadComponent implements OnInit {
     this.route.params
       .subscribe((params: Params) => {
         this.type = params['type'];
+        this.initializeUploader();
       });
 
     this.initializeUploader();
@@ -51,7 +53,7 @@ export class FileuploadComponent implements OnInit {
 
   initializeUploader() {
     if (this.type === 'unaccompanied') {
-      this.uploader =  new FileUploader({
+      this.uploader = new FileUploader({
         url: this.baseUrl + 'file/unaccompaniedFile',
         authToken: 'Bearer ' + localStorage.getItem('token'),
         isHTML5: true,
@@ -60,13 +62,13 @@ export class FileuploadComponent implements OnInit {
         autoUpload: false,
         maxFileSize: 10 * 1024 * 1024
       }); // maxFileSize = 10MB
-  
+
       this.uploader.onWhenAddingFileFailed = () => {
         this.alertify.warning('Please select a XLSX file');
       };
     } else {
-      this.uploader =  new FileUploader({
-        url: this.baseUrl + 'file/lodging',
+      this.uploader = new FileUploader({
+        url: this.baseUrl + 'file/lodgingFile',
         authToken: 'Bearer ' + localStorage.getItem('token'),
         isHTML5: true,
         allowedFileType: ['pdf'],
@@ -74,7 +76,7 @@ export class FileuploadComponent implements OnInit {
         autoUpload: false,
         maxFileSize: 10 * 1024 * 1024,
       }); // maxFileSize = 10MB
-  
+
       this.uploader.onWhenAddingFileFailed = () => {
         this.alertify.warning('Please select a PDF file');
       };
@@ -86,6 +88,7 @@ export class FileuploadComponent implements OnInit {
       if (this.totalFileRows.length > 0) {
         this.alertify.warning('Problem with some records');
         this.changePaginationDisplay();
+        this.currentPage = 1;
         this.unitsService.getUnits().subscribe((units: Unit[]) => {
           this.units = units;
         }, error => {
@@ -107,16 +110,16 @@ export class FileuploadComponent implements OnInit {
   }
 
   changePaginationDisplay() {
-    if (this.totalFileRows.length < 25) {
+    if (this.totalFileRows.length < this.itemsPerPage) {
       this.fileRows = this.totalFileRows;
       return;
     }
 
     if (this.currentPage == null) {
-      this.currentPage = 0;
+      this.currentPage = 1;
     }
 
-    const startIndex = this.currentPage * 25;
+    const startIndex = (this.currentPage - 1) *  this.itemsPerPage;
     this.fileRows = this.totalFileRows.slice(startIndex, startIndex + this.itemsPerPage);
     this.currentPage++;
   }
@@ -133,9 +136,11 @@ export class FileuploadComponent implements OnInit {
       units: this.units
     };
 
-    console.log(dialogConfig.data);
-
-    const dialogRef = this.dialog.open(UnaccompanieddialogComponent, dialogConfig);
+    if (this.type === 'unaccompanied') {
+      const dialogRef = this.dialog.open(UnaccompanieddialogComponent, dialogConfig);
+    } else if (this.type === 'lodging') {
+      const dialogRef = this.dialog.open(LodgingDialogComponent, dialogConfig);
+    }
     // dialogRef.afterClosed().subscribe(
     //   data => this.fileuploadService. (data).subscribe((success) => {
     //     console.log(success);
@@ -147,24 +152,27 @@ export class FileuploadComponent implements OnInit {
   }
 
   OnSubmitClick() {
-    this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe((fileRows: FileRow[]) => {
-      console.log(fileRows);
-      this.totalFileRows = fileRows;
-      console.log(this.totalFileRows);
-      if (this.totalFileRows.length > 0) {
-        this.changePaginationDisplay();
-        this.alertify.warning('Problem with some records');
-      } else {
-        this.alertify.success('Upload Successful');
-        this.router.navigate(['/']);
-      }
-    }, error => {
-      this.alertify.error(error);
-    });
+    if (this.type === 'unaccompanied') {
+      this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe((fileRows: FileRow[]) => {
+        console.log(fileRows);
+        this.totalFileRows = fileRows;
+        console.log(this.totalFileRows);
+        if (this.totalFileRows.length > 0) {
+          this.changePaginationDisplay();
+          this.alertify.warning('Problem with some records');
+        } else {
+          this.alertify.success('Upload Successful');
+          this.router.navigate(['/']);
+        }
+      }, error => {
+        this.alertify.error(error);
+      });
+    } else if (this.type === 'lodging') {
+
+    }
   }
 
   OnDiscard() {
-    //this.router.navigate(['upload', this.type]);
     this.totalFileRows = [];
     this.fileRows = [];
     this.uploader.queue = [];

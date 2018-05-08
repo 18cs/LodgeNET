@@ -7,4 +7,5 @@ export interface FileRow {
     buildingNumber: string;
     unitId: number;
     unitName: string;
+    checkInDate: string;
 }

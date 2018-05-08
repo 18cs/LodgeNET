@@ -231,7 +231,7 @@ namespace LodgeNET.API.Controllers {
             return Ok (returnRows);
         }
 
-        [HttpPost ("lodging")]
+        [HttpPost ("lodgingFile")]
         public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) {
             // var user = await _userRepo.GetByID(1);
 
@@ -268,11 +268,11 @@ namespace LodgeNET.API.Controllers {
                             // var stay = new Stay ();
 
                             int.TryParse (stayData[0], out int rowRoomNum);
-                            var room = _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Equals ("Lodging"));
+                            var room = await _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Type.Equals ("Lodging"));
 
                             if (room != null) {
-                                rowForUpload.RoomId = room.Result.Id;
-                                rowForUpload.BuildingId = room.Result.BuildingId;
+                                rowForUpload.RoomId = room.Id;
+                                rowForUpload.BuildingId = room.BuildingId;
                             }
 
                             //removes tailing ',' from lastname
@@ -298,6 +298,10 @@ namespace LodgeNET.API.Controllers {
                             // foreach (var r in ranks) {
                             //     rank = r;
                             // }
+
+                            if (rank != null) {
+                                rowForUpload.RankId = rank.Id;
+                            }
 
                             //Indices of the data are not static, they vary depending on the data included
                             //if index was not rank, check if followinging index is MI or account number
@@ -326,11 +330,12 @@ namespace LodgeNET.API.Controllers {
                                 }
                             }
 
+                            rowForUpload.RoomId = 0;
+
                             if (rowForUpload.RoomId == 0 ||
                                 rowForUpload.BuildingId == 0 ||
                                 rowForUpload.FirstName == null ||
                                 rowForUpload.LastName == null ||
-                                rowForUpload.UnitId == 0 ||
                                 rowForUpload.CheckInDate == null ||
                                 rowForUpload.CheckOutDate == null) {
                                 // ModelState.AddModelError("BadFormat", "File upload failed");
@@ -345,6 +350,15 @@ namespace LodgeNET.API.Controllers {
                                     CheckedIn = true,
                                 };
                                 guest = _mapper.Map<Guest> (rowForUpload);
+
+                                if (guest.UnitId == 0 ) {
+                                    guest.UnitId = null;
+                                }
+
+                                if (guest.RankId == 0) {
+                                    guest.RankId = null;
+                                }
+
                                 stay = _mapper.Map<Stay> (rowForUpload);
 
                                 _guestRepo.Insert (guest);
