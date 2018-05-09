@@ -23,6 +23,9 @@
           <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(bldg)">
             <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit {{bldg.name}}"></i>
           </button>
+          <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(bldg)">
+            <i class="fa fa-trash-o" aria-hidden="true" title="Delete {{bldg.name}}"></i>
+          </button>
         </td>
       </tr>
     </ng-container>
