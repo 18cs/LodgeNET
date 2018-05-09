@@ -62,7 +62,8 @@ export class LodgingDialogComponent implements OnInit {
       'lastName': new FormControl(this.fileRow.lastName, Validators.required),
       'bldgNum': new FormControl(this.fileRow.buildingNumber, Validators.required),
       'roomNum': new FormControl(this.fileRow.roomNumber, Validators.required),
-      'unitName': new FormControl(this.fileRow.unitName)
+      'unitName': new FormControl(this.fileRow.unitName),
+      'checkInDate': new FormControl(this.fileRow.checkInDate)
     });
   }
 
@@ -71,6 +72,7 @@ export class LodgingDialogComponent implements OnInit {
     this.fileRow.lastName = this.form.value['lastName'];
     this.fileRow.buildingNumber = this.form.value['bldgNum'];
     this.fileRow.roomNumber = this.form.value['roomNum'];
+    this.fileRow.checkInDate = this.form.value['checkInDate'];
     if (this.selectedUnit != null) {
       this.fileRow.unitId = this.selectedUnit.id;
       this.fileRow.unitName = this.selectedUnit.name;
