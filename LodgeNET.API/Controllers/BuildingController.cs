@@ -150,7 +150,7 @@ namespace LodgeNET.API.Controllers
         {
             var bldg = await _repo.GetFirstOrDefault(b => b.Id == id);
 
-            _repo.Delete(id);
+            await _repo.Delete(bldg.Id);
 
             await _repo.SaveAsync();
 

@@ -73,6 +73,8 @@ export class ViewbuildingsComponent implements OnInit {
       if (data != null) {
         this.buildingService.saveBuildingEdit(data).subscribe(
           success => {
+            console.log(data);
+            this.alertify.success(data.name + ' successfully updated.');
             console.log(success);
           },
           error => {
@@ -87,11 +89,17 @@ export class ViewbuildingsComponent implements OnInit {
     console.log(bldg.id);
     if (bldg != null) {
       this.alertify.confirm(
-        'Are you sure you wish to delete ' + bldg.name,
+        'Are you sure you wish to delete ' + bldg.name + '? <br /> <br /> WARNING: All rooms and stays of this building will be deleted.',
         () => {
           this.buildingService.deleteBuildingById(bldg.id).subscribe(
             success => {
-              console.log(success);
+              this.alertify.success(bldg.name + ' successfully deleted.');
+              let bldgIndex = this.buildingDashboard.buildingList.indexOf(bldg);
+
+              if (bldgIndex != -1)
+              {
+                this.buildingDashboard.buildingList.splice(bldgIndex, 1);
+              }
             },
             error => {
               console.log(error);

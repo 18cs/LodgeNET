@@ -23,8 +23,8 @@ namespace LodgeNET.API.DAL
         int GetSum(Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null);
         Task<TEntity> GetFirstOrDefault(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includeProperties = null);
         void Insert(TEntity entity);
-        void Delete(object id);
-        void Delete(TEntity entityToDelete);
+        Task Delete(object id);
+        Task Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);
         void Save();
         Task SaveAsync();

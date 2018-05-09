@@ -137,16 +137,16 @@ namespace LodgeNET.API.DAL {
         /// Deletes record from database context based on ID
         /// </summary>
         /// <param name="id">unique identifier of record</param>
-        public async virtual void Delete (object id) {
+        public async virtual Task Delete (object id) {
             TEntity entityToDelete = await _context.Set<TEntity> ().FindAsync (id);
-            Delete (entityToDelete);
+            await Delete (entityToDelete);
         }
 
         /// <summary>
         /// Removes record from current DB context 
         /// </summary>
         /// <param name="entityToDelete">Record to remove</param>
-        public async virtual void Delete (TEntity entityToDelete) {
+        public async virtual Task Delete (TEntity entityToDelete) {
             if (_context.Entry (entityToDelete).State == EntityState.Detached) {
                 _context.Set<TEntity> ().Attach (entityToDelete);
             }

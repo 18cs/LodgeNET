@@ -6,12 +6,17 @@ import { Observable } from 'rxjs/Observable';
 import { Room } from '../_models/room';
 import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
 import { GuestStayCheckOut } from '../_models/guestStayCheckOut';
+import { GuestTable } from '../_models/guestTable';
 
 @Injectable()
 export class GueststayService {
     baseUrl = environment.apiUrl;
 
     constructor(private http: HttpClient) { }
+
+    getGuests() {
+
+    }
 
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
