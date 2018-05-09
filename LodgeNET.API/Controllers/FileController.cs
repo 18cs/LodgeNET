@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -169,13 +170,17 @@ namespace LodgeNET.API.Controllers {
 
                     }
                 }
-                _guestRepo.SaveAsync ();
-                _stayRepo.SaveAsync ();
+                await _guestRepo.SaveAsync ();
+                await _stayRepo.SaveAsync ();
+
+                if(System.IO.File.Exists(fullPath)) {
+                    System.IO.File.Delete(fullPath);
+                }
             }
             return Ok (returnRows);
         }
 
-        [HttpPost ("unaccompaniedData")]
+        [HttpPost ("DataRows")]
         public async Task<IActionResult> UploadUnaccompaniedData (int userId, [FromBody] FileRowForUploadDto[] fileRows) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
 
@@ -186,19 +191,18 @@ namespace LodgeNET.API.Controllers {
             ArrayList returnRows = new ArrayList ();
 
             foreach (FileRowForUploadDto fileRow in fileRows) {
-                if (fileRow.BuildingId == 0) {
                     var buildingResult = await _buildingRepo.GetFirstOrDefault (b => b.Number == fileRow.BuildingNumber);
                     fileRow.BuildingId = buildingResult != null ? buildingResult.Id : 0;
-                }
 
-                if (fileRow.RoomId == 0) {
+
+                if (fileRow.BuildingId != 0) {
                     var roomResult = await _roomRepo.GetFirstOrDefault (r => r.RoomNumber == fileRow.RoomNumber &&
                         r.BuildingId == fileRow.BuildingId
                     );
                     fileRow.RoomId = roomResult != null ? roomResult.Id : 0;
                 }
 
-                if (fileRow.UnitId == 0 && fileRow.UnitName != null) {
+                if (fileRow.UnitName != null) {
                     var unitResult = await _unitRepo.GetFirstOrDefault (u => u.Name.ToUpper ().Equals (fileRow.UnitName.ToUpper ()));
                     fileRow.UnitId = unitResult != null ? unitResult.Id : 0;
                 }
@@ -206,20 +210,31 @@ namespace LodgeNET.API.Controllers {
                 if (fileRow.RoomId == 0 ||
                     fileRow.BuildingId == 0 ||
                     fileRow.FirstName == null ||
-                    fileRow.LastName == null ||
-                    fileRow.UnitId == 0) {
-
+                    fileRow.LastName == null) {
                     returnRows.Add (fileRow);
                 } else {
                     //TODO add unit parse
                     var guest = new Guest ();
                     var stay = new Stay () {
                         DateCreated = DateTime.Today,
-                        CheckInDate = DateTime.Today,
                         CheckedIn = true
                     };
+
                     guest = _mapper.Map<Guest> (fileRow);
                     stay = _mapper.Map<Stay> (fileRow);
+
+                    if (guest.UnitId == 0) {
+                        guest.UnitId = null;
+                    }
+
+                    if (guest.RankId == 0) {
+                        guest.RankId = null;
+                    }
+
+                    if (DateTime.Compare(stay.CheckInDate, DateTime.MinValue) == 0) {
+                        stay.CheckInDate = DateTime.Today;
+                    }
+
                     stay.CheckedIn = true;
                     _guestRepo.Insert (guest);
                     _guestRepo.Save ();
@@ -232,7 +247,7 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpPost ("lodgingFile")]
-        public async Task<IActionResult> UploadLodgeingOccupancy (int userId, FileForUploadDto fileDto) {
+        public async Task<IActionResult> UploadLodgeingFile (int userId, FileForUploadDto fileDto) {
             // var user = await _userRepo.GetByID(1);
 
             // if (user == null) {
@@ -244,7 +259,7 @@ namespace LodgeNET.API.Controllers {
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-              ArrayList returnRows = new ArrayList ();
+            ArrayList returnRows = new ArrayList ();
 
             var file = fileDto.File;
             if (file.Length > 0) {
@@ -268,11 +283,15 @@ namespace LodgeNET.API.Controllers {
                             // var stay = new Stay ();
 
                             int.TryParse (stayData[0], out int rowRoomNum);
-                            var room = await _roomRepo.GetFirstOrDefault (r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Type.Equals ("Lodging"));
+                            var room = await _roomRepo.GetFirstOrDefault (
+                                r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Type.Equals ("Lodging"),
+                                new Expression<Func<Room, object>>[] { r => r.Building});
 
                             if (room != null) {
                                 rowForUpload.RoomId = room.Id;
+                                rowForUpload.RoomNumber = room.RoomNumber;
                                 rowForUpload.BuildingId = room.BuildingId;
+                                rowForUpload.BuildingNumber = room.Building.Number;
                             }
 
                             //removes tailing ',' from lastname
@@ -330,7 +349,7 @@ namespace LodgeNET.API.Controllers {
                                 }
                             }
 
-                            rowForUpload.RoomId = 0;
+                            // rowForUpload.RoomId = 0;
 
                             if (rowForUpload.RoomId == 0 ||
                                 rowForUpload.BuildingId == 0 ||
@@ -351,7 +370,7 @@ namespace LodgeNET.API.Controllers {
                                 };
                                 guest = _mapper.Map<Guest> (rowForUpload);
 
-                                if (guest.UnitId == 0 ) {
+                                if (guest.UnitId == 0) {
                                     guest.UnitId = null;
                                 }
 
@@ -362,10 +381,10 @@ namespace LodgeNET.API.Controllers {
                                 stay = _mapper.Map<Stay> (rowForUpload);
 
                                 _guestRepo.Insert (guest);
-                                _guestRepo.Save ();
+                                await _guestRepo.SaveAsync ();
                                 stay.GuestId = guest.Id;
                                 _stayRepo.Insert (stay);
-                                _stayRepo.Save ();
+                                await _stayRepo.SaveAsync ();
                             }
                         }
                     }
