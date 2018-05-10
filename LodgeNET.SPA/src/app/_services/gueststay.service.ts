@@ -15,7 +15,7 @@ export class GueststayService {
     constructor(private http: HttpClient) { }
 
     getGuests() {
-
+        return this.http.get<GuestTable>(this.baseUrl + 'gueststay/getguests').catch(this.handleError);
     }
 
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {

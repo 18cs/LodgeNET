@@ -13,6 +13,10 @@ import { GuestsdialogComponent } from '../dialogcomponents/guestsdialog/guestsdi
 })
 export class ViewguestsComponent implements OnInit {
   guestTable: GuestTable;
+  type: string;
+  currentPage: number;
+  itemsPerPage = 10;
+  showSpinner = false;
 
   constructor(
     private guestStayService: GueststayService,
@@ -20,18 +24,19 @@ export class ViewguestsComponent implements OnInit {
     private dialog: MatDialog
   ) {}
   ngOnInit() {
+    this.loadGuests();
   }
 
   loadGuests() {
-    // this.guestStayService.getGuests().subscribe(
-    //   (guestTable: GuestTable) => {
-    //     // console.log(buildingDashboard);
-    //     this.guestTable = guestTable;
-    //   },
-    //   error => {
-    //     this.alertify.error(error);
-    //   }
-    // );
+    this.guestStayService.getGuests().subscribe(
+      (guestTable: GuestTable) => {
+        console.log(guestTable);
+        this.guestTable = guestTable;
+      },
+      error => {
+        this.alertify.error(error);
+      }
+    );
   }
 
 }

@@ -150,5 +150,12 @@ namespace LodgeNET.API.Controllers
                     (s => s.CheckedOut == false && s.CheckedIn == true)));
             return Ok(guestStaysToReturn);
         }
+
+        [HttpGet("getguests")]
+        public async Task<IActionResult> GetGuests() {
+            var guests = await _guestRepo.GetAsync();
+
+            return Ok(guests);
+        }
     }
 }
