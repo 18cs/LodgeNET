@@ -4,7 +4,6 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { Unit } from '../../../_models/unit';
 import { Service } from '../../../_models/service';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { CheckinService } from '../../../_services/checkin.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
@@ -22,11 +21,13 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   idScanCheckin = false;
   selectedUnit: Unit = { id: 0, name: '' };
   selectedService: Service = {  id: 0, serviceName: '' };
-  dodIdDisabled = this.checkinService.guestStay.guestId !== 0; // angular disabled att for controls has errors, only ,ethod found that works
+
+  // angular disabled att for controls has errors, only method found that works
+  dodIdDisabled = this.gueststayService.guestStay.guestId !== 0;
 
   constructor(private authService: AuthService,
     private alertify: AlertifyService,
-    private checkinService: CheckinService,
+    private gueststayService: GueststayService,
     private guestStaySevice: GueststayService,
     private router: Router,
     private route: ActivatedRoute) { }
@@ -43,7 +44,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     console.log(this.guestInfoForm);
 
     this.guestInfoForm.value['guestUnit'] = this.selectedUnit;
-    this.checkinService.saveGuestInfo(this.guestInfoForm.value);
+    this.gueststayService.saveGuestInfo(this.guestInfoForm.value);
   }
 
   getFormData() {
@@ -55,7 +56,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   private initForm() {
-    let guestStay = this.checkinService.guestStay;
+    let guestStay = this.gueststayService.guestStay;
 
     if (guestStay.guestUnit) {
       this.onUnitSelected(guestStay.guestUnit);
@@ -81,11 +82,12 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
       'dsnPhone': new FormControl(guestStay.dsnPhone == null ? null : guestStay.dsnPhone),
       'commPhone': new FormControl(guestStay.commPhone == null ? null : guestStay.commPhone),
     });
-    
+
     this.dodIdDisabled =  guestStay.guestId !== 0;
-    
+
     this.guestInfoForm.statusChanges.subscribe(data => {
-      console.log(data); this.checkinService.setGuestInfoValid(this.guestInfoForm.valid);} );
+      console.log(data); this.gueststayService.setGuestInfoValid(this.guestInfoForm.valid);
+    });
   }
 
   private unitFocus() {
@@ -97,7 +99,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.checkinService.clearGuestStay();
+    this.gueststayService.clearGuestStay();
     this.router.navigate(['/']);
   }
 
@@ -107,14 +109,14 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   onDodIdFocusOut(dodId: number) {
     this.guestStaySevice.getExistentGuest(dodId).subscribe((guestStay: GuestStayCheckIn) => {
-      if (!guestStay || this.checkinService.guestStay.guestId !== 0) {
+      if (!guestStay || this.gueststayService.guestStay.guestId !== 0) {
         return;
       }
 
     this.alertify.confirm('We have found this guest in the Database. Do you want to autopopulate?' + 
       '<br /><br />WARNING: Changed information will be updated in database.', () => {
-          this.checkinService.saveRetrievedGuestInfo(guestStay);
-          console.log(this.checkinService.guestStay);
+          this.gueststayService.saveRetrievedGuestInfo(guestStay);
+          console.log(this.gueststayService.guestStay);
           this.initForm();
         });
     }, error => {

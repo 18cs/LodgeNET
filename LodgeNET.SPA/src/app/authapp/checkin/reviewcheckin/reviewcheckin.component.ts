@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckinService } from '../../../_services/checkin.service';
+import { GueststayService } from '../../../_services/gueststay.service';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,26 +14,26 @@ export class ReviewcheckinComponent implements OnInit {
 
 
   constructor(private alertify: AlertifyService,
-              private checkinService: CheckinService,
+              private gueststayService: GueststayService,
               private router: Router,
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    if (!this.checkinService.isGuestInfoValid || !this.checkinService.isRoomSelected) {
+    if (!this.gueststayService.isGuestInfoValid || !this.gueststayService.isRoomSelected) {
       this.router.navigate(['../guestinfo'], {relativeTo: this.route});
     }
-    this.guestStay = this.checkinService.guestStay;
+    this.guestStay = this.gueststayService.guestStay;
   }
 
   onCancel() {
-    this.checkinService.clearGuestStay();
+    this.gueststayService.clearGuestStay();
     this.router.navigate(['/']);
   }
 
   onSubmit() {
-    this.checkinService.checkinGuest().subscribe(() => {
+    this.gueststayService.checkinGuest().subscribe(() => {
       this.alertify.success('Checkin Successful');
-      this.checkinService.clearGuestStay();
+      this.gueststayService.clearGuestStay();
       this.router.navigate(['/']);
     }, error => {
       this.alertify.error(error);

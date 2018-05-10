@@ -98,12 +98,10 @@ export class FileuploadComponent implements OnInit {
           },
           error => {
             this.alertify.error(error);
-            this.showHideSpinner();
           }
         );
       } else {
         this.alertify.success("Upload Successful");
-        this.showHideSpinner();
       }
     };
 
@@ -169,6 +167,7 @@ export class FileuploadComponent implements OnInit {
   }
 
   OnSubmitClick() {
+    this.showHideSpinner();
     this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe(
       (fileRows: FileRow[]) => {
         this.showHideSpinner();
