@@ -98,7 +98,6 @@ export class FileuploadComponent implements OnInit {
           },
           error => {
             this.alertify.error(error);
-            this.showHideSpinner();
           }
         );
       } else {
@@ -114,7 +113,7 @@ export class FileuploadComponent implements OnInit {
   }
 
   showHideSpinner() {
-    this.showSpinner = !this.showSpinner; 
+    this.showSpinner = !this.showSpinner;
   }
 
   pageChanged(event: any): void {
@@ -169,6 +168,7 @@ export class FileuploadComponent implements OnInit {
   }
 
   OnSubmitClick() {
+    this.showHideSpinner();
     this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe(
       (fileRows: FileRow[]) => {
         this.showHideSpinner();

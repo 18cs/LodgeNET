@@ -5,7 +5,6 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
 import { Room } from '../../../_models/room';
-import { CheckinService } from '../../../_services/checkin.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -29,8 +28,7 @@ export class RoomselectComponent implements OnInit, OnDestroy {
 
   constructor(private buildingService: BuildingService,
               private alertify: AlertifyService,
-              private guestStayService: GueststayService,
-              private checkinService: CheckinService,
+              private gueststayService: GueststayService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -38,18 +36,18 @@ export class RoomselectComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // TODO put the request into a resolver
-    if (!this.checkinService.isGuestInfoValid) {
+    if (!this.gueststayService.isGuestInfoValid) {
       this.router.navigate(['../'], { relativeTo: this.route });
     }
     this.loadBuildings();
 
-    if (this.checkinService.guestStay.room != null) {
-      this.onRoomSelected(this.checkinService.guestStay.room);
+    if (this.gueststayService.guestStay.room != null) {
+      this.onRoomSelected(this.gueststayService.guestStay.room);
     }
   }
 
   ngOnDestroy() {
-    this.checkinService.saveRoomSelection(this.selectedRoom);
+    this.gueststayService.saveRoomSelection(this.selectedRoom);
   }
 
   loadBuildings() {
@@ -67,13 +65,13 @@ export class RoomselectComponent implements OnInit, OnDestroy {
 
   loadRooms() {
     if (this.pagination == null) {
-      this.guestStayService.getAvaliableRooms(this.pageNumber, this.pageSize, this.buildingSelectedId, true)
+      this.gueststayService.getAvaliableRooms(this.pageNumber, this.pageSize, this.buildingSelectedId, true)
       .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
         this.rooms = paginatedResult.result;
         this.pagination = paginatedResult.pagination;
       }, error => {this.alertify.error(error); });
     } else {
-      this.guestStayService.getAvaliableRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.buildingSelectedId, true)
+      this.gueststayService.getAvaliableRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.buildingSelectedId, true)
       .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
         this.rooms = paginatedResult.result;
         this.pagination = paginatedResult.pagination;
@@ -92,13 +90,13 @@ export class RoomselectComponent implements OnInit, OnDestroy {
       this.alertify.warning('Guest can only have one room');
     } else {
       this.selectedRoom = room;
-      this.checkinService.setIsRoomSelected(true);
+      this.gueststayService.setIsRoomSelected(true);
     }
   }
 
   onRoomRemoved(room: Room) {
     this.selectedRoom = null;
-    this.checkinService.setIsRoomSelected(false);
+    this.gueststayService.setIsRoomSelected(false);
   }
 
 }

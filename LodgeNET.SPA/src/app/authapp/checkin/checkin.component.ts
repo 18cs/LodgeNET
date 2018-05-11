@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckinService } from '../../_services/checkin.service';
+import { GueststayService } from '../../_services/gueststay.service';
 
 @Component({
   selector: 'app-checkin',
@@ -8,7 +8,7 @@ import { CheckinService } from '../../_services/checkin.service';
 })
 export class CheckinComponent implements OnInit {
 
-  constructor(private checkinService: CheckinService) { }
+  constructor(private gueststayService: GueststayService) { }
 
   ngOnInit() {
   }
