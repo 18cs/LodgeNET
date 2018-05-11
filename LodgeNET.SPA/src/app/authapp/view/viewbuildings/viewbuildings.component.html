@@ -21,7 +21,7 @@
         <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
         <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}% &emsp;
           <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(bldg)">
-            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit {{bldg.name}}"></i>
+            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{bldg.name}}"></i>
           </button>
           <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(bldg)">
             <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{bldg.name}}"></i>

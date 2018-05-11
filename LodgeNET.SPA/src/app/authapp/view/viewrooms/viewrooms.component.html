@@ -1,3 +1,14 @@
-<p>
-  viewrooms works!
-</p>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Building</th>
+      <th scope="col">Room</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let room of roomTable let i = index;">
+    <tr class="table-default" > <!-- (click)="tableCollapseToggle(building.id)" -->
+      <th scope="row">{{ room + ', ' + guest.firstName }}</th>
+    </tr>
+  </tbody>
+</table>
