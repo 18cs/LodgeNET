@@ -5,3 +5,19 @@
 .navbar {
     margin-bottom: 0;
 }
+
+.fa-stack[ngModel]:after{
+    position:absolute;
+    left:50%;
+    bottom:-20%;
+    content: attr(ngModel);
+    font-size:80%;
+    padding:.6em;
+    border-radius:999px;
+    line-height:.75em;
+    color: white;
+    background:rgba(255,0,0,.95);
+    text-align:center;
+    min-width:2em;
+    font-weight:bold;
+  }

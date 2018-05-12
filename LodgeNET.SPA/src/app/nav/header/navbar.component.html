@@ -31,9 +31,13 @@
       <li class="nav-item dropdown">
         <a #userdropdown (click)="isUserDropdownOpen = !isUserDropdownOpen" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">
-          <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+          <!-- <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> -->
+          <span class="fa-stack fa-1x has-badge" data-count="pendingAcctCount" [(ngModel)]="pendingAcctCount">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+          </span>
         </a>
         <div class="dropdown-menu" [ngClass]="{show: isUserDropdownOpen}" id="userdropdownMenu">
+            <a class="dropdown-item" style="cursor: pointer;">Accounts</a>          
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Logout</a>
         </div>

@@ -11,12 +11,21 @@ export class NavbarComponent implements OnInit {
   @ViewChild('userdropdown') userDropdown: ElementRef;
   @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
 
+  pendingAcctCount: number;
+
   constructor(private authService: AuthService, private alertify: AlertifyService) { }
   isUserDropdownOpen = false;
   isUploadDropdownOpen = false;
   isNavbarOpen = false;
 
   ngOnInit() {
+    this.authService.GetPendingAcctCount().subscribe((acctNum: number) => {
+      console.log(acctNum);
+      this.pendingAcctCount = acctNum;
+      console.log(this.pendingAcctCount);
+    }, error => {
+      this.alertify.error(error);
+    });
   }
 
   toggleUserDropDown() {

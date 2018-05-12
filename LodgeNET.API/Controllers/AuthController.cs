@@ -16,14 +16,14 @@ namespace LodgeNET.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly IAuthRepository _repo;
+        private readonly IAuthRepository _authRepo;
         private readonly IGenericRepository<Unit> _unitRepo;
         private readonly IGenericRepository<Service> _serviceRepo;
         private readonly IGenericRepository<AccountType> _accountTypeRepo;
         private readonly IGenericRepository<Rank> _rankRepo;
         private readonly IConfiguration _config;
         private IMapper _mapper { get; set; }
-        public AuthController(IAuthRepository repo,
+        public AuthController(IAuthRepository authRepo,
                             IConfiguration config,
                             IGenericRepository<Unit> unitRepo,
                             IGenericRepository<Service> serviceRepo,
@@ -32,7 +32,7 @@ namespace LodgeNET.API.Controllers
                             IMapper mapper)
         {
             _config = config;
-            _repo = repo;
+            _authRepo = authRepo;
             _unitRepo = unitRepo;
             _serviceRepo = serviceRepo;
             _accountTypeRepo = accountTypeRepo;
@@ -48,7 +48,7 @@ namespace LodgeNET.API.Controllers
                 userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
             }
             
-            if (await _repo.UserExists(userForRegisterDto.UserName))
+            if (await _authRepo.UserExists(userForRegisterDto.UserName))
             {
                 ModelState.AddModelError("Username", "Username already exists");
             }
@@ -67,7 +67,7 @@ namespace LodgeNET.API.Controllers
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
             //userToCreate.UnitId = (await _unitRepo.GetFirstOrDefault(u => u.Name.Equals(userForRegisterDto.UserUnit))).Id;
             
-            var createUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            var createUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
         }
@@ -75,7 +75,7 @@ namespace LodgeNET.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
+            var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
 
             if (userFromRepo == null)
             {
@@ -118,6 +118,13 @@ namespace LodgeNET.API.Controllers
                 service.Ranks = await _rankRepo.GetAsync(r => r.ServiceId == service.Id);
             }
             return Ok(registerFormDto);
+        }
+
+        [HttpGet("pendingAcctCount")]
+        public IActionResult GetPendingAcctCount()
+        {
+            var acctCnt = _authRepo.GetCount(u => u.Approved == false);
+            return Ok(acctCnt);
         }
     }
 }
