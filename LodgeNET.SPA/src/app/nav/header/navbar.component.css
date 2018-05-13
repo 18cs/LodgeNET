@@ -6,11 +6,11 @@
     margin-bottom: 0;
 }
 
-.fa-stack[ngModel]:after{
+.fa-stack[data-count]:after{
     position:absolute;
     left:50%;
     bottom:-20%;
-    content: attr(ngModel);
+    content: attr(data-count);
     font-size:80%;
     padding:.6em;
     border-radius:999px;

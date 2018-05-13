@@ -19,7 +19,7 @@
           <i class="fa fa-sign-in" aria-hidden="true"></i> Login</a>
       </li>
     </ul>
-    <ul *ngIf="this.authService.loggedIn()" class="nav navbar-nav navbar-right" style="margin-right: 4rem;">
+    <ul *ngIf="this.authService.loggedIn()" class="nav navbar-nav navbar-right" style="margin-right: 6rem;">
       <li class="nav-item dropdown">
         <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">Upload</a>
@@ -32,12 +32,12 @@
         <a #userdropdown (click)="isUserDropdownOpen = !isUserDropdownOpen" class="nav-link" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">
           <!-- <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i> -->
-          <span class="fa-stack fa-1x has-badge" data-count="pendingAcctCount" [(ngModel)]="pendingAcctCount">
+          <span class="fa-stack fa-1x has-badge" [attr.data-count]="pendingAcctCount">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
           </span>
         </a>
         <div class="dropdown-menu" [ngClass]="{show: isUserDropdownOpen}" id="userdropdownMenu">
-            <a class="dropdown-item" style="cursor: pointer;">Accounts</a>          
+            <a class="dropdown-item" style="cursor: pointer;">Accounts<span class="badge badge-danger pull-right">{{pendingAcctCount}}</span></a>          
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Logout</a>
         </div>
