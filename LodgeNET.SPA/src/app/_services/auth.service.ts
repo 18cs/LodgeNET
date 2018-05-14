@@ -5,10 +5,12 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import { Observable } from 'rxjs/Observable';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormData } from '../_models/formData';
 import { AuthUser } from '../_models/authUser';
 import { Router } from '@angular/router';
+import { PaginatedResult } from '../_models/pagination';
+import { User } from '../_models/user';
 
 @Injectable()
 export class AuthService {
@@ -18,18 +20,20 @@ export class AuthService {
     currentUser: any;
     accountType: string;
 
-    constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) {}
+    constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) { }
 
     login(model: any) {
-      return this.http.post<AuthUser>(this.baseUrl + 'auth/login', model, {headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')}).map(auth => {
-        if (auth) {
-            localStorage.setItem('token', auth.tokenString);
-            this.decodedToken = this.jwtHelperService.decodeToken(auth.tokenString);
-            this.currentUser = this.decodedToken.unique_name;
-            this.accountType = this.decodedToken.role;
-          }
-      }).catch(this.handleError);
+        return this.http.post<AuthUser>(this.baseUrl + 'auth/login', model, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+        }).map(auth => {
+            if (auth) {
+                localStorage.setItem('token', auth.tokenString);
+                this.decodedToken = this.jwtHelperService.decodeToken(auth.tokenString);
+                this.currentUser = this.decodedToken.unique_name;
+                this.accountType = this.decodedToken.role;
+            }
+        }).catch(this.handleError);
     }
 
     logout() {
@@ -45,8 +49,10 @@ export class AuthService {
     register(model: any) {
         console.log(model);
         const url = this.baseUrl + 'auth/register';
-        return this.http.post(this.baseUrl + 'auth/register', model, {headers: new HttpHeaders()
-            .set('Content-Type', 'application/json')}).catch(this.handleError);
+        return this.http.post(this.baseUrl + 'auth/register', model, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+        }).catch(this.handleError);
     }
 
     loggedIn() {
@@ -59,12 +65,36 @@ export class AuthService {
 
     formData() {
         return this.http.get<FormData>(this.baseUrl + 'auth/register')
-        .catch(this.handleError);
+            .catch(this.handleError);
     }
 
     GetPendingAcctCount() {
         return this.http.get<Number>(this.baseUrl + 'auth/pendingAcctCount')
-        .catch(this.handleError);
+            .catch(this.handleError);
+    }
+
+    GetUsers(page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
+        const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
+        let params = new HttpParams();
+
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page);
+            params = params.append('pageSize', itemsPerPage);
+        }
+
+        return this.http.
+            get<User[]>(this.baseUrl + 'auth/users', { observe: 'response', params })
+            .map((response) => {
+                paginatedResult.result = response.body;
+
+                if (response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(
+                        response.headers.get('Pagination'));
+                }
+                return paginatedResult;
+            })
+            .catch(this.handleError);
+
     }
 
     private handleError(error: any) {

@@ -33,7 +33,9 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(guest => guest.Id));
             CreateMap<FileRowForUploadDto, Guest>();
             CreateMap<FileRowForUploadDto, Stay>();
-
+            CreateMap<User, UserForEditDto>()
+                .ForMember(userForEditDto => userForEditDto.ServiceId,
+                    opt => opt.MapFrom(user => user.Rank.ServiceId));
         }
     }
 }

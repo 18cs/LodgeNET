@@ -1,15 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
 
 namespace LodgeNET.API.DAL
 {
-    public interface IAuthRepository
+    public interface IAuthRepository : IGenericRepository<User>
     {
          Task<User> Register(User user, string password);
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
-         int GetCount(Expression<Func<User, bool>> filter = null);
+         Task<PagedList<User>> GetUsersPaginiation(
+            PagUserParams userParams, 
+            Expression<Func<User, object>>[] includeProperties = null,
+            Expression<Func<User, bool>> filter = null
+        );
     }
 }

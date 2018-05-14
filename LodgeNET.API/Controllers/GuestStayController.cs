@@ -49,10 +49,10 @@ namespace LodgeNET.API.Controllers
                    !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
                    s.RoomId == room.Id);
 
-                if (room.CurrentGuestCount >= room.Capacity)
-                {
+                // if (room.CurrentGuestCount >= room.Capacity)
+                // {
 
-                }
+                // }
             }
 
             Response.AddPagination(rooms.CurrentPage,

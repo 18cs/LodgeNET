@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
+using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,6 +81,27 @@ namespace LodgeNET.API.DAL
             }
 
             return false;
+        }
+
+        public async Task<PagedList<User>> GetUsersPaginiation(
+            PagUserParams userParams, 
+            Expression<Func<User, object>>[] includeProperties = null,
+            Expression<Func<User, bool>> filter = null
+        ) {
+            var users = _context.Users.AsQueryable();
+
+            if (includeProperties != null) {
+                foreach (Expression<Func<User, object>> includeProperty in includeProperties) {
+                    users = users.Include<User, object> (includeProperty);
+                }
+            }
+
+            if(filter != null)
+            {
+                users = users.Where(filter);
+            }
+
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
         }
     }
 }

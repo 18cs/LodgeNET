@@ -1,3 +1,47 @@
-<p>
-  viewusers works!
-</p>
+<div class="row" *ngIf="selectedUser == null">
+  <div class="col-lg-12">
+    <h5 class="text-right" *ngIf="pagination != null;">Users Found: {{ pagination.totalItems }}</h5>
+    <table class="table table-hover">
+      <caption *ngIf="pagination?.totalItems == 0">No Users Found</caption>
+      <thead>
+        <tr>
+          <th scope="col">User Name</th>
+          <th scope="col">Last Name</th>
+          <th scope="col">First Name</th>
+          <th scope="col">Account Type</th>
+          <th scope="col">Email</th>
+          <th scope="col">Approved</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <th scope="row">{{user.userName}}</th>
+          <td>{{user.lastName}}</td>
+          <td>{{user.firstName}}</td>
+          <td>{{user.accountType.type}}</td>
+          <td>{{user.email}}</td>
+          <td>{{user.approved}}</td>
+          <td>
+            <button class="editbutton btn btn-primary btn-sm" (click)="onUserSelect(user)">
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{user.userName}}"></i>
+            </button>
+            <button class="editbutton btn btn-danger btn-sm">
+              <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{user.userName}}"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
+      <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+        [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="selectedUser != null">
+  <div class="col-lg-12">
+    <app-edituser [user]="selectedUser" (cancel)="selectedUser = null"></app-edituser>
+  </div>
+</div>

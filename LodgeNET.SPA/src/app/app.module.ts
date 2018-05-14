@@ -45,6 +45,7 @@ import { LostComponent } from './home/lost/lost.component';
 import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
 import { FileuploadService } from './_services/fileupload.service';
 import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lodgingDialog/lodgingDialog.component';
+import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lo
     DropdownDirective,
     BuildingsdialogComponent,
     UnaccompanieddialogComponent,
-    LodgingDialogComponent
+    LodgingDialogComponent,
+    EdituserComponent
 ],
   imports: [
     BrowserModule,

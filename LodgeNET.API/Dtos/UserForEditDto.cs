@@ -1,19 +1,19 @@
-using System.ComponentModel.DataAnnotations;
+using LodgeNET.API.Models;
 
 namespace LodgeNET.API.Dtos
 {
-    public class UserForRegisterDto
+    public class UserForEditDto
     {
-        [Required]
-        public string UserName { get; set; }
-
-        [Required]
-        [StringLength(15, MinimumLength = 8, ErrorMessage = "You must specify a password between 8 and 15 characters.")]
-        public string Password { get; set; }
         public int? DodId { get; set; }
+        public int? ServiceId { get; set; }
         public int? RankId { get; set; }
-        public int UserUnit { get; set; }
+        // [ForeignKey("RankId")]
+        public int? UnitId { get; set; }
+        // [ForeignKey("UnitId")]
+        // public Unit Unit { get; set; }
         public int AccountTypeId { get; set; }
+        // [ForeignKey("AccountTypeId")]
+        public AccountType AccountType { get; set; }
         public string FirstName { get; set; }
         public string MiddleInitial { get; set; }
         public string LastName { get; set; }
@@ -21,5 +21,6 @@ namespace LodgeNET.API.Dtos
         public string Email { get; set; }
         public string CommPhone { get; set; }
         public string DsnPhone { get; set; }
+        public string UserName { get; set; }
     }
 }

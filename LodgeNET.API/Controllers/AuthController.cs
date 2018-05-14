@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Dtos;
+using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -125,6 +128,24 @@ namespace LodgeNET.API.Controllers
         {
             var acctCnt = _authRepo.GetCount(u => u.Approved == false);
             return Ok(acctCnt);
+        }
+
+        [HttpGet("users")]
+        public async Task<IActionResult> GetUsers([FromQuery] PagUserParams userParams) {
+            var users = await _authRepo.GetUsersPaginiation(
+                userParams,
+                new Expression<Func<User, object>>[] {
+                    u => u.AccountType,
+                    u => u.Rank
+                });
+            var usersToReturn = _mapper.Map<IEnumerable<UserForEditDto>>(users);
+
+             Response.AddPagination(users.CurrentPage,
+                users.PageSize,
+                users.TotalCount,
+                users.TotalPages);
+
+            return Ok(usersToReturn);
         }
     }
 }

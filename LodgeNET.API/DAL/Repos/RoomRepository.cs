@@ -7,7 +7,7 @@ using System;
 
 namespace LodgeNET.API.DAL
 {
-    public class RoomRepository : GenericRepository<Room>, IRoomRepository, IGenericRepository<Room>
+    public class RoomRepository : GenericRepository<Room>, IRoomRepository
     {
 
         public RoomRepository(DataContext context)
