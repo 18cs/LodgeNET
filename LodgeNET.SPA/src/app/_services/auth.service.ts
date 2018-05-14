@@ -62,6 +62,11 @@ export class AuthService {
         .catch(this.handleError);
     }
 
+    GetPendingAcctCount() {
+        return this.http.get<Number>(this.baseUrl + 'auth/pendingAcctCount')
+        .catch(this.handleError);
+    }
+
     private handleError(error: any) {
         const applicationError = error.headers.get('Application-Error');
         if (applicationError) {
