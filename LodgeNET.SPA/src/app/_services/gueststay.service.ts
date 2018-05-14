@@ -6,9 +6,9 @@ import { Observable } from 'rxjs/Observable';
 import { Room } from '../_models/room';
 import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
 import { GuestStayCheckOut } from '../_models/guestStayCheckOut';
-import { GuestTable } from '../_models/guestTable';
 import { FormGroup } from '@angular/forms';
 import { GuestStayDto } from '../_models/guestStayDto';
+import { Guest } from '../_models/guest';
 
 @Injectable()
 export class GueststayService {
@@ -21,7 +21,7 @@ export class GueststayService {
     constructor(private http: HttpClient) { }
 
     getGuests() {
-        return this.http.get<GuestTable>(this.baseUrl + 'gueststay/getguests').catch(this.handleError);
+        return this.http.get<Guest[]>(this.baseUrl + 'gueststay/getguests').catch(this.handleError);
     }
 
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
@@ -61,7 +61,7 @@ export class GueststayService {
         return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
     }
 
-    getGuestStays(dodId?, lastName?, roomNumber?) {
+    getGuestStays(dodId?, lastName?, roomNumber?, guestId?) {
         let params = new HttpParams();
 
         if (dodId != null) {
@@ -74,6 +74,10 @@ export class GueststayService {
 
         if (roomNumber != null) {
             params = params.append('roomNumber', roomNumber);
+        }
+
+        if (guestId != null) {
+            params = params.append('guestId', guestId);
         }
 
         return this.http.get<GuestStayCheckOut[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);

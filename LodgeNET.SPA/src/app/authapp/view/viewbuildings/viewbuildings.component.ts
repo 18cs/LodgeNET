@@ -96,7 +96,7 @@ export class ViewbuildingsComponent implements OnInit {
               this.alertify.success(bldg.name + ' successfully deleted.');
               let bldgIndex = this.buildingDashboard.buildingList.indexOf(bldg);
 
-              if (bldgIndex != -1)
+              if (bldgIndex !== -1)
               {
                 this.buildingDashboard.buildingList.splice(bldgIndex, 1);
               }

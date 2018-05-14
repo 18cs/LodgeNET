@@ -2,13 +2,36 @@
   <thead>
     <tr>
       <th scope="col">Name</th>
-      <th scope="col">Building</th>
-      <th scope="col">Room</th>
+      <th scope="col">Rank</th>
+      <th scope="col">Gender</th>
+      <th scope="col">DoD ID</th>
+      <th scope="col">Unit</th>
+      <th scope="col">Email</th>
+      <th scope='col'>Phone Number</th>
     </tr>
   </thead>
-  <tbody *ngFor="let guest of guestTable let i = index;">
-    <tr class="table-default" > <!-- (click)="tableCollapseToggle(building.id)" -->
-      <th scope="row">{{ guest.lastName + ', ' + guest.firstName }}</th>
+  <tbody *ngFor="let guest of guestList; let i = index;">
+    <tr class="table-default" (click)="tableCollapseToggle(guest.id)" title="View guest stays">
+      <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest.middleInitial }}</th>
+      <td>{{ guest.rank }}</td>
+      <td>{{ guest.gender }}</td>
+      <td>{{ guest.dodId }}</td>
+      <td>{{ guest.unit }}</td>
+      <td>{{ guest.email }}</td>
+      <td>Comm: {{ guest.commPhone }}
+        <br /> DSN: {{ guest.dsnPhone }}</td>
     </tr>
+    <!-- <tr>
+      <th scope="row">{{ bldg.name }}</th>
+      <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
+      <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}% &emsp;
+        <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(bldg)">
+          <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{bldg.name}}"></i>
+        </button>
+        <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(bldg)">
+          <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{bldg.name}}"></i>
+        </button>
+      </td>
+    </tr> -->
   </tbody>
 </table>
