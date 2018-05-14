@@ -12,6 +12,20 @@
             <input type="text" id="username" formControlName="username" class="form-control">
           </div>
         </div>
+        <div class="col">
+          <div class="form-group">
+            <label>Account Approval:</label>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="disapproved" name="approved" formControlName="approved" [value]="0" class="custom-control-input" [ngModel]=""
+                checked="">
+              <label class="custom-control-label" for="disapproved">Disapproved</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="approved" name="approved" formControlName="approved" [value]="1" [ngModel]="" class="custom-control-input">
+              <label class="custom-control-label" for="approved">Approved</label>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="row">
           <div class="col col-md-5 col-lg-5">
@@ -82,15 +96,15 @@
       <div class="row">
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
-            <label for="userUnit">Unit</label>
-            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="selectedUnit.name" (focus)="unitFocus()"
-              (focusout)="unitFocus()">
-              <div *ngIf="!edituserForm.get('userUnit').valid && edituserForm.get('userUnit').touched" class="invalid-feedback">
+            <label for="unitId">Unit</label>
+            <input type="text" id="unitId" formControlName="unitId" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="unitFocusIn()"
+              (focusout)="unitFocusOut()">
+              <div *ngIf="!edituserForm.get('unitId').valid && edituserForm.get('unitId').touched" class="invalid-feedback">
                 Please select a unit
               </div>
             <div class="row">
               <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
-                <div *ngFor="let unit of formData.unitList | filter: selectedUnit.name: 'name'; let i=index;">
+                <div *ngFor="let unit of formData.unitList | filter: filterStatus: 'name'; let i=index;">
                     <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
                         <a href="">
                           {{ unit.name }} 

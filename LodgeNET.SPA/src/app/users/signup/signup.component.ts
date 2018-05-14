@@ -20,7 +20,7 @@ export class SignupComponent implements OnInit {
   isUnitFocused = false;
   selectedUnit: Unit = { id: 0, name: '' };
   selectedService: any;
-  // filterStatus = '';
+  filterStatus = '';
   registerForm: FormData;
 
   constructor(private authService: AuthService,
@@ -72,14 +72,18 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  private unitFocus() {
-    this.isUnitFocused = this.isUnitFocused ? false : true;
+  private onUnitFocusIn() {
+    this.isUnitFocused = true;
+  }
+
+  private onUnitFocusOut() {
+    this.isUnitFocused = false;
+    this.filterStatus = this.selectedUnit.name;
   }
 
   onUnitSelected(selectedUnit) {
     this.selectedUnit = selectedUnit;
-    //  this.filterStatus = this.selectedUnit.name;
-
+    this.filterStatus = this.selectedUnit.name;
   }
 
   onCancel() {

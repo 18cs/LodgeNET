@@ -3,6 +3,7 @@ import { Rank } from './rank';
 import { Service } from './service';
 
 export interface User {
+    id: number;
     userName: string;
     dodId: string;
     rankId: number;

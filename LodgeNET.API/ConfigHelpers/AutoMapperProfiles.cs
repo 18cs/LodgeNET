@@ -36,6 +36,7 @@ namespace LodgeNET.API.ConfigHelpers
             CreateMap<User, UserForEditDto>()
                 .ForMember(userForEditDto => userForEditDto.ServiceId,
                     opt => opt.MapFrom(user => user.Rank.ServiceId));
+            CreateMap<UserForEditDto, User>();
         }
     }
 }

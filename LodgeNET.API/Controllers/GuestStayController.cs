@@ -83,10 +83,10 @@ namespace LodgeNET.API.Controllers
             }
 
             if (guest.Id != 0) {
-                _guestRepo.Save();
+                await _guestRepo.SaveAsync();
             } else {
                 _guestRepo.Insert (guest);
-                _guestRepo.Save();
+                await _guestRepo.SaveAsync();
             } 
 
             var room = await _roomsRepo.GetFirstOrDefault (r => r.Id == guestStayDto.RoomId);
@@ -96,7 +96,7 @@ namespace LodgeNET.API.Controllers
             stay.BuildingId = room.BuildingId;
             stay.CheckedIn = true;
             _staysRepo.Insert(stay);
-            _staysRepo.Save();
+            await _staysRepo.SaveAsync();
 
             return Ok();
         }
@@ -112,7 +112,7 @@ namespace LodgeNET.API.Controllers
             }
 
             guestStay.CheckedOut = true;
-            _staysRepo.Save();
+            await _staysRepo.SaveAsync();
 
             return Ok();
         }

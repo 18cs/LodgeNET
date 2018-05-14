@@ -11,7 +11,7 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180428095529_init")]
+    [Migration("20180514140922_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -169,7 +169,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<DateTime>("CheckInDate");
 
-                    b.Property<DateTime>("CheckOutDate");
+                    b.Property<DateTime?>("CheckOutDate");
 
                     b.Property<bool>("CheckedIn");
 

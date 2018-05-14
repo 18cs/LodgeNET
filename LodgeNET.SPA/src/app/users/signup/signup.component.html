@@ -102,14 +102,14 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="userUnit">Unit</label>
-            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="selectedUnit.name" (focus)="unitFocus()"
-              (focusout)="unitFocus()">
+            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="onUnitFocusIn()"
+              (focusout)="onUnitFocusOut()">
               <div *ngIf="!signupForm.get('userUnit').valid && signupForm.get('userUnit').touched" class="invalid-feedback">
                 Please select a unit
               </div>
             <div class="row">
               <ul class="list-group" *ngIf="isUnitFocused" style="position: absolute; z-index: 1; margin-left: 2rem;">
-                <div *ngFor="let unit of registerForm.unitList | filter: selectedUnit.name: 'name'; let i=index;">
+                <div *ngFor="let unit of registerForm.unitList | filter: filterStatus: 'name'; let i=index;">
                     <li (mousedown)="onUnitSelected(unit)" class="list-group-item" *ngIf="i<7">
                         <a href="">
                           {{ unit.name }} 

@@ -147,5 +147,27 @@ namespace LodgeNET.API.Controllers
 
             return Ok(usersToReturn);
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateUser([FromBody] UserForEditDto updatedUserDto) {
+            var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+            //TODO add account type verification for tasks
+            if (currentUserId == 0) {
+                return Unauthorized ();
+            }
+
+            var user = await _authRepo.GetFirstOrDefault(u => u.Id == updatedUserDto.Id);
+
+            if (user == null) {
+                ModelState.AddModelError("error", "Unable to update user");
+                return BadRequest(ModelState);
+            }
+            updatedUserDto.UserName = updatedUserDto.UserName.ToUpper();
+
+            _mapper.Map(updatedUserDto, user);
+            await _authRepo.SaveAsync();
+
+            return Ok();
+        }
     }
 }

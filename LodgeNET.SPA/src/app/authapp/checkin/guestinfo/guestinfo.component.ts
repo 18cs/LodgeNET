@@ -21,6 +21,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   idScanCheckin = false;
   selectedUnit: Unit = { id: 0, name: '' };
   selectedService: Service = {  id: 0, serviceName: '' };
+  filterStatus = '';
 
   // angular disabled att for controls has errors, only method found that works
   dodIdDisabled = this.gueststayService.guestStay.guestId !== 0;
@@ -90,12 +91,18 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private unitFocus() {
-    this.isUnitFocused = this.isUnitFocused ? false : true;
+  private unitFocusIn() {
+    this.isUnitFocused = true;
+  }
+
+  private unitFocusOut() {
+    this.isUnitFocused = false;
+    this.filterStatus = this.selectedUnit.name;
   }
 
   onUnitSelected(selectedUnit) {
     this.selectedUnit = selectedUnit;
+    this.filterStatus = this.selectedUnit.name;
   }
 
   onCancel() {

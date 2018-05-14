@@ -4,6 +4,7 @@ namespace LodgeNET.API.Dtos
 {
     public class UserForEditDto
     {
+        public int Id { get; set;}
         public int? DodId { get; set; }
         public int? ServiceId { get; set; }
         public int? RankId { get; set; }

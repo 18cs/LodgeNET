@@ -168,7 +168,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<DateTime>("CheckInDate");
 
-                    b.Property<DateTime>("CheckOutDate");
+                    b.Property<DateTime?>("CheckOutDate");
 
                     b.Property<bool>("CheckedIn");
 

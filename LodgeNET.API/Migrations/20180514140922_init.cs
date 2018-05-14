@@ -224,7 +224,7 @@ namespace LodgeNET.API.Migrations
                     BuildingId = table.Column<int>(nullable: true),
                     Canceled = table.Column<bool>(nullable: false),
                     CheckInDate = table.Column<DateTime>(nullable: false),
-                    CheckOutDate = table.Column<DateTime>(nullable: false),
+                    CheckOutDate = table.Column<DateTime>(nullable: true),
                     CheckedIn = table.Column<bool>(nullable: false),
                     CheckedOut = table.Column<bool>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),

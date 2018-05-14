@@ -18,7 +18,7 @@ namespace LodgeNET.API.Models
         [ForeignKey("BuildingId")]
         public Building Building { get; set; }
         public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
         public bool Canceled { get; set; }
         public bool CheckedIn { get; set; }
         public bool CheckedOut { get; set; }
