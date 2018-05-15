@@ -44,6 +44,10 @@ namespace LodgeNET.API.DAL {
                 stays = stays.Where (s => s.Room.RoomNumber == userParams.RoomNumber);
             }
 
+            if (userParams.GuestId != null) {
+                stays = stays.Where (s => s.Guest.Id == userParams.GuestId);
+            }
+
             return await stays.ToListAsync ();
         }
     }

@@ -163,7 +163,7 @@
         "ParentUnitId": 8
     },
     {
-        "Name": "3d Wing",
+        "Name": "3rd Wing",
         "ParentUnitId": 9
     },
     {
@@ -251,7 +251,7 @@
         "ParentUnitId": 10
     },
     {
-        "Name": "Sub and Theater Anti-Sub Warfare Force 3d Fleet",
+        "Name": "Sub and Theater Anti-Sub Warfare Force 3rd Fleet",
         "ParentUnitId": 10
     },
     {
@@ -671,7 +671,7 @@
         "ParentUnitId": 35
     },
     {
-        "Name": "374th Mission Group",
+        "Name": "374th Mission Support Group",
         "ParentUnitId": 35
     },
     {
@@ -691,7 +691,7 @@
         "ParentUnitId": 36
     },
     {
-        "Name": "51st Fighter Wing staff Agencies",
+        "Name": "51st Fighter Wing Staff Agencies",
         "ParentUnitId": 36
     },
     {
@@ -711,23 +711,23 @@
         "ParentUnitId": 37
     },
     {
-        "Name": "3d Operations Group",
+        "Name": "3rd Operations Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3d Maintenance Group",
+        "Name": "3rd Maintenance Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3d Mission Support Group",
+        "Name": "3rd Mission Support Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3d Medical Group",
+        "Name": "3rd Medical Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3d Wing Staff Agencies",
+        "Name": "3rd Wing Staff Agencies",
         "ParentUnitId": 42
     },
     {
@@ -821,5 +821,405 @@
     {
         "Name": "176th Wing Staff",
         "ParentUnitId": 50
+    },
+    {
+        "Name": "18th Aeromedical Evacuation Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "18th Operations Support Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "44th Fighter Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "67th Fighter Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "31st Rescue Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "33rd Rescue Sqadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "623rd Air Control Flight",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "909th Air Refueling Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "961st Airborne Air Control Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "18th Communications Squadron",
+        "ParentUnitId": 160
+    },
+    {
+        "Name": "18th Contracting Squadron",
+        "ParentUnitId": 160
+    },
+    {
+        "Name": "18th Logistics Readiness Squadron",
+        "ParentUnitId": 160
+    },
+    {
+        "Name": "18th Force Support Squadron",
+        "ParentUnitId": 160
+    },
+    {
+        "Name": "18th Security Forces Squadron",
+        "ParentUnitId": 160
+    },
+    {
+        "Name": "18th Aircraft Maintenance Squadron",
+        "ParentUnitId": 161
+    },
+    {
+        "Name": "718th Aircraft Maintenance Squadron",
+        "ParentUnitId": 161
+    },
+    {
+        "Name": "18th Equipment Maintenance Squadron",
+        "ParentUnitId": 161
+    },
+    {
+        "Name": "18th Component Maintenance Squadron",
+        "ParentUnitId": 161
+    },
+    {
+        "Name": "18th Munitions Squadron",
+        "ParentUnitId": 161
+    },
+    {
+        "Name": "18th Aerospace Medicine Squadron",
+        "ParentUnitId": 162
+    },
+    {
+        "Name": "18th Dental Squadron",
+        "ParentUnitId": 162
+    },
+    {
+        "Name": "18th Medical Operations Squadron",
+        "ParentUnitId": 162
+    },
+    {
+        "Name": "18th Medical Support Squadron",
+        "ParentUnitId": 162
+    },
+    {
+        "Name": "18th Civil Engineer Squadron",
+        "ParentUnitId": 163
+    },
+    {
+        "Name": "718th Civil Engineer Squadron",
+        "ParentUnitId": 163
+    },
+    {
+        "Name": "13th Fighter Squadron",
+        "ParentUnitId": 164
+    },
+    {
+        "Name": "14th Fighter Squadron",
+        "ParentUnitId": 164
+    },
+    {
+        "Name": "35th Operations Support Squadron",
+        "ParentUnitId": 164
+    },
+    {
+        "Name": "610th Air Control Flight",
+        "ParentUnitId": 164
+    },
+    {
+        "Name": "35th Aircraft Maintenance Squadron",
+        "ParentUnitId": 165
+    },
+    {
+        "Name": "35th Maintenance Squadron",
+        "ParentUnitId": 165
+    },
+    {
+        "Name": "35th Maintenance Operations Squadron",
+        "ParentUnitId": 165
+    },
+    {
+        "Name": "35th Civil Engineer Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "35th Communications Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "35th Contracting Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "35th Force Support Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "35th Logistics Readiness Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "35th Security Forces Squadron",
+        "ParentUnitId": 166
+    },
+    {
+        "Name": "36th Airlift Squadron",
+        "ParentUnitId": 167
+    },
+    {
+        "Name": "459th Airlift Squadron",
+        "ParentUnitId": 167
+    },
+    {
+        "Name": "374th Operations Support Squadron",
+        "ParentUnitId": 167
+    },
+    {
+        "Name": "374th Aircraft Maintenance Squadron",
+        "ParentUnitId": 168
+    },
+    {
+        "Name": "374th Maintenance Squadron",
+        "ParentUnitId": 168
+    },
+    {
+        "Name": "374th Maintenance Operations Squadron",
+        "ParentUnitId": 168
+    },
+    {
+        "Name": "374th Civil Engineer Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "374th Communications Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "374th Contracting Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "374th Force Support Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "374th Logistics Readiness Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "374th Security Forces Squadron",
+        "ParentUnitId": 169
+    },
+    {
+        "Name": "25th Fighter Squadron",
+        "ParentUnitId": 170
+    },
+    {
+        "Name": "36th Fighter Squadron",
+        "ParentUnitId": 170
+    },
+    {
+        "Name": "51st Operations Support Squadron",
+        "ParentUnitId": 170
+    },
+    {
+        "Name": "51st Civil Engineer Squadron",
+        "ParentUnitId": 171
+    },
+    {
+        "Name": "51st Communications Squadron",
+        "ParentUnitId": 171
+    },
+    {
+        "Name": "51st Force Support Squadron",
+        "ParentUnitId": 171
+    },
+    {
+        "Name": "51st Logistics Readiness Squadron",
+        "ParentUnitId": 171
+    },
+    {
+        "Name": "51st Security Forces Squadron",
+        "ParentUnitId": 171
+    },
+    {
+        "Name": "51st Aircraft Maintenance Squadron",
+        "ParentUnitId": 172
+    },
+    {
+        "Name": "51st Maintenance Squadron",
+        "ParentUnitId": 172
+    },
+    {
+        "Name": "51st Maintenance Operations Squadron",
+        "ParentUnitId": 172
+    },
+    {
+        "Name": "51st Munitions Squadron",
+        "ParentUnitId": 172
+    },
+    {
+        "Name": "51st Aerospace Medicine Squadron",
+        "ParentUnitId": 173
+    },
+    {
+        "Name": "51st Dental Squadron",
+        "ParentUnitId": 173
+    },
+    {
+        "Name": "51st Medical Operations Squadron",
+        "ParentUnitId": 173
+    },
+    {
+        "Name": "51st Medical Support Squadron",
+        "ParentUnitId": 173
+    },
+    {
+        "Name": "51st Comptroller Squadron",
+        "ParentUnitId": 36
+    },
+    {
+        "Name": "35th Fighter Squadron",
+        "ParentUnitId": 175
+    },
+    {
+        "Name": "80th Fighter Squadron",
+        "ParentUnitId": 175
+    },
+    {
+        "Name": "8th Operations Support Squadron",
+        "ParentUnitId": 175
+    },
+    {
+        "Name": "8th Aircraft Maintenance Squadron",
+        "ParentUnitId": 176
+    },
+    {
+        "Name": "8th Maintenance Squadron",
+        "ParentUnitId": 176
+    },
+    {
+        "Name": "8th Maintenance Operations Squadron",
+        "ParentUnitId": 176
+    },
+    {
+        "Name": "8th Civil Engineer Squadron",
+        "ParentUnitId": 177
+    },
+    {
+        "Name": "8th Communications Squadron",
+        "ParentUnitId": 177
+    },
+    {
+        "Name": "8th Force Support Squadron",
+        "ParentUnitId": 177
+    },
+    {
+        "Name": "8th Logistics Readiness Squadron",
+        "ParentUnitId": 177
+    },
+    {
+        "Name": "8th Security Forces Squadron",
+        "ParentUnitId": 177
+    },
+    {
+        "Name": "8th Medical Operations Squadron",
+        "ParentUnitId": 178
+    },
+    {
+        "Name": "8th Medical Support Squadron",
+        "ParentUnitId": 178
+    },
+    {
+        "Name": "517th Airlift Squadron",
+        "ParentUnitId": 179
+    },
+    {
+        "Name": "90th Fighter Squadron",
+        "ParentUnitId": 179
+    },
+    {
+        "Name": "525th Fighter Squadron",
+        "ParentUnitId": 179
+    },
+    {
+        "Name": "962nd Airborne Command and Control Squadron",
+        "ParentUnitId": 179
+    },
+    {
+        "Name": "3rd Operations Support Squadron",
+        "ParentUnitId": 179
+    },
+    {
+        "Name": "3rd Aircraft Maintenance Squadron",
+        "ParentUnitId": 180
+    },
+    {
+        "Name": "703rd Aircraft Maintenance Squadron",
+        "ParentUnitId": 180
+    },
+    {
+        "Name": "3rd Maintenance Squadron",
+        "ParentUnitId": 180
+    },
+    {
+        "Name": "3rd Munitions Squadron",
+        "ParentUnitId": 180
+    },
+    {
+        "Name": "3rd Maintenance Operations Squadron",
+        "ParentUnitId": 180
+    },
+    {
+        "Name": "18th Aggressor Squadron",
+        "ParentUnitId": 184
+    },
+    {
+        "Name": "354th Operations Support Squadron",
+        "ParentUnitId": 184
+    },
+    {
+        "Name": "354th Aircraft Maintenance Squadron",
+        "ParentUnitId": 185
+    },
+    {
+        "Name": "354th Maintenance Squadron",
+        "ParentUnitId": 185
+    },
+    {
+        "Name": "354th Civil Engineer Squadron",
+        "ParentUnitId": 186
+    },
+    {
+        "Name": "354th Communications Squadron",
+        "ParentUnitId": 186
+    },
+    {
+        "Name": "354th Contracting Squadron",
+        "ParentUnitId": 186
+    },
+    {
+        "Name": "354th Force Support Squadron",
+        "ParentUnitId": 186
+    },
+    {
+        "Name": "354th Logistics Readiness Squadron",
+        "ParentUnitId": 186
+    },
+    {
+        "Name": "354th Security Forces Squadron",
+        "ParentUnitId": 186
     }
 ]
