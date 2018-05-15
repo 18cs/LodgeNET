@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody *ngFor="let guest of guestList; let i = index;">
-    <tr class="table-default" (click)="tableCollapseToggle(guest.id)" title="View guest stays">
+    <tr class="table-default" (click)="getGuestStays(guest.id)" title="View guest stays" >
       <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest.middleInitial }}</th>
       <td>{{ guest.rank }}</td>
       <td>{{ guest.gender }}</td>
@@ -20,18 +20,24 @@
       <td>{{ guest.email }}</td>
       <td>Comm: {{ guest.commPhone }}
         <br /> DSN: {{ guest.dsnPhone }}</td>
-    </tr>
-    <!-- <tr>
-      <th scope="row">{{ bldg.name }}</th>
-      <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
-      <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}% &emsp;
-        <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(bldg)">
-          <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{bldg.name}}"></i>
-        </button>
-        <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(bldg)">
-          <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{bldg.name}}"></i>
-        </button>
-      </td>
-    </tr> -->
+      </tr>
+    <ng-container *ngIf="guestStayList != null  && guest.id == guestStayList[0]?.guestId" >
+      <tr *ngFor="let guestStay of guestStayList;">
+        <th scope="row">{{ guestStayList[0]?.guestId }}</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>&emsp;
+          <button class="editbutton btn btn-primary btn-sm">
+            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{ guestStayList[i].checkInDate }} Stay?"></i>
+          </button>
+          <button class="editbutton btn btn-danger btn-sm">
+            <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{ guestStayList[i].checkInDate }} Stay?"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
   </tbody>
 </table>

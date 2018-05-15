@@ -28,7 +28,7 @@ export class ViewguestsComponent implements OnInit {
     this.loadGuests();
   }
 
-  tableCollapseToggle(guestId: number) {
+  getGuestStays(guestId: number) {
     this.loadGuestStays(guestId);
   }
 
@@ -45,7 +45,7 @@ export class ViewguestsComponent implements OnInit {
   }
 
   loadGuestStays(guestId: number) {
-    this.guestStayService.getGuestStays(guestId).subscribe(
+    this.guestStayService.getGuestStays(null, null, null, guestId).subscribe(
       (guestStayList: GuestStayCheckOut[]) => {
         console.log(guestStayList);
         this.guestStayList = guestStayList;
