@@ -38,7 +38,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet ("availableRooms")]
-        public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomPagUserParams userParams) {
+        public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomUserParams userParams) {
             var rooms = await _roomsRepo.GetRooms (userParams);
             var roomsToReturn = _mapper.Map<IEnumerable<RoomForCheckinDto>> (rooms);
 
@@ -152,8 +152,8 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet("getguests")]
-        public async Task<IActionResult> GetGuests() {
-            var guests = await _guestRepo.GetAsync();
+        public async Task<IActionResult> GetGuests([FromQuery] GuestUserParams userParams ) {
+            var guests = await _guestRepo.GetGuestPagination(userParams);
 
             return Ok(guests);
         }

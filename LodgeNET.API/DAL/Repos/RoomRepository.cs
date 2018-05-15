@@ -16,7 +16,7 @@ namespace LodgeNET.API.DAL
  
         }
 
-        public async Task<PagedList<Room>> GetRooms(RoomPagUserParams userParams,  Expression<Func<Room, bool>> filter = null)
+        public async Task<PagedList<Room>> GetRooms(RoomUserParams userParams,  Expression<Func<Room, bool>> filter = null)
         {
             var stays = _context.Stays.AsQueryable();
 

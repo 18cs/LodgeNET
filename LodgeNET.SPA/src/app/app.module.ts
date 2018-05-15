@@ -46,6 +46,7 @@ import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcompone
 import { FileuploadService } from './_services/fileupload.service';
 import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lodgingDialog/lodgingDialog.component';
 import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.component';
+import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 
 @NgModule({
   declarations: [
@@ -107,10 +108,11 @@ import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.co
     AuthGuard,
     LoggedinGuard,
     BuildingService,
-    FileuploadService
+    FileuploadService,
+    FormdataResolver
   ],
   bootstrap: [AppComponent],
-  entryComponents: [BuildingsdialogComponent, 
+  entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent
   ]

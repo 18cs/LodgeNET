@@ -49,8 +49,6 @@ export class CheckoutComponent implements OnInit {
       .subscribe((guestStays: GuestStayCheckOut[]) => {
         if (guestStays.length > 1) {
           this.guestStayList = guestStays;
-          console.log(this.guestStay);
-          console.log(this.guestStayList);
         } else if (guestStays.length === 1) {
           this.guestStay = guestStays[0];
         } else {
