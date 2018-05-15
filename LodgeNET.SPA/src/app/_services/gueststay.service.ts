@@ -43,6 +43,17 @@ export class GueststayService {
         .catch(this.handleError);
     }
 
+    updateGuest(model: any) {
+        return this.http.post(this.baseUrl + 'gueststay/updateguest', model, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+        }).catch(this.handleError);
+    }
+
+    deleteGuest(id: number) {
+        return this.http.delete(this.baseUrl + 'gueststay/deleteguest/' + id).catch(this.handleError);
+    }
+
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();

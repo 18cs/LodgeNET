@@ -8,6 +8,7 @@ import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
+import { FormData } from '../../../_models/formData';
 
 @Component({
   selector: 'app-viewguests',
@@ -19,9 +20,10 @@ export class ViewguestsComponent implements OnInit {
   formData: FormData;
   guestList: Guest[];
   guestStayList: GuestStayCheckOut[];
+  selectedGuest: Guest;
   type: string;
-  currentPage: number;
-  itemsPerPage = 10;
+  // currentPage: number;
+  // itemsPerPage = 10;
   showSpinner = false;
   pageSize = 10;
   pageNumber = 1;
@@ -40,7 +42,6 @@ export class ViewguestsComponent implements OnInit {
     this.initFilterForm();
     this.route.data.subscribe((data: Data) => {
       this.formData = data['formData'];
-      console.log(this.formData);
     });
   }
 
@@ -95,6 +96,29 @@ export class ViewguestsComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadGuests();
+  }
+
+  onGuestSelect(guest: Guest) {
+    this.selectedGuest = guest;
+  }
+
+  onDelete(guest: Guest) {
+    this.alertify.confirm(
+      'Are you sure you wish to delete ' + guest.firstName + ' ' + guest.lastName +
+      '? <br /> <br /> WARNING: All stays of this guest will be deleted.',
+      () => {
+        this.guestStayService.deleteGuest(guest.id).subscribe(
+          () => {
+            this.alertify.success( guest.firstName + ' ' + guest.lastName + ' successfully deleted');
+            let guestIndex = this.guestList.indexOf(guest);
+
+            if (guestIndex !== -1) {
+              this.guestList.splice(guestIndex, 1);
+            }
+          },
+          error => this.alertify.error(error)
+        );
+      })
   }
 
   loadGuestStays(guestId: number) {

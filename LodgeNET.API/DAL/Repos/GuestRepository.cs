@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL {
     public class GuestRepository : GenericRepository<Guest>, IGuestRepository {
@@ -21,8 +22,22 @@ namespace LodgeNET.API.DAL {
         }
 
         public async Task<PagedList<Guest>> GetGuestPagination (
-            GuestUserParams userParams) {
+            GuestUserParams userParams,
+            Expression<Func<Guest, object>>[] includeProperties = null,
+            Expression<Func<Guest, bool>> filter = null)
+        {
             var guests = _context.Guests.AsQueryable ();
+
+             if (includeProperties != null) {
+                foreach (Expression<Func<Guest, object>> includeProperty in includeProperties) {
+                    guests = guests.Include<Guest, object> (includeProperty);
+                }
+            }
+
+            if(filter != null)
+            {
+                guests = guests.Where(filter);
+            }
 
             return await PagedList<Guest>.CreateAsync(guests, userParams.PageNumber, userParams.PageSize);
         }

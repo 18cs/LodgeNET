@@ -1,0 +1,7 @@
+.editbutton {
+    visibility: hidden;
+}
+
+tr:hover .editbutton {
+    visibility: visible;
+}

@@ -47,6 +47,7 @@ import { FileuploadService } from './_services/fileupload.service';
 import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lodgingDialog/lodgingDialog.component';
 import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
+import { EditguestComponent } from './authapp/view/viewguests/editguest/editguest.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { FormdataResolver } from './_resolvers/formdata-resolver.service';
     BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
-    EdituserComponent
+    EdituserComponent,
+    EditguestComponent
 ],
   imports: [
     BrowserModule,

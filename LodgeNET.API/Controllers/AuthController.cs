@@ -175,6 +175,11 @@ namespace LodgeNET.API.Controllers
         {
             var user = await _authRepo.GetFirstOrDefault(u => u.Id == id);
 
+            if ( user == null ) {
+                ModelState.AddModelError("error", "Unable to delete user");
+                return BadRequest(ModelState);
+            }
+
             await _authRepo.Delete(user.Id);
 
             await _authRepo.SaveAsync();

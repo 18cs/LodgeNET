@@ -52,8 +52,7 @@ export class ViewusersComponent implements OnInit {
 
   onDelete(user: User) {
     this.alertify.confirm(
-      'Are you sure you wish to delete ' + user.userName +
-      '? <br /> <br /> WARNING: All rooms and stays of this building will be deleted.',
+      'Are you sure you wish to delete ' + user.userName + '?',
       () => {
         this.authService.deleteUser(user.id).subscribe(
           () => {

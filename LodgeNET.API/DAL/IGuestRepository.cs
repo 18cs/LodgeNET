@@ -10,6 +10,9 @@ namespace LodgeNET.API.DAL {
     public interface IGuestRepository : IGenericRepository<Guest>
     {
         Task<bool> IsGuestCheckedIn (int guestId);
-        Task<PagedList<Guest>> GetGuestPagination (GuestUserParams userParams);
+        Task<PagedList<Guest>> GetGuestPagination (
+            GuestUserParams userParams, 
+            Expression<Func<Guest, object>>[] includeProperties = null,
+            Expression<Func<Guest, bool>> filter = null);
     }
 }
