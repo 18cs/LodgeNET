@@ -103,6 +103,10 @@ export class AuthService {
         }).catch(this.handleError);
     }
 
+    deleteUser(id: number) {
+        return this.http.delete(this.baseUrl + 'auth/' + id).catch(this.handleError);
+    }
+
     private handleError(error: any) {
         const applicationError = error.headers.get('Application-Error');
         if (applicationError) {

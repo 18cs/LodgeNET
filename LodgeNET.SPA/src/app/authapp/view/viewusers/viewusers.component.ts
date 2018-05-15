@@ -17,7 +17,7 @@ export class ViewusersComponent implements OnInit {
   pagination: Pagination;
 
   constructor(private authService: AuthService,
-              private alertify: AlertifyService) { }
+    private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadUsers();
@@ -26,18 +26,18 @@ export class ViewusersComponent implements OnInit {
   loadUsers() {
     if (this.pagination == null) {
       this.authService.GetUsers(this.pageNumber, this.pageSize)
-      .subscribe((paginatedResult: PaginatedResult<User[]>) => {
-        this.users = paginatedResult.result;
-        console.log(this.users);
-        this.pagination = paginatedResult.pagination;
-      }, error => {this.alertify.error(error); });
+        .subscribe((paginatedResult: PaginatedResult<User[]>) => {
+          this.users = paginatedResult.result;
+          console.log(this.users);
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
     } else {
       this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
-      .subscribe((paginatedResult: PaginatedResult<User[]>) => {
-        this.users = paginatedResult.result;
-        console.log(this.users);
-        this.pagination = paginatedResult.pagination;
-      }, error => {this.alertify.error(error); });
+        .subscribe((paginatedResult: PaginatedResult<User[]>) => {
+          this.users = paginatedResult.result;
+          console.log(this.users);
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
     }
   }
 
@@ -46,8 +46,26 @@ export class ViewusersComponent implements OnInit {
     this.loadUsers();
   }
 
-  onUserSelect(user) {
+  onUserSelect(user: User) {
     this.selectedUser = user;
   }
 
+  onDelete(user: User) {
+    this.alertify.confirm(
+      'Are you sure you wish to delete ' + user.userName +
+      '? <br /> <br /> WARNING: All rooms and stays of this building will be deleted.',
+      () => {
+        this.authService.deleteUser(user.id).subscribe(
+          () => {
+            this.alertify.success(user.userName + ' successfully deleted');
+            let userIndex = this.users.indexOf(user);
+
+            if (userIndex !== -1) {
+              this.users.splice(userIndex, 1);
+            }
+          },
+          error => this.alertify.error(error)
+        );
+      })
+  }
 }
