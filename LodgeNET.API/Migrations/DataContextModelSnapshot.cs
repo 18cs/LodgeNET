@@ -130,7 +130,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int>("Floor");
 
-                    b.Property<int>("RoomNumber");
+                    b.Property<string>("RoomNumber");
 
                     b.Property<string>("RoomType");
 

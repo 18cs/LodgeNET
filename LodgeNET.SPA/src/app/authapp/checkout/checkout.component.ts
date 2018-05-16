@@ -15,7 +15,7 @@ export class CheckoutComponent implements OnInit {
   retrieveGuestStayForm: FormGroup;
   dodId: number;
   lastName: string;
-  roomNumber: number;
+  roomNumber: string;
 
   guestStayList: GuestStayCheckOut[];
   guestStay: GuestStayCheckOut;

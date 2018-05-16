@@ -120,7 +120,7 @@ namespace LodgeNET.API.Migrations
                     BuildingId = table.Column<int>(nullable: false),
                     Capacity = table.Column<int>(nullable: false),
                     Floor = table.Column<int>(nullable: false),
-                    RoomNumber = table.Column<int>(nullable: false),
+                    RoomNumber = table.Column<string>(nullable: true),
                     RoomType = table.Column<string>(nullable: true),
                     SquareFootage = table.Column<int>(nullable: false),
                     SurgeMultiplier = table.Column<int>(nullable: false)

@@ -41,7 +41,7 @@ namespace LodgeNET.API.DAL {
             }
 
             if (userParams.RoomNumber != null) {
-                stays = stays.Where (s => s.Room.RoomNumber == userParams.RoomNumber);
+                stays = stays.Where (s => s.Room.RoomNumber.Equals(userParams.RoomNumber));
             }
 
             if (userParams.GuestId != null) {

@@ -7,7 +7,7 @@ namespace LodgeNET.API.Models
     {
         [Key]
         public int Id { get; set; }
-        public int RoomNumber { get; set; }
+        public string RoomNumber { get; set; }
         public int SurgeMultiplier { get; set; }
         public int Capacity { get; set; }
         public int SquareFootage { get; set; }

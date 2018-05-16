@@ -4,7 +4,7 @@ namespace LodgeNET.API.Helpers
     {
         public int? DodId { get; set; }
         public string LastName { get; set; }
-        public int? RoomNumber { get; set; }
+        public string RoomNumber { get; set; }
         public int? GuestId { get; set; }
     }
 }
