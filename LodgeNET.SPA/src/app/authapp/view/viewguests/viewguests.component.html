@@ -4,35 +4,38 @@
       <form class="form-inline section-thin" novalidate (ngSubmit)="onSearch()">     
         <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
           <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last Name Filter" [(ngModel)]="lastNameFilter">
+          <input matInput placeholder="Last Name Filter" [(ngModel)]="filterParams.lastName" name="firstName">
         </mat-form-field>
-        <mat-form-field *ngIf="selectedService == null">
+        <mat-form-field class="col-lg-2" *ngIf="selectedService == null">
           <mat-select [(value)]="selectedService" placeholder="Service">
             <mat-option [value]="null">None</mat-option>
             <mat-option *ngFor="let service of formData.serviceList" [value]="service">{{service.serviceName}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field *ngIf="selectedService != null">
-          <mat-select [(value)]="selectedRank" placeholder="Rank">
+        <mat-form-field class="col-lg-2" *ngIf="selectedService != null">
+          <mat-select [(value)]="filterParams.rankId" placeholder="Rank">
             <mat-option [value]="null">None</mat-option>
-            <mat-option *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']" [value]="rank">{{rank.rankName}}</mat-option>
+            <mat-option *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']" [value]="rank.id">{{rank.rankName}}</mat-option>
           </mat-select>
         </mat-form-field>
-
-        <mat-form-field>
-            <mat-select [(value)]="genderFilter" placeholder="Gender">
+        <mat-form-field class="col-lg-2">
+            <mat-select [(value)]="filterParams.gender" placeholder="Gender">
               <mat-option [value]="null">None</mat-option>
               <mat-option *ngFor="let gender of genderList | sort: ['tier', 'grade']" [value]="gender.value">{{ gender.value }}</mat-option>
             </mat-select>
           </mat-form-field>
-        <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
-          <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last Name Filter" [formControl]="filterGuestForm.get('lastName')">
-        </mat-form-field>
-        <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
-          <mat-label>Last Name</mat-label>
-          <input matInput placeholder="Last Name Filter" [formControl]="filterGuestForm.get('lastName')">
-        </mat-form-field>
+          <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
+            <mat-label>DoD ID</mat-label>
+            <input matInput placeholder="DoD ID Filter" [(ngModel)]="filterParams.dodId" name="dodId">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Unit Name" [formControl]="unitName" [matAutocomplete]="unitAuto" >
+          </mat-form-field>
+          <mat-autocomplete #unitAuto>
+              <mat-option *ngFor="let unit of filteredOptions | async" [value]="unit.name" (mousedown)="onUnitSelected(unit)">
+                {{ unit.name }}
+              </mat-option>
+            </mat-autocomplete>
         <button type="button" class="btn btn-secondary formfield-pad">Reset</button>
         <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
       </form>

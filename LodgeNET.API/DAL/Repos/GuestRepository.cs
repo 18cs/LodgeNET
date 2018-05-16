@@ -39,23 +39,27 @@ namespace LodgeNET.API.DAL {
                 guests = guests.Where(filter);
             }
 
-            if (userParams.LastName != null) {
+            if (!String.IsNullOrWhiteSpace(userParams.LastName)) {
                 guests = guests.Where(g => g.LastName.Equals(userParams.LastName));
             }
 
-            if (userParams.RankId != null) {
+            if (userParams.ServiceId != null && userParams.ServiceId != 0) {
+                guests = guests.Where(g => g.Rank.ServiceId == userParams.ServiceId)
+            }
+
+            if (userParams.RankId != null && userParams.RankId != 0) {
                 guests = guests.Where(g => g.RankId == userParams.RankId);
             }
 
-            if (userParams.Gender != null) {
+            if (String.IsNullOrWhiteSpace(userParams.Gender)) {
                 guests.Where(g => g.Gender.Equals(userParams.Gender));
             }
 
-            if (userParams.DodId != null) {
+            if (userParams.DodId != null && userParams.DodId != 0) {
                 guests.Where(g => g.DodId == userParams.DodId);
             }
 
-            if (userParams.UnitId != null) {
+            if (userParams.UnitId != null && userParams.UnitId != 0) {
                 guests.Where(g => g.UnitId == userParams.UnitId);
             }
 

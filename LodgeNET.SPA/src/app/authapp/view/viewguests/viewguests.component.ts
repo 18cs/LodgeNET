@@ -11,6 +11,10 @@ import { PaginatedResult, Pagination } from '../../../_models/pagination';
 import { FormData } from '../../../_models/formData';
 import { Service } from '../../../_models/service';
 import { Rank } from '../../../_models/rank';
+import { Unit } from '../../../_models/unit';
+import { Observable } from 'rxjs/Observable';
+import {map, startWith} from 'rxjs/operators';
+import { GuestParams } from '../../../_models/params/guestParams';
 
 @Component({
   selector: 'app-viewguests',
@@ -28,13 +32,17 @@ export class ViewguestsComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
-  genderList = [{ value: 'Male'}, { value: 'Female'}]
-
+  genderList = [{ value: 'Male'}, { value: 'Female'}];
+  unitName = new FormControl();
+  filteredOptions: Observable<Unit[]>;
+  filterParams: GuestParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: 0, unitId: 0};
   // filter
   selectedService: Service;
   selectedRank: Rank;
   lastNameFilter: string;
   genderFilter: string;
+  dodIdFilter: number;
+  selectedUnit: Unit;
 
   constructor(
     private guestStayService: GueststayService,
@@ -50,55 +58,54 @@ export class ViewguestsComponent implements OnInit {
     this.route.data.subscribe((data: Data) => {
       this.formData = data['formData'];
     });
+
+    this.filteredOptions = this.unitName.valueChanges
+    .pipe(
+      startWith(''),
+      map(val => this.unitFilter(val))
+    );
   }
 
   initFilterForm() {
     this.filterGuestForm = new FormGroup({
-      'lastName': new FormControl(),
+      'unitName': new FormControl(),
     });
-    // 'dodId': new FormControl(),
-    // 'gender': new FormControl(),
-    // 'service': new FormControl(),
-    // 'rank': new FormControl()
   }
 
   onSearch() {
-    console.log(this.selectedService);
-    console.log(this.selectedRank);
-    console.log(this.lastNameFilter);
+    this.filterParams.unitId = this.selectedUnit.id;
+    console.log(this.filterParams);
+    this.loadGuests();
   }
 
   getGuestStays(guestId: number) {
     this.loadGuestStays(guestId);
   }
 
-  loadGuests() {
-    // this.guestStayService.getGuests().subscribe(
-    //   (guestList: Guest[]) => {
-    //     console.log(guestList);
-    //     this.guestList = guestList;
-    //   },
-    //   error => {
-    //     this.alertify.error(error);
-    //   }
-    // );
+  unitFilter(val: string): Unit[] {
+    return this.formData.unitList.filter(unit =>
+      unit.name.toLowerCase().includes(val.toLowerCase()));
+  }
 
+  onUnitSelected(unit: Unit) {
+    this.selectedUnit = unit;
+  }
+
+  loadGuests() {
     if (this.pagination == null) {
-      this.guestStayService.getGuests(this.pageNumber, this.pageSize)
+      this.guestStayService.getGuests(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
           console.log(paginatedResult);
           this.guestList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
-      this.guestStayService.getGuests(this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.guestStayService.getGuests(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
           this.guestList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     }
-
-
   }
 
   pageChanged(event: any): void {
