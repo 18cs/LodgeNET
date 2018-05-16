@@ -13,7 +13,7 @@ namespace LodgeNET.API.DAL {
         internal DataContext _context;
 
         public GuestStayRepo (DataContext context) {
-           // this._context = context;
+           this._context = context;
         }
 
         public async Task<IEnumerable<Stay>> GetGuestStays (
