@@ -169,5 +169,22 @@ namespace LodgeNET.API.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUserById(int id)
+        {
+            var user = await _authRepo.GetFirstOrDefault(u => u.Id == id);
+
+            if ( user == null ) {
+                ModelState.AddModelError("error", "Unable to delete user");
+                return BadRequest(ModelState);
+            }
+
+            await _authRepo.Delete(user.Id);
+
+            await _authRepo.SaveAsync();
+
+            return Ok();
+        }
     }
 }

@@ -42,7 +42,7 @@ export class EdituserComponent implements OnInit {
     this.edituserForm.value['service'] = this.selectedService.id;
  
     this.mapUserUpdates();
-console.log(this.edituserForm.value);
+
     this.authService.updateUser(this.edituserForm.value).subscribe(() => {
       this.alertify.success('User Successfully Updated');
       this.complete.emit(null);

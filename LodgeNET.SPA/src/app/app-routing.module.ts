@@ -21,6 +21,7 @@ import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component
 import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { LostComponent } from './home/lost/lost.component';
+import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,11 +44,7 @@ import { LostComponent } from './home/lost/lost.component';
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard',  component: DashboardComponent},
     {path: 'upload/:type', component: FileuploadComponent}, 
-    {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full'},  
-    //children: [
-      // {path: '', redirectTo: 'lodging',  pathMatch: 'full'},
-      // {path: 'lodging', component: FileuploadComponent}
-   // ]},
+    {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full'},
     {path: 'checkin', component: CheckinComponent, children: [
       {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
       {path: 'guestinfo', component: GuestinfoComponent},
@@ -57,7 +54,7 @@ import { LostComponent } from './home/lost/lost.component';
     {path: 'view', component: ViewComponent, children: [
       {path: '', redirectTo: 'guests', pathMatch: 'full'},
       {path: 'buildings', component: ViewbuildingsComponent},
-      {path: 'guests', component: ViewguestsComponent},
+      {path: 'guests', component: ViewguestsComponent, resolve: {formData: FormdataResolver} },
       {path: 'rooms', component: ViewroomsComponent},
       {path: 'units', component: ViewunitsComponent},
       {path: 'users', component: ViewusersComponent}

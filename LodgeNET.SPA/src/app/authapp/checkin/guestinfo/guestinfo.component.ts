@@ -42,7 +42,6 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     if (this.guestInfoForm.value['gender'] != null) {
       this.guestInfoForm.value['gender'] = (this.guestInfoForm.value['gender'] === 0) ? 'Male' : 'Female';
     }
-    console.log(this.guestInfoForm);
 
     this.guestInfoForm.value['guestUnit'] = this.selectedUnit;
     this.gueststayService.saveGuestInfo(this.guestInfoForm.value);

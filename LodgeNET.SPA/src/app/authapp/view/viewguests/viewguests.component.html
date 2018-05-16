@@ -1,43 +1,109 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Rank</th>
-      <th scope="col">Gender</th>
-      <th scope="col">DoD ID</th>
-      <th scope="col">Unit</th>
-      <th scope="col">Email</th>
-      <th scope='col'>Phone Number</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let guest of guestList; let i = index;">
-    <tr class="table-default" (click)="getGuestStays(guest.id)" title="View guest stays" >
-      <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest.middleInitial }}</th>
-      <td>{{ guest.rank }}</td>
-      <td>{{ guest.gender }}</td>
-      <td>{{ guest.dodId }}</td>
-      <td>{{ guest.unit }}</td>
-      <td>{{ guest.email }}</td>
-      <td>Comm: {{ guest.commPhone }}
-        <br /> DSN: {{ guest.dsnPhone }}</td>
-      </tr>
-    <ng-container *ngIf="guestStayList != null  && guest.id == guestStayList[0]?.guestId" >
-      <tr *ngFor="let guestStay of guestStayList;">
-        <th scope="row">{{ guestStayList[0]?.guestId }}</th>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>&emsp;
-          <button class="editbutton btn btn-primary btn-sm">
-            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{ guestStayList[i].checkInDate }} Stay?"></i>
-          </button>
-          <button class="editbutton btn btn-danger btn-sm">
-            <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{ guestStayList[i].checkInDate }} Stay?"></i>
-          </button>
-        </td>
-      </tr>
-    </ng-container>
-  </tbody>
-</table>
+<div *ngIf="selectedGuest == null">
+  <div class="row">
+    <div class="col-lg-12">
+      <form class="form-inline section-thin" novalidate (ngSubmit)="onSearch()">     
+        <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name Filter" [(ngModel)]="lastNameFilter">
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedService == null">
+          <mat-select [(value)]="selectedService" placeholder="Service">
+            <mat-option [value]="null">None</mat-option>
+            <mat-option *ngFor="let service of formData.serviceList" [value]="service">{{service.serviceName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="selectedService != null">
+          <mat-select [(value)]="selectedRank" placeholder="Rank">
+            <mat-option [value]="null">None</mat-option>
+            <mat-option *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']" [value]="rank">{{rank.rankName}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select [(value)]="genderFilter" placeholder="Gender">
+              <mat-option [value]="null">None</mat-option>
+              <mat-option *ngFor="let gender of genderList | sort: ['tier', 'grade']" [value]="gender.value">{{ gender.value }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name Filter" [formControl]="filterGuestForm.get('lastName')">
+        </mat-form-field>
+        <mat-form-field class="col-lg-2" appearance="outline" floatLabel="'auto'">
+          <mat-label>Last Name</mat-label>
+          <input matInput placeholder="Last Name Filter" [formControl]="filterGuestForm.get('lastName')">
+        </mat-form-field>
+        <button type="button" class="btn btn-secondary formfield-pad">Reset</button>
+        <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <br />
+      <h5 class="text-right">Guests Found: {{ pagination?.totalItems }}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Rank</th>
+            <th scope="col">Gender</th>
+            <th scope="col">DoD ID</th>
+            <th scope="col">Unit</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let guest of guestList; let i = index;">
+          <tr class="table-default" (click)="getGuestStays(guest.id)" title="View guest stays">
+            <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest.middleInitial }}</th>
+            <td>{{ guest.rank }}</td>
+            <td>{{ guest.gender }}</td>
+            <td>{{ guest.dodId }}</td>
+            <td>{{ guest.unit }}</td>
+            <td>{{ guest.email }}</td>
+            <td>Comm: {{ guest.commPhone }}
+              <br /> DSN: {{ guest.dsnPhone }}</td>
+            <td>
+              <button class="editbutton btn btn-primary btn-sm" (click)="onGuestSelect(guest)">
+                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{guest.lastName +', '+ guest.firstName}}"></i>
+              </button>
+              <button class="editbutton btn btn-danger btn-sm" (click)="onDelete(guest)">
+                <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{guest.lastName +', '+ guest.firstName}}"></i>
+              </button>
+            </td>
+          </tr>
+          <ng-container *ngIf="guestStayList != null  && guest.id == guestStayList[0]?.guestId">
+            <tr *ngFor="let guestStay of guestStayList;">
+              <th scope="row">{{ guestStayList[0]?.guestId }}</th>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>&emsp;
+                <button class="editbutton btn btn-primary btn-sm">
+                  <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{ guestStayList[i].checkInDate }} Stay?"></i>
+                </button>
+                <button class="editbutton btn btn-danger btn-sm">
+                  <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{ guestStayList[i].checkInDate }} Stay?"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
+        <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+          [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
+        </pagination>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="selectedGuest != null">
+  <div class="col-lg-12">
+    <app-editguest [guest]="selectedGuest" [formData]="formData" (complete)="selectedGuest = null"></app-editguest>
+  </div>
+</div>

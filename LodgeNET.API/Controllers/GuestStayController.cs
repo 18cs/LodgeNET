@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
@@ -38,7 +39,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet ("availableRooms")]
-        public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomPagUserParams userParams) {
+        public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomUserParams userParams) {
             var rooms = await _roomsRepo.GetRooms (userParams);
             var roomsToReturn = _mapper.Map<IEnumerable<RoomForCheckinDto>> (rooms);
 
@@ -152,10 +153,56 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet("getguests")]
-        public async Task<IActionResult> GetGuests() {
-            var guests = await _guestRepo.GetAsync();
+        public async Task<IActionResult> GetGuests([FromQuery] GuestUserParams userParams ) {
+            var guests = await _guestRepo.GetGuestPagination(userParams,
+             new Expression<Func<Guest, object>>[] {
+                    g => g.Rank
+                });
 
-            return Ok(guests);
+             var guestsToReturn = _mapper.Map<IEnumerable<GuestForEditDto>>(guests);
+
+             Response.AddPagination(guests.CurrentPage,
+                guests.PageSize,
+                guests.TotalCount,
+                guests.TotalPages);
+
+            return Ok(guestsToReturn);
+        }
+
+        [HttpPost("updateguest")]
+        public async Task<IActionResult> UpdateGuest([FromBody] GuestForEditDto updatedGuestDto) {
+            var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+            //TODO add account type verification for tasks
+            if (currentUserId == 0) {
+                return Unauthorized ();
+            }
+
+            var guest = await _guestRepo.GetFirstOrDefault(g => g.Id == updatedGuestDto.Id);
+
+            if ( guest == null ) {
+                ModelState.AddModelError("error", "Unable to update guest");
+                return BadRequest(ModelState);
+            }
+
+            _mapper.Map(updatedGuestDto, guest);
+            await _guestRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("deleteguest/{id}")]
+        public async Task<IActionResult> DeleteGuestById(int id) {
+            var guest = await _guestRepo.GetFirstOrDefault(g => g.Id == id);
+
+            if ( guest == null ) {
+                ModelState.AddModelError("error", "Unable to delete guest");
+                return BadRequest(ModelState);
+            }
+
+            await _guestRepo.Delete(guest);
+            await _guestRepo.SaveAsync();
+
+            return Ok();
         }
     }
 }

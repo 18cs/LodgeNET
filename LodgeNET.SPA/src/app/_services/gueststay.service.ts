@@ -20,8 +20,38 @@ export class GueststayService {
 
     constructor(private http: HttpClient) { }
 
-    getGuests() {
-        return this.http.get<Guest[]>(this.baseUrl + 'gueststay/getguests').catch(this.handleError);
+    getGuests(page?, itemsPerPage?) {
+        const paginatedResult: PaginatedResult<Guest[]> = new PaginatedResult<Guest[]>();
+        let params = new HttpParams();
+
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page);
+            params = params.append('pageSize', itemsPerPage);
+        }
+
+        return this.http.
+        get<Guest[]>(this.baseUrl + 'gueststay/getguests', { observe: 'response', params })
+        .map((response) => {
+            paginatedResult.result = response.body;
+
+            if (response.headers.get('Pagination') != null) {
+                paginatedResult.pagination = JSON.parse(
+                    response.headers.get('Pagination'));
+            }
+            return paginatedResult;
+        })
+        .catch(this.handleError);
+    }
+
+    updateGuest(model: any) {
+        return this.http.post(this.baseUrl + 'gueststay/updateguest', model, {
+            headers: new HttpHeaders()
+                .set('Content-Type', 'application/json')
+        }).catch(this.handleError);
+    }
+
+    deleteGuest(id: number) {
+        return this.http.delete(this.baseUrl + 'gueststay/deleteguest/' + id).catch(this.handleError);
     }
 
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {

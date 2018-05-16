@@ -1,0 +1,12 @@
+.editbutton {
+    visibility: hidden;
+}
+
+tr:hover .editbutton {
+    visibility: visible;
+}
+
+.formfield-pad {
+    margin-top: 1%;
+    margin-bottom: 1%;
+}

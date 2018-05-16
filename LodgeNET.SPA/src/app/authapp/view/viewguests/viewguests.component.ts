@@ -5,6 +5,12 @@ import { Guest } from '../../../_models/guest';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { GuestsdialogComponent } from '../dialogcomponents/guestsdialog/guestsdialog.component';
 import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Data } from '@angular/router';
+import { PaginatedResult, Pagination } from '../../../_models/pagination';
+import { FormData } from '../../../_models/formData';
+import { Service } from '../../../_models/service';
+import { Rank } from '../../../_models/rank';
 
 @Component({
   selector: 'app-viewguests',
@@ -12,20 +18,54 @@ import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
   styleUrls: ['./viewguests.component.css']
 })
 export class ViewguestsComponent implements OnInit {
+  filterGuestForm: FormGroup;
+  formData: FormData;
   guestList: Guest[];
   guestStayList: GuestStayCheckOut[];
-  type: string;
-  currentPage: number;
-  itemsPerPage = 10;
-  showSpinner = false;
+  selectedGuest: Guest;
+  // type: string;
+  // showSpinner = false;
+  pageSize = 10;
+  pageNumber = 1;
+  pagination: Pagination;
+  genderList = [{ value: 'Male'}, { value: 'Female'}]
+
+  // filter
+  selectedService: Service;
+  selectedRank: Rank;
+  lastNameFilter: string;
+  genderFilter: string;
 
   constructor(
     private guestStayService: GueststayService,
     private alertify: AlertifyService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
+
+
   ngOnInit() {
     this.loadGuests();
+    this.initFilterForm();
+    this.route.data.subscribe((data: Data) => {
+      this.formData = data['formData'];
+    });
+  }
+
+  initFilterForm() {
+    this.filterGuestForm = new FormGroup({
+      'lastName': new FormControl(),
+    });
+    // 'dodId': new FormControl(),
+    // 'gender': new FormControl(),
+    // 'service': new FormControl(),
+    // 'rank': new FormControl()
+  }
+
+  onSearch() {
+    console.log(this.selectedService);
+    console.log(this.selectedRank);
+    console.log(this.lastNameFilter);
   }
 
   getGuestStays(guestId: number) {
@@ -33,15 +73,60 @@ export class ViewguestsComponent implements OnInit {
   }
 
   loadGuests() {
-    this.guestStayService.getGuests().subscribe(
-      (guestList: Guest[]) => {
-        console.log(guestList);
-        this.guestList = guestList;
-      },
-      error => {
-        this.alertify.error(error);
-      }
-    );
+    // this.guestStayService.getGuests().subscribe(
+    //   (guestList: Guest[]) => {
+    //     console.log(guestList);
+    //     this.guestList = guestList;
+    //   },
+    //   error => {
+    //     this.alertify.error(error);
+    //   }
+    // );
+
+    if (this.pagination == null) {
+      this.guestStayService.getGuests(this.pageNumber, this.pageSize)
+        .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
+          console.log(paginatedResult);
+          this.guestList = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
+    } else {
+      this.guestStayService.getGuests(this.pagination.currentPage, this.pagination.itemsPerPage)
+        .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
+          this.guestList = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
+    }
+
+
+  }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadGuests();
+  }
+
+  onGuestSelect(guest: Guest) {
+    this.selectedGuest = guest;
+  }
+
+  onDelete(guest: Guest) {
+    this.alertify.confirm(
+      'Are you sure you wish to delete ' + guest.firstName + ' ' + guest.lastName +
+      '? <br /> <br /> WARNING: All stays of this guest will be deleted.',
+      () => {
+        this.guestStayService.deleteGuest(guest.id).subscribe(
+          () => {
+            this.alertify.success( guest.firstName + ' ' + guest.lastName + ' successfully deleted');
+            let guestIndex = this.guestList.indexOf(guest);
+
+            if (guestIndex !== -1) {
+              this.guestList.splice(guestIndex, 1);
+            }
+          },
+          error => this.alertify.error(error)
+        );
+      })
   }
 
   loadGuestStays(guestId: number) {
