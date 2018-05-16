@@ -11,7 +11,7 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180516051126_init")]
+    [Migration("20180516055240_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
