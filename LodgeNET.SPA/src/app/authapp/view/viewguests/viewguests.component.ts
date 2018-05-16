@@ -34,6 +34,7 @@ export class ViewguestsComponent implements OnInit {
   pagination: Pagination;
   genderList = [{ value: 'Male'}, { value: 'Female'}];
   unitName = new FormControl();
+  unitFileValue = '';
   filteredOptions: Observable<Unit[]>;
   filterParams: GuestParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: 0, unitId: 0};
   // filter
@@ -54,7 +55,7 @@ export class ViewguestsComponent implements OnInit {
 
   ngOnInit() {
     this.loadGuests();
-    this.initFilterForm();
+    this.initFilterParams();
     this.route.data.subscribe((data: Data) => {
       this.formData = data['formData'];
     });
@@ -66,15 +67,27 @@ export class ViewguestsComponent implements OnInit {
     );
   }
 
-  initFilterForm() {
-    this.filterGuestForm = new FormGroup({
-      'unitName': new FormControl(),
-    });
+  initFilterParams() {
+    this.filterParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: null, unitId: 0};
   }
 
   onSearch() {
-    this.filterParams.unitId = this.selectedUnit.id;
+    if(this.selectedUnit != null) {
+      this.filterParams.unitId = this.selectedUnit.id;
+    }
+
+    if (this.selectedService != null) {
+      this.filterParams.serviceId = this.selectedService.id;
+    }
     console.log(this.filterParams);
+    this.loadGuests();
+  }
+
+  onReset() {
+    this.initFilterParams();
+    this.selectedService = null;
+    this.selectedUnit = null;
+    this.unitFileValue = '';
     this.loadGuests();
   }
 

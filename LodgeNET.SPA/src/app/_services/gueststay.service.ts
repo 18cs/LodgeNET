@@ -35,8 +35,10 @@ export class GueststayService {
             params = params.append('serviceId', userParams.serviceId.toString());
             params = params.append('rankId', userParams.rankId.toString());
             params = params.append('gender', userParams.gender);
-            params = params.append('dodId', userParams.dodId.toString());
             params = params.append('unitId', userParams.unitId.toString());
+            if (userParams.dodId != null) {
+                params = params.append('dodId', userParams.dodId.toString());
+            }
         }
 
         return this.http.

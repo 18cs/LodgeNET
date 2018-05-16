@@ -29,23 +29,24 @@
             <input matInput placeholder="DoD ID Filter" [(ngModel)]="filterParams.dodId" name="dodId">
           </mat-form-field>
           <mat-form-field>
-            <input matInput placeholder="Unit Name" [formControl]="unitName" [matAutocomplete]="unitAuto" >
+            <input matInput placeholder="Unit Name" [formControl]="unitName" [matAutocomplete]="unitAuto" [(ngModel)]="unitFileValue">
           </mat-form-field>
           <mat-autocomplete #unitAuto>
               <mat-option *ngFor="let unit of filteredOptions | async" [value]="unit.name" (mousedown)="onUnitSelected(unit)">
                 {{ unit.name }}
               </mat-option>
             </mat-autocomplete>
-        <button type="button" class="btn btn-secondary formfield-pad">Reset</button>
+        <button type="button" class="btn btn-secondary formfield-pad" (click)="onReset()">Reset</button>
         <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
       </form>
     </div>
-  </div>
+  </div> 
   <div class="row">
     <div class="col-lg-12">
       <br />
       <h5 class="text-right">Guests Found: {{ pagination?.totalItems }}</h5>
-      <table class="table table-hover">
+      <mat-spinner *ngIf="guestList == null" style="margin:0 auto;" mode="indeterminate"></mat-spinner>      
+      <table class="table table-hover" *ngIf="guestList != null">
         <thead>
           <tr>
             <th scope="col">Name</th>
@@ -61,10 +62,10 @@
         <tbody *ngFor="let guest of guestList; let i = index;">
           <tr class="table-default" (click)="getGuestStays(guest.id)" title="View guest stays">
             <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest.middleInitial }}</th>
-            <td>{{ guest.rank }}</td>
+            <td>{{ guest?.rank?.rankName }}</td>
             <td>{{ guest.gender }}</td>
             <td>{{ guest.dodId }}</td>
-            <td>{{ guest.unit }}</td>
+            <td>{{ guest?.unit?.name }}</td>
             <td>{{ guest.email }}</td>
             <td>Comm: {{ guest.commPhone }}
               <br /> DSN: {{ guest.dsnPhone }}</td>

@@ -24,8 +24,7 @@ namespace LodgeNET.API.DAL {
         public async Task<PagedList<Guest>> GetGuestPagination (
             GuestUserParams userParams,
             Expression<Func<Guest, object>>[] includeProperties = null,
-            Expression<Func<Guest, bool>> filter = null)
-        {
+            Expression<Func<Guest, bool>> filter = null) {
             var guests = _context.Guests.AsQueryable ();
 
             if (includeProperties != null) {
@@ -34,36 +33,35 @@ namespace LodgeNET.API.DAL {
                 }
             }
 
-            if(filter != null)
-            {
-                guests = guests.Where(filter);
+            if (filter != null) {
+                guests = guests.Where (filter);
             }
 
-            if (!String.IsNullOrWhiteSpace(userParams.LastName)) {
-                guests = guests.Where(g => g.LastName.Equals(userParams.LastName));
+            if (!String.IsNullOrWhiteSpace (userParams.LastName)) {
+                guests = guests.Where (g => g.LastName.Equals (userParams.LastName));
             }
 
             if (userParams.ServiceId != null && userParams.ServiceId != 0) {
-                guests = guests.Where(g => g.Rank.ServiceId == userParams.ServiceId)
+                guests = guests.Where (g => g.Rank.ServiceId == userParams.ServiceId);
             }
 
             if (userParams.RankId != null && userParams.RankId != 0) {
-                guests = guests.Where(g => g.RankId == userParams.RankId);
+                guests = guests.Where (g => g.RankId == userParams.RankId);
             }
 
-            if (String.IsNullOrWhiteSpace(userParams.Gender)) {
-                guests.Where(g => g.Gender.Equals(userParams.Gender));
-            }
-
-            if (userParams.DodId != null && userParams.DodId != 0) {
-                guests.Where(g => g.DodId == userParams.DodId);
+            if (userParams.DodId != null && userParams.DodId !=0) {
+                guests = guests.Where (g => g.DodId == userParams.DodId);
             }
 
             if (userParams.UnitId != null && userParams.UnitId != 0) {
-                guests.Where(g => g.UnitId == userParams.UnitId);
+                guests = guests.Where (g => g.UnitId == userParams.UnitId);
             }
 
-            return await PagedList<Guest>.CreateAsync(guests, userParams.PageNumber, userParams.PageSize);
+            if (!String.IsNullOrWhiteSpace (userParams.Gender)) {
+                guests = guests.Where (g => g.Gender.Equals (userParams.Gender));
+            }
+
+            return await PagedList<Guest>.CreateAsync (guests, userParams.PageNumber, userParams.PageSize);
         }
 
     }
