@@ -1221,5 +1221,157 @@
     {
         "Name": "354th Security Forces Squadron",
         "ParentUnitId": 186
+    },
+    {
+        "Name": "36th Maintenance Squadron",
+        "ParentUnitId": 189
+    },
+    {
+        "Name": "36th Munitions Squadron",
+        "ParentUnitId": 189
+    },
+    {
+        "Name": "36th Mobility Response Squadron",
+        "ParentUnitId": 190
+    },
+    {
+        "Name": "554th RED HORSE",
+        "ParentUnitId": 190
+    },
+    {
+        "Name": "644th Combat Communications Squadron",
+        "ParentUnitId": 190
+    },
+    {
+        "Name": "736th Security Forces Squadron",
+        "ParentUnitId": 190
+    },
+    {
+        "Name": "36th Civil Engineer Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "36th Communications Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "36th Contracting Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "36th Force Support Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "36th Logistics Readiness Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "36th Security Forces Squadron",
+        "ParentUnitId": 192
+    },
+    {
+        "Name": "168th Air Refueling Squadron",
+        "ParentUnitId": 196
+    },
+    {
+        "Name": "168th Operations Support Flight",
+        "ParentUnitId": 196
+    },
+    {
+        "Name": "168th Aircraft Maintenance Squadron",
+        "ParentUnitId": 197
+    },
+    {
+        "Name": "168th Maintenance Squadron",
+        "ParentUnitId": 197
+    },
+    {
+        "Name": "168th Maintenance Operations Flight",
+        "ParentUnitId": 197
+    },
+    {
+        "Name": "168th Logistics Readiness Squadron",
+        "ParentUnitId": 198
+    },
+    {
+        "Name": "168th Security Forces Squadron",
+        "ParentUnitId": 198
+    },
+    {
+        "Name": "168th Communications Flight",
+        "ParentUnitId": 198
+    },
+    {
+        "Name": "168th Force Support Flight",
+        "ParentUnitId": 198
+    },
+    {
+        "Name": "168th Force Support Flight",
+        "ParentUnitId": 199
+    },
+    {
+        "Name": "168th Comptroller Flight",
+        "ParentUnitId": 49
+    },
+    {
+        "Name": "144th Airlift Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "249th Airlift Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "210th Rescue Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "211th Rescue Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "212th Rescue Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "176th Air Defense Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "176th Operations Support Squadron",
+        "ParentUnitId": 201
+    },
+    {
+        "Name": "176th Aircraft Maintenance Squadron",
+        "ParentUnitId": 202
+    },
+    {
+        "Name": "176th Maintenance Squadron",
+        "ParentUnitId": 202
+    },
+    {
+        "Name": "176th Maintenance Operations Flight",
+        "ParentUnitId": 202
+    },
+    {
+        "Name": "176th Civil Engineer Squadron",
+        "ParentUnitId": 203
+    },
+    {
+        "Name": "176th Force Support Squadron",
+        "ParentUnitId": 203
+    },
+    {
+        "Name": "176th Logistics Readiness Squadron",
+        "ParentUnitId": 203
+    },
+    {
+        "Name": "176th Security Forces Squadron",
+        "ParentUnitId": 203
+    },
+    {
+        "Name": "176th Communications Flight",
+        "ParentUnitId": 203
     }
 ]
