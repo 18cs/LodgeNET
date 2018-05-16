@@ -28,7 +28,7 @@ namespace LodgeNET.API.DAL {
         {
             var guests = _context.Guests.AsQueryable ();
 
-             if (includeProperties != null) {
+            if (includeProperties != null) {
                 foreach (Expression<Func<Guest, object>> includeProperty in includeProperties) {
                     guests = guests.Include<Guest, object> (includeProperty);
                 }
@@ -37,6 +37,26 @@ namespace LodgeNET.API.DAL {
             if(filter != null)
             {
                 guests = guests.Where(filter);
+            }
+
+            if (userParams.LastName != null) {
+                guests = guests.Where(g => g.LastName.Equals(userParams.LastName));
+            }
+
+            if (userParams.RankId != null) {
+                guests = guests.Where(g => g.RankId == userParams.RankId);
+            }
+
+            if (userParams.Gender != null) {
+                guests.Where(g => g.Gender.Equals(userParams.Gender));
+            }
+
+            if (userParams.DodId != null) {
+                guests.Where(g => g.DodId == userParams.DodId);
+            }
+
+            if (userParams.UnitId != null) {
+                guests.Where(g => g.UnitId == userParams.UnitId);
             }
 
             return await PagedList<Guest>.CreateAsync(guests, userParams.PageNumber, userParams.PageSize);

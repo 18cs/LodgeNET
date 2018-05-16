@@ -5,10 +5,12 @@ import { Guest } from '../../../_models/guest';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { GuestsdialogComponent } from '../dialogcomponents/guestsdialog/guestsdialog.component';
 import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
 import { FormData } from '../../../_models/formData';
+import { Service } from '../../../_models/service';
+import { Rank } from '../../../_models/rank';
 
 @Component({
   selector: 'app-viewguests',
@@ -21,13 +23,18 @@ export class ViewguestsComponent implements OnInit {
   guestList: Guest[];
   guestStayList: GuestStayCheckOut[];
   selectedGuest: Guest;
-  type: string;
-  // currentPage: number;
-  // itemsPerPage = 10;
-  showSpinner = false;
+  // type: string;
+  // showSpinner = false;
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
+  genderList = [{ value: 'Male'}, { value: 'Female'}]
+
+  // filter
+  selectedService: Service;
+  selectedRank: Rank;
+  lastNameFilter: string;
+  genderFilter: string;
 
   constructor(
     private guestStayService: GueststayService,
@@ -47,17 +54,18 @@ export class ViewguestsComponent implements OnInit {
 
   initFilterForm() {
     this.filterGuestForm = new FormGroup({
-
+      'lastName': new FormControl(),
     });
     // 'dodId': new FormControl(),
-    // 'lastName': new FormControl(),
     // 'gender': new FormControl(),
     // 'service': new FormControl(),
     // 'rank': new FormControl()
   }
 
   onSearch() {
-
+    console.log(this.selectedService);
+    console.log(this.selectedRank);
+    console.log(this.lastNameFilter);
   }
 
   getGuestStays(guestId: number) {

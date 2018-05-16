@@ -62,7 +62,7 @@ export class EditguestComponent implements OnInit {
 
   private initForm() {
     this.editGuestForm = new FormGroup({
-      'chalk': new FormControl(this.guest.chalk, Validators.required),
+      'chalk': new FormControl(this.guest.chalk),
       'dodId': new FormControl(this.guest.dodId, Validators.required),
       'firstName': new FormControl(this.guest.firstName, Validators.required),
       'middleInitial': new FormControl(this.guest.middleInitial),
