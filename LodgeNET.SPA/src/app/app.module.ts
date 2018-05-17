@@ -31,6 +31,7 @@ import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.com
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 import { ViewComponent } from './authapp/view/view.component';
 import { ViewbuildingsComponent } from './authapp/view/viewbuildings/viewbuildings.component';
+import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.component';
 import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
 import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
@@ -80,7 +81,8 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
     EdituserComponent,
-    EditguestComponent
+    EditguestComponent,
+    ViewbuildingtypesComponent
 ],
   imports: [
     BrowserModule,

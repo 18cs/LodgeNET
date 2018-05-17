@@ -28,7 +28,7 @@ export class ViewguestsComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
-  genderList = [{ value: 'Male'}, { value: 'Female'}]
+  genderList = [{ value: 'Male'}, { value: 'Female'}];
 
   // filter
   selectedService: Service;
@@ -126,7 +126,7 @@ export class ViewguestsComponent implements OnInit {
           },
           error => this.alertify.error(error)
         );
-      })
+      });
   }
 
   loadGuestStays(guestId: number) {
@@ -138,7 +138,7 @@ export class ViewguestsComponent implements OnInit {
       error => {
         this.alertify.error(error);
       }
-    )
+    );
   }
 
 }
