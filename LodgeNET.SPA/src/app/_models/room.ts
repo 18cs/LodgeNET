@@ -1,6 +1,6 @@
 export interface Room {
     id: number;
-    roomNumber: number;
+    roomNumber: string;
     surgeMultiplier: number;
     capacity: number;
     squareFootage: number;

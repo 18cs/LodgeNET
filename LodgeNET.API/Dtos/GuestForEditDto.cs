@@ -1,3 +1,5 @@
+using LodgeNET.API.Models;
+
 namespace LodgeNET.API.Dtos
 {
     public class GuestForEditDto
@@ -13,7 +15,9 @@ namespace LodgeNET.API.Dtos
         public string DsnPhone { get; set; }
         public int? Chalk { get; set; }
         public int? RankId { get; set; }
+        public Rank Rank { get; set; }
         public int? UnitId { get; set; }
+        public Unit Unit { get; set; }
         public int? ServiceId { get; set; }
     }
 }

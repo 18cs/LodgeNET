@@ -9,6 +9,7 @@ import { GuestStayCheckOut } from '../_models/guestStayCheckOut';
 import { FormGroup } from '@angular/forms';
 import { GuestStayDto } from '../_models/guestStayDto';
 import { Guest } from '../_models/guest';
+import { GuestParams } from '../_models/params/guestParams';
 
 @Injectable()
 export class GueststayService {
@@ -20,13 +21,24 @@ export class GueststayService {
 
     constructor(private http: HttpClient) { }
 
-    getGuests(page?, itemsPerPage?) {
+    getGuests(page?, itemsPerPage?, userParams?: GuestParams) {
         const paginatedResult: PaginatedResult<Guest[]> = new PaginatedResult<Guest[]>();
         let params = new HttpParams();
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
+        }
+
+        if (userParams != null) {
+            params = params.append('lastName', userParams.lastName);
+            params = params.append('serviceId', userParams.serviceId.toString());
+            params = params.append('rankId', userParams.rankId.toString());
+            params = params.append('gender', userParams.gender);
+            params = params.append('unitId', userParams.unitId.toString());
+            if (userParams.dodId != null) {
+                params = params.append('dodId', userParams.dodId.toString());
+            }
         }
 
         return this.http.

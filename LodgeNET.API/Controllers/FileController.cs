@@ -117,8 +117,8 @@ namespace LodgeNET.API.Controllers {
                             }
 
                             if (headers[j].Equals ("ROOM")) {
-                                int.TryParse (row.GetCell (j).ToString (), out int rowRoomNum);
-                                rowForUpload.RoomNumber = rowRoomNum;
+                                // int.TryParse (row.GetCell (j).ToString (), out int rowRoomNum);
+                                rowForUpload.RoomNumber = row.GetCell (j).ToString ();
                                 if (rowForUpload.BuildingId == 0) {
                                     var bldgIndex = headers.IndexOf ("BLDG");
 
@@ -279,12 +279,9 @@ namespace LodgeNET.API.Controllers {
                             string[] stayData = guestStay.Split (" ");
                             int firstnameIndex = 0;
 
-                            // var guest = new Guest ();
-                            // var stay = new Stay ();
-
-                            int.TryParse (stayData[0], out int rowRoomNum);
+                            //int.TryParse (stayData[0], out int rowRoomNum);
                             var room = await _roomRepo.GetFirstOrDefault (
-                                r => r.RoomNumber == rowRoomNum && r.Building.BuildingCategory.Type.Equals ("Lodging"),
+                                r => r.RoomNumber == stayData[0] && r.Building.BuildingCategory.Type.Equals ("Lodging"),
                                 new Expression<Func<Room, object>>[] { r => r.Building});
 
                             if (room != null) {

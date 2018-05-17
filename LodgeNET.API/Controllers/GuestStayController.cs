@@ -156,7 +156,8 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> GetGuests([FromQuery] GuestUserParams userParams ) {
             var guests = await _guestRepo.GetGuestPagination(userParams,
              new Expression<Func<Guest, object>>[] {
-                    g => g.Rank
+                    g => g.Rank,
+                    g => g.Unit
                 });
 
              var guestsToReturn = _mapper.Map<IEnumerable<GuestForEditDto>>(guests);
