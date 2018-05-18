@@ -80,7 +80,6 @@ export class ViewguestsComponent implements OnInit {
     if (this.selectedService != null) {
       this.filterParams.serviceId = this.selectedService.id;
     }
-    console.log(this.filterParams);
     this.loadGuests();
   }
 

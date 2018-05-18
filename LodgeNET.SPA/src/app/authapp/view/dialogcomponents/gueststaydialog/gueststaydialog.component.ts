@@ -25,15 +25,15 @@ export class GueststaydialogComponent implements OnInit {
 
   formInit() {
     this.form = new FormGroup({
-      'checkInDate': new FormControl(this.guestStay.checkInDate, Validators.required),
-      'checkOutDate': new FormControl(this.guestStay.checkOutDate, Validators.required)
+      'checkInDate': new FormControl({ value: this.guestStay.checkInDate, disabled: true}),
+      'checkOutDate': new FormControl({ value: this.guestStay.checkOutDate, disabled: true})
     });
   }
 
   save() {
     this.guestStay.checkInDate = this.form.value['checkInDate'];
     this.guestStay.checkOutDate = this.form.value['checkOutDate'];
-
+console.log(this.guestStay);
     this.dialogRef.close(this.guestStay);
   }
 

@@ -41,6 +41,7 @@ namespace LodgeNET.API.ConfigHelpers
                 .ForMember(guestForEditDto => guestForEditDto.ServiceId,
                     opt => opt.MapFrom(guest => guest.Rank.ServiceId));
             CreateMap<GuestForEditDto, Guest>();
+            CreateMap<GuestStayForCheckOutDto, Stay>();
         }
     }
 }

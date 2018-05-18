@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL {
     public class GuestStayRepo : GenericRepository<Stay>, IGuestStayRepo {
-        internal DataContext _context;
+        //internal DataContext _context;
 
         public GuestStayRepo (DataContext context): base(context) {
            //this._context = context;

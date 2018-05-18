@@ -1,19 +1,19 @@
 <h2 mat-dialog-title>Edit Stay</h2>
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" [max]="this.guestStay.checkOutDate" placeholder="Choose Check In date" formControlName="checkInDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>       
+    <input matInput [matDatepicker]="checkin" [max]="this.form.get('checkOutDate').value" placeholder="Choose Check In date" formControlName="checkInDate">
+    <mat-datepicker-toggle matSuffix [for]="checkin"></mat-datepicker-toggle>
+    <mat-datepicker #checkin disabled="false"></mat-datepicker>       
   </mat-form-field>
   <br />
   <mat-form-field>
-    <input matInput [matDatepicker]="picker" [min]="this.guestStay.checkInDate" placeholder="Choose Check Out Date" formControlName="checkOutDate">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>       
+    <input matInput [matDatepicker]="checkout" [min]="this.form.get('checkInDate').value" placeholder="Choose Check Out Date" formControlName="checkOutDate">
+    <mat-datepicker-toggle matSuffix [for]="checkout"></mat-datepicker-toggle>
+    <mat-datepicker #checkout disabled="false"></mat-datepicker>       
   </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <button class="btn btn-danger btn-sm" (click)="close()">Close</button>
-  <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+  <button class="btn btn-primary btn-sm" (click)="save()">Save</button>
 </mat-dialog-actions>

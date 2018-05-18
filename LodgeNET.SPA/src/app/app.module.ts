@@ -118,7 +118,8 @@ import { GueststaydialogComponent } from './authapp/view/dialogcomponents/guests
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
-    LodgingDialogComponent
+    LodgingDialogComponent,
+    GueststaydialogComponent
   ]
   // exports: [MatFormField]
 })

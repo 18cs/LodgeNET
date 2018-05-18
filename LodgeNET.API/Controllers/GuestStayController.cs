@@ -162,7 +162,7 @@ namespace LodgeNET.API.Controllers {
                 ModelState.AddModelError ("error", "Unable to update guest");
                 return BadRequest (ModelState);
             }
-
+            
             _mapper.Map (guestStayDto, gueststay);
             await _guestRepo.SaveAsync ();
 
