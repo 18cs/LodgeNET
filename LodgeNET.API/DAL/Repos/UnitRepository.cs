@@ -27,18 +27,22 @@ namespace LodgeNET.API.DAL.Repos {
             }
 
             if (userParams.UnitId != null && userParams.UnitId != 0) {
-                units = units.Where(u => u.Id == userParams.UnitId);
+                units = units.Where (u => u.Id == userParams.UnitId);
             }
 
             if (userParams.ParentUnitId != null && userParams.ParentUnitId != 0) {
-                units = units.Where(u => u.ParentUnitId == userParams.ParentUnitId);
+                units = units.Where (u => u.ParentUnitId == userParams.ParentUnitId);
+            }
+
+            if (!String.IsNullOrWhiteSpace (userParams.UnitName)) {
+                units = units.Where (u => u.Name.Contains (userParams.UnitName));
             }
 
             if (userParams.IncludeParentUnit) {
-                units = units.Include(u => u.ParentUnit);
+                units = units.Include (u => u.ParentUnit);
             }
 
-            return await PagedList<Unit>.CreateAsync(units, userParams.PageNumber, userParams.PageSize);
+            return await PagedList<Unit>.CreateAsync (units, userParams.PageNumber, userParams.PageSize);
 
         }
 

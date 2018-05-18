@@ -37,7 +37,7 @@ namespace LodgeNET.API.DAL {
             }
 
             if (userParams.LastName != null) {
-                stays = stays.Where (s => s.Guest.LastName.Equals (userParams.LastName.ToUpper ()));
+                stays = stays.Where (s => s.Guest.LastName.Contains (userParams.LastName.ToUpper ()));
             }
 
             if (userParams.RoomNumber != null) {

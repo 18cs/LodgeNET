@@ -6,6 +6,10 @@ import { UnitsService } from '../../../_services/units.service';
 import { ActivatedRoute, Data } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UnitdialogComponent } from '../dialogcomponents/unitdialog/unitdialog.component';
+import { UnitParams } from '../../../_models/params/unitParams';
+import { Observable } from 'rxjs/Observable';
+import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-viewunits',
@@ -19,6 +23,12 @@ export class ViewunitsComponent implements OnInit {
   pagination: Pagination;
 
   filterUnits: Unit[];
+  showSpinner = false;
+  filterParams: UnitParams;
+  filteredOptions: Observable<Unit[]>;
+  parentUnitName = new FormControl();
+  parentUnitValue = '';
+  selectedParentUnit: Unit;
 
   constructor(
     private unitsService: UnitsService, 
@@ -27,30 +37,48 @@ export class ViewunitsComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.initFilterParams();
     this.loadUnits()
     this.route.data.subscribe((data: Data) => {
       this.filterUnits = data['units'];
     });
 
-    console.log(this.filterUnits);
+    this.filteredOptions = this.parentUnitName.valueChanges
+    .pipe(
+      startWith(''),
+      map(val => this.unitFilter(val))
+    );
+  }
+
+  initFilterParams() {
+    this.filterParams = { includeParentUnit: true } as UnitParams
   }
 
   loadUnits() {
+    this.showSpinner = true;
     if (this.pagination == null) {
-      this.unitsService.getUnitsPag(this.pageNumber, this.pageSize)
+      this.unitsService.getUnitsPag(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Unit[]>) => {
           this.units = paginatedResult.result;
-          console.log(this.units);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;
+        });
     } else {
-      this.unitsService.getUnitsPag(this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.unitsService.getUnitsPag(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Unit[]>) => {
           this.units = paginatedResult.result;
-          console.log(this.units);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error);
+          this.showSpinner = false; 
+        });
     }
+
+    this.showSpinner = true;
   }
 
   pageChanged(event: any): void {
@@ -59,7 +87,51 @@ export class ViewunitsComponent implements OnInit {
   }
 
   onDelete(unit: Unit) {
+    if (unit != null) {
+      this.alertify.confirm(
+        'Are you sure you wish to delete ' + unit.name + '? <br /> <br /> WARNING: All units and guests under this unit will be deleted.',
+        () => {
+          this.unitsService.deleteUnit(unit.id).subscribe(
+            success => {
+              this.alertify.success(unit.name + ' successfully deleted.');
+              let unitIndex = this.units.indexOf(unit);
 
+              if (unitIndex !== -1)
+              {
+                this.units.splice(unitIndex, 1);
+              }
+            },
+            error => {
+              console.log(error);
+            }
+          );
+        }
+      );
+    }
+  }
+
+  onSearch() {
+    if(this.selectedParentUnit != null) {
+      this.filterParams.parentUnitId = this.selectedParentUnit.id;
+    }
+    this.loadUnits();
+  }
+
+  onReset() {
+    //this.initFilterParams();
+    this.selectedParentUnit = null;
+    this.parentUnitValue = '';
+    this.initFilterParams();
+    this.loadUnits();
+  }
+
+  unitFilter(val: string): Unit[] {
+    return this.filterUnits.filter(unit =>
+      unit.name.toLowerCase().includes(val.toLowerCase()));
+  }
+
+  onUnitSelected(unit: Unit) {
+    this.selectedParentUnit = unit;
   }
 
   openUnitDialog(unit: Unit) {

@@ -66,10 +66,26 @@ namespace LodgeNET.API.Controllers
                 return BadRequest(ModelState);
             }
 
-            _mapper.Map(updateUnit, unit);
+            unit.Name = updateUnit.Name;
+            unit.ParentUnitId = updateUnit.ParentUnitId;
             await _unitRepo.SaveAsync();
 
             return Ok();
+        }
+
+        [HttpDelete ("deleteunit/{id}")]
+        public async Task<IActionResult> DeleteGuestById (int id) {
+            var unit = await _unitRepo.GetFirstOrDefault (u => u.Id == id);
+
+            if (unit == null) {
+                ModelState.AddModelError ("error", "Unable to delete unit");
+                return BadRequest (ModelState);
+            }
+
+            await _unitRepo.Delete (unit);
+            await _unitRepo.SaveAsync ();
+
+            return Ok ();
         }
     }
 }

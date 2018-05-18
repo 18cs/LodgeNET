@@ -18,8 +18,6 @@ export class UnitsService {
     getUnitsPag(page?, itemsPerPage?, userParams?: UnitParams) {
         const paginatedResult: PaginatedResult<Unit[]> = new PaginatedResult<Unit[]>();
         let params = new HttpParams();
-        console.log(page);
-        console.log();
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
@@ -37,6 +35,10 @@ export class UnitsService {
 
             if (userParams.includeParentUnit) {
                 params = params.append('includeParentUnit', userParams.includeParentUnit.toString());
+            }
+
+            if (userParams.unitName != null) {
+                params = params.append('unitName', userParams.unitName);
             }
         }
 
@@ -62,6 +64,10 @@ export class UnitsService {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
         }).catch(this.handleError);
+    }
+
+    deleteUnit(id: number) {
+        return this.http.delete(this.baseUrl + 'unit/deleteunit/' + id).catch(this.handleError);
     }
 
     private handleError(error: any) {
