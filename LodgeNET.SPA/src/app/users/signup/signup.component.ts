@@ -41,6 +41,7 @@ export class SignupComponent implements OnInit {
       this.alertify.success('Registration Successful Please Wait for Approval');
       this.router.navigate(['/']);
     }, error => {
+      console.log(error);
       this.alertify.error('An error occured');
     });
   }

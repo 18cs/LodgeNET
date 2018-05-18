@@ -41,6 +41,7 @@ import { GueststayService } from './_services/gueststay.service';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { MaterialModule } from './material.module';
 import { BuildingsdialogComponent } from './authapp/view/dialogcomponents/buildingsdialog/buildingsdialog.component';
+import { BuildingtypesdialogComponent } from './authapp/view/dialogcomponents/buildingtypesdialog/buildingtypesdialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LostComponent } from './home/lost/lost.component';
 import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
@@ -78,6 +79,7 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
     SortPipe,
     DropdownDirective,
     BuildingsdialogComponent,
+    BuildingtypesdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
     EdituserComponent,
@@ -118,7 +120,8 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
-    LodgingDialogComponent
+    LodgingDialogComponent,
+    BuildingtypesdialogComponent
   ]
   // exports: [MatFormField]
 })
