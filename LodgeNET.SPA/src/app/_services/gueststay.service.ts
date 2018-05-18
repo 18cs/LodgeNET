@@ -103,7 +103,7 @@ export class GueststayService {
         return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
     }
 
-    getGuestStays(dodId?, lastName?, roomNumber?, guestId?) {
+    getGuestStays(dodId?, lastName?, roomNumber?, guestId?, currentStaysOnly?) {
         let params = new HttpParams();
 
         if (dodId != null) {
@@ -122,7 +122,18 @@ export class GueststayService {
             params = params.append('guestId', guestId);
         }
 
+        if(currentStaysOnly != null) {
+            params = params.append('currentStaysOnly', currentStaysOnly);
+        }
+
         return this.http.get<GuestStayCheckOut[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);
+    }
+
+    updateGuestStay(model: any) {
+            return this.http.post(this.baseUrl + 'gueststay/updategueststay', model, {
+                headers: new HttpHeaders()
+                    .set('Content-Type', 'application/json')
+            }).catch(this.handleError);
     }
 
     checkOutGuest(guestStay: GuestStayCheckOut) {

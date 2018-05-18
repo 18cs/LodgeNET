@@ -65,20 +65,15 @@ export class ViewbuildingsComponent implements OnInit {
       building: bldg
     };
 
-    console.log(dialogConfig.data);
-
     const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
       if (data != null) {
         this.buildingService.saveBuildingEdit(data).subscribe(
           success => {
-            console.log(data);
             this.alertify.success(data.name + ' successfully updated.');
-            console.log(success);
           },
           error => {
-            console.log(error);
+            this.alertify.error(error);
           }
         );
       }

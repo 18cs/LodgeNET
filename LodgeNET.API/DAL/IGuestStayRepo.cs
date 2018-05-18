@@ -7,7 +7,7 @@ using LodgeNET.API.Models;
 
 namespace LodgeNET.API.DAL
 {
-    public interface IGuestStayRepo
+    public interface IGuestStayRepo : IGenericRepository<Stay>
     {
          Task<IEnumerable<Stay>> GetGuestStays (GuestStayRetUserParams userParams,
           Expression<Func<Stay, object>>[] includeProperties = null,

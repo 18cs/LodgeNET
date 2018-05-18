@@ -3,7 +3,6 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { Guest } from '../../../_models/guest';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { GuestsdialogComponent } from '../dialogcomponents/guestsdialog/guestsdialog.component';
 import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
@@ -15,6 +14,7 @@ import { Unit } from '../../../_models/unit';
 import { Observable } from 'rxjs/Observable';
 import {map, startWith} from 'rxjs/operators';
 import { GuestParams } from '../../../_models/params/guestParams';
+import { GueststaydialogComponent } from '../dialogcomponents/gueststaydialog/gueststaydialog.component';
 
 @Component({
   selector: 'app-viewguests',
@@ -27,8 +27,9 @@ export class ViewguestsComponent implements OnInit {
   guestList: Guest[];
   guestStayList: GuestStayCheckOut[];
   selectedGuest: Guest;
+  selectedGuestStay: GuestStayCheckOut;
   // type: string;
-  // showSpinner = false;
+  showSpinner = false;
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
@@ -37,12 +38,12 @@ export class ViewguestsComponent implements OnInit {
   unitFileValue = '';
   filteredOptions: Observable<Unit[]>;
   filterParams: GuestParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: 0, unitId: 0};
-  // filter
+  // // filter
   selectedService: Service;
-  selectedRank: Rank;
-  lastNameFilter: string;
-  genderFilter: string;
-  dodIdFilter: number;
+  // selectedRank: Rank;
+  // lastNameFilter: string;
+  // genderFilter: string;
+  // dodIdFilter: number;
   selectedUnit: Unit;
 
   constructor(
@@ -105,16 +106,18 @@ export class ViewguestsComponent implements OnInit {
   }
 
   loadGuests() {
+    this.showSpinner = true;
     if (this.pagination == null) {
       this.guestStayService.getGuests(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
-          console.log(paginatedResult);
+          this.showSpinner = false;
           this.guestList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
       this.guestStayService.getGuests(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
+          this.showSpinner = false;
           this.guestList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
@@ -128,6 +131,31 @@ export class ViewguestsComponent implements OnInit {
 
   onGuestSelect(guest: Guest) {
     this.selectedGuest = guest;
+  }
+
+  openGuestStayDialog(guestStay: GuestStayCheckOut) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      guestStay: guestStay
+    };
+
+    const dialogRef = this.dialog.open(GueststaydialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
+        this.guestStayService.updateGuestStay(data).subscribe(
+          success => {
+            this.alertify.success('stay successfully updated.');
+          },
+          error => {
+            this.alertify.error(error);
+          }
+        );
+      }
+    });
   }
 
   onDelete(guest: Guest) {
@@ -158,7 +186,7 @@ export class ViewguestsComponent implements OnInit {
       error => {
         this.alertify.error(error);
       }
-    )
+    );
   }
 
 }
