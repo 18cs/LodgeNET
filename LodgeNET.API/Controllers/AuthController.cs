@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace LodgeNET.API.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
