@@ -43,6 +43,7 @@ namespace LodgeNET.API {
             services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddScoped<IGuestStayRepo, GuestStayRepo>();
             services.AddScoped<IUnitRepository, UnitRepository>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
             services.AddMvc().AddJsonOptions(opt =>
             {
               opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;  

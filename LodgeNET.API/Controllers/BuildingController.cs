@@ -11,18 +11,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
+using LodgeNET.API.Helpers;
+using System.Linq.Expressions;
 
 namespace LodgeNET.API.Controllers
 {
     [Route("api/[controller]")]
     public class BuildingController : Controller
     {
-        private readonly IGenericRepository<Building> _repo;
+        private readonly IBuildingRepository _repo;
         private readonly IGenericRepository<BuildingCategory> _buildingCategoryRepo;
         private readonly IGenericRepository<Stay> _stayRepo;
         private readonly IGenericRepository<Room> _roomRepo;
         private readonly IMapper _mapper;
-        public BuildingController(IGenericRepository<Building> repo,
+        public BuildingController(IBuildingRepository repo,
                             IGenericRepository<BuildingCategory> buildingCategoryRepo,
                             IGenericRepository<Stay> stayRepo,
                             IGenericRepository<Room> roomRepo,
@@ -41,6 +43,28 @@ namespace LodgeNET.API.Controllers
             var buildings = await _repo.GetAsync();
 
             return Ok(buildings);
+        }
+
+        [HttpGet("buildingtypes")]
+        public async Task<IActionResult> GetBuildingTypes([FromQuery] PagUserParams userParams)
+        {
+            var buildingTypes = await _repo.GetBuildingTypesPagination(
+                userParams
+                );
+            var bldgsToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypes);
+
+             Response.AddPagination(buildingTypes.CurrentPage,
+                buildingTypes.PageSize,
+                buildingTypes.TotalCount,
+                buildingTypes.TotalPages);
+
+            return Ok(bldgsToReturn);
+
+            // OLD CODE
+            //
+            // var buildingTypes = await _buildingCategoryRepo.GetAsync();
+
+            // return Ok(buildingTypes);
         }
 
         [HttpGet("{id}")]
@@ -141,6 +165,33 @@ namespace LodgeNET.API.Controllers
             }
 
             await _repo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("edittype")]
+        public async Task<IActionResult> SaveBuildingType([FromBody] BuildingCategoryDataDto buildingType)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == buildingType.Id);
+
+            if (bldgType != null)
+            {
+                bldgType.Type = buildingType.Type;
+            }
+
+            await _buildingCategoryRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("buildingtype/{id}")]
+        public async Task<IActionResult> DeleteBuildingTypeById(int id)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == id);
+
+            await _buildingCategoryRepo.Delete(bldgType.Id);
+
+            await _buildingCategoryRepo.SaveAsync();
 
             return Ok();
         }

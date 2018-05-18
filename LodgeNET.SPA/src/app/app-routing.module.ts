@@ -23,6 +23,7 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { LostComponent } from './home/lost/lost.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 import { UnitsResolverService } from './_resolvers/units-resolver.service';
+import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -55,7 +56,8 @@ import { UnitsResolverService } from './_resolvers/units-resolver.service';
     {path: 'view', component: ViewComponent, children: [
       {path: '', redirectTo: 'guests', pathMatch: 'full'},
       {path: 'buildings', component: ViewbuildingsComponent},
-      {path: 'guests', component: ViewguestsComponent, resolve: { formData: FormdataResolver } },
+      {path: 'buildingtypes', component: ViewbuildingtypesComponent},
+      {path: 'guests', component: ViewguestsComponent, resolve: {formData: FormdataResolver} },
       {path: 'rooms', component: ViewroomsComponent},
       {path: 'units', component: ViewunitsComponent, resolve: { units: UnitsResolverService }},
       {path: 'users', component: ViewusersComponent}

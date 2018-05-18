@@ -174,7 +174,7 @@ export class ViewguestsComponent implements OnInit {
           },
           error => this.alertify.error(error)
         );
-      })
+      });
   }
 
   loadGuestStays(guestId: number) {

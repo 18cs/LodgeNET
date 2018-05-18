@@ -31,6 +31,7 @@ import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.com
 import { ReviewcheckinComponent } from './authapp/checkin/reviewcheckin/reviewcheckin.component';
 import { ViewComponent } from './authapp/view/view.component';
 import { ViewbuildingsComponent } from './authapp/view/viewbuildings/viewbuildings.component';
+import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.component';
 import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
 import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
@@ -40,6 +41,7 @@ import { GueststayService } from './_services/gueststay.service';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { MaterialModule } from './material.module';
 import { BuildingsdialogComponent } from './authapp/view/dialogcomponents/buildingsdialog/buildingsdialog.component';
+import { BuildingtypesdialogComponent } from './authapp/view/dialogcomponents/buildingtypesdialog/buildingtypesdialog.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LostComponent } from './home/lost/lost.component';
 import { UnaccompanieddialogComponent } from './authapp/fileupload/dialogcomponents/unaccompanieddialog/unaccompanieddialog.component';
@@ -80,12 +82,14 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
     SortPipe,
     DropdownDirective,
     BuildingsdialogComponent,
+    BuildingtypesdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
     EdituserComponent,
     EditguestComponent,
     GueststaydialogComponent,
-    UnitdialogComponent
+    UnitdialogComponent,
+    ViewbuildingtypesComponent
 ],
   imports: [
     BrowserModule,
@@ -124,9 +128,8 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
-    GueststaydialogComponent,
-    UnitdialogComponent
-  ]
+    UnitdialogComponent,
+    GueststaydialogComponent
   // exports: [MatFormField]
 })
 export class AppModule { }
