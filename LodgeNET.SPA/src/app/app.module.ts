@@ -130,6 +130,7 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
     LodgingDialogComponent,
     UnitdialogComponent,
     GueststaydialogComponent
+  ]
   // exports: [MatFormField]
 })
 export class AppModule { }
