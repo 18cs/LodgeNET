@@ -11,7 +11,7 @@ export interface GuestStayCheckOut {
     buildingId: number;
     building: Building;
     checkInDate: string;
-    checkOutDate: string;
+    checkOutDate?: string;
     checkedIn: boolean;
     checkedOut: boolean;
     dateCreated: string;

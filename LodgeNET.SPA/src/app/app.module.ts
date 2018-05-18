@@ -50,6 +50,7 @@ import { LodgingDialogComponent } from './authapp/fileupload/dialogcomponents/lo
 import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 import { EditguestComponent } from './authapp/view/viewguests/editguest/editguest.component';
+import { GueststaydialogComponent } from './authapp/view/dialogcomponents/gueststaydialog/gueststaydialog.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
     LodgingDialogComponent,
     EdituserComponent,
     EditguestComponent,
-    ViewbuildingtypesComponent
+    ViewbuildingtypesComponent,
+    GueststaydialogComponent
 ],
   imports: [
     BrowserModule,
@@ -121,7 +123,8 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
-    BuildingtypesdialogComponent
+    BuildingtypesdialogComponent,
+    GueststaydialogComponent
   ]
   // exports: [MatFormField]
 })

@@ -11,3 +11,5 @@ tr:hover .editbutton {
     margin-bottom: 1%;
     margin-left: 1%
 }
+
+tr.nohover:hover { background-color: white !important;}

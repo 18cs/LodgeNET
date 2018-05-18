@@ -9,11 +9,11 @@ using LodgeNET.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL {
-    public class GuestStayRepo : IGuestStayRepo {
-        internal DataContext _context;
+    public class GuestStayRepo : GenericRepository<Stay>, IGuestStayRepo {
+        //internal DataContext _context;
 
-        public GuestStayRepo (DataContext context) {
-           this._context = context;
+        public GuestStayRepo (DataContext context): base(context) {
+           //this._context = context;
         }
 
         public async Task<IEnumerable<Stay>> GetGuestStays (
@@ -47,6 +47,10 @@ namespace LodgeNET.API.DAL {
             if (userParams.GuestId != null) {
                 stays = stays.Where (s => s.Guest.Id == userParams.GuestId);
             }
+
+            if (userParams.CurrentStaysOnly) {
+                stays = stays.Where ( s => (s.CheckedOut == false && s.CheckedIn == true));
+            } 
 
             return await stays.ToListAsync ();
         }
