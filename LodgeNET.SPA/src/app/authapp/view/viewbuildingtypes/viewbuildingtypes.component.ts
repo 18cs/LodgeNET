@@ -103,7 +103,7 @@ export class ViewbuildingtypesComponent implements OnInit {
         () => {
           this.buildingService.deleteBuildingTypeById(buildingType.Id).subscribe(
             success => {
-              this.alertify.success(buildingType.Type + ' successfully deleted.');
+              this.alertify.success(buildingType.type + ' successfully deleted.');
               let bldgTypeIndex = this.buildingTypeList.indexOf(buildingType);
 
               if (bldgTypeIndex !== -1)

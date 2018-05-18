@@ -49,10 +49,8 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> GetBuildingTypes([FromQuery] PagUserParams userParams)
         {
             var buildingTypes = await _repo.GetBuildingTypesPagination(
-                userParams,
-                new Expression<Func<BuildingCategory, object>>[] {
-                    b => b.Type
-                });
+                userParams
+                );
             var bldgsToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypes);
 
              Response.AddPagination(buildingTypes.CurrentPage,
