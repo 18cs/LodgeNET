@@ -163,6 +163,11 @@ namespace LodgeNET.API.Controllers {
                 return BadRequest (ModelState);
             }
             
+            //EF errors if values are not null for update
+            guestStayDto.Guest = null;
+            guestStayDto.Building = null;
+            guestStayDto.Room = null;
+
             _mapper.Map (guestStayDto, gueststay);
             await _guestRepo.SaveAsync ();
 
