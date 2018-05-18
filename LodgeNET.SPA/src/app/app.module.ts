@@ -49,6 +49,8 @@ import { EdituserComponent } from './authapp/view/viewusers/edituser/edituser.co
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 import { EditguestComponent } from './authapp/view/viewguests/editguest/editguest.component';
 import { GueststaydialogComponent } from './authapp/view/dialogcomponents/gueststaydialog/gueststaydialog.component';
+import { UnitsResolverService } from './_resolvers/units-resolver.service';
+import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/unitdialog.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +85,7 @@ import { GueststaydialogComponent } from './authapp/view/dialogcomponents/guests
     EdituserComponent,
     EditguestComponent,
     GueststaydialogComponent,
+    UnitdialogComponent
 ],
   imports: [
     BrowserModule,
@@ -113,13 +116,16 @@ import { GueststaydialogComponent } from './authapp/view/dialogcomponents/guests
     LoggedinGuard,
     BuildingService,
     FileuploadService,
-    FormdataResolver
+    FormdataResolver,
+    UnitsResolverService
+    
   ],
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
-    GueststaydialogComponent
+    GueststaydialogComponent,
+    UnitdialogComponent
   ]
   // exports: [MatFormField]
 })

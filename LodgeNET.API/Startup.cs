@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using LodgeNET.API.DAL.Repos;
 
 namespace LodgeNET.API {
     public class Startup {
@@ -41,6 +42,7 @@ namespace LodgeNET.API {
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddScoped<IGuestStayRepo, GuestStayRepo>();
+            services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddMvc().AddJsonOptions(opt =>
             {
               opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;  

@@ -22,6 +22,7 @@ import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { LostComponent } from './home/lost/lost.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
+import { UnitsResolverService } from './_resolvers/units-resolver.service';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -54,9 +55,9 @@ import { FormdataResolver } from './_resolvers/formdata-resolver.service';
     {path: 'view', component: ViewComponent, children: [
       {path: '', redirectTo: 'guests', pathMatch: 'full'},
       {path: 'buildings', component: ViewbuildingsComponent},
-      {path: 'guests', component: ViewguestsComponent, resolve: {formData: FormdataResolver} },
+      {path: 'guests', component: ViewguestsComponent, resolve: { formData: FormdataResolver } },
       {path: 'rooms', component: ViewroomsComponent},
-      {path: 'units', component: ViewunitsComponent},
+      {path: 'units', component: ViewunitsComponent, resolve: { units: UnitsResolverService }},
       {path: 'users', component: ViewusersComponent}
     ]},
     {path: 'checkout', component: CheckoutComponent}

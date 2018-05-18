@@ -28,14 +28,12 @@ export class ViewusersComponent implements OnInit {
       this.authService.GetUsers(this.pageNumber, this.pageSize)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.users = paginatedResult.result;
-          console.log(this.users);
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
       this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.users = paginatedResult.result;
-          console.log(this.users);
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     }
