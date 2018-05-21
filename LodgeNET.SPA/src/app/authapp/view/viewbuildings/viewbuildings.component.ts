@@ -5,6 +5,8 @@ import { Building } from '../../../_models/building';
 import { BuildingTable } from '../../../_models/buildingTable';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/buildingsdialog.component';
+import { BuildingType } from '../../../_models/buildingType';
+import { Pagination, PaginatedResult } from '../../../_models/pagination';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -12,7 +14,11 @@ import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/bu
   styleUrls: ['./viewbuildings.component.css']
 })
 export class ViewbuildingsComponent implements OnInit {
-  buildingDashboard: BuildingTable;
+  buildingList: Building[];
+  buildingTypeList: BuildingType[];
+  pageSize = 10;
+  pageNumber = 1;
+  pagination: Pagination;
 
   isLodgingOpen = false;
   isUnaccompaniedHousingOpen = false;
@@ -30,39 +36,92 @@ export class ViewbuildingsComponent implements OnInit {
   }
 
   loadBuildings() {
-    this.buildingService.buildingDashboardData().subscribe(
-      (buildingDashboard: BuildingTable) => {
-        // console.log(buildingDashboard);
-        this.buildingDashboard = buildingDashboard;
-      },
-      error => {
-        this.alertify.error(error);
-      }
-    );
-  }
-
-  tableCollapseToggle(buildingId: number) {
-    if (buildingId === 1) {
-      this.isLodgingOpen = !this.isLodgingOpen;
-    } else if (buildingId === 2) {
-      this.isVacentHousingOpen = !this.isVacentHousingOpen;
-    } else if (buildingId === 3) {
-      this.isUnaccompaniedHousingOpen = !this.isUnaccompaniedHousingOpen;
-    } else if (buildingId === 4) {
-      this.isEmergencyQuartersOpen = !this.isEmergencyQuartersOpen;
+    if (this.pagination == null) {
+      this.buildingService.getBuildings(this.pageNumber, this.pageSize)
+        .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
+          this.buildingList = paginatedResult.result;
+          console.log(paginatedResult.pagination);
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
+    } else {
+      this.buildingService.getBuildings(this.pagination.currentPage, this.pagination.itemsPerPage)
+        .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
+          this.buildingList = paginatedResult.result;
+          console.log(this.buildingList);
+          this.pagination = paginatedResult.pagination;
+        }, error => { this.alertify.error(error); });
     }
   }
 
-  editBuilding(buildingId) {}
+  getAllBuildingTypes() {
+    this.buildingService.getAllBuildingTypes().subscribe(
+        (buildingTypeList: BuildingType[]) => {
+          this.buildingTypeList = buildingTypeList;
+        },
+        error => {
+          this.alertify.error(error);
+        }
+      );
+  }
 
-  openDialog(bldg) {
+  // tableCollapseToggle(buildingId: number) {
+  //   if (buildingId === 1) {
+  //     this.isLodgingOpen = !this.isLodgingOpen;
+  //   } else if (buildingId === 2) {
+  //     this.isVacentHousingOpen = !this.isVacentHousingOpen;
+  //   } else if (buildingId === 3) {
+  //     this.isUnaccompaniedHousingOpen = !this.isUnaccompaniedHousingOpen;
+  //   } else if (buildingId === 4) {
+  //     this.isEmergencyQuartersOpen = !this.isEmergencyQuartersOpen;
+  //   }
+  // }
+
+  openAddDialog() {
     const dialogConfig = new MatDialogConfig();
+    this.getAllBuildingTypes();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      building: bldg
+      title: 'Add Building',
+      buildingTypeList: this.buildingTypeList,
+      building: {
+        number: null,
+        name: '',
+        buildingCategoryId: null,
+        currentGuests: 0,
+        capacity: 0
+    } as Building
+    };
+
+    const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
+        this.buildingService.addBuilding(data).subscribe(
+          success => {
+            this.alertify.success(data.name + ' successfully added.');
+            this.loadBuildings();
+          },
+          error => {
+            this.alertify.error(error);
+          }
+        );
+      }
+    });
+  }
+
+  openDialog(bldg) {
+    const dialogConfig = new MatDialogConfig();
+    this.getAllBuildingTypes();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title: 'Edit ' + bldg.name,
+      building: bldg,
+      buildingTypeList: this.buildingTypeList
     };
 
     const dialogRef = this.dialog.open(BuildingsdialogComponent, dialogConfig);
@@ -89,11 +148,11 @@ export class ViewbuildingsComponent implements OnInit {
           this.buildingService.deleteBuildingById(bldg.id).subscribe(
             success => {
               this.alertify.success(bldg.name + ' successfully deleted.');
-              let bldgIndex = this.buildingDashboard.buildingList.indexOf(bldg);
+              let bldgIndex = this.buildingList.indexOf(bldg);
 
               if (bldgIndex !== -1)
               {
-                this.buildingDashboard.buildingList.splice(bldgIndex, 1);
+                this.buildingList.splice(bldgIndex, 1);
               }
             },
             error => {
@@ -105,43 +164,50 @@ export class ViewbuildingsComponent implements OnInit {
     }
   }
 
-  getOccupancyRate(currentGuests, capacity) {
-    return capacity === 0 ? 0 : currentGuests / capacity * 100;
-  }
+  // OLD CODE
+  //
+  // getOccupancyRate(currentGuests, capacity) {
+  //   return capacity === 0 ? 0 : currentGuests / capacity * 100;
+  // }
 
-  getTotalOccupancyRate() {
-    let totalCapacity = 0;
-    let totalCurrentGuest = 0;
+  // getTotalOccupancyRate() {
+  //   let totalCapacity = 0;
+  //   let totalCurrentGuest = 0;
 
-    this.buildingDashboard.buildingTypeList.forEach(type => {
-      totalCurrentGuest += type.currentGuests;
-      totalCapacity += type.capacity;
-    });
+  //   this.buildingDashboard.buildingTypeList.forEach(type => {
+  //     totalCurrentGuest += type.currentGuests;
+  //     totalCapacity += type.capacity;
+  //   });
 
-    return (totalCurrentGuest / totalCapacity * 100).toFixed(2);
-  }
+  //   return (totalCurrentGuest / totalCapacity * 100).toFixed(2);
+  // }
 
-  getTotalOccupancy() {
-    let totalCapacitys = 0;
-    let totalCurrentGuests = 0;
+  // getTotalOccupancy() {
+  //   let totalCapacitys = 0;
+  //   let totalCurrentGuests = 0;
 
-    this.buildingDashboard.buildingTypeList.forEach(cat => {
-      totalCurrentGuests += cat.currentGuests;
-      totalCapacitys += cat.capacity;
-    });
+  //   this.buildingDashboard.buildingTypeList.forEach(cat => {
+  //     totalCurrentGuests += cat.currentGuests;
+  //     totalCapacitys += cat.capacity;
+  //   });
 
-    return totalCurrentGuests + ' / ' + totalCapacitys;
-  }
+  //   return totalCurrentGuests + ' / ' + totalCapacitys;
+  // }
 
-  showConditionCheck(buildingId: number) {
-    if (buildingId === 1) {
-      return this.isLodgingOpen;
-    } else if (buildingId === 2) {
-      return this.isVacentHousingOpen;
-    } else if (buildingId === 3) {
-      return this.isUnaccompaniedHousingOpen;
-    } else {
-      return this.isEmergencyQuartersOpen;
-    }
+  // showConditionCheck(buildingId: number) {
+  //   if (buildingId === 1) {
+  //     return this.isLodgingOpen;
+  //   } else if (buildingId === 2) {
+  //     return this.isVacentHousingOpen;
+  //   } else if (buildingId === 3) {
+  //     return this.isUnaccompaniedHousingOpen;
+  //   } else {
+  //     return this.isEmergencyQuartersOpen;
+  //   }
+  // }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadBuildings();
   }
 }

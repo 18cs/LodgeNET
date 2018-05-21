@@ -50,7 +50,7 @@ export class ViewbuildingtypesComponent implements OnInit {
     // this.buildingService.getBuildingTypes().subscribe(
     //   (buildingTypeList: BuildingType[]) => {
     //     this.buildingTypeList = buildingTypeList;
-    //   },buildingTypeList
+    //   },
     //   error => {
     //     this.alertify.error(error);
     //   }

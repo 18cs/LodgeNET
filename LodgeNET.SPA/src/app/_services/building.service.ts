@@ -27,6 +27,29 @@ export class BuildingService {
     return this.http.get<BuildingTable>(this.baseUrl + 'building/dashboard').catch(this.handleError);
   }
 
+  getBuildings(page?, itemsPerPage?): Observable<PaginatedResult<Building[]>> {
+    const paginatedResult: PaginatedResult<Building[]> = new PaginatedResult<Building[]>();
+        let params = new HttpParams();
+
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page);
+            params = params.append('pageSize', itemsPerPage);
+        }
+
+        return this.http.
+            get<Building[]>(this.baseUrl + 'building', { observe: 'response', params })
+            .map((response) => {
+                paginatedResult.result = response.body;
+                if (response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(
+                        response.headers.get('Pagination'));
+                }
+                console.log(paginatedResult.pagination);
+                return paginatedResult;
+            })
+            .catch(this.handleError);
+  }
+
   getBuildingTypes(page?, itemsPerPage?): Observable<PaginatedResult<BuildingType[]>> {
     const paginatedResult: PaginatedResult<BuildingType[]> = new PaginatedResult<BuildingType[]>();
         let params = new HttpParams();
@@ -40,8 +63,6 @@ export class BuildingService {
             get<BuildingType[]>(this.baseUrl + 'building/buildingtypes', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
-                
-
                 if (response.headers.get('Pagination') != null) {
                     paginatedResult.pagination = JSON.parse(
                         response.headers.get('Pagination'));
@@ -50,16 +71,27 @@ export class BuildingService {
                 return paginatedResult;
             })
             .catch(this.handleError);
-    
-    // OLD CODe
-    //
-    // return this.http.get<BuildingType[]>(this.baseUrl + 'building/buildingtypes').catch(this.handleError);
+  }
+
+  getAllBuildingTypes() {
+    return this.http.get<BuildingType[]>(this.baseUrl + 'building/allbuildingtypes').catch(this.handleError);
+  }
+
+  getAllBuildings() {
+    return this.http.get<Building[]>(this.baseUrl + 'building/allbuildings').catch(this.handleError);
   }
 
   saveBuildingEdit(model: Building) {
     console.log(model);
 
     return this.http.post(this.baseUrl + 'building/edit', model, {headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')}).catch(this.handleError);
+  }
+
+  addBuilding(model: Building) {
+    console.log(model);
+
+    return this.http.post(this.baseUrl + 'building/add', model, {headers: new HttpHeaders()
       .set('Content-Type', 'application/json')}).catch(this.handleError);
   }
 

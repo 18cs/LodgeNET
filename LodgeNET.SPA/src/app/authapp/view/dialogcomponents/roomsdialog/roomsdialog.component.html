@@ -1,0 +1,34 @@
+<h2 mat-dialog-title>{{ title }}</h2>
+
+<mat-dialog-content [formGroup]="form">
+
+  <mat-form-field>
+    <input matInput placeholder="Room Number" formControlName="number">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput placeholder="Building" formControlName="building" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedBuilding.name">
+  </mat-form-field>
+  <mat-autocomplete #bldgAuto>
+    <mat-option *ngFor="let building of buildingList" [value]="building.name" (mousedown)="onBuildingSelected(building)">
+      {{ building.name }}
+    </mat-option>
+  </mat-autocomplete>
+  <br>
+  <mat-form-field>
+    <input matInput pattern="[0-9]+" ng-pattern-restrict placeholder="Floor" formControlName="floor" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput pattern="[0-9]+" ng-pattern-restrict placeholder="Capacity" formControlName="capacity" />
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <input matInput pattern="[0-9]+" ng-pattern-restrict placeholder="Surge Multiplier" formControlName="surge" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="btn btn-danger btn-sm" (click)="close()">Close</button>&emsp;&emsp;
+  <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>

@@ -97,6 +97,47 @@ export class GueststayService {
             .catch(this.handleError);
     }
 
+    getRooms(page?, itemsPerPage?): Observable<PaginatedResult<Room[]>> {
+        const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
+            let params = new HttpParams();
+
+            if (page != null && itemsPerPage != null) {
+                params = params.append('pageNumber', page);
+                params = params.append('pageSize', itemsPerPage);
+            }
+
+            return this.http.
+                get<Room[]>(this.baseUrl + 'gueststay/getrooms', { observe: 'response', params })
+                .map((response) => {
+                    paginatedResult.result = response.body;
+                    if (response.headers.get('Pagination') != null) {
+                        paginatedResult.pagination = JSON.parse(
+                            response.headers.get('Pagination'));
+                    }
+                    console.log(paginatedResult.pagination);
+                    return paginatedResult;
+                })
+                .catch(this.handleError);
+    }
+
+    saveRoomEdit(model: Room) {
+        console.log(model);
+
+        return this.http.post(this.baseUrl + 'gueststay/editroom', model, {headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')}).catch(this.handleError);
+    }
+
+    addRoom(model: Room) {
+        console.log(model);
+
+        return this.http.post(this.baseUrl + 'gueststay/addroom', model, {headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')}).catch(this.handleError);
+    }
+
+    deleteRoomById(roomId:  number) {
+        return this.http.delete(this.baseUrl + 'gueststay/room/' + roomId).catch(this.handleError);
+      }
+
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);

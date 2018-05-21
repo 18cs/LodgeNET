@@ -1,33 +1,39 @@
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th scope="col">Building</th>
-      <th scope="col">Occupancy</th>
-      <th scope="col">Rate</th>
-    </tr>
-  </thead>
-  <tbody *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
-    <tr class="table-active" (click)="tableCollapseToggle(building.id)">
-      <th scope="row">{{ building.type }}</th>
-      <td>{{ building.currentGuests +' / '+ building.capacity }}</td>
-      <td [ngClass]="{
-        'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= .95,
-        'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= .75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= .94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
-    </tr>
-    <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
-      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard?.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
-        'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .94) }">
-        <th scope="row">{{ bldg.name }}</th>
-        <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
-        <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}% &emsp;
-          <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(bldg)">
-            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{bldg.name}}"></i>
+<div class="col-lg-12">
+  <h5 class="text-right" *ngIf="pagination != null;">Building Types Found: {{ pagination.totalItems }}</h5>
+  <table class="table table-hover">
+    <caption *ngIf="pagination?.totalItems == 0">No Buildings Found</caption>
+    <thead>
+      <tr class="table-active">
+        <th scope="col">Building</th>
+        <th scope="col">Number</th>
+        <th scope="col">Type</th>
+        <th scope="col">
+          <button class="btn btn-success btn-sm" (click)="openAddDialog()">
+            <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building"></i>
           </button>
-          <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(bldg)">
-            <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{bldg.name}}"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let building of buildingList; let i = index;">
+      <tr>
+        <th scope="row">{{ building.name }}</th>
+        <td>{{ building.number }}</td>
+        <ng-container *ngFor="let bldgType of buildingTypeList;">
+          <td *ngIf="bldgType.id == buildingList[i].buildingCategoryId">{{ bldgType.type }}</td>
+        </ng-container>
+        <td>
+          <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(building)">
+            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{building.name}}"></i>
+          </button>
+          <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(building)">
+            <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{building.name}}"></i>
           </button>
         </td>
       </tr>
-    </ng-container>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+  <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
+    <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+      [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
+    </pagination>
+  </div>

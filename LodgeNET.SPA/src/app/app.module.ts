@@ -53,6 +53,7 @@ import { EditguestComponent } from './authapp/view/viewguests/editguest/editgues
 import { GueststaydialogComponent } from './authapp/view/dialogcomponents/gueststaydialog/gueststaydialog.component';
 import { UnitsResolverService } from './_resolvers/units-resolver.service';
 import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/unitdialog.component';
+import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialog/roomsdialog.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
     EditguestComponent,
     GueststaydialogComponent,
     UnitdialogComponent,
-    ViewbuildingtypesComponent
+    ViewbuildingtypesComponent,
+    RoomsdialogComponent
 ],
   imports: [
     BrowserModule,
@@ -129,7 +131,9 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
     UnitdialogComponent,
-    GueststaydialogComponent
+    BuildingtypesdialogComponent,
+    GueststaydialogComponent,
+    RoomsdialogComponent
   ]
   // exports: [MatFormField]
 })

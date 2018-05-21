@@ -6,6 +6,6 @@ export interface Room {
     squareFootage: number;
     floor: number;
     buildingId: number;
-    roomType: string;
-    currentGuestCount: number;
+    roomType?: string;
+    currentGuestCount?: number;
 }

@@ -1,15 +1,33 @@
-<h2 mat-dialog-title>Edit {{building.name}}</h2>
+<h2 mat-dialog-title>{{ title }}</h2>
 
 <mat-dialog-content [formGroup]="form">
-  
+
     <mat-form-field>
-        <input matInput
-                placeholder="Building Name"
-               formControlName="name">
+        <input matInput placeholder="Building Name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput pattern="[0-9]+" ng-pattern-restrict placeholder="Building Number" formControlName="number" />
+    </mat-form-field>
+    <br>
+    <!-- <mat-form-field>
+        <input matInput placeholder="Building Type" formControlName="buildingType" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedBuildingType.type"> 
+      </mat-form-field>
+      <mat-autocomplete #bldgAuto>
+          <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.type" (mousedown)="onTypeSelected(buildingType)">
+            {{ buildingType.type }}
+          </mat-option>
+        </mat-autocomplete> -->
+    <mat-form-field>
+        <mat-select placeholder="Building Type" formControlName="buildingType" [(ngModel)]="selectedBuildingType.type">
+            <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.type" (mousedown)="onTypeSelected(buildingType)">
+                {{ buildingType.type }}
+            </mat-option>
+        </mat-select>
     </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button class="btn btn-primary btn-sm"(click)="save()">Save</button>&emsp;&emsp;
-  <button class="btn btn-danger btn-sm"(click)="close()">Close</button>
+    <button class="btn btn-danger btn-sm" (click)="close()">Close</button>&emsp;&emsp;
+    <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
 </mat-dialog-actions>

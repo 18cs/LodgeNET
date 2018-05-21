@@ -1,16 +1,14 @@
 <h2 mat-dialog-title>{{ title }}</h2>
 
 <mat-dialog-content [formGroup]="form">
-  
+
     <mat-form-field>
-        <input matInput
-                placeholder="Building Type"
-               formControlName="type">
+        <input matInput placeholder="Building Type" formControlName="type">
     </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="btn btn-primary btn-sm"(click)="save()">Save</button>&emsp;&emsp;
-  <button class="btn btn-danger btn-sm"(click)="close()">Close</button>
-    
+    <button class="btn btn-danger btn-sm" (click)="close()">Close</button>&emsp;&emsp;
+    <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+
 </mat-dialog-actions>

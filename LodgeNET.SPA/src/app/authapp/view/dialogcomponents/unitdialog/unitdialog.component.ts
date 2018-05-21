@@ -1,14 +1,14 @@
-import { Component, OnInit, Inject } from "@angular/core";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { Unit } from "../../../../_models/unit";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
-import { Observable } from "rxjs/Observable";
-import { map, startWith } from "rxjs/operators";
+import { Component, OnInit, Inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Unit } from '../../../../_models/unit';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  selector: "app-unitdialog",
-  templateUrl: "./unitdialog.component.html",
-  styleUrls: ["./unitdialog.component.css"]
+  selector: 'app-unitdialog',
+  templateUrl: './unitdialog.component.html',
+  styleUrls: ['./unitdialog.component.css']
 })
 export class UnitdialogComponent implements OnInit {
   form: FormGroup;
@@ -30,7 +30,7 @@ export class UnitdialogComponent implements OnInit {
   ngOnInit() {
     this.formInit();
     this.filteredOptions = this.form.controls['parentUnit'].valueChanges.pipe(
-      startWith(""),
+      startWith(''),
       map(val => this.unitFilter(val))
     );
   }
@@ -48,12 +48,12 @@ export class UnitdialogComponent implements OnInit {
   }
 
   save() {
-    this.unit.name = this.form.value["unitName"];
+    this.unit.name = this.form.value['unitName'];
     if (this.unit.id != this.selectedParentUnit.id) {
       this.unit.parentUnit = this.selectedParentUnit;
       this.unit.parentUnitId = this.selectedParentUnit.id;
     }
-    //this.guestStay.checkOutDate = this.form.value['checkOutDate'];
+    // this.guestStay.checkOutDate = this.form.value['checkOutDate'];
     console.log(this.unit);
     this.dialogRef.close(this.unit);
   }

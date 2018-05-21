@@ -19,6 +19,27 @@ namespace LodgeNET.API.DAL
             
         }
 
+        public async Task<PagedList<Building>> GetBuildingsPagination(
+            PagUserParams userParams, 
+            Expression<Func<Building, object>>[] includeProperties = null,
+            Expression<Func<Building, bool>> filter = null
+        ) {
+            var buildings = _context.Buildings.AsQueryable();
+
+            if (includeProperties != null) {
+                foreach (Expression<Func<Building, object>> includeProperty in includeProperties) {
+                    buildings = buildings.Include<Building, object> (includeProperty);
+                }
+            }
+
+            if(filter != null)
+            {
+                buildings = buildings.Where(filter);
+            }
+
+            return await PagedList<Building>.CreateAsync(buildings, userParams.PageNumber, userParams.PageSize);
+        }
+
         public async Task<PagedList<BuildingCategory>> GetBuildingTypesPagination(
             PagUserParams userParams, 
             Expression<Func<BuildingCategory, object>>[] includeProperties = null,

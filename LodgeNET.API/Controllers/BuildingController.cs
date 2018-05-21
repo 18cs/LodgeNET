@@ -38,11 +38,25 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBuildings()
+        public async Task<IActionResult> GetBuildings([FromQuery] PagUserParams userParams)
         {
-            var buildings = await _repo.GetAsync();
+            var bldgs = await _repo.GetBuildingsPagination(
+                userParams
+                );
+            var bldgsToReturn = _mapper.Map<IEnumerable<Building>>(bldgs);
 
-            return Ok(buildings);
+             Response.AddPagination(bldgs.CurrentPage,
+                bldgs.PageSize,
+                bldgs.TotalCount,
+                bldgs.TotalPages);
+
+            return Ok(bldgsToReturn);
+
+            // OLD CODE
+            //
+            // var buildings = await _repo.GetAsync();
+
+            // return Ok(buildings);
         }
 
         [HttpGet("buildingtypes")]
@@ -51,20 +65,38 @@ namespace LodgeNET.API.Controllers
             var buildingTypes = await _repo.GetBuildingTypesPagination(
                 userParams
                 );
-            var bldgsToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypes);
+            var bldgTypesToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypes);
 
              Response.AddPagination(buildingTypes.CurrentPage,
                 buildingTypes.PageSize,
                 buildingTypes.TotalCount,
                 buildingTypes.TotalPages);
 
-            return Ok(bldgsToReturn);
+            return Ok(bldgTypesToReturn);
 
             // OLD CODE
             //
             // var buildingTypes = await _buildingCategoryRepo.GetAsync();
 
             // return Ok(buildingTypes);
+        }
+
+        [HttpGet("allbuildings")]
+        public async Task<IActionResult> GetAllBuildings()
+        {
+            
+            var buildings = await _buildingCategoryRepo.GetAsync();
+
+            return Ok(buildings);
+        }
+
+        [HttpGet("allbuildingtypes")]
+        public async Task<IActionResult> GetAllBuildingTypes()
+        {
+            
+            var buildingTypes = await _buildingCategoryRepo.GetAsync();
+
+            return Ok(buildingTypes);
         }
 
         [HttpGet("{id}")]
@@ -162,7 +194,22 @@ namespace LodgeNET.API.Controllers
             if (bldg != null)
             {
                 bldg.Name = building.Name;
+                bldg.BuildingCategoryId = building.BuildingCategoryId;
             }
+
+            await _repo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("add")]
+        public async Task<IActionResult> AddBuilding([FromBody] Building building)
+        {
+            // var bldgToAdd = _mapper.Map<Building>(building);
+
+            var bldgToAdd = building;
+            
+            _repo.Insert(bldgToAdd);
 
             await _repo.SaveAsync();
 
@@ -187,9 +234,9 @@ namespace LodgeNET.API.Controllers
         [HttpPost("addtype")]
         public async Task<IActionResult> AddBuildingType([FromBody] BuildingCategory buildingType)
         {
-            var bldgToAdd = _mapper.Map<BuildingCategory>(buildingType);
+            var bldgTypeToAdd = _mapper.Map<BuildingCategory>(buildingType);
             
-            _buildingCategoryRepo.Insert(bldgToAdd);
+            _buildingCategoryRepo.Insert(bldgTypeToAdd);
 
             await _buildingCategoryRepo.SaveAsync();
 

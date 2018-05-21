@@ -13,5 +13,11 @@ namespace LodgeNET.API.DAL {
             Expression<Func<BuildingCategory, object>>[] includeProperties = null,
             Expression<Func<BuildingCategory, bool>> filter = null
         );
+
+        Task<PagedList<Building>> GetBuildingsPagination(
+            PagUserParams userParams, 
+            Expression<Func<Building, object>>[] includeProperties = null,
+            Expression<Func<Building, bool>> filter = null
+        );
     }
 }

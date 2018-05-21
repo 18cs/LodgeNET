@@ -61,6 +61,72 @@ namespace LodgeNET.API.Controllers {
             return Ok (roomsToReturn);
         }
 
+        [HttpPost("editroom")]
+        public async Task<IActionResult> SaveRoom([FromBody] Room room)
+        {
+            var rm = await _roomsRepo.GetFirstOrDefault(b => b.Id == room.Id);
+
+            if (rm != null)
+            {
+                rm.RoomNumber = room.RoomNumber;
+                rm.SurgeMultiplier = room.SurgeMultiplier;
+                rm.Capacity = room.Capacity;
+                rm.SquareFootage = room.SquareFootage;
+                rm.Floor = room.Floor;
+                rm.BuildingId = room.BuildingId;
+            }
+
+            await _roomsRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpPost("addroom")]
+        public async Task<IActionResult> AddRoom([FromBody] Room room)
+        {
+            var roomToAdd = _mapper.Map<Room>(room);
+            
+            _roomsRepo.Insert(roomToAdd);
+
+            await _roomsRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete ("room/{id}")]
+        public async Task<IActionResult> DeleteBuildingTypeById(int id)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == id);
+
+            await _buildingCategoryRepo.Delete(bldgType.Id);
+
+            await _buildingCategoryRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpGet ("getrooms")]
+        public async Task<IActionResult> GetRooms([FromQuery] PagUserParams userParams)
+        {
+            var rms = await _roomsRepo.GetRoomsPagination(
+                userParams
+                );
+            var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
+
+             Response.AddPagination(rms.CurrentPage,
+                rms.PageSize,
+                rms.TotalCount,
+                rms.TotalPages);
+
+            return Ok(rmsToReturn);
+
+            // OLD CODE
+            //
+            // var buildings = await _repo.GetAsync();
+
+            // return Ok(buildings);
+        }
+
         [HttpPost ("checkin")]
         public async Task<IActionResult> CheckinGuest ([FromBody] GuestStayForCheckInDto guestStayDto) {
 

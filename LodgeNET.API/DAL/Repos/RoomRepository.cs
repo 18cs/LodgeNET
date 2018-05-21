@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
 using System.Linq;
+using LodgeNET.API.DAL;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
 using System.Linq.Expressions;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL
 {
@@ -14,6 +16,27 @@ namespace LodgeNET.API.DAL
             :base(context)
         {
  
+        }
+
+        public async Task<PagedList<Room>> GetRoomsPagination(
+            PagUserParams userParams, 
+            Expression<Func<Room, object>>[] includeProperties = null,
+            Expression<Func<Room, bool>> filter = null
+        ) {
+            var rooms = _context.Rooms.AsQueryable();
+
+            if (includeProperties != null) {
+                foreach (Expression<Func<Room, object>> includeProperty in includeProperties) {
+                    rooms = rooms.Include<Room, object> (includeProperty);
+                }
+            }
+
+            if(filter != null)
+            {
+                rooms = rooms.Where(filter);
+            }
+
+            return await PagedList<Room>.CreateAsync(rooms, userParams.PageNumber, userParams.PageSize);
         }
 
         public async Task<PagedList<Room>> GetRooms(RoomUserParams userParams,  Expression<Func<Room, bool>> filter = null)
