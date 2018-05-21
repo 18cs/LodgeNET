@@ -22,6 +22,7 @@ import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { LostComponent } from './home/lost/lost.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
+import { UnitsResolverService } from './_resolvers/units-resolver.service';
 import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 
  const appRoutes: Routes =
@@ -58,7 +59,7 @@ import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/vie
       {path: 'buildingtypes', component: ViewbuildingtypesComponent},
       {path: 'guests', component: ViewguestsComponent, resolve: {formData: FormdataResolver} },
       {path: 'rooms', component: ViewroomsComponent},
-      {path: 'units', component: ViewunitsComponent},
+      {path: 'units', component: ViewunitsComponent, resolve: { units: UnitsResolverService }},
       {path: 'users', component: ViewusersComponent}
     ]},
     {path: 'checkout', component: CheckoutComponent}

@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Edit {{unit.name}}</h2>
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field>
+    <input matInput placeholder="Unit Name" formControlName="unitName">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Parent Unit Name" formControlName="parentUnit" [matAutocomplete]="unitAuto" (focusout)="unitFocusOut()" [(ngModel)]="parentUnitName">
+  </mat-form-field>
+  <mat-autocomplete #unitAuto>
+      <mat-option *ngFor="let unit of filteredOptions | async" [value]="unit.name" (mousedown)="onUnitSelected(unit)">
+        {{ unit.name }}
+      </mat-option>
+    </mat-autocomplete>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="btn btn-danger btn-sm" (click)="close()">Close</button>
+  <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+</mat-dialog-actions>

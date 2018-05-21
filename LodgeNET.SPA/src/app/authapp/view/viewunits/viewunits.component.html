@@ -1,3 +1,56 @@
-<p>
-  viewunits works!
-</p>
+<div class="row">
+  <div class="col-lg-12">
+    <form class="form-inline section-thin" novalidate (ngSubmit)="onSearch()">
+      <mat-form-field class="col-lg-3" appearance="outline" floatLabel="'auto'">
+        <mat-label>Unit Name</mat-label>
+        <input matInput placeholder="Unit Name" [(ngModel)]="filterParams.unitName" name="unitName">
+      </mat-form-field>
+      <mat-form-field class="col-lg-3">
+        <input matInput placeholder="Parent Unit" [formControl]="parentUnitName" [matAutocomplete]="unitAuto" [(ngModel)]="parentUnitValue">
+      </mat-form-field>
+      <mat-autocomplete #unitAuto>
+        <mat-option *ngFor="let unit of filteredOptions | async" [value]="unit.name" (mousedown)="onUnitSelected(unit)">
+          {{ unit.name }}
+        </mat-option>
+      </mat-autocomplete>
+      <div class="col-lg-2 offset-lg-3">
+      <button type="button" class="btn btn-secondary formfield-pad" (click)="onReset()">Reset</button>
+      <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
+    </div>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <h5 class="text-right" *ngIf="pagination != null;">Units Found: {{ pagination.totalItems }}</h5>
+    <table class="table table-hover">
+      <caption *ngIf="pagination?.totalItems == 0">No Unit Found</caption>
+      <thead>
+        <tr>
+          <th scope="col">Unit Name</th>
+          <th scope="col">Parent Unit <mat-spinner *ngIf="showSpinner" style="position: absolute;  z-index: 1" mode="indeterminate"></mat-spinner></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let unit of units">
+          <th scope="row">{{ unit.name }}</th>
+          <td>{{unit?.parentUnit?.name}}</td>
+          <td>
+            <button class="editbutton btn btn-primary btn-sm" (click)="openUnitDialog(unit)">
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{unit.name}}"></i>
+            </button>
+            <button class="editbutton btn btn-danger btn-sm" (click)="onDelete(unit)">
+              <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{unit.name}}"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
+      <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+        [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+  </div>
+</div>
