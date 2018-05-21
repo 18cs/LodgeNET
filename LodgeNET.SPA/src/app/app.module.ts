@@ -122,7 +122,7 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
     FileuploadService,
     FormdataResolver,
     UnitsResolverService
-    
+
   ],
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,
