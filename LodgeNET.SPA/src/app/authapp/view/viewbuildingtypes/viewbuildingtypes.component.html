@@ -3,8 +3,13 @@
   <table class="table table-hover">
     <caption *ngIf="pagination?.totalItems == 0">No Users Found</caption>
     <thead>
-      <tr>
-        <th scope="col" class="table-active" colspan=2>Building Type</th>
+      <tr class="table-active">
+        <th scope="col">Building Type</th>
+        <th scope="col">
+          <button class="btn btn-success btn-sm" (click)="openAddDialog()">
+            <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building Type"></i>
+          </button>
+        </th>
       </tr>
     </thead>
     <tbody *ngFor="let buildingType of buildingTypeList; let i = index;">
@@ -21,7 +26,8 @@
       </tr>
     </tbody>
   </table>
-  <div class="text-center" *ngIf="pagination != null"> <!-- && pagination.totalItems > 10-->
+  <div class="text-center" *ngIf="pagination != null">
+    <!-- && pagination.totalItems > 10-->
     <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
       [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
     </pagination>

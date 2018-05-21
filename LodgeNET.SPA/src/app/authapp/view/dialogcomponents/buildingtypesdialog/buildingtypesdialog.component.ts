@@ -16,12 +16,14 @@ import { BuildingType } from '../../../../_models/buildingType';
 export class BuildingtypesdialogComponent implements OnInit {
   form: FormGroup;
   buildingType: BuildingType;
+  title: string;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<BuildingtypesdialogComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
+    this.title = data.title;
     this.buildingType = data.buildingType;
   }
 

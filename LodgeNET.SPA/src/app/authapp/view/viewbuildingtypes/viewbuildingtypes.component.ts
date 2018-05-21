@@ -73,6 +73,7 @@ export class ViewbuildingtypesComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
+      title: 'Edit ' + buildingType.type,
       buildingType: buildingType
     };
 
@@ -96,12 +97,47 @@ export class ViewbuildingtypesComponent implements OnInit {
     });
   }
 
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title: 'Add Building Type',
+      buildingType: {
+        type: ''
+    } as BuildingType
+    };
+
+    console.log(dialogConfig.data);
+
+    const dialogRef = this.dialog.open(BuildingtypesdialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      console.log('Adding' + data);
+      if (data != null) {
+        this.buildingService.addBuildingType(data).subscribe(
+          success => {
+            console.log(data);
+            this.alertify.success(data.type + ' successfully added.');
+            this.loadBuildingTypes();
+            console.log(success);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    });
+  }
+
   deleteBuildingType(buildingType) {
     if (buildingType != null) {
+      console.log(buildingType);
       this.alertify.confirm(
         'Are you sure you wish to delete ' + buildingType.type + '? <br /> <br /> WARNING: All buildings and rooms of this building type will be deleted.',
         () => {
-          this.buildingService.deleteBuildingTypeById(buildingType.Id).subscribe(
+          this.buildingService.deleteBuildingTypeById(buildingType.id).subscribe(
             success => {
               this.alertify.success(buildingType.type + ' successfully deleted.');
               let bldgTypeIndex = this.buildingTypeList.indexOf(buildingType);

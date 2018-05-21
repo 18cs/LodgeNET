@@ -184,7 +184,19 @@ namespace LodgeNET.API.Controllers
             return Ok();
         }
 
-        [HttpDelete("buildingtype/{id}")]
+        [HttpPost("addtype")]
+        public async Task<IActionResult> AddBuildingType([FromBody] BuildingCategory buildingType)
+        {
+            var bldgToAdd = _mapper.Map<BuildingCategory>(buildingType);
+            
+            _buildingCategoryRepo.Insert(bldgToAdd);
+
+            await _buildingCategoryRepo.SaveAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete ("buildingtype/{id}")]
         public async Task<IActionResult> DeleteBuildingTypeById(int id)
         {
             var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == id);

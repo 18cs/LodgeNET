@@ -70,13 +70,20 @@ export class BuildingService {
       .set('Content-Type', 'application/json')}).catch(this.handleError);
   }
 
+  addBuildingType(model: BuildingType) {
+    console.log(model);
+
+    return this.http.post(this.baseUrl + 'building/addtype', model, {headers: new HttpHeaders()
+      .set('Content-Type', 'application/json')}).catch(this.handleError);
+  }
+
   deleteBuildingById(buildingId:  number) {
     return this.http.delete(this.baseUrl + 'building' + '/' + buildingId).catch(this.handleError);
     // {headers: new HttpHeaders().set('Content-Type', 'application/json')}
   }
 
   deleteBuildingTypeById(buildingTypeId:  number) {
-    return this.http.delete(this.baseUrl + 'building' + '/' + buildingTypeId).catch(this.handleError);
+    return this.http.delete(this.baseUrl + 'building/buildingtype/' + buildingTypeId).catch(this.handleError);
   }
 
   // private jwt(){
