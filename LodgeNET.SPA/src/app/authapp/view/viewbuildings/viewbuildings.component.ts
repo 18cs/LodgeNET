@@ -5,8 +5,11 @@ import { Building } from '../../../_models/building';
 import { BuildingTable } from '../../../_models/buildingTable';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/buildingsdialog.component';
-import { BuildingType } from '../../../_models/buildingType';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
+import { BuildingCategory } from '../../../_models/buildingCategory';
+import { flatten } from '@angular/compiler';
+import { BuildingParams } from '../../../_models/params/buildingParams';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -15,15 +18,17 @@ import { Pagination, PaginatedResult } from '../../../_models/pagination';
 })
 export class ViewbuildingsComponent implements OnInit {
   buildingList: Building[];
-  buildingTypeList: BuildingType[];
+  buildingTypeList: BuildingCategory[];
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
+  showSpinner = false;
+  filterParams: BuildingParams;  
 
-  isLodgingOpen = false;
-  isUnaccompaniedHousingOpen = false;
-  isVacentHousingOpen = false;
-  isEmergencyQuartersOpen = false;
+  // isLodgingOpen = false;
+  // isUnaccompaniedHousingOpen = false;
+  // isVacentHousingOpen = false;
+  // isEmergencyQuartersOpen = false;
 
   constructor(
     private buildingService: BuildingService,
@@ -33,35 +38,57 @@ export class ViewbuildingsComponent implements OnInit {
 
   ngOnInit() {
     this.loadBuildings();
+    this.getAllBuildingTypes();
+    this.initFilterParams();
   }
 
   loadBuildings() {
+    this.showSpinner = true;
     if (this.pagination == null) {
-      this.buildingService.getBuildings(this.pageNumber, this.pageSize)
+      this.buildingService.getBuildings(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
           this.buildingList = paginatedResult.result;
-          console.log(paginatedResult.pagination);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;
+        });
     } else {
-      this.buildingService.getBuildings(this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.buildingService.getBuildings(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
           this.buildingList = paginatedResult.result;
-          console.log(this.buildingList);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;
+        });
     }
   }
 
   getAllBuildingTypes() {
     this.buildingService.getAllBuildingTypes().subscribe(
-        (buildingTypeList: BuildingType[]) => {
+        (buildingTypeList: BuildingCategory[]) => {
           this.buildingTypeList = buildingTypeList;
         },
         error => {
           this.alertify.error(error);
         }
       );
+  }
+
+  initFilterParams() {
+    this.filterParams = { buildingCategoryId: null } as BuildingParams
+  }
+
+  onSearch() {
+    this.loadBuildings();
+  }
+
+  onReset() {
+    this.initFilterParams();
+    this.loadBuildings();
   }
 
   // tableCollapseToggle(buildingId: number) {
@@ -78,7 +105,6 @@ export class ViewbuildingsComponent implements OnInit {
 
   openAddDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.getAllBuildingTypes();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -113,8 +139,7 @@ export class ViewbuildingsComponent implements OnInit {
 
   openDialog(bldg) {
     const dialogConfig = new MatDialogConfig();
-    this.getAllBuildingTypes();
-
+    
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
 

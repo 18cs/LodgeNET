@@ -15,7 +15,7 @@ namespace LodgeNET.API.DAL {
         );
 
         Task<PagedList<Building>> GetBuildingsPagination(
-            PagUserParams userParams, 
+            BuildingUserParams userParams, 
             Expression<Func<Building, object>>[] includeProperties = null,
             Expression<Func<Building, bool>> filter = null
         );

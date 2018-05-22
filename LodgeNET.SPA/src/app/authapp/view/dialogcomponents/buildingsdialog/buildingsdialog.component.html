@@ -10,21 +10,23 @@
         <input matInput pattern="[0-9]+" ng-pattern-restrict placeholder="Building Number" formControlName="number" />
     </mat-form-field>
     <br>
-    <!-- <mat-form-field>
-        <input matInput placeholder="Building Type" formControlName="buildingType" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedBuildingType.type"> 
-      </mat-form-field>
-      <mat-autocomplete #bldgAuto>
-          <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.type" (mousedown)="onTypeSelected(buildingType)">
-            {{ buildingType.type }}
-          </mat-option>
-        </mat-autocomplete> -->
     <mat-form-field>
+        <input matInput placeholder="Building Type" formControlName="buildingType" (focusout)="buildingTypeFocusOut()" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedType">
+    </mat-form-field>
+    <mat-autocomplete #bldgAuto>
+        <mat-option *ngFor="let buildingType of filteredOptions | async" [value]="buildingType.type" (mousedown)="onTypeSelected(buildingType)">
+            {{ buildingType.type }}
+        </mat-option>
+    </mat-autocomplete>
+
+
+    <!-- <mat-form-field>
         <mat-select placeholder="Building Type" formControlName="buildingType" [(ngModel)]="selectedBuildingType.type">
             <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.type" (mousedown)="onTypeSelected(buildingType)">
                 {{ buildingType.type }}
             </mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
 </mat-dialog-content>
 
 <mat-dialog-actions>

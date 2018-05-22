@@ -38,7 +38,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBuildings([FromQuery] PagUserParams userParams)
+        public async Task<IActionResult> GetBuildings([FromQuery] BuildingUserParams userParams)
         {
             var bldgs = await _repo.GetBuildingsPagination(
                 userParams,
