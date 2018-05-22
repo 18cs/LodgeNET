@@ -41,8 +41,10 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> GetBuildings([FromQuery] PagUserParams userParams)
         {
             var bldgs = await _repo.GetBuildingsPagination(
-                userParams
-                );
+                userParams,
+                new Expression<Func<Building, object>>[] {
+                    b => b.BuildingCategory
+                });
             var bldgsToReturn = _mapper.Map<IEnumerable<Building>>(bldgs);
 
              Response.AddPagination(bldgs.CurrentPage,

@@ -18,9 +18,10 @@
       <tr>
         <th scope="row">{{ building.name }}</th>
         <td>{{ building.number }}</td>
-        <ng-container *ngFor="let bldgType of buildingTypeList;">
+        <td>{{ building.buildingCategory.type }}</td>
+        <!-- <ng-container *ngFor="let bldgType of buildingTypeList;">
           <td *ngIf="bldgType.id == buildingList[i].buildingCategoryId">{{ bldgType.type }}</td>
-        </ng-container>
+        </ng-container> -->
         <td>
           <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(building)">
             <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{building.name}}"></i>
