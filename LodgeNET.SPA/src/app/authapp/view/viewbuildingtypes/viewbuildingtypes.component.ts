@@ -17,6 +17,7 @@ export class ViewbuildingtypesComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
+  showSpinner = false;
 
   constructor(
     private buildingService: BuildingService,
@@ -29,20 +30,24 @@ export class ViewbuildingtypesComponent implements OnInit {
   }
 
   loadBuildingTypes() {
+    this.showSpinner = true;
     if (this.pagination == null) {
       this.buildingService.getBuildingTypes(this.pageNumber, this.pageSize)
         .subscribe((paginatedResult: PaginatedResult<BuildingType[]>) => {
           this.buildingTypeList = paginatedResult.result;
-          console.log(paginatedResult.pagination);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
       this.buildingService.getBuildingTypes(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe((paginatedResult: PaginatedResult<BuildingType[]>) => {
           this.buildingTypeList = paginatedResult.result;
-          console.log(this.buildingTypeList);
+          this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;          
+        });
     }
 
     // OLD CODE

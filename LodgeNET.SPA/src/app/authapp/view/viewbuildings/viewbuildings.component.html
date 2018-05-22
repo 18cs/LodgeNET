@@ -6,53 +6,57 @@
           "None"
         </mat-option>
         <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.id">
-            {{ buildingType.type }}
+          {{ buildingType.type }}
         </mat-option>
-    </mat-select>
+      </mat-select>
       <div class="col-lg-2 offset-lg-3">
-      <button type="button" class="btn btn-secondary formfield-pad" (click)="onReset()">Reset</button>
-      <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
-    </div>
+        <button type="button" class="btn btn-secondary formfield-pad" (click)="onReset()">Reset</button>
+        <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
+      </div>
     </form>
   </div>
 </div>
-<div class="col-lg-12">
-  <h5 class="text-right" *ngIf="pagination != null;">Building Types Found: {{ pagination.totalItems }}</h5>
-  <table class="table table-hover">
-    <caption *ngIf="pagination?.totalItems == 0">No Buildings Found</caption>
-    <thead>
-      <tr class="table-active">
-        <th scope="col">Building</th>
-        <th scope="col">Number <mat-spinner *ngIf="showSpinner" style="position: absolute;  z-index: 1; margin:0 auto;" mode="indeterminate"></mat-spinner></th>
-        <th scope="col">Type</th>
-        <th scope="col">
-          <button class="btn btn-success btn-sm" (click)="openAddDialog()">
-            <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building"></i>
-          </button>
-        </th>
-      </tr>
-    </thead>
-    <tbody *ngFor="let building of buildingList; let i = index;">
-      <tr>
-        <th scope="row">{{ building.name }}</th>
-        <td>{{ building.number }}</td>
-        <td>{{ building.buildingCategory.type }}</td>
-        <!-- <ng-container *ngFor="let bldgType of buildingTypeList;">
+<div class="row">
+  <div class="col-lg-12">
+    <h5 class="text-right" *ngIf="pagination != null;">Building Types Found: {{ pagination.totalItems }}</h5>
+    <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
+    <table class="table table-hover">
+      <caption *ngIf="pagination?.totalItems == 0">No Buildings Found</caption>
+      <thead>
+        <tr class="table-active">
+          <th scope="col">Building</th>
+          <th scope="col">Number </th>
+          <th scope="col">Type</th>
+          <th scope="col">
+            <button class="btn btn-success btn-sm" (click)="openAddDialog()">
+              <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building"></i>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let building of buildingList; let i = index;">
+        <tr>
+          <th scope="row">{{ building.name }}</th>
+          <td>{{ building.number }}</td>
+          <td>{{ building.buildingCategory.type }}</td>
+          <!-- <ng-container *ngFor="let bldgType of buildingTypeList;">
           <td *ngIf="bldgType.id == buildingList[i].buildingCategoryId">{{ bldgType.type }}</td>
         </ng-container> -->
-        <td>
-          <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(building)">
-            <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{building.name}}"></i>
-          </button>
-          <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(building)">
-            <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{building.name}}"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
-    <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
-      [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
-    </pagination>
+          <td>
+            <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(building)">
+              <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{building.name}}"></i>
+            </button>
+            <button class="editbutton btn btn-danger btn-sm" (click)="deleteBuildingById(building)">
+              <i class="fa fa-trash-o fa-lg" aria-hidden="true" title="Delete {{building.name}}"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center" *ngIf="pagination != null && pagination.totalItems > 10">
+      <pagination [totalItems]="pagination.totalItems" [itemsPerPage]="pagination.itemsPerPage" [(ngModel)]="pagination.currentPage"
+        [maxSize]="pageSize" (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
   </div>
+</div>

@@ -15,6 +15,7 @@ export class ViewusersComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
+  showSpinner = false;
 
   constructor(private authService: AuthService,
     private alertify: AlertifyService) { }
@@ -24,18 +25,27 @@ export class ViewusersComponent implements OnInit {
   }
 
   loadUsers() {
+    this.showSpinner = true;
     if (this.pagination == null) {
       this.authService.GetUsers(this.pageNumber, this.pageSize)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
+          this.showSpinner = false;
           this.users = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error);
+          this.showSpinner = false; 
+        });
     } else {
       this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
+          this.showSpinner = false;
           this.users = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+        }, error => { 
+          this.alertify.error(error);
+          this.showSpinner = false; 
+        });
     }
   }
 

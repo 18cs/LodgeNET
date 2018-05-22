@@ -7,9 +7,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/buildingsdialog.component';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { BuildingCategory } from '../../../_models/buildingCategory';
-import { flatten } from '@angular/compiler';
 import { BuildingParams } from '../../../_models/params/buildingParams';
-import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-viewbuildings',
