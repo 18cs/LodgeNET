@@ -41,7 +41,7 @@ export class RoomsdialogComponent implements OnInit {
         bldg => bldg.id === this.room.buildingId
       );
       this.selectedBuilding = selectedBldgList[0];
-      console.log(this.selectedBuilding);
+      console.log(selectedBldgList);
     } else {
       this.selectedBuilding = this.buildingList[0];
     }
