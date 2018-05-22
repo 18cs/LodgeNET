@@ -85,7 +85,7 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> GetAllBuildings()
         {
             
-            var buildings = await _buildingCategoryRepo.GetAsync();
+            var buildings = await _repo.GetAsync();
 
             return Ok(buildings);
         }

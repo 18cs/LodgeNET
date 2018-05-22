@@ -94,13 +94,13 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpDelete ("room/{id}")]
-        public async Task<IActionResult> DeleteBuildingTypeById(int id)
+        public async Task<IActionResult> DeleteRoomById(int id)
         {
-            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == id);
+            var room = await _roomsRepo.GetFirstOrDefault(b => b.Id == id);
 
-            await _buildingCategoryRepo.Delete(bldgType.Id);
+            await _roomsRepo.Delete(room.Id);
 
-            await _buildingCategoryRepo.SaveAsync();
+            await _roomsRepo.SaveAsync();
 
             return Ok();
         }
