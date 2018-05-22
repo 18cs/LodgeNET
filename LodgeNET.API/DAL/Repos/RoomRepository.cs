@@ -19,7 +19,7 @@ namespace LodgeNET.API.DAL
         }
 
         public async Task<PagedList<Room>> GetRoomsPagination(
-            PagUserParams userParams, 
+            RoomUserParams userParams, 
             Expression<Func<Room, object>>[] includeProperties = null,
             Expression<Func<Room, bool>> filter = null
         ) {
@@ -34,6 +34,16 @@ namespace LodgeNET.API.DAL
             if(filter != null)
             {
                 rooms = rooms.Where(filter);
+            }
+
+            if(userParams.BuildingId != null)
+            {
+                rooms = rooms.Where(r => r.BuildingId == userParams.BuildingId);
+            }
+
+            if(!String.IsNullOrWhiteSpace(userParams.RoomNumber)) 
+            {
+                rooms = rooms.Where(r => r.RoomNumber.Equals(userParams.RoomNumber));
             }
 
             return await PagedList<Room>.CreateAsync(rooms, userParams.PageNumber, userParams.PageSize);

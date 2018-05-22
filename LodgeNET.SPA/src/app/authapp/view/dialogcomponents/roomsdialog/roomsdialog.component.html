@@ -7,10 +7,10 @@
   </mat-form-field>
   <br>
   <mat-form-field>
-    <input matInput placeholder="Building" formControlName="building" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedBuilding.name">
+    <input matInput placeholder="Building" formControlName="building" [matAutocomplete]="bldgAuto" (focusout)="buildingFocusOut()" [(ngModel)]="selectedBuildingName">
   </mat-form-field>
   <mat-autocomplete #bldgAuto>
-    <mat-option *ngFor="let building of buildingList" [value]="building.name" (mousedown)="onBuildingSelected(building)">
+    <mat-option *ngFor="let building of filteredOptions | async" [value]="building.name" (mousedown)="onBuildingSelected(building)">
       {{ building.name }}
     </mat-option>
   </mat-autocomplete>

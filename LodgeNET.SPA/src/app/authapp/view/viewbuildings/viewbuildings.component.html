@@ -3,15 +3,15 @@
     <form class="form-inline section-thin" novalidate (ngSubmit)="onSearch()">
       <mat-select class="col-lg-4" placeholder="Building Type" [(ngModel)]="filterParams.buildingCategoryId" name="buildingCategory">
         <mat-option [value]="null">
-          "None"
+          None
         </mat-option>
         <mat-option *ngFor="let buildingType of buildingTypeList" [value]="buildingType.id">
           {{ buildingType.type }}
         </mat-option>
       </mat-select>
       <div class="col-lg-2 offset-lg-3">
-        <button type="button" class="btn btn-secondary formfield-pad" (click)="onReset()">Reset</button>
-        <button type="submit" class="btn btn-success float-right formfield-pad">Submit</button>
+        <button type="button" class="btn btn-secondary filterfield-pad" (click)="onReset()">Reset</button>
+        <button type="submit" class="btn btn-success float-right filterfield-pad">Submit</button>
       </div>
     </form>
   </div>

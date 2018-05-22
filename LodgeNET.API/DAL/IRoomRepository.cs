@@ -7,7 +7,7 @@ using LodgeNET.API.Models;
 namespace LodgeNET.API.DAL {
     public interface IRoomRepository : IGenericRepository<Room> {
         Task<PagedList<Room>> GetRoomsPagination (
-            PagUserParams userParams,
+            RoomUserParams userParams,
             Expression<Func<Room, object>>[] includeProperties = null,
             Expression<Func<Room, bool>> filter = null
         );

@@ -6,6 +6,8 @@ import {
   FormControl,
   FormBuilder
 } from '@angular/forms';
+import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 import { Room } from '../../../../_models/room';
 import { Building } from '../../../../_models/building';
 
@@ -20,6 +22,8 @@ export class RoomsdialogComponent implements OnInit {
   title: string;
   buildingList: Building[];
   selectedBuilding?: Building;
+  selectedBuildingName: string;
+  filteredOptions: Observable<Building[]>;
 
   constructor(
     private fb: FormBuilder,
@@ -33,26 +37,42 @@ export class RoomsdialogComponent implements OnInit {
 
   ngOnInit() {
     this.formInit();
+    this.filteredOptions = this.form.controls['building'].valueChanges.pipe(
+      startWith(''),
+      map(val => this.buildingFilter(val))
+    );
   }
 
+  buildingFilter(val: string): Building[] {
+    return this.buildingList.filter(building =>
+      building.name.toLowerCase().includes(val.toLowerCase())
+    );
+  }
+
+
   formInit() {
-    if (this.title !== 'Add Room') {
-      const selectedBldgList = this.buildingList.filter(
-        bldg => bldg.id === this.room.buildingId
-      );
-      this.selectedBuilding = selectedBldgList[0];
-      console.log(selectedBldgList);
-    } else {
-      this.selectedBuilding = this.buildingList[0];
+    // if (this.title !== 'Add Room') {
+    //   const selectedBldgList = this.buildingList.filter(
+    //     bldg => bldg.id === this.room.buildingId
+    //   );
+    //   this.selectedBuilding = selectedBldgList[0];
+    //   console.log(selectedBldgList);
+    // } else {
+    //   this.selectedBuilding = this.buildingList[0];
+    // }
+
+    if (this.room.building != null) {
+      this.selectedBuilding = this.room.building;
+      this.selectedBuildingName = this.room.building.name;
     }
 
     this.form = new FormGroup({
-      number: new FormControl(this.room.roomNumber, Validators.required),
-      building: new FormControl(),
-      floor: new FormControl(this.room.floor, Validators.required),
-      capacity: new FormControl(this.room.capacity, Validators.required),
-      surge: new FormControl(this.room.surgeMultiplier, Validators.required),
-      sqft: new FormControl(this.room.squareFootage, Validators.required)
+      'number': new FormControl(this.room.roomNumber, Validators.required),
+      'building': new FormControl(),
+      'floor': new FormControl(this.room.floor, Validators.required),
+      'capacity': new FormControl(this.room.capacity, Validators.required),
+      'surge': new FormControl(this.room.surgeMultiplier, Validators.required),
+      'sqft': new FormControl(this.room.squareFootage, Validators.required)
     });
 
   }
@@ -60,6 +80,7 @@ export class RoomsdialogComponent implements OnInit {
   save() {
     this.room.roomNumber = this.form.value['number'];
     this.room.buildingId = this.selectedBuilding.id;
+    this.room.building = this.selectedBuilding;
     this.room.floor = this.form.value['floor'];
     this.room.capacity = this.form.value['capacity'];
     this.room.surgeMultiplier = this.form.value['surge'];
@@ -73,6 +94,11 @@ export class RoomsdialogComponent implements OnInit {
 
   onBuildingSelected(building: Building) {
     this.selectedBuilding = building;
-    console.log(this.selectedBuilding.id);
+  }
+
+  buildingFocusOut() {
+    if(this.selectedBuilding != null ) {
+      this.selectedBuildingName = this.selectedBuilding.name;
+    }
   }
 }

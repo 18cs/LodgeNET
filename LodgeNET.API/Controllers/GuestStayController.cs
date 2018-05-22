@@ -62,7 +62,7 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpPost("editroom")]
-        public async Task<IActionResult> SaveRoom([FromBody] Room room)
+        public async Task<IActionResult> EditRoom([FromBody] Room room)
         {
             var rm = await _roomsRepo.GetFirstOrDefault(b => b.Id == room.Id);
 
@@ -84,9 +84,11 @@ namespace LodgeNET.API.Controllers {
         [HttpPost("addroom")]
         public async Task<IActionResult> AddRoom([FromBody] Room room)
         {
-            var roomToAdd = _mapper.Map<Room>(room);
+            //var roomToAdd = _mapper.Map<Room>(room);
+
+            room.Building = null;
             
-            _roomsRepo.Insert(roomToAdd);
+            _roomsRepo.Insert(room);
 
             await _roomsRepo.SaveAsync();
 
@@ -106,19 +108,21 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpGet ("getrooms")]
-        public async Task<IActionResult> GetRooms([FromQuery] PagUserParams userParams)
+        public async Task<IActionResult> GetRooms([FromQuery] RoomUserParams userParams)
         {
             var rms = await _roomsRepo.GetRoomsPagination(
-                userParams
-                );
-            var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
+                userParams,
+                new Expression<Func<Room, object>>[] {
+                    r => r.Building
+                });
+           // var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
 
              Response.AddPagination(rms.CurrentPage,
                 rms.PageSize,
                 rms.TotalCount,
                 rms.TotalPages);
 
-            return Ok(rmsToReturn);
+            return Ok(rms);
 
             // OLD CODE
             //

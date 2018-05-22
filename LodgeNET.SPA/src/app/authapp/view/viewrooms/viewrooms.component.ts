@@ -7,6 +7,11 @@ import { Building } from '../../../_models/building';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { BuildingService } from '../../../_services/building.service';
 import { GueststayService } from '../../../_services/gueststay.service';
+import { Observable } from 'rxjs/Observable';
+import {map, startWith} from 'rxjs/operators';
+import { RoomParams } from '../../../_models/params/roomParams';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Data } from '@angular/router';
 
 @Component({
   selector: 'app-viewrooms',
@@ -19,52 +24,110 @@ export class ViewroomsComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
+  filterParams: RoomParams;
+  filteredOptions: Observable<Building[]>;
+  buildingName = new FormControl();
+  selectedBuilding: Building;
+  selectedBuildingName: string;
+  showSpinner = false;
 
   constructor(
     private guestStayService: GueststayService,
     private buildingService: BuildingService,
     private alertify: AlertifyService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.loadRooms();
+    // this.getAllBuildings();
+    this.route.data.subscribe((data: Data) => {
+      this.buildingList = data['buildings'];
+    });
+    this.initFilterParams();
+
+    this.filteredOptions = this.buildingName.valueChanges
+    .pipe(
+      startWith(''),
+      map(val => this.buildingFilter(val))
+    );
   }
 
-  loadRooms() {
-    if (this.pagination == null) {
-      this.guestStayService.getRooms(this.pageNumber, this.pageSize)
-        .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
-          this.roomList = paginatedResult.result;
-          console.log(paginatedResult.pagination);
-          console.log(this.buildingList);
-          this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
-    } else {
-      this.guestStayService.getRooms(this.pagination.currentPage, this.pagination.itemsPerPage)
-        .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
-          this.roomList = paginatedResult.result;
-          console.log(this.buildingList);
-          console.log(this.roomList);
-          this.pagination = paginatedResult.pagination;
-        }, error => { this.alertify.error(error); });
+  initFilterParams() {
+    this.filterParams = { buildingId: null, onlyAvailableRooms: false, roomNumber: null };
+  }
+
+  buildingFilter(val: string): Building[] {
+    return this.buildingList.filter(building =>
+      building.name.toLowerCase().includes(val.toLowerCase()));
+  }
+
+  onBuildingSelected(bldg: Building) {
+    this.selectedBuilding = bldg;
+  }
+
+  onbuildingFocusOut() {
+    if(this.selectedBuilding != null ) {
+      this.selectedBuildingName = this.selectedBuilding.name;
     }
   }
 
-  getAllBuildings() {
-    this.buildingService.getAllBuildings().subscribe(
-        (buildingList: Building[]) => {
-          this.buildingList = buildingList;
-        },
-        error => {
-          this.alertify.error(error);
-        }
-      );
+  loadRooms() {
+    this.showSpinner = true;
+    if (this.pagination == null) {
+      this.guestStayService.getRooms(this.pageNumber, this.pageSize, this.filterParams)
+        .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
+          this.showSpinner = false;
+          this.roomList = paginatedResult.result;
+          console.log(this.roomList);
+          this.pagination = paginatedResult.pagination;
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;
+        });
+    } else {
+      this.guestStayService.getRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+        .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
+          this.roomList = paginatedResult.result;
+          console.log(this.roomList);
+          this.showSpinner = false;
+          this.pagination = paginatedResult.pagination;
+        }, error => { 
+          this.alertify.error(error); 
+          this.showSpinner = false;
+        });
+    }
+  }
+
+  // getAllBuildings() {
+  //   this.buildingService.getAllBuildings().subscribe(
+  //       (buildingList: Building[]) => {
+  //         this.buildingList = buildingList;
+  //       },
+  //       error => {
+  //         this.alertify.error(error);
+  //       }
+  //     );
+  // }
+
+  onSearch() {
+    if(this.selectedBuilding != null) {
+      this.filterParams.buildingId = this.selectedBuilding.id;
+    }
+
+    this.loadRooms();
+  }
+
+  onReset() {
+    this.initFilterParams();
+    this.selectedBuilding = null;
+    this.selectedBuildingName = '';
+    this.loadRooms();
   }
 
   openAddDialog() {
     const dialogConfig = new MatDialogConfig();
-    this.getAllBuildings();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -102,7 +165,6 @@ export class ViewroomsComponent implements OnInit {
 
   openDialog(room) {
     const dialogConfig = new MatDialogConfig();
-    this.getAllBuildings();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

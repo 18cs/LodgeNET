@@ -54,6 +54,7 @@ import { GueststaydialogComponent } from './authapp/view/dialogcomponents/guests
 import { UnitsResolverService } from './_resolvers/units-resolver.service';
 import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/unitdialog.component';
 import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialog/roomsdialog.component';
+import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
 
 @NgModule({
   declarations: [
@@ -123,8 +124,8 @@ import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialo
     BuildingService,
     FileuploadService,
     FormdataResolver,
-    UnitsResolverService
-
+    UnitsResolverService,
+    BuildingsResolverService
   ],
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,

@@ -10,6 +10,7 @@ import { FormGroup } from '@angular/forms';
 import { GuestStayDto } from '../_models/guestStayDto';
 import { Guest } from '../_models/guest';
 import { GuestParams } from '../_models/params/guestParams';
+import { RoomParams } from '../_models/params/roomParams';
 
 @Injectable()
 export class GueststayService {
@@ -97,13 +98,24 @@ export class GueststayService {
             .catch(this.handleError);
     }
 
-    getRooms(page?, itemsPerPage?): Observable<PaginatedResult<Room[]>> {
+    getRooms(page?, itemsPerPage?, userParams?: RoomParams): Observable<PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
             let params = new HttpParams();
 
             if (page != null && itemsPerPage != null) {
                 params = params.append('pageNumber', page);
                 params = params.append('pageSize', itemsPerPage);
+            }
+
+            if (userParams != null) {
+                if (userParams.buildingId != null) {
+                    params = params.append('buildingId', userParams.buildingId.toString());
+                }
+
+                if (userParams.roomNumber != null) {
+                    params = params.append('roomNumber', userParams.roomNumber.toString());
+                }
+
             }
 
             return this.http.

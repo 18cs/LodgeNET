@@ -33,7 +33,6 @@ export class BuildingsdialogComponent implements OnInit {
     this.title = data.title;
     this.building = data.building;
     this.buildingCatList = data.buildingTypeList;
-    console.log(this.buildingCatList);
   }
 
   ngOnInit() {
