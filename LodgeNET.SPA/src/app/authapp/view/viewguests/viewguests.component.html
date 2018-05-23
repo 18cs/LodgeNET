@@ -63,7 +63,7 @@
         </thead>
         <tbody *ngFor="let guest of guestList; let i = index;">
           <tr class="" [ngClass]="{'table-default': guestStayList == null, 'table-primary': guestStayList != null && guest.id == guestStayList[0]?.guestId}"  (click)="getGuestStays(guest.id)" title="View guest stays">
-            <th scope="row">{{ guest.lastName + ', ' + guest.firstName + ' ' + guest?.middleInitial }}</th>
+            <th scope="row">{{ guest.lastName + ', ' + guest.firstName }}</th>
             <td>{{ guest?.rank?.rankName }}</td>
             <td>{{ guest.gender }}</td>
             <td>{{ guest.dodId }}</td>
