@@ -59,7 +59,7 @@ export class ViewbuildingsComponent implements OnInit {
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
         }, error => { 
-          this.alertify.error(error); 
+          this.alertify.error(error);
           this.showSpinner = false;
         });
     }
@@ -77,10 +77,11 @@ export class ViewbuildingsComponent implements OnInit {
   }
 
   initFilterParams() {
-    this.filterParams = { buildingCategoryId: null } as BuildingParams
+    this.filterParams = { buildingCategoryId: null } as BuildingParams;
   }
 
   onSearch() {
+    this.pagination.currentPage = 1;
     this.loadBuildings();
   }
 

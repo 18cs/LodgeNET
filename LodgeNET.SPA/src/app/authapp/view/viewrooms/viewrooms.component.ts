@@ -115,7 +115,7 @@ export class ViewroomsComponent implements OnInit {
     if(this.selectedBuilding != null) {
       this.filterParams.buildingId = this.selectedBuilding.id;
     }
-
+    this.pagination.currentPage = 1;
     this.loadRooms();
   }
 

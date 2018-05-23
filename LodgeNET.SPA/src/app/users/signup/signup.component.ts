@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/']);
     }, error => {
       console.log(error);
-      this.alertify.error('An error occured');
+      this.alertify.error(error);
     });
   }
 

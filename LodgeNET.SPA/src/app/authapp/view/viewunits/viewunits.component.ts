@@ -114,6 +114,7 @@ export class ViewunitsComponent implements OnInit {
     if(this.selectedParentUnit != null) {
       this.filterParams.parentUnitId = this.selectedParentUnit.id;
     }
+    this.pagination.currentPage = 1;
     this.loadUnits();
   }
 
