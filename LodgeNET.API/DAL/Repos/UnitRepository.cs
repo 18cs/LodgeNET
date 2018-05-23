@@ -46,5 +46,20 @@ namespace LodgeNET.API.DAL.Repos {
 
         }
 
+        public Unit GetFirst (
+            Func<Unit, bool> filter, 
+            Expression<Func<Unit, object>>[] includeProperties = null) {
+            var units = _context.Units.AsQueryable ();
+
+            if (includeProperties != null) {
+                foreach (Expression<Func<Unit, object>> includeProperty in includeProperties) {
+                    units = units.Include<Unit, object> (includeProperty);
+                }
+            }
+
+            var unit = units.Where(filter).FirstOrDefault();
+
+            return unit;
+        }
     }
 }

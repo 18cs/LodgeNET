@@ -32,7 +32,7 @@ namespace LodgeNET.API.Controllers {
         private readonly IGenericRepository<Guest> _guestRepo;
         private readonly IGenericRepository<Stay> _stayRepo;
         private readonly IGenericRepository<Building> _buildingRepo;
-        private readonly IGenericRepository<Unit> _unitRepo;
+        private readonly IUnitRepository _unitRepo;
         private IMapper _mapper;
         private readonly IHostingEnvironment _hostingEnvironment;
 
@@ -43,7 +43,7 @@ namespace LodgeNET.API.Controllers {
             IGenericRepository<Guest> guestRepo,
             IGenericRepository<Stay> stayRepo,
             IGenericRepository<Building> buildingRepo,
-            IGenericRepository<Unit> unitRepo,
+            IUnitRepository unitRepo,
             IMapper mapper,
             IHostingEnvironment environment) {
             _userRepo = userRepo;
@@ -142,6 +142,28 @@ namespace LodgeNET.API.Controllers {
                                     )?.Result?.Id ?? 0;
                                 }
                             }
+                            if (headers[j].Equals ("UNIT NAME")) {
+                                string[] unitNameSections = row.GetCell (j).ToString ().Split (" ");
+                                for (int n = 0; n < unitNameSections.Length; n++) {
+                                    if (unitNameSections[n].Equals ("SQ")) {
+                                        unitNameSections[n] = "Squadron";
+                                    }
+
+                                    if (unitNameSections[n].Equals ("GP")) {
+                                        unitNameSections[n] = "Group";
+                                    }
+
+                                    if (unitNameSections[n].Equals ("WG")) {
+                                        unitNameSections[n] = "Wing";
+                                    }
+                                }
+
+                                var unit = _unitRepo.GetFirst (u => unitNameSections.All (u.Name.Contains));
+                                if (unit != null) {
+                                    rowForUpload.UnitId = unit.Id;
+                                    rowForUpload.UnitName = unit.Name;
+                                }
+                            }
                         }
 
                         //stay buildingId is nullable
@@ -150,8 +172,7 @@ namespace LodgeNET.API.Controllers {
                             rowForUpload.FirstName == null ||
                             rowForUpload.LastName == null ||
                             rowForUpload.UnitId == 0) {
-                            // ModelState.AddModelError("BadFormat", "File upload failed");
-                            // return BadRequest(ModelState);
+
                             returnRows.Add (rowForUpload);
                         } else {
                             //TODO add unit parse
@@ -173,8 +194,8 @@ namespace LodgeNET.API.Controllers {
                 await _guestRepo.SaveAsync ();
                 await _stayRepo.SaveAsync ();
 
-                if(System.IO.File.Exists(fullPath)) {
-                    System.IO.File.Delete(fullPath);
+                if (System.IO.File.Exists (fullPath)) {
+                    System.IO.File.Delete (fullPath);
                 }
             }
             return Ok (returnRows);
@@ -191,9 +212,8 @@ namespace LodgeNET.API.Controllers {
             ArrayList returnRows = new ArrayList ();
 
             foreach (FileRowForUploadDto fileRow in fileRows) {
-                    var buildingResult = await _buildingRepo.GetFirstOrDefault (b => b.Number == fileRow.BuildingNumber);
-                    fileRow.BuildingId = buildingResult != null ? buildingResult.Id : 0;
-
+                var buildingResult = await _buildingRepo.GetFirstOrDefault (b => b.Number == fileRow.BuildingNumber);
+                fileRow.BuildingId = buildingResult != null ? buildingResult.Id : 0;
 
                 if (fileRow.BuildingId != 0) {
                     var roomResult = await _roomRepo.GetFirstOrDefault (r => r.RoomNumber == fileRow.RoomNumber &&
@@ -231,7 +251,7 @@ namespace LodgeNET.API.Controllers {
                         guest.RankId = null;
                     }
 
-                    if (DateTime.Compare(stay.CheckInDate, DateTime.MinValue) == 0) {
+                    if (DateTime.Compare (stay.CheckInDate, DateTime.MinValue) == 0) {
                         stay.CheckInDate = DateTime.Today;
                     }
 
@@ -282,7 +302,7 @@ namespace LodgeNET.API.Controllers {
                             //int.TryParse (stayData[0], out int rowRoomNum);
                             var room = await _roomRepo.GetFirstOrDefault (
                                 r => r.RoomNumber == stayData[0] && r.Building.BuildingCategory.Type.Equals ("Lodging"),
-                                new Expression<Func<Room, object>>[] { r => r.Building});
+                                new Expression<Func<Room, object>>[] { r => r.Building });
 
                             if (room != null) {
                                 rowForUpload.RoomId = room.Id;

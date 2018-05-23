@@ -13,5 +13,9 @@ namespace LodgeNET.API.DAL
             Expression<Func<Unit, object>>[] includeProperties = null,
             Expression<Func<Unit, bool>> filter = null
         );
+
+        Unit GetFirst (
+            Func<Unit, bool> filter, 
+            Expression<Func<Unit, object>>[] includeProperties = null);
     }
 }
