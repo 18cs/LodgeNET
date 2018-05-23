@@ -57,6 +57,11 @@ namespace LodgeNET.API.Controllers
                 ModelState.AddModelError("Username", "Username already exists");
             }
 
+            if ((await _authRepo.GetFirstOrDefault(u => u.DodId == userForRegisterDto.DodId)) != null )
+            {
+                ModelState.AddModelError("DodId", "DodId already used for an account");
+            }
+
             // validate request
             if (!ModelState.IsValid)
             {

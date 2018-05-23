@@ -185,8 +185,8 @@ namespace LodgeNET.API.Controllers {
                             guest = _mapper.Map<Guest> (rowForUpload);
                             stay = _mapper.Map<Stay> (rowForUpload);
 
-                            _guestRepo.Insert (guest);
-                            _stayRepo.Insert (stay);
+                            await _guestRepo.Insert (guest);
+                            await _stayRepo.Insert (stay);
                         }
 
                     }
@@ -256,11 +256,11 @@ namespace LodgeNET.API.Controllers {
                     }
 
                     stay.CheckedIn = true;
-                    _guestRepo.Insert (guest);
-                    _guestRepo.Save ();
+                    await _guestRepo.Insert (guest);
+                    await _guestRepo.SaveAsync ();
                     stay.GuestId = guest.Id;
-                    _stayRepo.Insert (stay);
-                    _stayRepo.Save ();
+                    await _stayRepo.Insert (stay);
+                    await _stayRepo.SaveAsync ();
                 }
             }
             return Ok (returnRows);
@@ -397,10 +397,10 @@ namespace LodgeNET.API.Controllers {
 
                                 stay = _mapper.Map<Stay> (rowForUpload);
 
-                                _guestRepo.Insert (guest);
+                                await _guestRepo.Insert (guest);
                                 await _guestRepo.SaveAsync ();
                                 stay.GuestId = guest.Id;
-                                _stayRepo.Insert (stay);
+                                await _stayRepo.Insert (stay);
                                 await _stayRepo.SaveAsync ();
                             }
                         }

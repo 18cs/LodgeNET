@@ -88,7 +88,7 @@ namespace LodgeNET.API.Controllers {
 
             room.Building = null;
             
-            _roomsRepo.Insert(room);
+            await _roomsRepo.Insert(room);
 
             await _roomsRepo.SaveAsync();
 
@@ -150,7 +150,7 @@ namespace LodgeNET.API.Controllers {
             if (guest.Id != 0) {
                 await _guestRepo.SaveAsync ();
             } else {
-                _guestRepo.Insert (guest);
+                await _guestRepo.Insert (guest);
                 await _guestRepo.SaveAsync ();
             }
 
@@ -160,7 +160,7 @@ namespace LodgeNET.API.Controllers {
             stay.GuestId = guest.Id;
             stay.BuildingId = room.BuildingId;
             stay.CheckedIn = true;
-            _staysRepo.Insert (stay);
+            await _staysRepo.Insert (stay);
             await _staysRepo.SaveAsync ();
 
             return Ok ();

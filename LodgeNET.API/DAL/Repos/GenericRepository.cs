@@ -129,7 +129,7 @@ namespace LodgeNET.API.DAL {
         /// Inserts entity record into database context
         /// </summary>
         /// <param name="entity">Entity to be entered into database</param>
-        public async virtual void Insert (TEntity entity) {
+        public async virtual Task Insert (TEntity entity) {
             await _context.Set<TEntity> ().AddAsync (entity);
         }
 

@@ -21,6 +21,7 @@ export class AuthService {
     decodedToken: any;
     currentUser: any;
     accountType: string;
+    pendingAcctCount: number;
 
     constructor(private http: HttpClient, private jwtHelperService: JwtHelperService, private router: Router) { }
 
@@ -34,6 +35,10 @@ export class AuthService {
                 this.decodedToken = this.jwtHelperService.decodeToken(auth.tokenString);
                 this.currentUser = this.decodedToken.unique_name;
                 this.accountType = this.decodedToken.role;
+
+                if(this.accountType === 'Admin') {
+                    this.GetPendingAcctCount();
+                }
             }
         }).catch(this.handleError);
     }
@@ -71,6 +76,9 @@ export class AuthService {
 
     GetPendingAcctCount() {
         return this.http.get<Number>(this.baseUrl + 'user/pendingAcctCount')
+            .map((count: number) => {
+                this.pendingAcctCount = count;
+            })
             .catch(this.handleError);
     }
 

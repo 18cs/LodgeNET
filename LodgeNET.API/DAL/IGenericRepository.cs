@@ -22,7 +22,7 @@ namespace LodgeNET.API.DAL
         int GetCount(Expression<Func<TEntity, bool>> filter = null);
         int GetSum(Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null);
         Task<TEntity> GetFirstOrDefault(Expression<Func<TEntity, bool>> filter, Expression<Func<TEntity, object>>[] includeProperties = null);
-        void Insert(TEntity entity);
+        Task Insert(TEntity entity);
         Task Delete(object id);
         Task Delete(TEntity entityToDelete);
         void Update(TEntity entityToUpdate);

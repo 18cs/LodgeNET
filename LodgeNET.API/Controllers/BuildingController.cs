@@ -212,7 +212,7 @@ namespace LodgeNET.API.Controllers
             // var bldgToAdd = building;
             building.BuildingCategory = null;
             
-            _repo.Insert(building);
+            await _repo.Insert(building);
 
             await _repo.SaveAsync();
 
@@ -239,7 +239,7 @@ namespace LodgeNET.API.Controllers
         {
             var bldgTypeToAdd = _mapper.Map<BuildingCategory>(buildingType);
             
-            _buildingCategoryRepo.Insert(bldgTypeToAdd);
+            await _buildingCategoryRepo.Insert(bldgTypeToAdd);
 
             await _buildingCategoryRepo.SaveAsync();
 

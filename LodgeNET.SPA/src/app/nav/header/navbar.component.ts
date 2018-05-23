@@ -28,16 +28,11 @@ export class NavbarComponent implements OnInit {
   isNavbarOpen = false;
 
   ngOnInit() {
-    this.authService.GetPendingAcctCount().subscribe(
-      (acctNum: number) => {
-        console.log(acctNum);
-        this.pendingAcctCount = acctNum;
-        console.log(this.pendingAcctCount);
-      },
-      error => {
-        this.alertify.error(error);
-      }
-    );
+    // this.authService.GetPendingAcctCount().subscribe(
+    //   (acctNum: number) => {
+    //     this.pendingAcctCount = acctNum;
+    //   }
+    // );
   }
 
   toggleUserDropDown() {
