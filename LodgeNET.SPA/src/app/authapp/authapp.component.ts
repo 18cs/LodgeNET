@@ -20,7 +20,7 @@ export class AuthappComponent implements OnInit {
   }
 
   @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {
-    if (this.authService.accountType !== 'Read Only') {
+    if (this.authService.accountType !== 'Viewer') {
       if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
       this.isUploadDropdownOpen = false;
       }

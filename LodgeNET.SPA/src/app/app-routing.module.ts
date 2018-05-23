@@ -48,11 +48,11 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard',  component: DashboardComponent},
     {path: 'upload/:type', component: FileuploadComponent, canActivate: [AccountTypeGuard],
-      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }},
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }},
     {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full', canActivate: [AccountTypeGuard],
-      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }},
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }},
     {path: 'checkin', component: CheckinComponent, canActivate: [AccountTypeGuard],
-      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' },
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' },
         children: [
           {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
           {path: 'guestinfo', component: GuestinfoComponent},
@@ -70,7 +70,7 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
       {path: 'users', component: ViewusersComponent}
     ]},
     {path: 'checkout', component: CheckoutComponent, canActivate: [AccountTypeGuard],
-      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }}
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },
   {path: 'users', component: UsersComponent, canActivate: [LoggedinGuard], children: [

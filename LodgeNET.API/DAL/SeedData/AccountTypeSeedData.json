@@ -1,15 +1,12 @@
 [
   {
-    "Type": "Unregistered"
+    "Type": "Viewer"
   },
   {
-    "Type": "Read Only"
+    "Type": "CES Staff"
   },
   {
-    "Type": "Data Contributor"
-  },
-  {
-    "Type": "Lodging Clerk"
+    "Type": "Lodging Staff"
   },
   {
     "Type": "Admin"

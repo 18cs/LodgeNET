@@ -70,7 +70,7 @@ export class AuthService {
     }
 
     GetPendingAcctCount() {
-        return this.http.get<Number>(this.baseUrl + 'auth/pendingAcctCount')
+        return this.http.get<Number>(this.baseUrl + 'user/pendingAcctCount')
             .catch(this.handleError);
     }
 
@@ -98,7 +98,7 @@ export class AuthService {
         }
 
         return this.http.
-            get<User[]>(this.baseUrl + 'auth/users', { observe: 'response', params })
+            get<User[]>(this.baseUrl + 'user/users', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 
@@ -118,14 +118,14 @@ export class AuthService {
     }
 
     updateUser(model: any) {
-        return this.http.post(this.baseUrl + 'auth/update', model, {
+        return this.http.post(this.baseUrl + 'user/update', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
         }).catch(this.handleError);
     }
 
     deleteUser(id: number) {
-        return this.http.delete(this.baseUrl + 'auth/' + id).catch(this.handleError);
+        return this.http.delete(this.baseUrl + 'user/' + id).catch(this.handleError);
     }
 
     private handleError(error: any) {

@@ -154,7 +154,7 @@ export class ViewroomsComponent implements OnInit {
       if (data != null) {
         this.guestStayService.addRoom(data).subscribe(
           success => {
-            this.alertify.success(data.name + ' successfully added.');
+            this.alertify.success(data.roomNumber + ' successfully added.');
             this.loadRooms();
           },
           error => {

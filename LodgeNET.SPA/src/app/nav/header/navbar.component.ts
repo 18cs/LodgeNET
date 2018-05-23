@@ -60,7 +60,7 @@ export class NavbarComponent implements OnInit {
         this.isUserDropdownOpen = false;
       }
 
-      if (this.authService.accountType !== 'Read Only') {
+      if (this.authService.accountType !== 'Viewer') {
         if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
           this.isUploadDropdownOpen = false;
         }
