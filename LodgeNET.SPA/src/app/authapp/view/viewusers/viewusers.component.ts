@@ -3,6 +3,8 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
 import { User } from '../../../_models/user';
+import { UserParams } from '../../../_models/params/userParams';
+import { AccountType } from '../../../_models/accountType';
 
 @Component({
   selector: 'app-viewusers',
@@ -11,23 +13,28 @@ import { User } from '../../../_models/user';
 })
 export class ViewusersComponent implements OnInit {
   users: User[];
+  accountTypes: AccountType[];
   selectedUser: User;
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = false;
+  filterParams: UserParams;
+  approvedList = [{ value: true, display: 'True'}, { value: false, display: 'False'}];
 
   constructor(private authService: AuthService,
     private alertify: AlertifyService) { }
 
   ngOnInit() {
     this.loadUsers();
+    this.loadAccountTypes();
+    this.initFilterParams();
   }
 
   loadUsers() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.authService.GetUsers(this.pageNumber, this.pageSize)
+      this.authService.GetUsers(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.showSpinner = false;
           this.users = paginatedResult.result;
@@ -37,7 +44,7 @@ export class ViewusersComponent implements OnInit {
           this.showSpinner = false; 
         });
     } else {
-      this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.showSpinner = false;
           this.users = paginatedResult.result;
@@ -47,6 +54,30 @@ export class ViewusersComponent implements OnInit {
           this.showSpinner = false; 
         });
     }
+  }
+
+  loadAccountTypes() {
+    this.authService.getAccountTypes()
+      .subscribe((accountTypes: AccountType[]) => {
+        this.accountTypes = accountTypes;
+      }, error => {
+        this.alertify.error(error);
+      })
+  }
+
+  initFilterParams() {
+    this.filterParams = { userName: null, accountTypeId: null, approved: null } as UserParams;
+  }
+
+  onSearch() {
+    this.pagination.currentPage = 1;
+    this.loadUsers();
+  }
+
+  onReset() {
+    //this.initFilterParams();
+    this.initFilterParams();
+    this.loadUsers();
   }
 
   pageChanged(event: any): void {

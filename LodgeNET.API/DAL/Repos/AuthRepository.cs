@@ -84,7 +84,7 @@ namespace LodgeNET.API.DAL
         }
 
         public async Task<PagedList<User>> GetUsersPaginiation(
-            PagUserParams userParams, 
+            UserUserParams userParams, 
             Expression<Func<User, object>>[] includeProperties = null,
             Expression<Func<User, bool>> filter = null
         ) {
@@ -99,6 +99,18 @@ namespace LodgeNET.API.DAL
             if(filter != null)
             {
                 users = users.Where(filter);
+            }
+
+            if (userParams.AccountTypeId != null) {
+                users = users.Where(u => u.AccountTypeId == userParams.AccountTypeId);
+            }
+
+            if (userParams.Approved != null) {
+                users = users.Where(u => u.Approved == userParams.Approved);
+            }
+
+            if (!String.IsNullOrWhiteSpace(userParams.UserName)) {
+                users = users.Where(u => u.UserName.Equals(userParams.UserName));
             }
 
             return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);

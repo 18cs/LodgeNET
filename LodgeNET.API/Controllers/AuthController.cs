@@ -132,7 +132,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet("users")]
-        public async Task<IActionResult> GetUsers([FromQuery] PagUserParams userParams) {
+        public async Task<IActionResult> GetUsers([FromQuery] UserUserParams userParams) {
             var users = await _authRepo.GetUsersPaginiation(
                 userParams,
                 new Expression<Func<User, object>>[] {
@@ -186,6 +186,13 @@ namespace LodgeNET.API.Controllers
             await _authRepo.SaveAsync();
 
             return Ok();
+        }
+
+        [HttpGet("accountTypes")]
+        public async Task<IActionResult> GetAccountTypes() 
+        {
+            var accountTypes = await _accountTypeRepo.GetAsync();
+            return Ok(accountTypes);
         }
     }
 }

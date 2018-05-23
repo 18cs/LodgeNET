@@ -11,6 +11,8 @@ import { AuthUser } from '../_models/authUser';
 import { Router } from '@angular/router';
 import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
+import { UserParams } from '../_models/params/userParams';
+import { AccountType } from '../_models/accountType';
 
 @Injectable()
 export class AuthService {
@@ -72,13 +74,27 @@ export class AuthService {
             .catch(this.handleError);
     }
 
-    GetUsers(page?, itemsPerPage?): Observable<PaginatedResult<User[]>> {
+    GetUsers(page?, itemsPerPage?, userParams?: UserParams): Observable<PaginatedResult<User[]>> {
         const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
         let params = new HttpParams();
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
+        }
+
+        if (userParams != null) {
+            if (userParams.accountTypeId != null) {
+                params = params.append('accountTypeId', userParams.accountTypeId.toString());
+            }
+
+            if (userParams.userName != null) {
+                params = params.append('userName', userParams.userName);
+            }
+
+            if (userParams.approved != null) {
+                params = params.append('approved', userParams.approved.toString());
+            }
         }
 
         return this.http.
@@ -94,6 +110,11 @@ export class AuthService {
             })
             .catch(this.handleError);
 
+    }
+
+    getAccountTypes() {
+        return this.http.get<AccountType[]>(this.baseUrl + 'auth/accountTypes')
+        .catch(this.handleError);
     }
 
     updateUser(model: any) {

@@ -13,7 +13,7 @@ namespace LodgeNET.API.DAL
          Task<User> Login(string username, string password);
          Task<bool> UserExists(string username);
          Task<PagedList<User>> GetUsersPaginiation(
-            PagUserParams userParams, 
+            UserUserParams userParams, 
             Expression<Func<User, object>>[] includeProperties = null,
             Expression<Func<User, bool>> filter = null
         );
