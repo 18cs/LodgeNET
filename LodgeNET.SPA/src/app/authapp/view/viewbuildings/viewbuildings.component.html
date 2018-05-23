@@ -28,7 +28,7 @@
           <th scope="col">Building</th>
           <th scope="col">Number </th>
           <th scope="col">Type</th>
-          <th scope="col">
+          <th scope="col" *ngIf="authService.accountType == 'Admin'">
             <button class="btn btn-success btn-sm" (click)="openAddDialog()">
               <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building"></i>
             </button>
@@ -43,7 +43,7 @@
           <!-- <ng-container *ngFor="let bldgType of buildingTypeList;">
           <td *ngIf="bldgType.id == buildingList[i].buildingCategoryId">{{ bldgType.type }}</td>
         </ng-container> -->
-          <td>
+          <td *ngIf="authService.accountType == 'Admin'"> 
             <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(building)">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{building.name}}"></i>
             </button>

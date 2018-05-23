@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../environments/environment";
-import { Observable } from "rxjs/Observable";
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
-import { BuildingTable } from "../_models/buildingTable";
-import { JwtHelperService } from "@auth0/angular-jwt";
-import { Router } from "@angular/router";
-import { Building } from "../_models/building";
-import { BuildingType } from "../_models/buildingType";
-import { PaginatedResult } from "../_models/pagination";
-import { BuildingCategory } from "../_models/buildingCategory";
-import { BuildingParams } from "../_models/params/buildingParams";
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { BuildingTable } from '../_models/buildingTable';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
+import { Building } from '../_models/building';
+import { BuildingType } from '../_models/buildingType';
+import { PaginatedResult } from '../_models/pagination';
+import { BuildingCategory } from '../_models/buildingCategory';
+import { BuildingParams } from '../_models/params/buildingParams';
 
 @Injectable()
 export class BuildingService {
@@ -27,7 +27,7 @@ export class BuildingService {
 
   buildingDashboardData() {
     return this.http
-      .get<BuildingTable>(this.baseUrl + "building/dashboard")
+      .get<BuildingTable>(this.baseUrl + 'building/dashboard')
       .catch(this.handleError);
   }
 
@@ -42,29 +42,29 @@ export class BuildingService {
     let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
-      params = params.append("pageNumber", page);
-      params = params.append("pageSize", itemsPerPage);
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
     if (userParams != null) {
       if (userParams.buildingCategoryId != null) {
         params = params.append(
-          "buildingCategoryId",
+          'buildingCategoryId',
           userParams.buildingCategoryId.toString()
         );
       }
     }
 
     return this.http
-      .get<Building[]>(this.baseUrl + "building", {
-        observe: "response",
+      .get<Building[]>(this.baseUrl + 'building', {
+        observe: 'response',
         params
       })
       .map(response => {
         paginatedResult.result = response.body;
-        if (response.headers.get("Pagination") != null) {
+        if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(
-            response.headers.get("Pagination")
+            response.headers.get('Pagination')
           );
         }
         console.log(paginatedResult.pagination);
@@ -83,20 +83,20 @@ export class BuildingService {
     let params = new HttpParams();
 
     if (page != null && itemsPerPage != null) {
-      params = params.append("pageNumber", page);
-      params = params.append("pageSize", itemsPerPage);
+      params = params.append('pageNumber', page);
+      params = params.append('pageSize', itemsPerPage);
     }
 
     return this.http
-      .get<BuildingType[]>(this.baseUrl + "building/buildingtypes", {
-        observe: "response",
+      .get<BuildingType[]>(this.baseUrl + 'building/buildingtypes', {
+        observe: 'response',
         params
       })
       .map(response => {
         paginatedResult.result = response.body;
-        if (response.headers.get("Pagination") != null) {
+        if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(
-            response.headers.get("Pagination")
+            response.headers.get('Pagination')
           );
         }
         console.log(paginatedResult.pagination);
@@ -107,13 +107,13 @@ export class BuildingService {
 
   getAllBuildingTypes() {
     return this.http
-      .get<BuildingCategory[]>(this.baseUrl + "building/allbuildingtypes")
+      .get<BuildingCategory[]>(this.baseUrl + 'building/allbuildingtypes')
       .catch(this.handleError);
   }
 
   getAllBuildings() {
     return this.http
-      .get<Building[]>(this.baseUrl + "building/allbuildings")
+      .get<Building[]>(this.baseUrl + 'building/allbuildings')
       .catch(this.handleError);
   }
 
@@ -121,8 +121,8 @@ export class BuildingService {
     console.log(model);
 
     return this.http
-      .post(this.baseUrl + "building/edit", model, {
-        headers: new HttpHeaders().set("Content-Type", "application/json")
+      .post(this.baseUrl + 'building/edit', model, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
       .catch(this.handleError);
   }
@@ -131,8 +131,8 @@ export class BuildingService {
     console.log(model);
 
     return this.http
-      .post(this.baseUrl + "building/add", model, {
-        headers: new HttpHeaders().set("Content-Type", "application/json")
+      .post(this.baseUrl + 'building/add', model, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
       .catch(this.handleError);
   }
@@ -141,8 +141,8 @@ export class BuildingService {
     console.log(model);
 
     return this.http
-      .post(this.baseUrl + "building/edittype", model, {
-        headers: new HttpHeaders().set("Content-Type", "application/json")
+      .post(this.baseUrl + 'building/edittype', model, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
       .catch(this.handleError);
   }
@@ -151,22 +151,22 @@ export class BuildingService {
     console.log(model);
 
     return this.http
-      .post(this.baseUrl + "building/addtype", model, {
-        headers: new HttpHeaders().set("Content-Type", "application/json")
+      .post(this.baseUrl + 'building/addtype', model, {
+        headers: new HttpHeaders().set('Content-Type', 'application/json')
       })
       .catch(this.handleError);
   }
 
   deleteBuildingById(buildingId: number) {
     return this.http
-      .delete(this.baseUrl + "building" + "/" + buildingId)
+      .delete(this.baseUrl + 'building' + '/' + buildingId)
       .catch(this.handleError);
     // {headers: new HttpHeaders().set('Content-Type', 'application/json')}
   }
 
   deleteBuildingTypeById(buildingTypeId: number) {
     return this.http
-      .delete(this.baseUrl + "building/buildingtype/" + buildingTypeId)
+      .delete(this.baseUrl + 'building/buildingtype/' + buildingTypeId)
       .catch(this.handleError);
   }
 
@@ -180,19 +180,19 @@ export class BuildingService {
   // }
 
   private handleError(error: any) {
-    const applicationError = error.headers.get("Application-Error");
+    const applicationError = error.headers.get('Application-Error');
     if (applicationError) {
       return Observable.throw(applicationError);
     }
-    const serverError = error["error"];
-    let modelStateErrors = "";
+    const serverError = error['error'];
+    let modelStateErrors = '';
     if (serverError) {
       for (const key in serverError) {
         if (serverError[key]) {
-          modelStateErrors += serverError[key] + "\n";
+          modelStateErrors += serverError[key] + '\n';
         }
       }
     }
-    return Observable.throw(modelStateErrors || "Server Error");
+    return Observable.throw(modelStateErrors || 'Server Error');
   }
 }

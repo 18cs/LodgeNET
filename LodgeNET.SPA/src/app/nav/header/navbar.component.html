@@ -20,7 +20,7 @@
       </li>
     </ul>
     <ul *ngIf="this.authService.loggedIn()" class="nav navbar-nav navbar-right" style="margin-right: 6rem;">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" *ngIf="authService.accountType == 'Admin'">
         <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">Upload</a>
           <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">

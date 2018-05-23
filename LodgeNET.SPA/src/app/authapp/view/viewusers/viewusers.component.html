@@ -51,7 +51,7 @@
           <td>{{user.approved}}</td>
           <td>Comm: {{ user.commPhone }}
             <br /> DSN: {{ user.dsnPhone }}</td>
-          <td>
+          <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="onUserSelect(user)">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{user.userName}}"></i>
             </button>

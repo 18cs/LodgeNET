@@ -8,8 +8,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UnitdialogComponent } from '../dialogcomponents/unitdialog/unitdialog.component';
 import { UnitParams } from '../../../_models/params/unitParams';
 import { Observable } from 'rxjs/Observable';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-viewunits',
@@ -31,14 +32,16 @@ export class ViewunitsComponent implements OnInit {
   selectedParentUnit: Unit;
 
   constructor(
-    private unitsService: UnitsService, 
+    private unitsService: UnitsService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.initFilterParams();
-    this.loadUnits()
+    this.loadUnits();
     this.route.data.subscribe((data: Data) => {
       this.filterUnits = data['units'];
     });
@@ -51,7 +54,7 @@ export class ViewunitsComponent implements OnInit {
   }
 
   initFilterParams() {
-    this.filterParams = { includeParentUnit: true } as UnitParams
+    this.filterParams = { includeParentUnit: true } as UnitParams;
   }
 
   loadUnits() {
@@ -62,8 +65,8 @@ export class ViewunitsComponent implements OnInit {
           this.units = paginatedResult.result;
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { 
-          this.alertify.error(error); 
+        }, error => {
+          this.alertify.error(error);
           this.showSpinner = false;
         });
     } else {
@@ -72,9 +75,9 @@ export class ViewunitsComponent implements OnInit {
           this.units = paginatedResult.result;
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { 
+        }, error => {
           this.alertify.error(error);
-          this.showSpinner = false; 
+          this.showSpinner = false;
         });
     }
 
@@ -111,7 +114,7 @@ export class ViewunitsComponent implements OnInit {
   }
 
   onSearch() {
-    if(this.selectedParentUnit != null) {
+    if (this.selectedParentUnit != null) {
       this.filterParams.parentUnitId = this.selectedParentUnit.id;
     }
     this.pagination.currentPage = 1;
@@ -119,7 +122,7 @@ export class ViewunitsComponent implements OnInit {
   }
 
   onReset() {
-    //this.initFilterParams();
+    // this.initFilterParams();
     this.selectedParentUnit = null;
     this.parentUnitValue = '';
     this.initFilterParams();

@@ -1,4 +1,10 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
 import { AlertifyService } from '../../_services/alertify.service';
 
@@ -13,19 +19,25 @@ export class NavbarComponent implements OnInit {
 
   pendingAcctCount: number;
 
-  constructor(private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(
+    private authService: AuthService,
+    private alertify: AlertifyService
+  ) {}
   isUserDropdownOpen = false;
   isUploadDropdownOpen = false;
   isNavbarOpen = false;
 
   ngOnInit() {
-    this.authService.GetPendingAcctCount().subscribe((acctNum: number) => {
-      console.log(acctNum);
-      this.pendingAcctCount = acctNum;
-      console.log(this.pendingAcctCount);
-    }, error => {
-      this.alertify.error(error);
-    });
+    this.authService.GetPendingAcctCount().subscribe(
+      (acctNum: number) => {
+        console.log(acctNum);
+        this.pendingAcctCount = acctNum;
+        console.log(this.pendingAcctCount);
+      },
+      error => {
+        this.alertify.error(error);
+      }
+    );
   }
 
   toggleUserDropDown() {
@@ -35,22 +47,24 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     if (this.authService.logout()) {
-     this.alertify.success('Logout successful');
+      this.alertify.success('Logout successful');
     } else {
       this.alertify.error('Logout failed');
     }
   }
 
-  @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {
+  @HostListener('document:click', ['$event'])
+  documentclicked(eventData: Event) {
     if (this.authService.loggedIn()) {
       if (!this.userDropdown.nativeElement.contains(eventData.target)) {
         this.isUserDropdownOpen = false;
       }
-  
-      if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
-        this.isUploadDropdownOpen = false;
+
+      if (this.authService.accountType !== 'Read Only') {
+        if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
+          this.isUploadDropdownOpen = false;
+        }
       }
     }
   }
-
 }

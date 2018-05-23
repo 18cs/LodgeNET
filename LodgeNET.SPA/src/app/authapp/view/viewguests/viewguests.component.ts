@@ -15,6 +15,7 @@ import { Observable } from 'rxjs/Observable';
 import {map, startWith} from 'rxjs/operators';
 import { GuestParams } from '../../../_models/params/guestParams';
 import { GueststaydialogComponent } from '../dialogcomponents/gueststaydialog/gueststaydialog.component';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-viewguests',
@@ -50,7 +51,8 @@ export class ViewguestsComponent implements OnInit {
     private guestStayService: GueststayService,
     private alertify: AlertifyService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
 

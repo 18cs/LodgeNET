@@ -71,7 +71,7 @@
             <td>{{ guest.email }}</td>
             <td>Comm: {{ guest.commPhone }}
               <br /> DSN: {{ guest.dsnPhone }}</td>
-            <td>
+            <td *ngIf="authService.accountType == 'Admin'">
               <button class="editbutton btn btn-primary btn-sm" (click)="onGuestSelect(guest)">
                 <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{guest.lastName +', '+ guest.firstName}}"></i>
               </button>
@@ -102,7 +102,7 @@
                       <td>{{ guestStay?.checkInDate | date }}</td>
                       <td>{{ guestStay?.checkOutDate || '' | date }}</td>
                       <td>{{ guestStay?.checkedOut }}</td>
-                      <td>&emsp;
+                      <td *ngIf="authService.accountType !== 'Read Only'">&emsp;
                         <button class="editbutton btn btn-primary btn-sm" (click)="openGuestStayDialog(guestStay)">
                           <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit Stay?"></i>
                         </button>
