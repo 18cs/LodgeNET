@@ -7,7 +7,7 @@
       <thead>
         <tr class="table-default">
           <th scope="col">Building Type</th>
-          <th scope="col">
+          <th scope="col" *ngIf="authService.accountType == 'Admin'">
             <button class="btn btn-success btn-sm" (click)="openAddDialog()">
               <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building Type"></i>
             </button>
@@ -17,7 +17,7 @@
       <tbody *ngFor="let buildingType of buildingTypeList; let i = index;">
         <tr class="table-secondary">
           <th scope="row">{{ buildingType.type }}</th>
-          <td>
+          <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(buildingType)">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{ buildingType.type }}"></i>
             </button>

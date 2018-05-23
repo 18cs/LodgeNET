@@ -8,10 +8,11 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { BuildingService } from '../../../_services/building.service';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { Observable } from 'rxjs/Observable';
-import {map, startWith} from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { RoomParams } from '../../../_models/params/roomParams';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-viewrooms',
@@ -36,7 +37,8 @@ export class ViewroomsComponent implements OnInit {
     private buildingService: BuildingService,
     private alertify: AlertifyService,
     private dialog: MatDialog,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) { }
 
   ngOnInit() {
@@ -82,8 +84,8 @@ export class ViewroomsComponent implements OnInit {
           this.roomList = paginatedResult.result;
           console.log(this.roomList);
           this.pagination = paginatedResult.pagination;
-        }, error => { 
-          this.alertify.error(error); 
+        }, error => {
+          this.alertify.error(error);
           this.showSpinner = false;
         });
     } else {
@@ -93,8 +95,8 @@ export class ViewroomsComponent implements OnInit {
           console.log(this.roomList);
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
-        }, error => { 
-          this.alertify.error(error); 
+        }, error => {
+          this.alertify.error(error);
           this.showSpinner = false;
         });
     }

@@ -8,6 +8,7 @@ import { BuildingsdialogComponent } from '../dialogcomponents/buildingsdialog/bu
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { BuildingCategory } from '../../../_models/buildingCategory';
 import { BuildingParams } from '../../../_models/params/buildingParams';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -21,7 +22,7 @@ export class ViewbuildingsComponent implements OnInit {
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = false;
-  filterParams: BuildingParams;  
+  filterParams: BuildingParams;
 
   // isLodgingOpen = false;
   // isUnaccompaniedHousingOpen = false;
@@ -31,7 +32,8 @@ export class ViewbuildingsComponent implements OnInit {
   constructor(
     private buildingService: BuildingService,
     private alertify: AlertifyService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {

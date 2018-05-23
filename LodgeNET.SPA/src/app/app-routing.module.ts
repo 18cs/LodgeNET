@@ -9,6 +9,7 @@ import { AuthappComponent } from './authapp/authapp.component';
 import { DashboardComponent } from './authapp/dashboard/dashboard.component';
 import { FileuploadComponent } from './authapp/fileupload/fileupload.component';
 import { LoggedinGuard } from './_guards/loggedin.guard';
+import { AccountTypeGuard } from './_guards/accounttype.guard';
 import { CheckinComponent } from './authapp/checkin/checkin.component';
 import { GuestinfoComponent } from './authapp/checkin/guestinfo/guestinfo.component';
 import { RoomselectComponent } from './authapp/checkin/roomselect/roomselect.component';
@@ -46,13 +47,17 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
   data: { authGuardRedirect: 'home' }, children: [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard',  component: DashboardComponent},
-    {path: 'upload/:type', component: FileuploadComponent}, 
-    {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full'},
-    {path: 'checkin', component: CheckinComponent, children: [
-      {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
-      {path: 'guestinfo', component: GuestinfoComponent},
-      {path: 'roomselect', component: RoomselectComponent},
-      {path: 'reviewcheckin', component: ReviewcheckinComponent}
+    {path: 'upload/:type', component: FileuploadComponent, canActivate: [AccountTypeGuard],
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }},
+    {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full', canActivate: [AccountTypeGuard],
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }},
+    {path: 'checkin', component: CheckinComponent, canActivate: [AccountTypeGuard],
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' },
+        children: [
+          {path: '', redirectTo: 'guestinfo', pathMatch: 'full'},
+          {path: 'guestinfo', component: GuestinfoComponent},
+          {path: 'roomselect', component: RoomselectComponent},
+          {path: 'reviewcheckin', component: ReviewcheckinComponent}
     ]},
     {path: 'view', component: ViewComponent, children: [
       {path: '', redirectTo: 'guests', pathMatch: 'full'},
@@ -64,7 +69,8 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
       {path: 'users/:approved', component: ViewusersComponent},
       {path: 'users', component: ViewusersComponent}
     ]},
-    {path: 'checkout', component: CheckoutComponent}
+    {path: 'checkout', component: CheckoutComponent, canActivate: [AccountTypeGuard],
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Read Only' }}
   ] },
   {path: 'home', component: HomeComponent, canActivate: [LoggedinGuard] },
   {path: 'users', component: UsersComponent, canActivate: [LoggedinGuard], children: [

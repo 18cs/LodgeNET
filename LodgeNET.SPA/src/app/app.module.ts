@@ -55,6 +55,7 @@ import { UnitsResolverService } from './_resolvers/units-resolver.service';
 import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/unitdialog.component';
 import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialog/roomsdialog.component';
 import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
+import { AccountTypeGuard } from './_guards/accounttype.guard';
 
 @NgModule({
   declarations: [
@@ -121,6 +122,7 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
     GueststayService,
     AuthGuard,
     LoggedinGuard,
+    AccountTypeGuard,
     BuildingService,
     FileuploadService,
     FormdataResolver,

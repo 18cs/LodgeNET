@@ -5,6 +5,7 @@ import { BuildingType } from '../../../_models/buildingType';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingtypesdialogComponent } from '../dialogcomponents/buildingtypesdialog/buildingtypesdialog.component';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
+import { AuthService } from '../../../_services/auth.service';
 
 @Component({
   selector: 'app-viewbuildingtypes',
@@ -22,7 +23,8 @@ export class ViewbuildingtypesComponent implements OnInit {
   constructor(
     private buildingService: BuildingService,
     private alertify: AlertifyService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {

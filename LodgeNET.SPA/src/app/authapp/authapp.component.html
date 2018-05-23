@@ -6,7 +6,7 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="tab" routerLink="/dashboard" href="" routerLinkActive="active">Dashboard</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="authService.accountType == 'Admin'">
             <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
             style="cursor: pointer;" routerLinkActive="active">Upload</a>
             <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">
@@ -14,7 +14,7 @@
               <a class="dropdown-item" routerLink="/upload/unaccompanied" href=""  routerLinkActive="active">Dorms Data</a>
             </div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" *ngIf="authService.accountType == 'Admin'">
             <a #checkinoutdropdown (click)="isCheckinOutDropdownOpen = !isCheckinOutDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"
             style="cursor: pointer;" routerLinkActive="active">Check-In/Out</a>
             <div class="dropdown-menu" [ngClass]="{show: isCheckinOutDropdownOpen}">

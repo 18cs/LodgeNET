@@ -38,7 +38,7 @@
         <tr *ngFor="let unit of units">
           <th scope="row">{{ unit.name }}</th>
           <td>{{unit?.parentUnit?.name}}</td>
-          <td>
+          <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="openUnitDialog(unit)">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{unit.name}}"></i>
             </button>

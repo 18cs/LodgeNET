@@ -1,4 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-authapp',
@@ -13,19 +14,21 @@ export class AuthappComponent implements OnInit {
   isCheckinOutDropdownOpen = false;
   isViewDropdownOpen = false;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
   @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {
-    if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
+    if (this.authService.accountType !== 'Read Only') {
+      if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
       this.isUploadDropdownOpen = false;
-    }
+      }
 
     if (!this.checkinoutDropDown.nativeElement.contains(eventData.target)) {
       this.isCheckinOutDropdownOpen = false;
     }
+  }
 
     if (!this.viewDropdown.nativeElement.contains(eventData.target)) {
       this.isViewDropdownOpen = false;
