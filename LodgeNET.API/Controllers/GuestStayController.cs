@@ -204,7 +204,7 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("getgueststays")]
         public async Task<IActionResult> GetGuestStays ([FromQuery] GuestStayRetUserParams guestStayParams) {
-            var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForCheckOutDto>> (
+            var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForEditDto>> (
                 await _guestStayRepo.GetGuestStays (
                     guestStayParams,
                     new Expression<Func<Stay, object>>[] {
@@ -219,7 +219,7 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpPost ("updategueststay")]
-        public async Task<IActionResult> UpdateGuestStay ([FromBody] GuestStayForCheckOutDto guestStayDto) {
+        public async Task<IActionResult> UpdateGuestStay ([FromBody] GuestStayForEditDto guestStayDto) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
             //TODO add account type verification for tasks
             if (currentUserId == 0) {

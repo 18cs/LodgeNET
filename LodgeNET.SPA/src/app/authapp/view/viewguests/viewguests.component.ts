@@ -3,7 +3,7 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { Guest } from '../../../_models/guest';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { GuestStayCheckOut } from '../../../_models/guestStayCheckOut';
+import { GuestStayEdit } from '../../../_models/guestStayEdit';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
@@ -26,9 +26,9 @@ export class ViewguestsComponent implements OnInit {
   filterGuestForm: FormGroup;
   formData: FormData;
   guestList: Guest[];
-  guestStayList: GuestStayCheckOut[];
+  guestStayList: GuestStayEdit[];
   selectedGuest: Guest;
-  selectedGuestStay: GuestStayCheckOut;
+  selectedGuestStay: GuestStayEdit;
   // type: string;
   showSpinner = false;
   pageSize = 10;
@@ -135,7 +135,7 @@ export class ViewguestsComponent implements OnInit {
     this.selectedGuest = guest;
   }
 
-  openGuestStayDialog(guestStay: GuestStayCheckOut) {
+  openGuestStayDialog(guestStay: GuestStayEdit) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -182,7 +182,7 @@ export class ViewguestsComponent implements OnInit {
 
   loadGuestStays(guestId: number) {
     this.guestStayService.getGuestStays(null, null, null, guestId).subscribe(
-      (guestStayList: GuestStayCheckOut[]) => {
+      (guestStayList: GuestStayEdit[]) => {
         console.log(guestStayList);
         this.guestStayList = guestStayList;
       },

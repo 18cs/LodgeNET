@@ -3,7 +3,7 @@ using LodgeNET.API.Models;
 
 namespace LodgeNET.API.Dtos
 {
-    public class GuestStayForCheckOutDto
+    public class GuestStayForEditDto
     {
         public int Id { get; set; }
         public int GuestId { get; set; }     

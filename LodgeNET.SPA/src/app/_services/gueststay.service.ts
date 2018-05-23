@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs/Observable';
 import { Room } from '../_models/room';
 import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
-import { GuestStayCheckOut } from '../_models/guestStayCheckOut';
+import { GuestStayEdit } from '../_models/guestStayEdit';
 import { FormGroup } from '@angular/forms';
 import { GuestStayDto } from '../_models/guestStayDto';
 import { Guest } from '../_models/guest';
@@ -176,10 +176,11 @@ export class GueststayService {
         }
 
         if(currentStaysOnly != null) {
+            console.log('ehalos');
             params = params.append('currentStaysOnly', currentStaysOnly);
         }
 
-        return this.http.get<GuestStayCheckOut[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);
+        return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);
     }
 
     updateGuestStay(model: any) {
@@ -189,7 +190,7 @@ export class GueststayService {
             }).catch(this.handleError);
     }
 
-    checkOutGuest(guestStay: GuestStayCheckOut) {
+    checkOutGuest(guestStay: GuestStayEdit) {
         return this.http.post(this.baseUrl + 'gueststay/checkout', guestStay).catch(this.handleError);
     }
 

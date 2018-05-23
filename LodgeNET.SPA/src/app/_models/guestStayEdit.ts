@@ -2,7 +2,7 @@ import { Building } from './building';
 import { Room } from './room';
 import { Guest } from './guest';
 
-export interface GuestStayCheckOut {
+export interface GuestStayEdit {
     id: number;
     guestId: number;
     guest: Guest;

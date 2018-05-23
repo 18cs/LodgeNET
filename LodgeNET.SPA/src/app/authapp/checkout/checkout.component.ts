@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { GueststayService } from '../../_services/gueststay.service';
 import { AlertifyService } from '../../_services/alertify.service';
-import { GuestStayCheckOut } from '../../_models/guestStayCheckOut';
+import { GuestStayEdit } from '../../_models/guestStayEdit';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,8 +17,8 @@ export class CheckoutComponent implements OnInit {
   lastName: string;
   roomNumber: string;
 
-  guestStayList: GuestStayCheckOut[];
-  guestStay: GuestStayCheckOut;
+  guestStayList: GuestStayEdit[];
+  guestStay: GuestStayEdit;
 
   constructor(private guestStayService: GueststayService,
               private alertify: AlertifyService,
@@ -45,8 +45,8 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    this.guestStayService.getGuestStays(this.dodId, this.lastName, this.roomNumber)
-      .subscribe((guestStays: GuestStayCheckOut[]) => {
+    this.guestStayService.getGuestStays(this.dodId, this.lastName, this.roomNumber, null, true)
+      .subscribe((guestStays: GuestStayEdit[]) => {
         if (guestStays.length > 1) {
           this.guestStayList = guestStays;
         } else if (guestStays.length === 1) {
@@ -63,7 +63,7 @@ export class CheckoutComponent implements OnInit {
     this.roomNumber = null;
   }
 
-  onSelectedGuestStay(selectedGuestStay: GuestStayCheckOut) {
+  onSelectedGuestStay(selectedGuestStay: GuestStayEdit) {
     if (selectedGuestStay != null) {
       this.guestStay = selectedGuestStay;
     }

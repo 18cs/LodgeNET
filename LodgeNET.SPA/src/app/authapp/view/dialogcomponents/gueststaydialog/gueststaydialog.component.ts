@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { GuestStayCheckOut } from '../../../../_models/guestStayCheckOut';
+import { GuestStayEdit } from '../../../../_models/guestStayEdit';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -10,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class GueststaydialogComponent implements OnInit {
   form: FormGroup;
-  guestStay: GuestStayCheckOut;
+  guestStay: GuestStayEdit;
 
   constructor(
     private dialogRef: MatDialogRef<GueststaydialogComponent>,
