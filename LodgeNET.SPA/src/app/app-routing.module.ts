@@ -61,6 +61,7 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
       {path: 'guests', component: ViewguestsComponent, resolve: {formData: FormdataResolver} },
       {path: 'rooms', component: ViewroomsComponent, resolve: { buildings: BuildingsResolverService }},
       {path: 'units', component: ViewunitsComponent, resolve: { units: UnitsResolverService }},
+      {path: 'users/:approved', component: ViewusersComponent},
       {path: 'users', component: ViewusersComponent}
     ]},
     {path: 'checkout', component: CheckoutComponent}

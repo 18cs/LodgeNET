@@ -37,7 +37,7 @@
           </span>
         </a>
         <div class="dropdown-menu" [ngClass]="{show: isUserDropdownOpen}" id="userdropdownMenu">
-            <a class="dropdown-item" style="cursor: pointer;">Accounts<span class="badge badge-danger pull-right" *ngIf="pendingAcctCount > 0">{{pendingAcctCount}}</span></a>          
+            <a class="dropdown-item" style="cursor: pointer;" routerLink="/view/users/false" href="" routerLinkActive="active">Accounts<span class="badge badge-danger pull-right" *ngIf="pendingAcctCount > 0">{{pendingAcctCount}}</span></a>          
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor: pointer;" (click)="logout()">Logout</a>
         </div>

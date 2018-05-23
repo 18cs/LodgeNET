@@ -5,6 +5,7 @@ import { AuthService } from '../../../_services/auth.service';
 import { User } from '../../../_models/user';
 import { UserParams } from '../../../_models/params/userParams';
 import { AccountType } from '../../../_models/accountType';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-viewusers',
@@ -22,13 +23,22 @@ export class ViewusersComponent implements OnInit {
   filterParams: UserParams;
   approvedList = [{ value: true, display: 'True'}, { value: false, display: 'False'}];
 
-  constructor(private authService: AuthService,
-    private alertify: AlertifyService) { }
+  constructor(
+    private authService: AuthService,
+    private alertify: AlertifyService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.initFilterParams();    
+    this.route.params.subscribe((params: Params) => {
+      let approved = params['approved'];
+      if (approved === 'false') {
+        this.filterParams.approved = false;
+      }
+    });
+
     this.loadUsers();
     this.loadAccountTypes();
-    this.initFilterParams();
   }
 
   loadUsers() {
