@@ -847,7 +847,7 @@
         "ParentUnitId": 159
     },
     {
-        "Name": "623rd Air Control Flight",
+        "Name": "623rd Air Control Flight/SQ",
         "ParentUnitId": 159
     },
     {
@@ -855,7 +855,7 @@
         "ParentUnitId": 159
     },
     {
-        "Name": "961st Airborne Air Control Squadron",
+        "Name": "961st Airborne Air Control(CTRL) Squadron",
         "ParentUnitId": 159
     },
     {
@@ -1373,5 +1373,132 @@
     {
         "Name": "176th Communications Flight",
         "ParentUnitId": 203
-    }
+    },
+    {
+        "Name": "Unknown"
+    },
+    {
+        "Name": "PACAF Air Postal Squadron",
+        "ParentUnitId": 3
+    },
+    {
+        "Name": "United States Special Operations Command",
+        "ParentUnitId": 1
+    },
+    {
+        "Name": "Air Force Special Operations Command",
+        "ParentUnitId": 347
+    },
+    {
+        "Name": "353rd Special Operations Group",
+        "ParentUnitId": 348
+    },
+    {
+        "Name": "1st Special Operations Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "17th Special Operations Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "320th Special Tactics Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "353rd Special Operations Maintenance Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "353rd Special Operations Support(SPT) Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "Air Mobility Command",
+        "ParentUnitId": 1
+    },
+    {
+        "Name": "515th Air Mobility Operations Wing",
+        "ParentUnitId": 355
+    },
+    {
+        "Name": "515th Air Mobility Operations Group",
+        "ParentUnitId": 356
+    },
+    {
+        "Name": "733rd Air Mobility Squadron",
+        "ParentUnitId": 357
+    },
+    {
+        "Name": "Air Combat Command",
+        "ParentUnitId": 1
+    },
+    {
+        "Name": "55th Wing",
+        "ParentUnitId": 359
+    },
+    {
+        "Name": "55th Operations Group",
+        "ParentUnitId": 360
+    },
+    {
+        "Name": "82nd Reconnaissance Squadron",
+        "ParentUnitId": 361
+    },
+    {
+        "Name": "390th Intelligence Squadron",
+        "ParentUnitId": 361
+    },
+    {
+        "Name": "43rd Intelligence Squadron",
+        "ParentUnitId": 349
+    },
+    {
+        "Name": "31st Rescue Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "33rd Rescue Squadron",
+        "ParentUnitId": 159
+    },
+    {
+        "Name": "18th Comptroller Squadron",
+        "ParentUnitId": 33
+    },
+    {
+        "Name": "Veterinary Services",
+        "ParentUnitId": 2
+    },
+    {
+        "Name": "BTY A (2-6 ADA) PP",
+        "ParentUnitId": 141
+    },
+    {
+        "Name": "BTY A (2-6 ADA) PP",
+        "ParentUnitId": 141
+    },
+    {
+        "Name": "BTY A (2-6 ADA) PP",
+        "ParentUnitId": 141
+    },
+    {
+        "Name": "Marine Wing Headquarters Squadron 1",
+        "ParentUnitId": 89
+    },
+    {
+        "Name": "1st MAW IWAKUNI",
+        "ParentUnitId": 89
+    },
+    {
+        "Name": "1st MAW KANEOHE BAY",
+        "ParentUnitId": 89
+    },
+    {
+        "Name": "1st MAW FUTENMA",
+        "ParentUnitId": 89
+    },
+    {
+        "Name": "Defense Media Activity",
+        "ParentUnitId": 1
+    }  
 ]
