@@ -74,11 +74,11 @@
             </thead>
             <tbody *ngFor="let fileRow of fileRows; let i = index;">
                 <tr class="table-Default">
-                    <th scope="row">{{ fileRow.lastName }}</th>
-                    <td>{{ fileRow.firstName }}</td>
-                    <td>{{ fileRow.buildingNumber }}</td>
-                    <td>{{ fileRow.roomNumber }}</td>
-                    <td>{{ fileRow.unitName }}</td>
+                    <th scope="row" [ngClass]="{'td-error': fileRow.lastName == null || fileRow.lastName == ''}">{{ fileRow.lastName }}</th>
+                    <td [ngClass]="{'td-error': fileRow.firstName == null || fileRow.firstName == ''}">{{ fileRow.firstName }}</td>
+                    <td [ngClass]="{'td-error': fileRow.buildingId == null || fileRow.buildingId == 0}">{{ fileRow.buildingNumber }}</td>
+                    <td [ngClass]="{'td-error': fileRow.roomId == null || fileRow.roomId == 0}">{{ fileRow.roomNumber }}</td>
+                    <td [ngClass]="{'td-error': fileRow.unitId == null || fileRow.unitId == 0}">{{ fileRow.unitName }}</td>
                     <td>{{ fileRow.checkInDate | date}}</td>
                     <td>
                         <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(fileRow)">
@@ -101,11 +101,11 @@
                 </thead>
                 <tbody *ngFor="let fileRow of fileRows; let i = index;">
                     <tr class="table-Default">
-                        <th scope="row">{{ fileRow.lastName }}</th>
-                        <td>{{ fileRow.firstName }}</td>
-                        <td>{{ fileRow.buildingNumber }}</td>
-                        <td>{{ fileRow.roomNumber }}</td>
-                        <td>{{ fileRow.unitName }}</td>
+                        <th scope="row" [ngClass]="{'td-error': fileRow.lastName == null || fileRow.lastName == ''}">{{ fileRow.lastName }}</th>
+                        <td [ngClass]="{'td-error': fileRow.firstName == null || fileRow.firstName == ''}">{{ fileRow.firstName }}</td>
+                        <td [ngClass]="{'td-error': fileRow.buildingId == null || fileRow.buildingId == 0}">{{ fileRow.buildingNumber }}</td>
+                        <td [ngClass]="{'td-error': fileRow.roomId == null || fileRow.roomId == 0}">{{ fileRow.roomNumber }}</td>
+                        <td [ngClass]="{'td-error': fileRow.unitId == null || fileRow.unitId == 0}">{{ fileRow.unitName }}</td>
                         <td>
                             <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(fileRow)">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
