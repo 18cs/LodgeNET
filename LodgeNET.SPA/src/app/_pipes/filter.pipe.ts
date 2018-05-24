@@ -13,15 +13,7 @@ export class FilterPipe implements PipeTransform {
       return values;
     }
 
-   return values.filter(value => value[propName].indexOf(filterString) !== -1);
-// console.log(filterString);
-//     const resultsArray = [];
-//     for (const item of value) {
-//       if() {
-
-//       }
-//     }
-//     return resultsArray;
+   return values.filter(value => value[propName].toUpperCase().indexOf(filterString.toUpperCase()) !== -1);
   }
 
 }

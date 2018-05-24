@@ -61,13 +61,11 @@ namespace LodgeNET.API.Controllers {
             return Ok (roomsToReturn);
         }
 
-        [HttpPost("editroom")]
-        public async Task<IActionResult> EditRoom([FromBody] Room room)
-        {
-            var rm = await _roomsRepo.GetFirstOrDefault(b => b.Id == room.Id);
+        [HttpPost ("editroom")]
+        public async Task<IActionResult> EditRoom ([FromBody] Room room) {
+            var rm = await _roomsRepo.GetFirstOrDefault (b => b.Id == room.Id);
 
-            if (rm != null)
-            {
+            if (rm != null) {
                 rm.RoomNumber = room.RoomNumber;
                 rm.SurgeMultiplier = room.SurgeMultiplier;
                 rm.Capacity = room.Capacity;
@@ -76,53 +74,58 @@ namespace LodgeNET.API.Controllers {
                 rm.BuildingId = room.BuildingId;
             }
 
-            await _roomsRepo.SaveAsync();
+            await _roomsRepo.SaveAsync ();
 
-            return Ok();
+            return Ok ();
         }
 
-        [HttpPost("addroom")]
-        public async Task<IActionResult> AddRoom([FromBody] Room room)
-        {
-            //var roomToAdd = _mapper.Map<Room>(room);
+        [HttpPost ("addroom")]
+        public async Task<IActionResult> AddRoom ([FromBody] Room room) {
+            if ((await _roomsRepo.GetFirstOrDefault (
+                    r => r.RoomNumber == room.RoomNumber && 
+                    r.BuildingId == room.BuildingId)) != null) {
+                ModelState.AddModelError ("BuildingNumber", "Building Number already exists");
+            }
+
+            if (!ModelState.IsValid) {
+                return BadRequest (ModelState);
+            }
 
             room.Building = null;
-            
-            await _roomsRepo.Insert(room);
 
-            await _roomsRepo.SaveAsync();
+            await _roomsRepo.Insert (room);
 
-            return Ok();
+            await _roomsRepo.SaveAsync ();
+
+            return Ok ();
         }
 
         [HttpDelete ("room/{id}")]
-        public async Task<IActionResult> DeleteRoomById(int id)
-        {
-            var room = await _roomsRepo.GetFirstOrDefault(b => b.Id == id);
+        public async Task<IActionResult> DeleteRoomById (int id) {
+            var room = await _roomsRepo.GetFirstOrDefault (b => b.Id == id);
 
-            await _roomsRepo.Delete(room.Id);
+            await _roomsRepo.Delete (room.Id);
 
-            await _roomsRepo.SaveAsync();
+            await _roomsRepo.SaveAsync ();
 
-            return Ok();
+            return Ok ();
         }
 
         [HttpGet ("getrooms")]
-        public async Task<IActionResult> GetRooms([FromQuery] RoomUserParams userParams)
-        {
-            var rms = await _roomsRepo.GetRoomsPagination(
+        public async Task<IActionResult> GetRooms ([FromQuery] RoomUserParams userParams) {
+            var rms = await _roomsRepo.GetRoomsPagination (
                 userParams,
                 new Expression<Func<Room, object>>[] {
                     r => r.Building
                 });
-           // var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
+            // var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
 
-             Response.AddPagination(rms.CurrentPage,
+            Response.AddPagination (rms.CurrentPage,
                 rms.PageSize,
                 rms.TotalCount,
                 rms.TotalPages);
 
-            return Ok(rms);
+            return Ok (rms);
 
             // OLD CODE
             //
@@ -232,7 +235,7 @@ namespace LodgeNET.API.Controllers {
                 ModelState.AddModelError ("error", "Unable to update guest");
                 return BadRequest (ModelState);
             }
-            
+
             //EF errors if values are not null for update
             guestStayDto.Guest = null;
             guestStayDto.Building = null;

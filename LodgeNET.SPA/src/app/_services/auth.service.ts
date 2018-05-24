@@ -40,7 +40,7 @@ export class AuthService {
                     this.GetPendingAcctCount();
                 }
             }
-        }).catch(this.handleError);
+        });
     }
 
     logout() {
@@ -58,7 +58,7 @@ export class AuthService {
         return this.http.post(this.baseUrl + 'auth/register', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-        }).catch(this.handleError);
+        });
     }
 
     loggedIn() {
@@ -70,16 +70,14 @@ export class AuthService {
     }
 
     formData() {
-        return this.http.get<FormData>(this.baseUrl + 'auth/register')
-            .catch(this.handleError);
+        return this.http.get<FormData>(this.baseUrl + 'auth/register');
     }
 
     GetPendingAcctCount() {
         return this.http.get<Number>(this.baseUrl + 'user/pendingAcctCount')
             .map((count: number) => {
                 this.pendingAcctCount = count;
-            })
-            .catch(this.handleError);
+            });
     }
 
     GetUsers(page?, itemsPerPage?, userParams?: UserParams): Observable<PaginatedResult<User[]>> {
@@ -115,45 +113,22 @@ export class AuthService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            })
-            .catch(this.handleError);
+            });
 
     }
 
     getAccountTypes() {
-        return this.http.get<AccountType[]>(this.baseUrl + 'auth/accountTypes')
-        .catch(this.handleError);
+        return this.http.get<AccountType[]>(this.baseUrl + 'auth/accountTypes');
     }
 
     updateUser(model: any) {
         return this.http.post(this.baseUrl + 'user/update', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-        }).catch(this.handleError);
+        });
     }
 
     deleteUser(id: number) {
-        return this.http.delete(this.baseUrl + 'user/' + id).catch(this.handleError);
+        return this.http.delete(this.baseUrl + 'user/' + id);
     }
-
-    private handleError(error: any) {
-        const applicationError = error.headers.get('Application-Error');
-        if (applicationError) {
-            return Observable.throw(applicationError);
-        }
-        const serverError = error['error'];
-        let modelStateErrors = '';
-        if (serverError) {
-            for (const key in serverError) {
-                if (serverError[key]) {
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
-        return Observable.throw(
-            modelStateErrors || 'Server Error'
-        );
-    }
-
-
 }

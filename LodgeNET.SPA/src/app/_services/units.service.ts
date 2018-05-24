@@ -51,45 +51,21 @@ export class UnitsService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            })
-            .catch(this.handleError);
+            });
     }
 
     getUnits() {
-        return this.http.get<Unit[]>(this.baseUrl + 'unit').catch(this.handleError);
+        return this.http.get<Unit[]>(this.baseUrl + 'unit');
     }
 
     updateUnit(model: any) {
         return this.http.post(this.baseUrl + 'unit/update', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-        }).catch(this.handleError);
+        });
     }
 
     deleteUnit(id: number) {
-        return this.http.delete(this.baseUrl + 'unit/deleteunit/' + id).catch(this.handleError);
+        return this.http.delete(this.baseUrl + 'unit/deleteunit/' + id);
     }
-
-    private handleError(error: any) {
-        console.log(error);
-        const applicationError = error.headers.get('Application-Error');
-        if (applicationError) {
-            console.log(applicationError);
-            return Observable.throw(applicationError);
-        }
-        const serverError = error.json();
-        console.log(serverError);
-        let modelStateErrors = '';
-        if (serverError) {
-            for (const key in serverError) {
-                if (serverError[key]) {
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
-        return Observable.throw(
-            modelStateErrors || 'Server Error'
-        );
-    }
-
 }

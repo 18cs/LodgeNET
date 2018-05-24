@@ -56,6 +56,7 @@ import { UnitdialogComponent } from './authapp/view/dialogcomponents/unitdialog/
 import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialog/roomsdialog.component';
 import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
 import { AccountTypeGuard } from './_guards/accounttype.guard';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -127,7 +128,8 @@ import { AccountTypeGuard } from './_guards/accounttype.guard';
     FileuploadService,
     FormdataResolver,
     UnitsResolverService,
-    BuildingsResolverService
+    BuildingsResolverService,
+    ErrorInterceptorProvider
   ],
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,

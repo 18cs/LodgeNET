@@ -52,19 +52,18 @@ export class GueststayService {
                     response.headers.get('Pagination'));
             }
             return paginatedResult;
-        })
-        .catch(this.handleError);
+        });
     }
 
     updateGuest(model: any) {
         return this.http.post(this.baseUrl + 'gueststay/updateguest', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-        }).catch(this.handleError);
+        });
     }
 
     deleteGuest(id: number) {
-        return this.http.delete(this.baseUrl + 'gueststay/deleteguest/' + id).catch(this.handleError);
+        return this.http.delete(this.baseUrl + 'gueststay/deleteguest/' + id);
     }
 
     getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
@@ -94,8 +93,7 @@ export class GueststayService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            })
-            .catch(this.handleError);
+            });
     }
 
     getRooms(page?, itemsPerPage?, userParams?: RoomParams): Observable<PaginatedResult<Room[]>> {
@@ -128,32 +126,31 @@ export class GueststayService {
                     }
                     console.log(paginatedResult.pagination);
                     return paginatedResult;
-                })
-                .catch(this.handleError);
+                });
     }
 
     saveRoomEdit(model: Room) {
         console.log(model);
 
         return this.http.post(this.baseUrl + 'gueststay/editroom', model, {headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')}).catch(this.handleError);
+          .set('Content-Type', 'application/json')});
     }
 
     addRoom(model: Room) {
         console.log(model);
 
         return this.http.post(this.baseUrl + 'gueststay/addroom', model, {headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')}).catch(this.handleError);
+          .set('Content-Type', 'application/json')});
     }
 
     deleteRoomById(roomId:  number) {
-        return this.http.delete(this.baseUrl + 'gueststay/room/' + roomId).catch(this.handleError);
+        return this.http.delete(this.baseUrl + 'gueststay/room/' + roomId);
       }
 
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);
-        return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params}).catch(this.handleError);
+        return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params});
     }
 
     getGuestStays(dodId?, lastName?, roomNumber?, guestId?, currentStaysOnly?) {
@@ -180,18 +177,18 @@ export class GueststayService {
             params = params.append('currentStaysOnly', currentStaysOnly);
         }
 
-        return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', {params}).catch(this.handleError);
+        return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', {params});
     }
 
     updateGuestStay(model: any) {
             return this.http.post(this.baseUrl + 'gueststay/updategueststay', model, {
                 headers: new HttpHeaders()
                     .set('Content-Type', 'application/json')
-            }).catch(this.handleError);
+            });
     }
 
     checkOutGuest(guestStay: GuestStayEdit) {
-        return this.http.post(this.baseUrl + 'gueststay/checkout', guestStay).catch(this.handleError);
+        return this.http.post(this.baseUrl + 'gueststay/checkout', guestStay);
     }
 
     saveRetrievedGuestInfo(guestInfo: GuestStayCheckIn) {
@@ -255,7 +252,7 @@ export class GueststayService {
         };
 
         return this.http.post(this.baseUrl + 'guestStay/checkin', guestStayDto, {headers: new HttpHeaders()
-            .set('Content-Type', 'application/json')}).catch(this.handleError);
+            .set('Content-Type', 'application/json')});
     }
 
     setGuestInfoValid(formValid: boolean) {
@@ -268,25 +265,5 @@ export class GueststayService {
 
     clearGuestStay() {
         this.guestStay = { guestId: 0};
-    }
-
-    private handleError(error: any) {
-        const applicationError = error.headers.get('Application-Error');
-        if (applicationError) {
-            return Observable.throw(applicationError);
-        }
-        const serverError = error['error'];
-        let modelStateErrors = '';
-        if (serverError) {
-            for (const key in serverError) {
-                if (serverError[key]) {
-                    modelStateErrors += serverError[key] + '\n';
-                }
-            }
-        }
-        return Observable.throw(
-            modelStateErrors || 'Server Error'
-        );
-
     }
 }

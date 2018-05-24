@@ -78,7 +78,7 @@ export class CheckinService {
     //     console.log(guestStayDto);
 
     //     return this.http.post(this.baseUrl + 'guestStay/checkin', guestStayDto, {headers: new HttpHeaders()
-    //         .set('Content-Type', 'application/json')}).catch(this.handleError);
+    //         .set('Content-Type', 'application/json')});
     // }
 
     // setGuestInfoValid(formValid: boolean) {

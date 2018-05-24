@@ -27,8 +27,7 @@ export class BuildingService {
 
   buildingDashboardData() {
     return this.http
-      .get<BuildingTable>(this.baseUrl + 'building/dashboard')
-      .catch(this.handleError);
+      .get<BuildingTable>(this.baseUrl + 'building/dashboard');
   }
 
   getBuildings(
@@ -69,8 +68,7 @@ export class BuildingService {
         }
         console.log(paginatedResult.pagination);
         return paginatedResult;
-      })
-      .catch(this.handleError);
+      });
   }
 
   getBuildingTypes(
@@ -101,20 +99,17 @@ export class BuildingService {
         }
         console.log(paginatedResult.pagination);
         return paginatedResult;
-      })
-      .catch(this.handleError);
+      });
   }
 
   getAllBuildingTypes() {
     return this.http
-      .get<BuildingCategory[]>(this.baseUrl + 'building/allbuildingtypes')
-      .catch(this.handleError);
+      .get<BuildingCategory[]>(this.baseUrl + 'building/allbuildingtypes');
   }
 
   getAllBuildings() {
     return this.http
-      .get<Building[]>(this.baseUrl + 'building/allbuildings')
-      .catch(this.handleError);
+      .get<Building[]>(this.baseUrl + 'building/allbuildings');
   }
 
   saveBuildingEdit(model: Building) {
@@ -123,8 +118,7 @@ export class BuildingService {
     return this.http
       .post(this.baseUrl + 'building/edit', model, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .catch(this.handleError);
+      });
   }
 
   addBuilding(model: Building) {
@@ -133,8 +127,7 @@ export class BuildingService {
     return this.http
       .post(this.baseUrl + 'building/add', model, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .catch(this.handleError);
+      });
   }
 
   saveBuildingTypeEdit(model: BuildingType) {
@@ -143,8 +136,7 @@ export class BuildingService {
     return this.http
       .post(this.baseUrl + 'building/edittype', model, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .catch(this.handleError);
+      });
   }
 
   addBuildingType(model: BuildingType) {
@@ -153,21 +145,17 @@ export class BuildingService {
     return this.http
       .post(this.baseUrl + 'building/addtype', model, {
         headers: new HttpHeaders().set('Content-Type', 'application/json')
-      })
-      .catch(this.handleError);
+      });
   }
 
   deleteBuildingById(buildingId: number) {
     return this.http
-      .delete(this.baseUrl + 'building' + '/' + buildingId)
-      .catch(this.handleError);
-    // {headers: new HttpHeaders().set('Content-Type', 'application/json')}
+      .delete(this.baseUrl + 'building' + '/' + buildingId);
   }
 
   deleteBuildingTypeById(buildingTypeId: number) {
     return this.http
-      .delete(this.baseUrl + 'building/buildingtype/' + buildingTypeId)
-      .catch(this.handleError);
+      .delete(this.baseUrl + 'building/buildingtype/' + buildingTypeId);
   }
 
   // private jwt(){
@@ -178,21 +166,4 @@ export class BuildingService {
   //         return new RequestOptions({headers: headers})
   //     }
   // }
-
-  private handleError(error: any) {
-    const applicationError = error.headers.get('Application-Error');
-    if (applicationError) {
-      return Observable.throw(applicationError);
-    }
-    const serverError = error['error'];
-    let modelStateErrors = '';
-    if (serverError) {
-      for (const key in serverError) {
-        if (serverError[key]) {
-          modelStateErrors += serverError[key] + '\n';
-        }
-      }
-    }
-    return Observable.throw(modelStateErrors || 'Server Error');
-  }
 }

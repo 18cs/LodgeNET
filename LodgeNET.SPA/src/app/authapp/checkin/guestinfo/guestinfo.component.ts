@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
 import { Rank } from '../../../_models/rank';
+import { FormData } from '../../../_models/formData';
 
 @Component({
   selector: 'app-guestinfo',
