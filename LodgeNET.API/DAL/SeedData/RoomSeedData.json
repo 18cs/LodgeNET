@@ -10560,6 +10560,30 @@
     "BuildingId": 28
   },
   {
+    "RoomNumber": "141",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 1,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "142",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 1,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "143",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 1,
+    "BuildingId": 28
+  },
+  {
     "RoomNumber": "144",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -10881,6 +10905,30 @@
   },
   {
     "RoomNumber": "240",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "243",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -11264,6 +11312,30 @@
     "BuildingId": 28
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 28
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -11633,6 +11705,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 28
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -12368,6 +12464,30 @@
     "BuildingId": 29
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 29
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -12744,6 +12864,30 @@
     "BuildingId": 29
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 29
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -13113,6 +13257,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 29
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -13864,6 +14032,30 @@
     "BuildingId": 30
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 30
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -14240,6 +14432,30 @@
     "BuildingId": 30
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 30
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -14609,6 +14825,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 30
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -15344,6 +15584,30 @@
     "BuildingId": 31
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 31
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -15720,6 +15984,30 @@
     "BuildingId": 31
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 31
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -16089,6 +16377,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 31
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -16824,6 +17136,30 @@
     "BuildingId": 32
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 32
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -17200,6 +17536,30 @@
     "BuildingId": 32
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 32
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -17569,6 +17929,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 32
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -18320,6 +18704,30 @@
     "BuildingId": 33
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 33
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -18696,6 +19104,30 @@
     "BuildingId": 33
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 33
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -19065,6 +19497,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 33
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
@@ -19816,6 +20272,30 @@
     "BuildingId": 34
   },
   {
+    "RoomNumber": "241",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "242",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "243",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 2,
+    "BuildingId": 34
+  },
+  {
     "RoomNumber": "244",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -20192,6 +20672,30 @@
     "BuildingId": 34
   },
   {
+    "RoomNumber": "341",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "342",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "343",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 3,
+    "BuildingId": 34
+  },
+  {
     "RoomNumber": "344",
     "SurgeMultiplier": 2,
     "Capacity": 1,
@@ -20561,6 +21065,30 @@
   },
   {
     "RoomNumber": "440",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "441",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "442",
+    "SurgeMultiplier": 2,
+    "Capacity": 1,
+    "SquareFootage": 100,
+    "Floor": 4,
+    "BuildingId": 34
+  },
+  {
+    "RoomNumber": "443",
     "SurgeMultiplier": 2,
     "Capacity": 1,
     "SquareFootage": 100,
