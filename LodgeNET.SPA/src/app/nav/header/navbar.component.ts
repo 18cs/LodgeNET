@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
   pendingAcctCount: number;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private alertify: AlertifyService
   ) {}
   isUserDropdownOpen = false;

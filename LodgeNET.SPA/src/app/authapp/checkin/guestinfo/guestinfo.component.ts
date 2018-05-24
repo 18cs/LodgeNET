@@ -91,11 +91,11 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     });
   }
 
-  private unitFocusIn() {
+  unitFocusIn() {
     this.isUnitFocused = true;
   }
 
-  private unitFocusOut() {
+  unitFocusOut() {
     this.isUnitFocused = false;
     this.filterStatus = this.selectedUnit.name;
   }

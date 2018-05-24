@@ -74,11 +74,11 @@ export class EditguestComponent implements OnInit {
     });
   }
 
-  private unitFocusIn() {
+  unitFocusIn() {
     this.isUnitFocused = true;
   }
 
-  private unitFocusOut() {
+  unitFocusOut() {
     this.isUnitFocused = false;
     this.filterStatus = this.selectedUnit.name;
   }

@@ -37,8 +37,8 @@ export class LoginComponent implements OnInit {
   // , {relativeTo: this.route}
 private initForm() {
   this.loginForm = new FormGroup({
-    'username': new FormControl(null, [Validators.required, Validators.max(20)]),
-    'password': new FormControl(null, [Validators.required, Validators.max(25)])
+    'username': new FormControl(null, [Validators.required]),
+    'password': new FormControl(null, [Validators.required])
   });
 }
 

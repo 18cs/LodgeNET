@@ -33,7 +33,7 @@ export class ViewbuildingsComponent implements OnInit {
     private buildingService: BuildingService,
     private alertify: AlertifyService,
     private dialog: MatDialog,
-    private authService: AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit() {

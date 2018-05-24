@@ -9,7 +9,7 @@
 
   <div class="collapse navbar-collapse" [ngClass]="{show: isNavbarOpen}" id="navbarColor01">
     <ul class="navbar-nav mr-auto"></ul>
-    <ul *ngIf="!this.authService.loggedIn()" class="navbar-nav navbar-right">
+    <ul *ngIf="!authService.loggedIn()" class="navbar-nav navbar-right">
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" routerLink="/users/signup">
           <i class="fa fa-users" aria-hidden="true"></i> Sign Up</a>

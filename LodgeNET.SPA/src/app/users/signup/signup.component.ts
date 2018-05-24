@@ -48,8 +48,8 @@ export class SignupComponent implements OnInit {
   private initForm() {
     this.signupForm = new FormGroup({
       'username': new FormControl(null, [Validators.required, Validators.max(20)]),
-      'password': new FormControl(null, [Validators.required, Validators.max(25)]),
-      'confirmPassword': new FormControl(null, [Validators.required, Validators.max(25), this.passwordConfirming]),
+      'password': new FormControl(null, [Validators.required]),
+      'confirmPassword': new FormControl(null, [Validators.required, this.passwordConfirming]),
       'accountTypeId': new FormControl(null, Validators.required),
       'dodId': new FormControl(null, Validators.required),
       'firstName': new FormControl(null, Validators.required),
@@ -72,11 +72,11 @@ export class SignupComponent implements OnInit {
     });
   }
 
-  private onUnitFocusIn() {
+  onUnitFocusIn() {
     this.isUnitFocused = true;
   }
 
-  private onUnitFocusOut() {
+  onUnitFocusOut() {
     this.isUnitFocused = false;
     this.filterStatus = this.selectedUnit.name;
   }

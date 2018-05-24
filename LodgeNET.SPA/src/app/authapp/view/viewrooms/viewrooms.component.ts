@@ -38,7 +38,7 @@ export class ViewroomsComponent implements OnInit {
     private alertify: AlertifyService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private authService: AuthService
+    public authService: AuthService
   ) { }
 
   ngOnInit() {

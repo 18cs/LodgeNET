@@ -14,7 +14,7 @@ export class AuthappComponent implements OnInit {
   isCheckinOutDropdownOpen = false;
   isViewDropdownOpen = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit() {
   }

@@ -86,9 +86,14 @@ namespace LodgeNET.API.Controllers
         {
             var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
 
-            if (userFromRepo == null)
-            {
+            if (userFromRepo == null) {
                 ModelState.AddModelError("Unauthorized", "Username or password was incorrect.");
+            } else if (!userFromRepo.Approved) {
+                ModelState.AddModelError("NotApproved", "Account is pending approval.");
+            }
+
+            if (!ModelState.IsValid)
+            {
                 return BadRequest(ModelState);
             }
 

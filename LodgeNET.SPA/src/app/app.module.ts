@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtModule } from '@auth0/angular-jwt';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './nav/header/navbar.component';
@@ -63,8 +63,9 @@ export function getAccessToken(): string {
 
 export const jwtConfig = {
   tokenGetter: getAccessToken,
-  whiteListedDomains: ['localhost:5000']
-}
+  whitelistedDomains: ['localhost:5000']
+};
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,10 +111,10 @@ export const jwtConfig = {
     FileUploadModule,
     FormsModule,
     HttpClientModule,
-    PaginationModule.forRoot(),
     JwtModule.forRoot({
       config: jwtConfig
     }),
+    PaginationModule.forRoot(),
     MaterialModule,
     BrowserAnimationsModule
   ],

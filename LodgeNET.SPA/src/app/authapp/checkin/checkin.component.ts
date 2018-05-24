@@ -8,7 +8,7 @@ import { GueststayService } from '../../_services/gueststay.service';
 })
 export class CheckinComponent implements OnInit {
 
-  constructor(private gueststayService: GueststayService) { }
+  constructor(public gueststayService: GueststayService) { }
 
   ngOnInit() {
   }
