@@ -156,6 +156,14 @@ namespace LodgeNET.API.Controllers {
                                     if (unitNameSections[n].Equals ("WG")) {
                                         unitNameSections[n] = "WING";
                                     }
+
+                                    if (unitNameSections[n].Equals ("OPS")) {
+                                        unitNameSections[n] = "OPERATIONS";
+                                    }
+
+                                    if (unitNameSections[n].Equals ("SPT")) {
+                                        unitNameSections[n] = "SUPPORT";
+                                    }
                                 }
 
                                 var unit = _unitRepo.GetFirst (u => unitNameSections.All (u.Name.ToUpper ().Contains));
@@ -175,13 +183,9 @@ namespace LodgeNET.API.Controllers {
 
                             returnRows.Add (rowForUpload);
                         } else {
-                            //TODO add unit parse
                             var guest = new Guest ();
                             var stay = new Stay ();
                             guest = _mapper.Map<Guest> (rowForUpload);
-                            if (guest.RankId != null) {
-                                var yup = 1;
-                            }
                             stay = _mapper.Map<Stay> (rowForUpload);
 
                             stay.CheckedIn = true;
