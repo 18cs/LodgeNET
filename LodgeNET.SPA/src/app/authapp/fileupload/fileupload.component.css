@@ -1,14 +1,3 @@
-/* #dropzone {
-    padding: 20px;
-    margin: 1%;
-    background-color: lightgrey;
-}
-
-#dropzone:hover {
-    border-width: 1px;
-    border: green;
-} */
-
 .my-drop-zone { 
     padding: 20px;
     margin: 1%;
@@ -26,4 +15,9 @@
 
 html, body { 
     height: 100%; 
+}
+
+.td-error {
+    border: 1px solid red;
+    background-color: rgba(255, 0, 0, 0.15)
 }
