@@ -87,7 +87,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     this.dodIdDisabled =  guestStay.guestId !== 0;
 
     this.guestInfoForm.statusChanges.subscribe(data => {
-      console.log(data); this.gueststayService.setGuestInfoValid(this.guestInfoForm.valid);
+      this.gueststayService.setGuestInfoValid(this.guestInfoForm.valid);
     });
   }
 
@@ -123,7 +123,6 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     this.alertify.confirm('We have found this guest in the Database. Do you want to autopopulate?' + 
       '<br /><br />WARNING: Changed information will be updated in database.', () => {
           this.gueststayService.saveRetrievedGuestInfo(guestStay);
-          console.log(this.gueststayService.guestStay);
           this.initForm();
         });
     }, error => {

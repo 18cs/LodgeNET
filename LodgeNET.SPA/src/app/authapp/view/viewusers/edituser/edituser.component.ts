@@ -124,7 +124,6 @@ export class EdituserComponent implements OnInit {
   }
 
   compareAccount(accountFromList: AccountType, selectedAccount: AccountType): boolean {
-    console.log(selectedAccount);
     return accountFromList === selectedAccount;
   }
 

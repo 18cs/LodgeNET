@@ -124,20 +124,17 @@ export class GueststayService {
                         paginatedResult.pagination = JSON.parse(
                             response.headers.get('Pagination'));
                     }
-                    console.log(paginatedResult.pagination);
                     return paginatedResult;
                 });
     }
 
     saveRoomEdit(model: Room) {
-        console.log(model);
 
         return this.http.post(this.baseUrl + 'gueststay/editroom', model, {headers: new HttpHeaders()
           .set('Content-Type', 'application/json')});
     }
 
     addRoom(model: Room) {
-        console.log(model);
 
         return this.http.post(this.baseUrl + 'gueststay/addroom', model, {headers: new HttpHeaders()
           .set('Content-Type', 'application/json')});
@@ -173,7 +170,6 @@ export class GueststayService {
         }
 
         if(currentStaysOnly != null) {
-            console.log('ehalos');
             params = params.append('currentStaysOnly', currentStaysOnly);
         }
 
@@ -224,7 +220,6 @@ export class GueststayService {
 
     saveRoomSelection(room: Room) {
         this.guestStay.room = room;
-        console.log(this.guestStay);
     }
 
     checkinGuest() {

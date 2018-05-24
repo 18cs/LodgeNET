@@ -14,7 +14,6 @@ export class FilterNumPipe implements PipeTransform {
     }
 
    return values.filter(value => value[propName] === filterNum);
-// console.log(filterString);
   }
 
 }

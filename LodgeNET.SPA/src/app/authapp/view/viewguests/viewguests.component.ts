@@ -147,7 +147,6 @@ export class ViewguestsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(GueststaydialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
       if (data != null) {
         this.guestStayService.updateGuestStay(data).subscribe(
           success => {
@@ -183,7 +182,6 @@ export class ViewguestsComponent implements OnInit {
   loadGuestStays(guestId: number) {
     this.guestStayService.getGuestStays(null, null, null, guestId).subscribe(
       (guestStayList: GuestStayEdit[]) => {
-        console.log(guestStayList);
         this.guestStayList = guestStayList;
       },
       error => {

@@ -36,7 +36,6 @@ import { ViewguestsComponent } from './authapp/view/viewguests/viewguests.compon
 import { ViewroomsComponent } from './authapp/view/viewrooms/viewrooms.component';
 import { ViewunitsComponent } from './authapp/view/viewunits/viewunits.component';
 import { ViewusersComponent } from './authapp/view/viewusers/viewusers.component';
-import { CheckinService } from './_services/checkin.service';
 import { GueststayService } from './_services/gueststay.service';
 import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { MaterialModule } from './material.module';
@@ -58,6 +57,14 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
 import { AccountTypeGuard } from './_guards/accounttype.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 
+export function getAccessToken(): string {
+  return localStorage.getItem('token');
+}
+
+export const jwtConfig = {
+  tokenGetter: getAccessToken,
+  whiteListedDomains: ['localhost:5000']
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,12 +112,7 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
     HttpClientModule,
     PaginationModule.forRoot(),
     JwtModule.forRoot({
-      config: {
-        tokenGetter: () => {
-          return localStorage.getItem('token');
-        },
-        whitelistedDomains: ['localhost:5000']
-      }
+      config: jwtConfig
     }),
     MaterialModule,
     BrowserAnimationsModule
@@ -119,7 +121,6 @@ import { ErrorInterceptorProvider } from './_services/error.interceptor';
     AuthService,
     AlertifyService,
     UnitsService,
-    CheckinService,
     GueststayService,
     AuthGuard,
     LoggedinGuard,

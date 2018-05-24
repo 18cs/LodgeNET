@@ -39,7 +39,6 @@ export class BuildingtypesdialogComponent implements OnInit {
 
   save() {
     this.buildingType.type = this.form.value['type'];
-    // console.log(this.buildingType.type);
     this.dialogRef.close(this.buildingType);
   }
 

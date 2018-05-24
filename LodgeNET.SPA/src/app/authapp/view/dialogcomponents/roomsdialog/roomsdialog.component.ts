@@ -51,15 +51,6 @@ export class RoomsdialogComponent implements OnInit {
 
 
   formInit() {
-    // if (this.title !== 'Add Room') {
-    //   const selectedBldgList = this.buildingList.filter(
-    //     bldg => bldg.id === this.room.buildingId
-    //   );
-    //   this.selectedBuilding = selectedBldgList[0];
-    //   console.log(selectedBldgList);
-    // } else {
-    //   this.selectedBuilding = this.buildingList[0];
-    // }
 
     if (this.room.building != null) {
       this.selectedBuilding = this.room.building;

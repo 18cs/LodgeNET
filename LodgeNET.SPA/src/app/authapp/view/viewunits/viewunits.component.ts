@@ -105,7 +105,7 @@ export class ViewunitsComponent implements OnInit {
               }
             },
             error => {
-              console.log(error);
+              this.alertify.error(error);
             }
           );
         }
@@ -151,7 +151,6 @@ export class ViewunitsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(UnitdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
       if (data != null) {
         this.unitsService.updateUnit(data).subscribe(
           success => {

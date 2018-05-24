@@ -66,7 +66,6 @@ export class BuildingService {
             response.headers.get('Pagination')
           );
         }
-        console.log(paginatedResult.pagination);
         return paginatedResult;
       });
   }
@@ -97,7 +96,6 @@ export class BuildingService {
             response.headers.get('Pagination')
           );
         }
-        console.log(paginatedResult.pagination);
         return paginatedResult;
       });
   }
@@ -113,7 +111,6 @@ export class BuildingService {
   }
 
   saveBuildingEdit(model: Building) {
-    console.log(model);
 
     return this.http
       .post(this.baseUrl + 'building/edit', model, {
@@ -122,7 +119,6 @@ export class BuildingService {
   }
 
   addBuilding(model: Building) {
-    console.log(model);
 
     return this.http
       .post(this.baseUrl + 'building/add', model, {
@@ -131,7 +127,6 @@ export class BuildingService {
   }
 
   saveBuildingTypeEdit(model: BuildingType) {
-    console.log(model);
 
     return this.http
       .post(this.baseUrl + 'building/edittype', model, {
@@ -140,7 +135,6 @@ export class BuildingService {
   }
 
   addBuildingType(model: BuildingType) {
-    console.log(model);
 
     return this.http
       .post(this.baseUrl + 'building/addtype', model, {

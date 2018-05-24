@@ -50,21 +50,6 @@ export class BuildingsdialogComponent implements OnInit {
   }
 
   formInit() {
-    // if (this.title !== 'Add Building') {
-    //   const selectedBldgList = this.buildingTypeList.filter(
-    //     type => type.id === this.building.buildingCategoryId
-    //   );
-    //   this.selectedBuildingType = selectedBldgList[0];
-    //   console.log(this.selectedBuildingType);
-    // } else {
-    //   this.selectedBuildingType = this.buildingTypeList[0];
-    // }
-
-    // this.buildingTypeList.forEach(type => {
-    //   if (this.building.buildingCategoryId === type.id) {
-    //     this.selectedBuildingType = type;
-    //   }
-    // });
 
     if (this.building.buildingCategory != null) {
       this.selectedBuildingCat = this.building.buildingCategory;
@@ -86,7 +71,6 @@ export class BuildingsdialogComponent implements OnInit {
       this.building.buildingCategory = this.selectedBuildingCat;
       this.building.buildingCategoryId = this.selectedBuildingCat.id;
     }
-    console.log(this.building);
     this.dialogRef.close(this.building);
   }
 

@@ -158,13 +158,6 @@ export class FileuploadComponent implements OnInit {
     } else if (this.type === 'lodging') {
       const dialogRef = this.dialog.open(LodgingDialogComponent, dialogConfig);
     }
-    // dialogRef.afterClosed().subscribe(
-    //   data => this.fileuploadService. (data).subscribe((success) => {
-    //     console.log(success);
-    //   }, error => {
-    //     this.alertify.error(error);
-    //   })
-    // );
   }
 
   OnSubmitClick() {

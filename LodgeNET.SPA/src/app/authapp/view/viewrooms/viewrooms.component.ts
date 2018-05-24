@@ -82,7 +82,6 @@ export class ViewroomsComponent implements OnInit {
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.showSpinner = false;
           this.roomList = paginatedResult.result;
-          console.log(this.roomList);
           this.pagination = paginatedResult.pagination;
         }, error => {
           this.alertify.error(error);
@@ -92,7 +91,6 @@ export class ViewroomsComponent implements OnInit {
       this.guestStayService.getRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.roomList = paginatedResult.result;
-          console.log(this.roomList);
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
         }, error => {
@@ -101,17 +99,6 @@ export class ViewroomsComponent implements OnInit {
         });
     }
   }
-
-  // getAllBuildings() {
-  //   this.buildingService.getAllBuildings().subscribe(
-  //       (buildingList: Building[]) => {
-  //         this.buildingList = buildingList;
-  //       },
-  //       error => {
-  //         this.alertify.error(error);
-  //       }
-  //     );
-  // }
 
   onSearch() {
     if(this.selectedBuilding != null) {
@@ -193,7 +180,6 @@ export class ViewroomsComponent implements OnInit {
   }
 
   deleteRoomById(room) {
-    console.log(room.id);
     if (room != null) {
       this.alertify.confirm(
         'Are you sure you wish to delete ' + room.roomNumber + '? <br /> <br /> WARNING: All stays of this room will be deleted.',
@@ -208,7 +194,7 @@ export class ViewroomsComponent implements OnInit {
               }
             },
             error => {
-              console.log(error);
+              this.alertify.error(error);
             }
           );
         }

@@ -33,7 +33,6 @@ export class GueststaydialogComponent implements OnInit {
   save() {
     this.guestStay.checkInDate = this.form.value['checkInDate'];
     this.guestStay.checkOutDate = this.form.value['checkOutDate'];
-console.log(this.guestStay);
     this.dialogRef.close(this.guestStay);
   }
 

@@ -12,7 +12,6 @@ constructor(private http: HttpClient) { }
 
 
 uploadUnaccomData(fileRows: FileRow[]) {
-    console.log(fileRows);
     return this.http.post(this.baseUrl + 'file/DataRows', fileRows, {headers: new HttpHeaders()
         .set('Content-Type', 'application/json')});
 }

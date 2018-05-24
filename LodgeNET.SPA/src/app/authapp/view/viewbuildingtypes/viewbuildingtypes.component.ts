@@ -84,20 +84,16 @@ export class ViewbuildingtypesComponent implements OnInit {
       buildingType: buildingType
     };
 
-    console.log(dialogConfig.data);
 
     const dialogRef = this.dialog.open(BuildingtypesdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
       if (data != null) {
         this.buildingService.saveBuildingTypeEdit(data).subscribe(
           success => {
-            console.log(data);
             this.alertify.success(data.type + ' successfully updated.');
-            console.log(success);
           },
           error => {
-            console.log(error);
+            this.alertify.error(error);
           }
         );
       }
@@ -117,21 +113,17 @@ export class ViewbuildingtypesComponent implements OnInit {
     } as BuildingType
     };
 
-    console.log(dialogConfig.data);
 
     const dialogRef = this.dialog.open(BuildingtypesdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
-      console.log('Adding' + data);
       if (data != null) {
         this.buildingService.addBuildingType(data).subscribe(
           success => {
-            console.log(data);
             this.alertify.success(data.type + ' successfully added.');
             this.loadBuildingTypes();
-            console.log(success);
           },
           error => {
-            console.log(error);
+            this.alertify.error(error);
           }
         );
       }
@@ -140,7 +132,6 @@ export class ViewbuildingtypesComponent implements OnInit {
 
   deleteBuildingType(buildingType) {
     if (buildingType != null) {
-      console.log(buildingType);
       this.alertify.confirm(
         'Are you sure you wish to delete ' + buildingType.type + '? <br /> <br /> WARNING: All buildings and rooms of this building type will be deleted.',
         () => {
@@ -155,7 +146,7 @@ export class ViewbuildingtypesComponent implements OnInit {
               }
             },
             error => {
-              console.log(error);
+              this.alertify.error(error);
             }
           );
         }

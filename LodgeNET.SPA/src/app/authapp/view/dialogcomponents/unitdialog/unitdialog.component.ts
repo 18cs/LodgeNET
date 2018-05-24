@@ -53,8 +53,6 @@ export class UnitdialogComponent implements OnInit {
       this.unit.parentUnit = this.selectedParentUnit;
       this.unit.parentUnitId = this.selectedParentUnit.id;
     }
-    // this.guestStay.checkOutDate = this.form.value['checkOutDate'];
-    console.log(this.unit);
     this.dialogRef.close(this.unit);
   }
 

@@ -166,7 +166,6 @@ export class ViewbuildingsComponent implements OnInit {
   }
 
   deleteBuildingById(bldg) {
-    console.log(bldg.id);
     if (bldg != null) {
       this.alertify.confirm(
         'Are you sure you wish to delete ' + bldg.name + '? <br /> <br /> WARNING: All rooms and stays of this building will be deleted.',
@@ -181,56 +180,14 @@ export class ViewbuildingsComponent implements OnInit {
                 this.buildingList.splice(bldgIndex, 1);
               }
             },
-            error => {
-              console.log(error);
+            error => { 
+              this.alertify.error(error);
             }
           );
         }
       );
     }
   }
-
-  // OLD CODE
-  //
-  // getOccupancyRate(currentGuests, capacity) {
-  //   return capacity === 0 ? 0 : currentGuests / capacity * 100;
-  // }
-
-  // getTotalOccupancyRate() {
-  //   let totalCapacity = 0;
-  //   let totalCurrentGuest = 0;
-
-  //   this.buildingDashboard.buildingTypeList.forEach(type => {
-  //     totalCurrentGuest += type.currentGuests;
-  //     totalCapacity += type.capacity;
-  //   });
-
-  //   return (totalCurrentGuest / totalCapacity * 100).toFixed(2);
-  // }
-
-  // getTotalOccupancy() {
-  //   let totalCapacitys = 0;
-  //   let totalCurrentGuests = 0;
-
-  //   this.buildingDashboard.buildingTypeList.forEach(cat => {
-  //     totalCurrentGuests += cat.currentGuests;
-  //     totalCapacitys += cat.capacity;
-  //   });
-
-  //   return totalCurrentGuests + ' / ' + totalCapacitys;
-  // }
-
-  // showConditionCheck(buildingId: number) {
-  //   if (buildingId === 1) {
-  //     return this.isLodgingOpen;
-  //   } else if (buildingId === 2) {
-  //     return this.isVacentHousingOpen;
-  //   } else if (buildingId === 3) {
-  //     return this.isUnaccompaniedHousingOpen;
-  //   } else {
-  //     return this.isEmergencyQuartersOpen;
-  //   }
-  // }
 
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;

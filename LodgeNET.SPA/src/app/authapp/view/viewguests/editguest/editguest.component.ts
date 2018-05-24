@@ -25,12 +25,9 @@ export class EditguestComponent implements OnInit {
   constructor(private alertify: AlertifyService, private gueststayService: GueststayService) { }
 
   ngOnInit() {
-    console.log(this.formData);
-    console.log(this.guest);
     if (this.guest.serviceId) {
       this.selectedService = this.formData. serviceList.find(s => s.id === this.guest.serviceId);
     }
-    console.log(this.selectedService);
     if (this.guest.unitId) {
       this.selectedUnit = this.formData.unitList.find(u => u.id === this.guest.unitId);
       this.filterStatus = this.selectedUnit.name;
