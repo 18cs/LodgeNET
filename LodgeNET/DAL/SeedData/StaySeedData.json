@@ -1,0 +1,92 @@
+[
+    {
+      "index": 0,
+      "GuestId": 6,
+      "DateCheckedIn": "2018-02-23",
+      "DateCheckedOut": "2018-03-25",
+      "ReservationId": 5,
+      "RoomId": 9,
+      "BuildingId": 6
+    },
+    {
+      "index": 1,
+      "GuestId": 8,
+      "DateCheckedIn": "2018-03-05",
+      "DateCheckedOut": "2018-03-26",
+      "ReservationId": 5,
+      "RoomId": 9,
+      "BuildingId": 4
+    },
+    {
+      "index": 2,
+      "GuestId": 7,
+      "DateCheckedIn": "2018-01-19",
+      "DateCheckedOut": "2018-03-29",
+      "ReservationId": 9,
+      "RoomId": 7,
+      "BuildingId": 10
+    },
+    {
+      "index": 3,
+      "GuestId": 4,
+      "DateCheckedIn": "2018-02-11",
+      "DateCheckedOut": "2018-03-29",
+      "ReservationId": 7,
+      "RoomId": 2,
+      "BuildingId": 7
+    },
+    {
+      "index": 4,
+      "GuestId": 8,
+      "DateCheckedIn": "2018-03-07",
+      "DateCheckedOut": "2018-03-27",
+      "ReservationId": 6,
+      "RoomId": 5,
+      "BuildingId": 4
+    },
+    {
+      "index": 5,
+      "GuestId": 5,
+      "DateCheckedIn": "2018-02-13",
+      "DateCheckedOut": "2018-03-30",
+      "ReservationId": 9,
+      "RoomId": 2,
+      "BuildingId": 1
+    },
+    {
+      "index": 6,
+      "GuestId": 8,
+      "DateCheckedIn": "2018-03-16",
+      "DateCheckedOut": "2018-03-25",
+      "ReservationId": 4,
+      "RoomId": 8,
+      "BuildingId": 10
+    },
+    {
+      "index": 7,
+      "GuestId": 0,
+      "DateCheckedIn": "2018-02-13",
+      "DateCheckedOut": "2018-03-25",
+      "ReservationId": 5,
+      "RoomId": 8,
+      "BuildingId": 4
+    },
+    {
+      "index": 8,
+      "GuestId": 7,
+      "DateCheckedIn": "2018-01-10",
+      "DateCheckedOut": "2018-03-27",
+      "ReservationId": 6,
+      "RoomId": 6,
+      "BuildingId": 6
+    },
+    {
+      "index": 9,
+      "GuestId": 2,
+      "DateCheckedIn": "2018-01-12",
+      "DateCheckedOut": "2018-03-27",
+      "ReservationId": 2,
+      "RoomId": 7,
+      "BuildingId": 4
+    }
+  ]
