@@ -21,7 +21,7 @@ export class ViewbuildingsComponent implements OnInit {
   pageSize = 10;
   pageNumber = 1;
   pagination: Pagination;
-  showSpinner = false;
+  showSpinner = true;
   filterParams: BuildingParams;
 
   // isLodgingOpen = false;

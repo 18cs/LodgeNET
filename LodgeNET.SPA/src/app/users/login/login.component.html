@@ -5,7 +5,7 @@
         <div class="col-xs-12 col-md-6 col-lg-6">
           <div class="form-group">
             <label for="username">User Name</label>
-            <input type="text" id="username" formControlName="username" class="form-control is-invalid" maxlength="50">
+            <input type="text" id="username" formControlName="username" class="form-control" maxlength="50">
             <div *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched" class="invalid-feedback">
               Please enter a User Name
             </div>
@@ -16,7 +16,7 @@
         <div class="col-xs-12 col-md-6 col-lg-6">
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" id="password" formControlName="password" class="form-control is-invalid" maxlength="50">
+            <input type="password" id="password" formControlName="password" class="form-control" maxlength="50">
             <div *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched" class="invalid-feedback">
               Please enter a Password
             </div>

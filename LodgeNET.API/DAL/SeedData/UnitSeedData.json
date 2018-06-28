@@ -35,11 +35,11 @@
         "ParentUnitId": 3
     },
     {
-        "Name": "3rd Fleet",
+        "Name": "3 Fleet",
         "ParentUnitId": 4
     },
     {
-        "Name": "7th Fleet",
+        "Name": "7 Fleet",
         "ParentUnitId": 4
     },
     {
@@ -75,15 +75,15 @@
         "ParentUnitId": 5
     },
     {
-        "Name": "8th Army",
+        "Name": "8 Army",
         "ParentUnitId": 6
     },
     {
-        "Name": "7th Infantry Division",
+        "Name": "7 Infantry Division",
         "ParentUnitId": 6
     },
     {
-        "Name": "25th Infantry Division",
+        "Name": "25 Infantry Division",
         "ParentUnitId": 6
     },
     {
@@ -95,91 +95,91 @@
         "ParentUnitId": 6
     },
     {
-        "Name": "8th Theater Sustainment Command",
+        "Name": "8 Theater Sustainment Command",
         "ParentUnitId": 6
     },
     {
-        "Name": "311th Signal Command",
+        "Name": "311 Signal Command",
         "ParentUnitId": 6
     },
     {
-        "Name": "94th Army Air & Missile Defense Command",
+        "Name": "94 Army Air & Missile Defense Command",
         "ParentUnitId": 6
     },
     {
-        "Name": "9th Mission Support Command",
+        "Name": "9 Mission Support Command",
         "ParentUnitId": 6
     },
     {
-        "Name": "196th Infantry Brigade",
+        "Name": "196 Infantry Brigade",
         "ParentUnitId": 6
     },
     {
-        "Name": "500th Military Intelligence Brigade",
+        "Name": "500 Military Intelligence Brigade",
         "ParentUnitId": 6
     },
     {
-        "Name": "18th Medical Command",
+        "Name": "18 Medical Command",
         "ParentUnitId": 6
     },
     {
-        "Name": "5th Battlefield Coordination Detachment",
+        "Name": "5 Battlefield Coordination Detachment",
         "ParentUnitId": 6
     },
     {
-        "Name": "18th Wing",
+        "Name": "18 Wing",
         "ParentUnitId": 7
     },
     {
-        "Name": "35th Fighter Wing",
+        "Name": "35 Fighter Wing",
         "ParentUnitId": 7
     },
     {
-        "Name": "374th Airlift Wing",
+        "Name": "374 Airlift Wing",
         "ParentUnitId": 7
     },
     {
-        "Name": "51st Fighter Wing",
+        "Name": "51 Fighter Wing",
         "ParentUnitId": 8
     },
     {
-        "Name": "8th Fighter Wing",
+        "Name": "8 Fighter Wing",
         "ParentUnitId": 8
     },
     {
-        "Name": "607th Air and Space Operations Center",
+        "Name": "607 Air and Space Operations Center",
         "ParentUnitId": 8
     },
     {
-        "Name": "607th Air Support Group",
+        "Name": "607 Air Support Group",
         "ParentUnitId": 8
     },
     {
-        "Name": "607th Air Support Operations Group",
+        "Name": "607 Air Support Operations Group",
         "ParentUnitId": 8
     },
     {
-        "Name": "607th Support Group",
+        "Name": "607 Support Group",
         "ParentUnitId": 8
     },
     {
-        "Name": "3rd Wing",
+        "Name": "3 Wing",
         "ParentUnitId": 9
     },
     {
-        "Name": "354th Fighter Wing",
+        "Name": "354 Fighter Wing",
         "ParentUnitId": 9
     },
     {
-        "Name": "36th Wing",
+        "Name": "36 Wing",
         "ParentUnitId": 9
     },
     {
-        "Name": "611th Air and Space Operations Center",
+        "Name": "611 Air and Space Operations Center",
         "ParentUnitId": 9
     },
     {
-        "Name": "611th Air Support Group",
+        "Name": "611 Air Support Group",
         "ParentUnitId": 9
     },
     {
@@ -191,11 +191,11 @@
         "ParentUnitId": 9
     },
     {
-        "Name": "168th Air Refueling Wing",
+        "Name": "168 Air Refueling Wing",
         "ParentUnitId": 9
     },
     {
-        "Name": "176th Wing",
+        "Name": "176 Wing",
         "ParentUnitId": 9
     },
     {
@@ -251,7 +251,7 @@
         "ParentUnitId": 10
     },
     {
-        "Name": "Sub and Theater Anti-Sub Warfare Force 3rd Fleet",
+        "Name": "Sub and Theater Anti-Sub Warfare Force 3 Fleet",
         "ParentUnitId": 10
     },
     {
@@ -315,15 +315,15 @@
         "ParentUnitId": 12
     },
     {
-        "Name": "1st Marine Division",
+        "Name": "1 Marine Division",
         "ParentUnitId": 16
     },
     {
-        "Name": "3rd MAW",
+        "Name": "3 MAW",
         "ParentUnitId": 16
     },
     {
-        "Name": "1st MLG",
+        "Name": "1 MLG",
         "ParentUnitId": 16
     },
     {
@@ -331,31 +331,31 @@
         "ParentUnitId": 16
     },
     {
-        "Name": "1st MEB",
+        "Name": "1 MEB",
         "ParentUnitId": 16
     },
     {
-        "Name": "11th MEU",
+        "Name": "11 MEU",
         "ParentUnitId": 16
     },
     {
-        "Name": "13th MEU",
+        "Name": "13 MEU",
         "ParentUnitId": 16
     },
     {
-        "Name": "15th MEU",
+        "Name": "15 MEU",
         "ParentUnitId": 16
     },
     {
-        "Name": "3rd Marine Division",
+        "Name": "3 Marine Division",
         "ParentUnitId": 17
     },
     {
-        "Name": "1st MAW",
+        "Name": "1 MAW",
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd MLG",
+        "Name": "3 MLG",
         "ParentUnitId": 17
     },
     {
@@ -367,35 +367,35 @@
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd Intelligence Battalion",
+        "Name": "3 Intelligence Battalion",
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd Law Enforcement Battalion",
+        "Name": "3 Law Enforcement Battalion",
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd Radio Battalion",
+        "Name": "3 Radio Battalion",
         "ParentUnitId": 17
     },
     {
-        "Name": "7th Communication Battalion",
+        "Name": "7 Communication Battalion",
         "ParentUnitId": 17
     },
     {
-        "Name": "5th Air Naval Gunfire Liaison Company",
+        "Name": "5 Air Naval Gunfire Liaison Company",
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd MEB",
+        "Name": "3 MEB",
         "ParentUnitId": 17
     },
     {
-        "Name": "31st MEU",
+        "Name": "31 MEU",
         "ParentUnitId": 17
     },
     {
-        "Name": "3rd Radio Battalion",
+        "Name": "3 Radio Battalion",
         "ParentUnitId": 17
     },
     {
@@ -403,35 +403,35 @@
         "ParentUnitId": 20
     },
     {
-        "Name": "19th Sustainment Command",
+        "Name": "19 Sustainment Command",
         "ParentUnitId": 20
     },
     {
-        "Name": "35th Air Defense Artillery Brigade",
+        "Name": "35 Air Defense Artillery Brigade",
         "ParentUnitId": 20
     },
     {
-        "Name": "501st Military Intelligence Brigade",
+        "Name": "501 Military Intelligence Brigade",
         "ParentUnitId": 20
     },
     {
-        "Name": "1st Signal Brigade",
+        "Name": "1 Signal Brigade",
         "ParentUnitId": 20
     },
     {
-        "Name": "65th Medical Brigade",
+        "Name": "65 Medical Brigade",
         "ParentUnitId": 20
     },
     {
-        "Name": "4th Battalion",
+        "Name": "4 Battalion",
         "ParentUnitId": 20
     },
     {
-        "Name": "106th Medical Detachment",
+        "Name": "106 Medical Detachment",
         "ParentUnitId": 20
     },
     {
-        "Name": "1st Stryker BCT",
+        "Name": "1 Stryker BCT",
         "ParentUnitId": 21
     },
     {
@@ -439,7 +439,7 @@
         "ParentUnitId": 21
     },
     {
-        "Name": "81st Stryker BCT",
+        "Name": "81 Stryker BCT",
         "ParentUnitId": 21
     },
     {
@@ -447,23 +447,23 @@
         "ParentUnitId": 21
     },
     {
-        "Name": "16th Combat Aviation Brigade",
+        "Name": "16 Combat Aviation Brigade",
         "ParentUnitId": 21
     },
     {
-        "Name": "17th Field Artillery Brigade",
+        "Name": "17 Field Artillery Brigade",
         "ParentUnitId": 21
     },
     {
-        "Name": "555th Engineer Brigade",
+        "Name": "555 Engineer Brigade",
         "ParentUnitId": 21
     },
     {
-        "Name": "201st Expeditionary Military Intelligence Brigade",
+        "Name": "201 Expeditionary Military Intelligence Brigade",
         "ParentUnitId": 21
     },
     {
-        "Name": "1st Stryker BCT",
+        "Name": "1 Stryker BCT",
         "ParentUnitId": 22
     },
     {
@@ -471,11 +471,11 @@
         "ParentUnitId": 22
     },
     {
-        "Name": "3rd Infantry BCT",
+        "Name": "3 Infantry BCT",
         "ParentUnitId": 22
     },
     {
-        "Name": "4th Infantry BCT",
+        "Name": "4 Infantry BCT",
         "ParentUnitId": 22
     },
     {
@@ -487,7 +487,7 @@
         "ParentUnitId": 22
     },
     {
-        "Name": "25th Sustainment Brigade",
+        "Name": "25 Sustainment Brigade",
         "ParentUnitId": 22
     },
     {
@@ -499,7 +499,7 @@
         "ParentUnitId": 23
     },
     {
-        "Name": "17th Combat Sustainment Battalion",
+        "Name": "17 Combat Sustainment Battalion",
         "ParentUnitId": 23
     },
     {
@@ -507,7 +507,7 @@
         "ParentUnitId": 23
     },
     {
-        "Name": "297th Regional Support Group",
+        "Name": "297 Regional Support Group",
         "ParentUnitId": 23
     },
     {
@@ -515,7 +515,7 @@
         "ParentUnitId": 24
     },
     {
-        "Name": "10th Support Group, Okinawa, Japan",
+        "Name": "10 Support Group, Okinawa, Japan",
         "ParentUnitId": 24
     },
     {
@@ -531,27 +531,27 @@
         "ParentUnitId": 24
     },
     {
-        "Name": "8th Special Troops Battalion",
+        "Name": "8 Special Troops Battalion",
         "ParentUnitId": 25
     },
     {
-        "Name": "45th Sustainment Brigade",
+        "Name": "45 Sustainment Brigade",
         "ParentUnitId": 25
     },
     {
-        "Name": "8th Military Police Brigade",
+        "Name": "8 Military Police Brigade",
         "ParentUnitId": 25
     },
     {
-        "Name": "130th Engineer Brigade",
+        "Name": "130 Engineer Brigade",
         "ParentUnitId": 25
     },
     {
-        "Name": "1st Signal Brigade",
+        "Name": "1 Signal Brigade",
         "ParentUnitId": 26
     },
     {
-        "Name": "516th Signal Brigade",
+        "Name": "516 Signal Brigade",
         "ParentUnitId": 26
     },
     {
@@ -559,15 +559,15 @@
         "ParentUnitId": 27
     },
     {
-        "Name": "1st Battalion, 1st Air Defense Artillery Regiment",
+        "Name": "1 Battalion, 1 Air Defense Artillery Regiment",
         "ParentUnitId": 27
     },
     {
-        "Name": "10th Missile Defense Detachment",
+        "Name": "10 Missile Defense Detachment",
         "ParentUnitId": 27
     },
     {
-        "Name": "14th Missile Defense Detachment",
+        "Name": "14 Missile Defense Detachment",
         "ParentUnitId": 27
     },
     {
@@ -575,11 +575,11 @@
         "ParentUnitId": 28
     },
     {
-        "Name": "3rd Mobilization Support Group",
+        "Name": "3 Mobilization Support Group",
         "ParentUnitId": 28
     },
     {
-        "Name": "658th Regional Support Group",
+        "Name": "658 Regional Support Group",
         "ParentUnitId": 28
     },
     {
@@ -587,7 +587,7 @@
         "ParentUnitId": 28
     },
     {
-        "Name": "303rd Maneuver Enhancement Brigade",
+        "Name": "303 Maneuver Enhancement Brigade",
         "ParentUnitId": 28
     },
     {
@@ -595,11 +595,11 @@
         "ParentUnitId": 28
     },
     {
-        "Name": "4960th Multi Functional Training Brigade",
+        "Name": "4960 Multi Functional Training Brigade",
         "ParentUnitId": 28
     },
     {
-        "Name": "1984th US Army Hospital",
+        "Name": "1984 US Army Hospital",
         "ParentUnitId": 28
     },
     {
@@ -607,7 +607,7 @@
         "ParentUnitId": 28
     },
     {
-        "Name": "411th Engineer Battalion",
+        "Name": "411 Engineer Battalion",
         "ParentUnitId": 28
     },
     {
@@ -615,543 +615,543 @@
         "ParentUnitId": 30
     },
     {
-        "Name": "205th Military Intelligence Battalion",
+        "Name": "205 Military Intelligence Battalion",
         "ParentUnitId": 30
     },
     {
-        "Name": "301st Military Intelligence Battalion",
+        "Name": "301 Military Intelligence Battalion",
         "ParentUnitId": 30
     },
     {
-        "Name": "441st Military Intelligence Battalion",
+        "Name": "441 Military Intelligence Battalion",
         "ParentUnitId": 30
     },
     {
-        "Name": "715th Military Intelligence Battalion",
+        "Name": "715 Military Intelligence Battalion",
         "ParentUnitId": 30
     },
     {
-        "Name": "18th Operations Group",
+        "Name": "18 Operations Group",
         "ParentUnitId": 33
     },
     {
-        "Name": "18th Mission Support Group",
+        "Name": "18 Mission Support Group",
         "ParentUnitId": 33
     },
     {
-        "Name": "18th Maintenance Group",
+        "Name": "18 Maintenance Group",
         "ParentUnitId": 33
     },
     {
-        "Name": "18th Medical Group",
+        "Name": "18 Medical Group",
         "ParentUnitId": 33
     },
     {
-        "Name": "18th Civil Engineer Group",
+        "Name": "18 Civil Engineer Group",
         "ParentUnitId": 33
     },
     {
-        "Name": "35th Operations Group",
+        "Name": "35 Operations Group",
         "ParentUnitId": 34
     },
     {
-        "Name": "35th Maintenance Group",
+        "Name": "35 Maintenance Group",
         "ParentUnitId": 34
     },
     {
-        "Name": "35th Mission Support Group",
+        "Name": "35 Mission Support Group",
         "ParentUnitId": 34
     },
     {
-        "Name": "374th Operations Group",
+        "Name": "374 Operations Group",
         "ParentUnitId": 35
     },
     {
-        "Name": "374th Maintenance Group",
+        "Name": "374 Maintenance Group",
         "ParentUnitId": 35
     },
     {
-        "Name": "374th Mission Support Group",
+        "Name": "374 Mission Support Group",
         "ParentUnitId": 35
     },
     {
-        "Name": "51st Operations Group",
+        "Name": "51 Operations Group",
         "ParentUnitId": 36
     },
     {
-        "Name": "51st Mission Support Group",
+        "Name": "51 Mission Support Group",
         "ParentUnitId": 36
     },
     {
-        "Name": "51st Maintenance Group",
+        "Name": "51 Maintenance Group",
         "ParentUnitId": 36
     },
     {
-        "Name": "51st Medical Group",
+        "Name": "51 Medical Group",
         "ParentUnitId": 36
     },
     {
-        "Name": "51st Fighter Wing Staff Agencies",
+        "Name": "51 Fighter Wing Staff Agencies",
         "ParentUnitId": 36
     },
     {
-        "Name": "8th Operations Group",
+        "Name": "8 Operations Group",
         "ParentUnitId": 37
     },
     {
-        "Name": "8th Maintenance Group",
+        "Name": "8 Maintenance Group",
         "ParentUnitId": 37
     },
     {
-        "Name": "8th Mission Support Group",
+        "Name": "8 Mission Support Group",
         "ParentUnitId": 37
     },
     {
-        "Name": "8th Medical Group",
+        "Name": "8 Medical Group",
         "ParentUnitId": 37
     },
     {
-        "Name": "3rd Operations Group",
+        "Name": "3 Operations Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3rd Maintenance Group",
+        "Name": "3 Maintenance Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3rd Mission Support Group",
+        "Name": "3 Mission Support Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3rd Medical Group",
+        "Name": "3 Medical Group",
         "ParentUnitId": 42
     },
     {
-        "Name": "3rd Wing Staff Agencies",
+        "Name": "3 Wing Staff Agencies",
         "ParentUnitId": 42
     },
     {
-        "Name": "354th Operations Group",
+        "Name": "354 Operations Group",
         "ParentUnitId": 43
     },
     {
-        "Name": "354th Maintenance Group",
+        "Name": "354 Maintenance Group",
         "ParentUnitId": 43
     },
     {
-        "Name": "354th Mission Support Group",
+        "Name": "354 Mission Support Group",
         "ParentUnitId": 43
     },
     {
-        "Name": "354th Medical Group",
+        "Name": "354 Medical Group",
         "ParentUnitId": 43
     },
     {
-        "Name": "36th Operations Group",
+        "Name": "36 Operations Group",
         "ParentUnitId": 44
     },
     {
-        "Name": "36th Maintenance Group",
+        "Name": "36 Maintenance Group",
         "ParentUnitId": 44
     },
     {
-        "Name": "36th Contingency Response Group",
+        "Name": "36 Contingency Response Group",
         "ParentUnitId": 44
     },
     {
-        "Name": "36th Medical Group",
+        "Name": "36 Medical Group",
         "ParentUnitId": 44
     },
     {
-        "Name": "36th Mission Support Group",
+        "Name": "36 Mission Support Group",
         "ParentUnitId": 44
     },
     {
-        "Name": "611th Air Support Squadron",
+        "Name": "611 Air Support Squadron",
         "ParentUnitId": 46
     },
     {
-        "Name": "611th Air Communications Squadron",
+        "Name": "611 Air Communications Squadron",
         "ParentUnitId": 46
     },
     {
-        "Name": "611th Civil Engineer Squadron",
+        "Name": "611 Civil Engineer Squadron",
         "ParentUnitId": 46
     },
     {
-        "Name": "168th Operations Group",
+        "Name": "168 Operations Group",
         "ParentUnitId": 49
     },
     {
-        "Name": "168th Maintenance Group",
+        "Name": "168 Maintenance Group",
         "ParentUnitId": 49
     },
     {
-        "Name": "168th Mission Support Group",
+        "Name": "168 Mission Support Group",
         "ParentUnitId": 49
     },
     {
-        "Name": "168th Medical Group",
+        "Name": "168 Medical Group",
         "ParentUnitId": 49
     },
     {
-        "Name": "213th Space Warning Squadron",
+        "Name": "213 Space Warning Squadron",
         "ParentUnitId": 49
     },
     {
-        "Name": "176th Operations Group",
+        "Name": "176 Operations Group",
         "ParentUnitId": 50
     },
     {
-        "Name": "176th Maintenance Group",
+        "Name": "176 Maintenance Group",
         "ParentUnitId": 50
     },
     {
-        "Name": "176th Mission Support Group",
+        "Name": "176 Mission Support Group",
         "ParentUnitId": 50
     },
     {
-        "Name": "176th Medical Group",
+        "Name": "176 Medical Group",
         "ParentUnitId": 50
     },
     {
-        "Name": "11th Rescue Coordination Center",
+        "Name": "11 Rescue Coordination Center",
         "ParentUnitId": 50
     },
     {
-        "Name": "176th Wing Staff",
+        "Name": "176 Wing Staff",
         "ParentUnitId": 50
     },
     {
-        "Name": "18th Aeromedical Evacuation Squadron",
+        "Name": "18 Aeromedical Evacuation Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "18th Operations Support Squadron",
+        "Name": "18 Operations Support Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "44th Fighter Squadron",
+        "Name": "44 Fighter Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "67th Fighter Squadron",
+        "Name": "67 Fighter Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "31st Rescue Squadron",
+        "Name": "31 Rescue Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "33rd Rescue Sqadron",
+        "Name": "33 Rescue Sqadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "623rd Air Control Flight/Squadron",
+        "Name": "623 Air Control Flight/Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "909th Air Refueling Squadron",
+        "Name": "909 Air Refueling Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "961st Airborne Air Control(CTRL) Squadron",
+        "Name": "961 Airborne Air Control(CTRL) Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "18th Communications Squadron",
+        "Name": "18 Communications Squadron",
         "ParentUnitId": 160
     },
     {
-        "Name": "18th Contracting Squadron",
+        "Name": "18 Contracting Squadron",
         "ParentUnitId": 160
     },
     {
-        "Name": "18th Logistics Readiness Squadron",
+        "Name": "18 Logistics Readiness Squadron",
         "ParentUnitId": 160
     },
     {
-        "Name": "18th Force Support Squadron",
+        "Name": "18 Force Support Squadron",
         "ParentUnitId": 160
     },
     {
-        "Name": "18th Security Forces Squadron",
+        "Name": "18 Security Forces Squadron",
         "ParentUnitId": 160
     },
     {
-        "Name": "18th Aircraft Maintenance Squadron",
+        "Name": "18 Aircraft Maintenance Squadron",
         "ParentUnitId": 161
     },
     {
-        "Name": "718th Aircraft Maintenance Squadron",
+        "Name": "718 Aircraft Maintenance Squadron",
         "ParentUnitId": 161
     },
     {
-        "Name": "18th Equipment Maintenance Squadron",
+        "Name": "18 Equipment Maintenance Squadron",
         "ParentUnitId": 161
     },
     {
-        "Name": "18th Component Maintenance Squadron",
+        "Name": "18 Component Maintenance Squadron",
         "ParentUnitId": 161
     },
     {
-        "Name": "18th Munitions Squadron",
+        "Name": "18 Munitions Squadron",
         "ParentUnitId": 161
     },
     {
-        "Name": "18th Aerospace Medicine Squadron",
+        "Name": "18 Aerospace Medicine Squadron",
         "ParentUnitId": 162
     },
     {
-        "Name": "18th Dental Squadron",
+        "Name": "18 Dental Squadron",
         "ParentUnitId": 162
     },
     {
-        "Name": "18th Medical Operations Squadron",
+        "Name": "18 Medical Operations Squadron",
         "ParentUnitId": 162
     },
     {
-        "Name": "18th Medical Support Squadron",
+        "Name": "18 Medical Support Squadron",
         "ParentUnitId": 162
     },
     {
-        "Name": "18th Civil Engineer Squadron",
+        "Name": "18 Civil Engineer Squadron",
         "ParentUnitId": 163
     },
     {
-        "Name": "718th Civil Engineer Squadron",
+        "Name": "718 Civil Engineer Squadron",
         "ParentUnitId": 163
     },
     {
-        "Name": "13th Fighter Squadron",
+        "Name": "13 Fighter Squadron",
         "ParentUnitId": 164
     },
     {
-        "Name": "14th Fighter Squadron",
+        "Name": "14 Fighter Squadron",
         "ParentUnitId": 164
     },
     {
-        "Name": "35th Operations Support Squadron",
+        "Name": "35 Operations Support Squadron",
         "ParentUnitId": 164
     },
     {
-        "Name": "610th Air Control Flight",
+        "Name": "610 Air Control Flight",
         "ParentUnitId": 164
     },
     {
-        "Name": "35th Aircraft Maintenance Squadron",
+        "Name": "35 Aircraft Maintenance Squadron",
         "ParentUnitId": 165
     },
     {
-        "Name": "35th Maintenance Squadron",
+        "Name": "35 Maintenance Squadron",
         "ParentUnitId": 165
     },
     {
-        "Name": "35th Maintenance Operations Squadron",
+        "Name": "35 Maintenance Operations Squadron",
         "ParentUnitId": 165
     },
     {
-        "Name": "35th Civil Engineer Squadron",
+        "Name": "35 Civil Engineer Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "35th Communications Squadron",
+        "Name": "35 Communications Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "35th Contracting Squadron",
+        "Name": "35 Contracting Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "35th Force Support Squadron",
+        "Name": "35 Force Support Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "35th Logistics Readiness Squadron",
+        "Name": "35 Logistics Readiness Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "35th Security Forces Squadron",
+        "Name": "35 Security Forces Squadron",
         "ParentUnitId": 166
     },
     {
-        "Name": "36th Airlift Squadron",
+        "Name": "36 Airlift Squadron",
         "ParentUnitId": 167
     },
     {
-        "Name": "459th Airlift Squadron",
+        "Name": "459 Airlift Squadron",
         "ParentUnitId": 167
     },
     {
-        "Name": "374th Operations Support Squadron",
+        "Name": "374 Operations Support Squadron",
         "ParentUnitId": 167
     },
     {
-        "Name": "374th Aircraft Maintenance Squadron",
+        "Name": "374 Aircraft Maintenance Squadron",
         "ParentUnitId": 168
     },
     {
-        "Name": "374th Maintenance Squadron",
+        "Name": "374 Maintenance Squadron",
         "ParentUnitId": 168
     },
     {
-        "Name": "374th Maintenance Operations Squadron",
+        "Name": "374 Maintenance Operations Squadron",
         "ParentUnitId": 168
     },
     {
-        "Name": "374th Civil Engineer Squadron",
+        "Name": "374 Civil Engineer Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "374th Communications Squadron",
+        "Name": "374 Communications Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "374th Contracting Squadron",
+        "Name": "374 Contracting Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "374th Force Support Squadron",
+        "Name": "374 Force Support Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "374th Logistics Readiness Squadron",
+        "Name": "374 Logistics Readiness Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "374th Security Forces Squadron",
+        "Name": "374 Security Forces Squadron",
         "ParentUnitId": 169
     },
     {
-        "Name": "25th Fighter Squadron",
+        "Name": "25 Fighter Squadron",
         "ParentUnitId": 170
     },
     {
-        "Name": "36th Fighter Squadron",
+        "Name": "36 Fighter Squadron",
         "ParentUnitId": 170
     },
     {
-        "Name": "51st Operations Support Squadron",
+        "Name": "51 Operations Support Squadron",
         "ParentUnitId": 170
     },
     {
-        "Name": "51st Civil Engineer Squadron",
+        "Name": "51 Civil Engineer Squadron",
         "ParentUnitId": 171
     },
     {
-        "Name": "51st Communications Squadron",
+        "Name": "51 Communications Squadron",
         "ParentUnitId": 171
     },
     {
-        "Name": "51st Force Support Squadron",
+        "Name": "51 Force Support Squadron",
         "ParentUnitId": 171
     },
     {
-        "Name": "51st Logistics Readiness Squadron",
+        "Name": "51 Logistics Readiness Squadron",
         "ParentUnitId": 171
     },
     {
-        "Name": "51st Security Forces Squadron",
+        "Name": "51 Security Forces Squadron",
         "ParentUnitId": 171
     },
     {
-        "Name": "51st Aircraft Maintenance Squadron",
+        "Name": "51 Aircraft Maintenance Squadron",
         "ParentUnitId": 172
     },
     {
-        "Name": "51st Maintenance Squadron",
+        "Name": "51 Maintenance Squadron",
         "ParentUnitId": 172
     },
     {
-        "Name": "51st Maintenance Operations Squadron",
+        "Name": "51 Maintenance Operations Squadron",
         "ParentUnitId": 172
     },
     {
-        "Name": "51st Munitions Squadron",
+        "Name": "51 Munitions Squadron",
         "ParentUnitId": 172
     },
     {
-        "Name": "51st Aerospace Medicine Squadron",
+        "Name": "51 Aerospace Medicine Squadron",
         "ParentUnitId": 173
     },
     {
-        "Name": "51st Dental Squadron",
+        "Name": "51 Dental Squadron",
         "ParentUnitId": 173
     },
     {
-        "Name": "51st Medical Operations Squadron",
+        "Name": "51 Medical Operations Squadron",
         "ParentUnitId": 173
     },
     {
-        "Name": "51st Medical Support Squadron",
+        "Name": "51 Medical Support Squadron",
         "ParentUnitId": 173
     },
     {
-        "Name": "51st Comptroller Squadron",
+        "Name": "51 Comptroller Squadron",
         "ParentUnitId": 36
     },
     {
-        "Name": "35th Fighter Squadron",
+        "Name": "35 Fighter Squadron",
         "ParentUnitId": 175
     },
     {
-        "Name": "80th Fighter Squadron",
+        "Name": "80 Fighter Squadron",
         "ParentUnitId": 175
     },
     {
-        "Name": "8th Operations Support Squadron",
+        "Name": "8 Operations Support Squadron",
         "ParentUnitId": 175
     },
     {
-        "Name": "8th Aircraft Maintenance Squadron",
+        "Name": "8 Aircraft Maintenance Squadron",
         "ParentUnitId": 176
     },
     {
-        "Name": "8th Maintenance Squadron",
+        "Name": "8 Maintenance Squadron",
         "ParentUnitId": 176
     },
     {
-        "Name": "8th Maintenance Operations Squadron",
+        "Name": "8 Maintenance Operations Squadron",
         "ParentUnitId": 176
     },
     {
-        "Name": "8th Civil Engineer Squadron",
+        "Name": "8 Civil Engineer Squadron",
         "ParentUnitId": 177
     },
     {
-        "Name": "8th Communications Squadron",
+        "Name": "8 Communications Squadron",
         "ParentUnitId": 177
     },
     {
-        "Name": "8th Force Support Squadron",
+        "Name": "8 Force Support Squadron",
         "ParentUnitId": 177
     },
     {
-        "Name": "8th Logistics Readiness Squadron",
+        "Name": "8 Logistics Readiness Squadron",
         "ParentUnitId": 177
     },
     {
-        "Name": "8th Security Forces Squadron",
+        "Name": "8 Security Forces Squadron",
         "ParentUnitId": 177
     },
     {
-        "Name": "8th Medical Operations Squadron",
+        "Name": "8 Medical Operations Squadron",
         "ParentUnitId": 178
     },
     {
-        "Name": "8th Medical Support Squadron",
+        "Name": "8 Medical Support Squadron",
         "ParentUnitId": 178
     },
     {
-        "Name": "517th Airlift Squadron",
+        "Name": "517 Airlift Squadron",
         "ParentUnitId": 179
     },
     {
-        "Name": "90th Fighter Squadron",
+        "Name": "90 Fighter Squadron",
         "ParentUnitId": 179
     },
     {
-        "Name": "525th Fighter Squadron",
+        "Name": "525 Fighter Squadron",
         "ParentUnitId": 179
     },
     {
@@ -1159,219 +1159,219 @@
         "ParentUnitId": 179
     },
     {
-        "Name": "3rd Operations Support Squadron",
+        "Name": "3 Operations Support Squadron",
         "ParentUnitId": 179
     },
     {
-        "Name": "3rd Aircraft Maintenance Squadron",
+        "Name": "3 Aircraft Maintenance Squadron",
         "ParentUnitId": 180
     },
     {
-        "Name": "703rd Aircraft Maintenance Squadron",
+        "Name": "703 Aircraft Maintenance Squadron",
         "ParentUnitId": 180
     },
     {
-        "Name": "3rd Maintenance Squadron",
+        "Name": "3 Maintenance Squadron",
         "ParentUnitId": 180
     },
     {
-        "Name": "3rd Munitions Squadron",
+        "Name": "3 Munitions Squadron",
         "ParentUnitId": 180
     },
     {
-        "Name": "3rd Maintenance Operations Squadron",
+        "Name": "3 Maintenance Operations Squadron",
         "ParentUnitId": 180
     },
     {
-        "Name": "18th Aggressor Squadron",
+        "Name": "18 Aggressor Squadron",
         "ParentUnitId": 184
     },
     {
-        "Name": "354th Operations Support Squadron",
+        "Name": "354 Operations Support Squadron",
         "ParentUnitId": 184
     },
     {
-        "Name": "354th Aircraft Maintenance Squadron",
+        "Name": "354 Aircraft Maintenance Squadron",
         "ParentUnitId": 185
     },
     {
-        "Name": "354th Maintenance Squadron",
+        "Name": "354 Maintenance Squadron",
         "ParentUnitId": 185
     },
     {
-        "Name": "354th Civil Engineer Squadron",
+        "Name": "354 Civil Engineer Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "354th Communications Squadron",
+        "Name": "354 Communications Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "354th Contracting Squadron",
+        "Name": "354 Contracting Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "354th Force Support Squadron",
+        "Name": "354 Force Support Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "354th Logistics Readiness Squadron",
+        "Name": "354 Logistics Readiness Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "354th Security Forces Squadron",
+        "Name": "354 Security Forces Squadron",
         "ParentUnitId": 186
     },
     {
-        "Name": "36th Maintenance Squadron",
+        "Name": "36 Maintenance Squadron",
         "ParentUnitId": 189
     },
     {
-        "Name": "36th Munitions Squadron",
+        "Name": "36 Munitions Squadron",
         "ParentUnitId": 189
     },
     {
-        "Name": "36th Mobility Response Squadron",
+        "Name": "36 Mobility Response Squadron",
         "ParentUnitId": 190
     },
     {
-        "Name": "554th RED HORSE",
+        "Name": "554 RED HORSE",
         "ParentUnitId": 190
     },
     {
-        "Name": "644th Combat Communications Squadron",
+        "Name": "644 Combat Communications Squadron",
         "ParentUnitId": 190
     },
     {
-        "Name": "736th Security Forces Squadron",
+        "Name": "736 Security Forces Squadron",
         "ParentUnitId": 190
     },
     {
-        "Name": "36th Civil Engineer Squadron",
+        "Name": "36 Civil Engineer Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "36th Communications Squadron",
+        "Name": "36 Communications Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "36th Contracting Squadron",
+        "Name": "36 Contracting Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "36th Force Support Squadron",
+        "Name": "36 Force Support Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "36th Logistics Readiness Squadron",
+        "Name": "36 Logistics Readiness Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "36th Security Forces Squadron",
+        "Name": "36 Security Forces Squadron",
         "ParentUnitId": 192
     },
     {
-        "Name": "168th Air Refueling Squadron",
+        "Name": "168 Air Refueling Squadron",
         "ParentUnitId": 196
     },
     {
-        "Name": "168th Operations Support Flight",
+        "Name": "168 Operations Support Flight",
         "ParentUnitId": 196
     },
     {
-        "Name": "168th Aircraft Maintenance Squadron",
+        "Name": "168 Aircraft Maintenance Squadron",
         "ParentUnitId": 197
     },
     {
-        "Name": "168th Maintenance Squadron",
+        "Name": "168 Maintenance Squadron",
         "ParentUnitId": 197
     },
     {
-        "Name": "168th Maintenance Operations Flight",
+        "Name": "168 Maintenance Operations Flight",
         "ParentUnitId": 197
     },
     {
-        "Name": "168th Logistics Readiness Squadron",
+        "Name": "168 Logistics Readiness Squadron",
         "ParentUnitId": 198
     },
     {
-        "Name": "168th Security Forces Squadron",
+        "Name": "168 Security Forces Squadron",
         "ParentUnitId": 198
     },
     {
-        "Name": "168th Communications Flight",
+        "Name": "168 Communications Flight",
         "ParentUnitId": 198
     },
     {
-        "Name": "168th Force Support Flight",
+        "Name": "168 Force Support Flight",
         "ParentUnitId": 198
     },
     {
-        "Name": "168th Force Support Flight",
+        "Name": "168 Force Support Flight",
         "ParentUnitId": 199
     },
     {
-        "Name": "168th Comptroller Flight",
+        "Name": "168 Comptroller Flight",
         "ParentUnitId": 49
     },
     {
-        "Name": "144th Airlift Squadron",
+        "Name": "144 Airlift Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "249th Airlift Squadron",
+        "Name": "249 Airlift Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "210th Rescue Squadron",
+        "Name": "210 Rescue Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "211th Rescue Squadron",
+        "Name": "211 Rescue Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "212th Rescue Squadron",
+        "Name": "212 Rescue Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "176th Air Defense Squadron",
+        "Name": "176 Air Defense Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "176th Operations Support Squadron",
+        "Name": "176 Operations Support Squadron",
         "ParentUnitId": 201
     },
     {
-        "Name": "176th Aircraft Maintenance Squadron",
+        "Name": "176 Aircraft Maintenance Squadron",
         "ParentUnitId": 202
     },
     {
-        "Name": "176th Maintenance Squadron",
+        "Name": "176 Maintenance Squadron",
         "ParentUnitId": 202
     },
     {
-        "Name": "176th Maintenance Operations Flight",
+        "Name": "176 Maintenance Operations Flight",
         "ParentUnitId": 202
     },
     {
-        "Name": "176th Civil Engineer Squadron",
+        "Name": "176 Civil Engineer Squadron",
         "ParentUnitId": 203
     },
     {
-        "Name": "176th Force Support Squadron",
+        "Name": "176 Force Support Squadron",
         "ParentUnitId": 203
     },
     {
-        "Name": "176th Logistics Readiness Squadron",
+        "Name": "176 Logistics Readiness Squadron",
         "ParentUnitId": 203
     },
     {
-        "Name": "176th Security Forces Squadron",
+        "Name": "176 Security Forces Squadron",
         "ParentUnitId": 203
     },
     {
-        "Name": "176th Communications Flight",
+        "Name": "176 Communications Flight",
         "ParentUnitId": 203
     },
     {
@@ -1390,27 +1390,27 @@
         "ParentUnitId": 347
     },
     {
-        "Name": "353rd Special Operations Group",
+        "Name": "353 Special Operations Group",
         "ParentUnitId": 348
     },
     {
-        "Name": "1st Special Operations Squadron",
+        "Name": "1 Special Operations Squadron",
         "ParentUnitId": 349
     },
     {
-        "Name": "17th Special Operations Squadron",
+        "Name": "17 Special Operations Squadron",
         "ParentUnitId": 349
     },
     {
-        "Name": "320th Special Tactics Squadron",
+        "Name": "320 Special Tactics Squadron",
         "ParentUnitId": 349
     },
     {
-        "Name": "353rd Special Operations Maintenance Squadron",
+        "Name": "353 Special Operations Maintenance Squadron",
         "ParentUnitId": 349
     },
     {
-        "Name": "353rd Special Operations Support Squadron",
+        "Name": "353 Special Operations Support Squadron",
         "ParentUnitId": 349
     },
     {
@@ -1418,15 +1418,15 @@
         "ParentUnitId": 1
     },
     {
-        "Name": "515th Air Mobility Operations Wing",
+        "Name": "515 Air Mobility Operations Wing",
         "ParentUnitId": 355
     },
     {
-        "Name": "515th Air Mobility Operations Group",
+        "Name": "515 Air Mobility Operations Group",
         "ParentUnitId": 356
     },
     {
-        "Name": "733rd Air Mobility Squadron",
+        "Name": "733 Air Mobility Squadron",
         "ParentUnitId": 357
     },
     {
@@ -1434,11 +1434,11 @@
         "ParentUnitId": 1
     },
     {
-        "Name": "55th Wing",
+        "Name": "55 Wing",
         "ParentUnitId": 359
     },
     {
-        "Name": "55th Operations Group",
+        "Name": "55 Operations Group",
         "ParentUnitId": 360
     },
     {
@@ -1446,23 +1446,23 @@
         "ParentUnitId": 361
     },
     {
-        "Name": "390th Intelligence Squadron",
+        "Name": "390 Intelligence Squadron",
         "ParentUnitId": 361
     },
     {
-        "Name": "43rd Intelligence Squadron",
+        "Name": "43 Intelligence Squadron",
         "ParentUnitId": 349
     },
     {
-        "Name": "31st Rescue Squadron",
+        "Name": "31 Rescue Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "33rd Rescue Squadron",
+        "Name": "33 Rescue Squadron",
         "ParentUnitId": 159
     },
     {
-        "Name": "18th Comptroller Squadron",
+        "Name": "18 Comptroller Squadron",
         "ParentUnitId": 33
     },
     {
@@ -1486,15 +1486,15 @@
         "ParentUnitId": 89
     },
     {
-        "Name": "1st MAW IWAKUNI",
+        "Name": "1 MAW IWAKUNI",
         "ParentUnitId": 89
     },
     {
-        "Name": "1st MAW KANEOHE BAY",
+        "Name": "1 MAW KANEOHE BAY",
         "ParentUnitId": 89
     },
     {
-        "Name": "1st MAW FUTENMA",
+        "Name": "1 MAW FUTENMA",
         "ParentUnitId": 89
     },
     {

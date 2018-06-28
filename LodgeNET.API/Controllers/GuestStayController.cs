@@ -142,6 +142,7 @@ namespace LodgeNET.API.Controllers {
             if (guest == null) {
                 guest = _mapper.Map<Guest> (guestStayDto);
             } else {
+                guestStayDto.GuestId = guest.Id;
                 _mapper.Map (guestStayDto, guest);
             }
 

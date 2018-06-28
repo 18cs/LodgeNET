@@ -9,6 +9,8 @@ import { GueststayService } from '../../../_services/gueststay.service';
 import { GuestStayCheckIn } from '../../../_models/guestStayCheckIn';
 import { Rank } from '../../../_models/rank';
 import { FormData } from '../../../_models/formData';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { PendingscandialogComponent } from '../../../_utilities/pendingscandialog/pendingscandialog.component';
 
 @Component({
   selector: 'app-guestinfo',
@@ -19,10 +21,12 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   formData: FormData;
   guestInfoForm: FormGroup;
   isUnitFocused = false;
-  idScanCheckin = false;
+  // idScanCheckin = false;
   selectedUnit: Unit = { id: 0, name: '' };
   selectedService: Service = {  id: 0, serviceName: '' };
   filterStatus = '';
+  cacServiceList: Service[];
+  cacRankList: Rank[];
 
   // angular disabled att for controls has errors, only method found that works
   dodIdDisabled = this.gueststayService.guestStay.guestId !== 0;
@@ -32,7 +36,8 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     private gueststayService: GueststayService,
     private guestStaySevice: GueststayService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getFormData();
@@ -46,6 +51,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
     this.guestInfoForm.value['guestUnit'] = this.selectedUnit;
     this.gueststayService.saveGuestInfo(this.guestInfoForm.value);
+    console.log(this.guestInfoForm);
   }
 
   getFormData() {
@@ -79,7 +85,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
       'rank': new FormControl(guestStay.rank == null ? null : guestStay.rank),
       'guestUnit': new FormControl(null, [Validators.required, this.unitConfirming.bind(this)]),
       'guestChalk': new FormControl(guestStay.chalk == null ? null : guestStay.chalk),
-      'email': new FormControl(guestStay.email == null ? null : guestStay.email, [Validators.required, Validators.email]),
+      'email': new FormControl(guestStay.email == null ? null : guestStay.email),
       'dsnPhone': new FormControl(guestStay.dsnPhone == null ? null : guestStay.dsnPhone),
       'commPhone': new FormControl(guestStay.commPhone == null ? null : guestStay.commPhone),
     });
@@ -88,6 +94,54 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
     this.guestInfoForm.statusChanges.subscribe(data => {
       this.gueststayService.setGuestInfoValid(this.guestInfoForm.valid);
+    });
+  }
+
+  pendingScan() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title: 'Awaiting CAC Scan',
+      guest: {
+        dodId: null,
+        firstName: '',
+        lastName: '',
+        middleInitial: '',
+        service: '',
+        rank: ''} 
+    };
+
+    const dialogRef = this.dialog.open(PendingscandialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {   console.log(data);
+      if (data != null) {
+      
+        this.guestInfoForm.controls['dodId'].patchValue(data.dodId);
+        this.guestInfoForm.controls['firstName'].patchValue(data.firstName);
+        this.guestInfoForm.controls['lastName'].patchValue(data.lastName);
+        this.guestInfoForm.controls['middleInitial'].patchValue(data.middleInitial);
+        console.log(data.service + ', ' + data.rank);
+        let yup = data.rank;     
+        this.cacServiceList = this.formData.serviceList.filter(s => s.serviceName == data.service);
+        if (this.cacServiceList !== null) {
+          this.selectedService = this.cacServiceList[0];
+          // this.guestInfoForm.controls['service'].patchValue(this.selectedService);
+          
+          // console.log(this.selectedService.ranks.filter(r => {
+          //   console.log(r.rankName.toUpperCase());
+          //   (r.rankName.toUpperCase().trim()) == (yup.toUpperCase())}));
+          // this.guestInfoForm.value['rank'] = this.selectedService.ranks.filter(r => r.rankName.toUpperCase() == data.rank)[0];
+          // this.guestInfoForm.controls['rank'].patchValue(this.selectedService.ranks.filter(r => r.rankName.toUpperCase() == data.rank)[0]);
+        }
+
+        if (this.selectedService !== null) {
+          this.cacRankList = this.selectedService.ranks.filter(r => r.rankName.toUpperCase() == data.rank)
+          this.guestInfoForm.controls['rank'].patchValue(this.cacRankList[0]);
+        }
+        
+     }
     });
   }
 

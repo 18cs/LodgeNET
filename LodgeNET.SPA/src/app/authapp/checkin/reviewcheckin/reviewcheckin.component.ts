@@ -32,7 +32,7 @@ export class ReviewcheckinComponent implements OnInit {
 
   onSubmit() {
     this.gueststayService.checkinGuest().subscribe(() => {
-      this.alertify.success('Checkin Successful');
+      this.alertify.success('Check-In Successful');
       this.gueststayService.clearGuestStay();
       this.router.navigate(['/']);
     }, error => {

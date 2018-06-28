@@ -73,7 +73,7 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="service">Service</label>
-            <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService" [compareWith]="compareService">
+            <select class="form-control" id="service" formControlName="service" [(ngModel)]="selectedService" [compareWith]="compareService">
               <option [ngValue]="service" *ngFor="let service of formData?.serviceList">{{ service.serviceName }}</option>
             </select>
             <div *ngIf="!edituserForm.get('service').valid && edituserForm.get('service').touched" class="invalid-feedback">
@@ -84,7 +84,7 @@
         <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
           <div *ngIf="selectedService != undefined" class="form-group">
             <label for="rankId">Rank</label>
-            <select  class="form-control is-invalid" id="rankId" formControlName="rankId" [compareWith]="compareRank">
+            <select  class="form-control" id="rankId" formControlName="rankId" [compareWith]="compareRank">
               <option [ngValue]="rank.id" *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']">{{ rank.rankName }}</option>
             </select>
             <div *ngIf="!edituserForm.get('rankId').valid && edituserForm.get('rankId').touched" class="invalid-feedback">
@@ -97,7 +97,7 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="unitId">Unit</label>
-            <input type="text" id="unitId" formControlName="unitId" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="unitFocusIn()"
+            <input type="text" id="unitId" formControlName="unitId" class="form-control" [(ngModel)]="filterStatus" (focus)="unitFocusIn()"
               (focusout)="unitFocusOut()">
               <div *ngIf="!edituserForm.get('unitId').valid && edituserForm.get('unitId').touched" class="invalid-feedback">
                 Please select a unit

@@ -56,6 +56,7 @@ import { RoomsdialogComponent } from './authapp/view/dialogcomponents/roomsdialo
 import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
 import { AccountTypeGuard } from './_guards/accounttype.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
+import { PendingscandialogComponent } from './_utilities/pendingscandialog/pendingscandialog.component';
 
 export function getAccessToken(): string {
   return localStorage.getItem('token');
@@ -102,7 +103,8 @@ export const jwtConfig = {
     GueststaydialogComponent,
     UnitdialogComponent,
     ViewbuildingtypesComponent,
-    RoomsdialogComponent
+    RoomsdialogComponent,
+    PendingscandialogComponent
 ],
   imports: [
     BrowserModule,
@@ -140,7 +142,8 @@ export const jwtConfig = {
     UnitdialogComponent,
     BuildingtypesdialogComponent,
     GueststaydialogComponent,
-    RoomsdialogComponent
+    RoomsdialogComponent,
+    PendingscandialogComponent
   ]
   // exports: [MatFormField]
 })

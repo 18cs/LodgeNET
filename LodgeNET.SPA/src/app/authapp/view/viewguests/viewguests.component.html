@@ -37,7 +37,7 @@
           </mat-option>
         </mat-autocomplete>
         <button type="button" class="btn btn-secondary filterfield-pad" (click)="onReset()">Reset</button>
-        <button type="submit" class="btn btn-success float-right filterfield-pad">Submit</button>
+        <button type="submit" class="btn btn-success float-right filterfield-pad">Filter</button>
       </form>
     </div>
   </div>
@@ -45,6 +45,7 @@
   <div class="row">
     <div class="col-lg-12">
       <br />
+      <h2 class="text-center">Guests</h2>
       <h5 class="text-right">Guests Found: {{ pagination?.totalItems }}</h5>
       <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
       <table class="table table-hover" *ngIf="guestList != null">

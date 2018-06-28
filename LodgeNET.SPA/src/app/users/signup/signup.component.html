@@ -25,7 +25,7 @@
         <div class="col col-md-5 col-lg-5">
           <div class="form-group">
             <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control is-invalid" maxlength="50">
+            <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" maxlength="50">
             <div *ngIf="!signupForm.get('confirmPassword').valid && signupForm.get('confirmPassword').touched" class="invalid-feedback">
               Passwords do not match
             </div>
@@ -78,7 +78,7 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="service">Service</label>
-            <select class="form-control is-invalid" id="service" formControlName="service" [(ngModel)]="selectedService">
+            <select class="form-control" id="service" formControlName="service" [(ngModel)]="selectedService">
               <option [ngValue]="service" *ngFor="let service of registerForm?.serviceList">{{ service.serviceName }}</option>
             </select>
             <div *ngIf="!signupForm.get('service').valid && signupForm.get('service').touched" class="invalid-feedback">
@@ -89,7 +89,7 @@
         <div class="col col-md-offset-1 col-lg-offset-1 col-md-4 col-lg-4">
           <div *ngIf="selectedService != undefined" class="form-group">
             <label for="rankId">Rank</label>
-            <select  class="form-control is-invalid" id="rankId" formControlName="rankId">
+            <select  class="form-control" id="rankId" formControlName="rankId">
               <option [ngValue]="rank.id" *ngFor="let rank of selectedService.ranks | sort: ['tier', 'grade']">{{ rank.rankName }}</option>
             </select>
             <div *ngIf="!signupForm.get('rankId').valid && signupForm.get('rankId').touched" class="invalid-feedback">
@@ -102,7 +102,7 @@
         <div class="col col-md-4 col-lg-4">
           <div class="form-group">
             <label for="userUnit">Unit</label>
-            <input type="text" id="userUnit" formControlName="userUnit" class="form-control is-invalid" [(ngModel)]="filterStatus" (focus)="onUnitFocusIn()"
+            <input type="text" id="userUnit" formControlName="userUnit" class="form-control" [(ngModel)]="filterStatus" (focus)="onUnitFocusIn()"
               (focusout)="onUnitFocusOut()">
               <div *ngIf="!signupForm.get('userUnit').valid && signupForm.get('userUnit').touched" class="invalid-feedback">
                 Please select a unit
