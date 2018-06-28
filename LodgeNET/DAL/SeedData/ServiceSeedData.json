@@ -10,5 +10,8 @@
     },
     {
       "ServiceName": "USMC"
+    },
+    {
+      "ServiceName": "Civilian"
     }
   ]
