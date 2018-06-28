@@ -6,6 +6,11 @@
   </div>
 </div> -->
 
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="text-left">Occupancy Rate</h1>
+    <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
+    <br />
 <table class="table table-hover">
   <thead>
     <tr>
@@ -19,12 +24,12 @@
       <th scope="row">{{ building.type }}</th>
       <td>{{ building.currentGuests +' / '+ building.capacity }}</td>
       <td [ngClass]="{
-        'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= .95,
-        'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= .75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= .94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
+        'table-danger': this.getOccupancyRate(building.currentGuests, building.capacity) >= 96,
+        'table-warning':(this.getOccupancyRate(building.currentGuests, building.capacity) >= 75 && this.getOccupancyRate(building.currentGuests, building.capacity) <= 94)}">{{ this.getOccupancyRate(building.currentGuests, building.capacity) | number : '1.2-2' }}%</td>
     </tr>
     <ng-container *ngFor="let bldg of buildingDashboard.buildingList;">
-      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard?.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': bldg.buildingOccupancy >= .95,
-        'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= .94) }">
+      <tr *ngIf="bldg.buildingCategoryId == buildingDashboard?.buildingTypeList[i].id" class="collapse" [ngClass]="{show : showConditionCheck(bldg.buildingCategoryId), 'table-danger': this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= 95,
+        'table-warning':(this.getOccupancyRate(bldg.currentGuests, bldg.capacity) >= 75 && this.getOccupancyRate(bldg.currentGuests, bldg.capacity) <= 94) }">
         <th scope="row">{{ bldg.name }}</th>
         <td>{{ bldg.currentGuests +' / '+ bldg.capacity }}</td>
         <td>{{ this.getOccupancyRate(bldg.currentGuests, bldg.capacity) | number : '1.2-2' }}%</td>
@@ -39,5 +44,7 @@
     </tr>
   </tbody>
   </table>
+  </div>
+</div>
   <!-- 'table-danger':buildingDashboard.buildingOccupancy >= .95,
   'table-warning':(buildingDashboard.buildingOccupancy >= .75 && building.buildingDashboard.buildingOccupancy <= .94) -->

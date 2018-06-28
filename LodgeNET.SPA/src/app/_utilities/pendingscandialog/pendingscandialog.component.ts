@@ -50,7 +50,6 @@ export class PendingscandialogComponent implements OnInit {
     handleKeyboardEvent(event: KeyboardEvent) { 
     this.base32Value = this.base32Value + event.key;
     
-    console.log(this.timerToken);
     if (this.timerToken == null)
       this.awaitCac();
   };
@@ -94,8 +93,6 @@ export class PendingscandialogComponent implements OnInit {
     
 // NFCAT7IS1BPM36HAlexander           Nestle                    B1URAF00SSGT  ME05BB65BC8CNM
     // if (this.base32Value != '') {
-      console.log(this.guest);
-      console.log(this.base32Value);
       if (this.base32Value.length == 89 || this.base32Value.length == 88) {
         this.guest.dodId = parseInt(this.base32Value.substring(8, 15).trim(), 32);
         this.guest.firstName = this.base32Value.substring(15, 35).trim();
@@ -107,9 +104,7 @@ export class PendingscandialogComponent implements OnInit {
         // clearInterval(this.timerToken);
         this.dialogRef.close(this.guest);
       } else {
-        console.log(this.base32Value);
         this.isValidCAC = false;
-        console.log(this.isValidCAC);
         this.base32Value = ''; 
       }
 

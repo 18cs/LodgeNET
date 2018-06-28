@@ -51,7 +51,6 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
     this.guestInfoForm.value['guestUnit'] = this.selectedUnit;
     this.gueststayService.saveGuestInfo(this.guestInfoForm.value);
-    console.log(this.guestInfoForm);
   }
 
   getFormData() {
@@ -115,14 +114,13 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
     };
 
     const dialogRef = this.dialog.open(PendingscandialogComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(data => {   console.log(data);
+    dialogRef.afterClosed().subscribe(data => {
       if (data != null) {
       
         this.guestInfoForm.controls['dodId'].patchValue(data.dodId);
         this.guestInfoForm.controls['firstName'].patchValue(data.firstName);
         this.guestInfoForm.controls['lastName'].patchValue(data.lastName);
         this.guestInfoForm.controls['middleInitial'].patchValue(data.middleInitial);
-        console.log(data.service + ', ' + data.rank);
         let yup = data.rank;     
         this.cacServiceList = this.formData.serviceList.filter(s => s.serviceName == data.service);
         if (this.cacServiceList !== null) {

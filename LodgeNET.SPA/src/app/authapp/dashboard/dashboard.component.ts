@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   isUnaccompaniedHousingOpen = false;
   isVacentHousingOpen = false;
   isEmergencyQuartersOpen = false;
+  showSpinner = true;
 
   constructor(
     private buildingService: BuildingService,
@@ -30,9 +31,11 @@ export class DashboardComponent implements OnInit {
     this.buildingService.buildingDashboardData().subscribe(
       (buildingDashboard: BuildingTable) => {
         this.buildingDashboard = buildingDashboard;
+        this.showSpinner = false;
       },
       error => {
         this.alertify.error(error);
+        this.showSpinner = false;
       }
     );
   }
