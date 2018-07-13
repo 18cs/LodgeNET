@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using LodgeNET.API.DAL.Repos;
+using LodgeNET.API.BLL;
 
 namespace LodgeNET.API {
     public class Startup {
@@ -37,6 +38,7 @@ namespace LodgeNET.API {
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection ("AppSettings:Token").Value);
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
             services.AddTransient<Seed>();
+            services.AddTransient<AuthService>();
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
+using LodgeNET.API.BLL;
 using LodgeNET.API.Dtos;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
@@ -27,13 +28,15 @@ namespace LodgeNET.API.Controllers
         private readonly IGenericRepository<Rank> _rankRepo;
         private readonly IConfiguration _config;
         private IMapper _mapper { get; set; }
+        private AuthService _authService;
         public AuthController(IAuthRepository authRepo,
                             IConfiguration config,
                             IGenericRepository<Unit> unitRepo,
                             IGenericRepository<Service> serviceRepo,
                             IGenericRepository<AccountType> accountTypeRepo,
                             IGenericRepository<Rank> rankRepo,
-                            IMapper mapper)
+                            IMapper mapper,
+                            AuthService authService)
         {
             _config = config;
             _authRepo = authRepo;
@@ -42,43 +45,40 @@ namespace LodgeNET.API.Controllers
             _accountTypeRepo = accountTypeRepo;
             _rankRepo = rankRepo;
             _mapper = mapper;
+            _authService = authService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         {
-            if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
-            {
-                userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
+            try { 
+                await _authService.Register(userForRegisterDto); 
+            } 
+            catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-            
-            if (await _authRepo.UserExists(userForRegisterDto.UserName))
-            {
-                ModelState.AddModelError("Username", "Username already exists");
-            }
-
-            if ((await _authRepo.GetFirstOrDefault(u => u.DodId == userForRegisterDto.DodId)) != null )
-            {
-                ModelState.AddModelError("DodId", "DodId already used for an account");
-            }
-
-            // validate request
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            // var userToCreate = new User
-            // {
-            //     UserName = userForRegisterDto.UserName
-            // };
-
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            //userToCreate.UnitId = (await _unitRepo.GetFirstOrDefault(u => u.Name.Equals(userForRegisterDto.UserUnit))).Id;
-            
-            var createUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
 
             return StatusCode(201);
+             
+
+            // if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
+            //     userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
+            
+            // if (await _authRepo.UserExists(userForRegisterDto.UserName))
+            //     ModelState.AddModelError("Username", "Username already exists");
+
+            // if ((await _authRepo.GetFirstOrDefault(u => u.DodId == userForRegisterDto.DodId)) != null)
+            //     ModelState.AddModelError("DodId", "DodId already used for an account");
+
+            // // validate request
+            // if (!ModelState.IsValid)
+            //     return BadRequest(ModelState);
+
+            // var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            // var createUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
+
+            // return StatusCode(201);
         }
 
         [HttpPost("login")]
