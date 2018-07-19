@@ -281,23 +281,23 @@ namespace LodgeNET.API.Controllers {
             //     return BadRequest ("Server could not authenticate");
             // }
 
-            var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+            var currentUserId = int.Parse(User.FindFirst (ClaimTypes.NameIdentifier).Value);
 
             if (currentUserId == 0) {
-                return Unauthorized ();
+                return Unauthorized();
             }
-            ArrayList returnRows = new ArrayList ();
+            ArrayList returnRows = new ArrayList();
 
             var file = fileDto.File;
             if (file.Length > 0) {
-                using (PdfReader reader = new PdfReader (file.OpenReadStream ())) {
+                using (PdfReader reader = new PdfReader (file.OpenReadStream())) {
 
                     for (int i = 1; i <= reader.NumberOfPages; i++) {
                         //text.Append (PdfTextExtractor.GetTextFromPage (reader, i));
-                        string[] guestStays = PdfTextExtractor.GetTextFromPage (reader, i).Split ("\n");
+                        string[] guestStays = PdfTextExtractor.GetTextFromPage(reader, i).Split("\n");
                         foreach (string guestStay in guestStays) {
 
-                            var rowForUpload = new FileRowForUploadDto ();
+                            var rowForUpload = new FileRowForUploadDto();
 
                             if (!Regex.Match (guestStay, @"^\d").Success) {
                                 continue;
@@ -308,7 +308,7 @@ namespace LodgeNET.API.Controllers {
 
                             //int.TryParse (stayData[0], out int rowRoomNum);
                             var room = await _roomRepo.GetFirstOrDefault (
-                                r => r.RoomNumber == stayData[0] && r.Building.BuildingCategory.Type.Equals ("Lodging"),
+                                r => r.RoomNumber == stayData[0] && r.Building.BuildingCategory.Type.Equals("Lodging"),
                                 new Expression<Func<Room, object>>[] { r => r.Building });
 
                             if (room != null) {
@@ -326,15 +326,15 @@ namespace LodgeNET.API.Controllers {
                             Rank rank;
                             // accounts to spaced (two) last names
                             if (rowForUpload.LastName.EndsWith (',')) {
-                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[2]));
+                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals(stayData[2]));
                                 rank = retrievedRank;
                             } else {
-                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[3]));
+                                var retrievedRank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals(stayData[3]));
                                 rank = retrievedRank;
                             }
 
                             //removes tailing ',' from lastname
-                            rowForUpload.LastName = rowForUpload.LastName.Remove (stayData[1].Length - 1).ToUpper ();
+                            rowForUpload.LastName = rowForUpload.LastName.Remove(stayData[1].Length - 1).ToUpper ();
 
                             //var rank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (stayData[2]));
                             // Rank rank = null;
@@ -349,11 +349,11 @@ namespace LodgeNET.API.Controllers {
                             //Indices of the data are not static, they vary depending on the data included
                             //if index was not rank, check if followinging index is MI or account number
                             //meaning the rank was not include. The else means that the rank was included but was not found in DB
-                            if (rank == null && (stayData[3].Length == 1 || Regex.Match (stayData[3], @"^\d").Success)) {
-                                rowForUpload.FirstName = stayData[2].ToUpper ();
+                            if (rank == null && (stayData[3].Length == 1 || Regex.Match(stayData[3], @"^\d").Success)) {
+                                rowForUpload.FirstName = stayData[2].ToUpper();
                                 firstnameIndex = 2;
                             } else {
-                                rowForUpload.FirstName = stayData[3].ToUpper ();
+                                rowForUpload.FirstName = stayData[3].ToUpper();
                                 firstnameIndex = 3;
                             }
 
@@ -368,7 +368,7 @@ namespace LodgeNET.API.Controllers {
                                     //TODO account for the open column
                                     rowForUpload.CheckedIn = true;
                                     rowForUpload.CheckInDate = checkInDate;
-                                    rowForUpload.CheckOutDate = DateTime.Parse (stayData[j + 1]);
+                                    rowForUpload.CheckOutDate = DateTime.Parse(stayData[j + 1]);
                                     break;
                                 }
                             }
@@ -386,8 +386,8 @@ namespace LodgeNET.API.Controllers {
                                 returnRows.Add (rowForUpload);
                             } else {
                                 //TODO add unit parse
-                                var guest = new Guest ();
-                                var stay = new Stay () {
+                                var guest = new Guest();
+                                var stay = new Stay() {
                                     DateCreated = DateTime.Today,
                                     CheckInDate = DateTime.Today,
                                     CheckedIn = true,

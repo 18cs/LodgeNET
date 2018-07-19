@@ -60,43 +60,25 @@ namespace LodgeNET.API.Controllers
             }
 
             return StatusCode(201);
-             
-
-            // if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
-            //     userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
-            
-            // if (await _authRepo.UserExists(userForRegisterDto.UserName))
-            //     ModelState.AddModelError("Username", "Username already exists");
-
-            // if ((await _authRepo.GetFirstOrDefault(u => u.DodId == userForRegisterDto.DodId)) != null)
-            //     ModelState.AddModelError("DodId", "DodId already used for an account");
-
-            // // validate request
-            // if (!ModelState.IsValid)
-            //     return BadRequest(ModelState);
-
-            // var userToCreate = _mapper.Map<User>(userForRegisterDto);
-            // var createUser = await _authRepo.Register(userToCreate, userForRegisterDto.Password);
-
-            // return StatusCode(201);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]UserForLoginDto userForLoginDto)
         {
-            var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
+            User userFromRepo;
+
+            try {
+                userFromRepo = await _authService.Login(userForLoginDto);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
+            }
 
             if (userFromRepo == null) {
                 ModelState.AddModelError("Unauthorized", "Username or password was incorrect.");
-            } else if (!userFromRepo.Approved) {
-                ModelState.AddModelError("NotApproved", "Account is pending approval.");
-            }
-
-            if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
             }
-
+            
             // generate token
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_config.GetSection("AppSettings:Token").Value);
@@ -137,7 +119,7 @@ namespace LodgeNET.API.Controllers
         [HttpGet("accountTypes")]
         public async Task<IActionResult> GetAccountTypes() 
         {
-            var accountTypes = await _accountTypeRepo.GetAsync();
+            var accountTypes = await _authService.GetAccountTypes();
             return Ok(accountTypes);
         }
     }
