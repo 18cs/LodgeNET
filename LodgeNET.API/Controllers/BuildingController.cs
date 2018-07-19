@@ -109,8 +109,8 @@ namespace LodgeNET.API.Controllers {
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
                 {
-                    bcat.Capacity = b.Capacity;
-                    bcat.CurrentGuests = b.CurrentGuests;
+                    bcat.Capacity += b.Capacity;
+                    bcat.CurrentGuests += b.CurrentGuests;
                 }
             }
             return Ok (buildingsDataDto);

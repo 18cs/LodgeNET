@@ -39,6 +39,7 @@ namespace LodgeNET.API {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
             services.AddTransient<Seed>();
             services.AddTransient<AuthService>();
+            services.AddTransient<BuildingService>();
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
