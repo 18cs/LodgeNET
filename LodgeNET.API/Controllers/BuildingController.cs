@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Dtos;
 using LodgeNET.API.Helpers;
@@ -22,25 +24,25 @@ namespace LodgeNET.API.Controllers {
         private readonly IGenericRepository<Stay> _stayRepo;
         private readonly IGenericRepository<Room> _roomRepo;
         private readonly IMapper _mapper;
+        private readonly BuildingService _buildingService;
         public BuildingController (IBuildingRepository repo,
             IGenericRepository<BuildingCategory> buildingCategoryRepo,
             IGenericRepository<Stay> stayRepo,
             IGenericRepository<Room> roomRepo,
-            IMapper mapper) {
+            IMapper mapper,
+            BuildingService buildingService) {
             _mapper = mapper;
             _repo = repo;
             _buildingCategoryRepo = buildingCategoryRepo;
             _stayRepo = stayRepo;
             _roomRepo = roomRepo;
+            _buildingService = buildingService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBuildings ([FromQuery] BuildingUserParams userParams) {
-            var bldgs = await _repo.GetBuildingsPagination (
-                userParams,
-                new Expression<Func<Building, object>>[] {
-                    b => b.BuildingCategory
-                });
+            var bldgs = await _buildingService.GetBuildingsPagination(userParams);
+
             var bldgsToReturn = _mapper.Map<IEnumerable<Building>> (bldgs);
 
             Response.AddPagination (bldgs.CurrentPage,
@@ -49,19 +51,11 @@ namespace LodgeNET.API.Controllers {
                 bldgs.TotalPages);
 
             return Ok (bldgsToReturn);
-
-            // OLD CODE
-            //
-            // var buildings = await _repo.GetAsync();
-
-            // return Ok(buildings);
         }
 
         [HttpGet ("buildingtypes")]
         public async Task<IActionResult> GetBuildingTypes ([FromQuery] PagUserParams userParams) {
-            var buildingTypes = await _repo.GetBuildingTypesPagination (
-                userParams
-            );
+            var buildingTypes = await _buildingService.GetBuildingTypes(userParams);
             var bldgTypesToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>> (buildingTypes);
 
             Response.AddPagination (buildingTypes.CurrentPage,
@@ -70,18 +64,12 @@ namespace LodgeNET.API.Controllers {
                 buildingTypes.TotalPages);
 
             return Ok (bldgTypesToReturn);
-
-            // OLD CODE
-            //
-            // var buildingTypes = await _buildingCategoryRepo.GetAsync();
-
-            // return Ok(buildingTypes);
         }
 
         [HttpGet ("allbuildings")]
         public async Task<IActionResult> GetAllBuildings () {
 
-            var buildings = await _repo.GetAsync ();
+            var buildings = await _buildingService.GetAllBuildings();
 
             return Ok (buildings);
         }
@@ -89,7 +77,7 @@ namespace LodgeNET.API.Controllers {
         [HttpGet ("allbuildingtypes")]
         public async Task<IActionResult> GetAllBuildingTypes () {
 
-            var buildingTypes = await _buildingCategoryRepo.GetAsync ();
+            var buildingTypes = await _buildingService.GetAllBuildingTypes();
 
             return Ok (buildingTypes);
         }
@@ -97,7 +85,7 @@ namespace LodgeNET.API.Controllers {
         [HttpGet ("{id}")]
 
         public async Task<IActionResult> GetBuilding (int id) {
-            var building = await _repo.GetByID (id);
+            var building = await _buildingService.GetBuilding(id);
 
             return Ok (building);
         }
@@ -105,24 +93,11 @@ namespace LodgeNET.API.Controllers {
         [HttpGet ("dashboard")]
         public async Task<IActionResult> buildingDashboardData () {
             var buildingListResult = await _repo.GetAsync ();
-            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync ();
+            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync();
             var buildingsDataDto = new BuildingsDataDto () {
                 BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>> (buildingListResult),
-                BuildingTypeList = _mapper.Map<IEnumerable<BuildingCategoryDataDto>> (buildingTypeListResult)
+                BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>> (buildingTypeListResult.ToList())
             };
-
-            // var BuildingList = await _repo.Get();
-            int totalLodgingCapacity = 0;
-            int totalLodgingCurrentGuests = 0;
-
-            int totalVacantCapacity = 0;
-            int totalVacantCurrentGuests = 0;
-
-            int totalUnaccompanyCapacity = 0;
-            int totalUnaccompanyGuests = 0;
-
-            int totalEmergencyCapacity = 0;
-            int totalEmergencyGuests = 0;
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList) {
                 b.CurrentGuests = _stayRepo.GetCount (s => s.CheckedOut == false &&
@@ -131,34 +106,11 @@ namespace LodgeNET.API.Controllers {
                     s.BuildingId == b.Id);
                 b.Capacity = _roomRepo.GetSum (r => r.Capacity, r => r.BuildingId == b.Id);
 
-                if (b.BuildingCategoryId == 1) {
-                    totalLodgingCapacity += b.Capacity;
-                    totalLodgingCurrentGuests += b.CurrentGuests;
-                } else if (b.BuildingCategoryId == 2) {
-                    totalVacantCapacity += b.Capacity;
-                    totalVacantCurrentGuests += b.CurrentGuests;
-                } else if (b.BuildingCategoryId == 3) {
-                    totalUnaccompanyCapacity += b.Capacity;
-                    totalUnaccompanyGuests += b.CurrentGuests;
-                } else if (b.BuildingCategoryId == 4) {
-                    totalEmergencyCapacity += b.Capacity;
-                    totalEmergencyCapacity += b.CurrentGuests;
-                }
-            }
-
-            foreach (BuildingCategoryDataDto bcat in buildingsDataDto.BuildingTypeList) {
-                if (bcat.Id == 1) {
-                    bcat.Capacity = totalLodgingCapacity;
-                    bcat.CurrentGuests = totalLodgingCurrentGuests;
-                } else if (bcat.Id == 2) {
-                    bcat.Capacity = totalVacantCapacity;
-                    bcat.CurrentGuests = totalVacantCurrentGuests;
-                } else if (bcat.Id == 3) {
-                    bcat.Capacity = totalUnaccompanyCapacity;
-                    bcat.CurrentGuests = totalUnaccompanyGuests;
-                } else if (bcat.Id == 4) {
-                    bcat.Capacity = totalEmergencyCapacity;
-                    bcat.CurrentGuests = totalEmergencyGuests;
+                var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
+                if (bcat != null)
+                {
+                    bcat.Capacity = b.Capacity;
+                    bcat.CurrentGuests = b.CurrentGuests;
                 }
             }
             return Ok (buildingsDataDto);

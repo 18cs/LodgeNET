@@ -1,17 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using AutoMapper;
-using LodgeNET.API.DAL;
 using LodgeNET.API.BLL;
 using LodgeNET.API.Dtos;
-using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -21,30 +15,13 @@ namespace LodgeNET.API.Controllers
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private readonly IAuthRepository _authRepo;
-        private readonly IGenericRepository<Unit> _unitRepo;
-        private readonly IGenericRepository<Service> _serviceRepo;
-        private readonly IGenericRepository<AccountType> _accountTypeRepo;
-        private readonly IGenericRepository<Rank> _rankRepo;
         private readonly IConfiguration _config;
-        private IMapper _mapper { get; set; }
         private AuthService _authService;
-        public AuthController(IAuthRepository authRepo,
+        public AuthController(
                             IConfiguration config,
-                            IGenericRepository<Unit> unitRepo,
-                            IGenericRepository<Service> serviceRepo,
-                            IGenericRepository<AccountType> accountTypeRepo,
-                            IGenericRepository<Rank> rankRepo,
-                            IMapper mapper,
                             AuthService authService)
         {
             _config = config;
-            _authRepo = authRepo;
-            _unitRepo = unitRepo;
-            _serviceRepo = serviceRepo;
-            _accountTypeRepo = accountTypeRepo;
-            _rankRepo = rankRepo;
-            _mapper = mapper;
             _authService = authService;
         }
 
@@ -102,17 +79,8 @@ namespace LodgeNET.API.Controllers
         [HttpGet("register")]
         public async Task<IActionResult> RegisterFormData()
         {
-            var registerFormDto = new RegisterFormDto()
-            {
-                ServiceList = await _serviceRepo.GetAsync(),
-                AccountTypeList = await _accountTypeRepo.GetAsync(),
-                UnitList = await _unitRepo.GetAsync()
-            };
+            var registerFormDto = await _authService.GetRegisterFormData();
 
-            foreach (var service in registerFormDto.ServiceList)
-            {
-                service.Ranks = await _rankRepo.GetAsync(r => r.ServiceId == service.Id);
-            }
             return Ok(registerFormDto);
         }
 

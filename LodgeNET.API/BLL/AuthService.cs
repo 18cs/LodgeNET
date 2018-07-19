@@ -41,7 +41,7 @@ namespace LodgeNET.API.BLL
             _mapper = mapper;
         }
 
-        public async Task<User> Register([FromBody]UserForRegisterDto userForRegisterDto)
+        public async Task<User> Register(UserForRegisterDto userForRegisterDto)
         {
             if(!string.IsNullOrEmpty(userForRegisterDto.UserName))
                 userForRegisterDto.UserName = userForRegisterDto.UserName.ToUpper();
@@ -57,7 +57,7 @@ namespace LodgeNET.API.BLL
 
             return (createUser);
         }
-        public async Task<User> Login([FromBody]UserForLoginDto userForLoginDto)
+        public async Task<User> Login(UserForLoginDto userForLoginDto)
         {
             var userFromRepo = await _authRepo.Login(userForLoginDto.Username.ToUpper(), userForLoginDto.Password);
 
@@ -68,6 +68,23 @@ namespace LodgeNET.API.BLL
                 throw new System.ArgumentException("Account is pending approval.", string.Empty);
 
             return (userFromRepo);
+        }
+
+        public async Task<RegisterFormDto> GetRegisterFormData()
+        {
+            var registerFormDto = new RegisterFormDto()
+            {
+                ServiceList = await _serviceRepo.GetAsync(),
+                AccountTypeList = await _accountTypeRepo.GetAsync(),
+                UnitList = await _unitRepo.GetAsync()
+            };
+
+            foreach (var service in registerFormDto.ServiceList)
+            {
+                service.Ranks = await _rankRepo.GetAsync(r => r.ServiceId == service.Id);
+            }
+            
+            return (registerFormDto);
         }
 
         public async Task<IEnumerable<AccountType>> GetAccountTypes() 
