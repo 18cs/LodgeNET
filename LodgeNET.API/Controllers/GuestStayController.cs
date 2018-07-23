@@ -219,16 +219,13 @@ namespace LodgeNET.API.Controllers {
                 return Unauthorized ();
             }
             //TODOBLL
-            var guest = await _guestRepo.GetFirstOrDefault (g => g.Id == updatedGuestDto.Id);
-
-            if (guest == null) {
-                ModelState.AddModelError ("error", "Unable to update guest");
-                return BadRequest (ModelState);
+            try {
+                await _guestStayService.UpdateGuest(updatedGuestDto);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            _mapper.Map (updatedGuestDto, guest);
-            await _guestRepo.SaveAsync ();
-
+            
             return Ok ();
         }
 

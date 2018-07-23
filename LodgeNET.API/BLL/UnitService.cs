@@ -19,8 +19,7 @@ namespace LodgeNET.API.BLL
         }
         public async Task<PagedList<Unit>> GetUnitsPagination(UnitUserParams userParams)
         {
-            var units = await _unitRepo.GetUnitPagination(
-                userParams);
+            var units = await _unitRepo.GetUnitPagination(userParams);
 
             return (units);
         }
@@ -37,19 +36,12 @@ namespace LodgeNET.API.BLL
 
             return (unit);
         }
-]
+        
         public async Task<Unit> Update(Unit updateUnit) {
-             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
-            //TODO add account type verification for tasks
-            if (currentUserId == 0) {
-                return Unauthorized ();
-            }
-
             var unit = await _unitRepo.GetFirstOrDefault(u => u.Id == updateUnit.Id);
 
             if (unit == null) {
-                ModelState.AddModelError("error", "Unable to update user");
-                return BadRequest(ModelState);
+                throw new System.ArgumentException ("Unable to update unit", string.Empty);
             }
 
             unit.Name = updateUnit.Name;

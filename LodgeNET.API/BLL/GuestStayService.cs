@@ -195,23 +195,16 @@ namespace LodgeNET.API.BLL {
         }
 
         public async Task<Guest> UpdateGuest (GuestForEditDto updatedGuestDto) {
-            var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
-            //TODO add account type verification for tasks
-            if (currentUserId == 0) {
-                return Unauthorized ();
-            }
-
             var guest = await _guestRepo.GetFirstOrDefault (g => g.Id == updatedGuestDto.Id);
 
             if (guest == null) {
-                ModelState.AddModelError ("error", "Unable to update guest");
-                return BadRequest (ModelState);
+                throw new System.ArgumentException ("Unable to update unit", string.Empty);
             }
 
             _mapper.Map (updatedGuestDto, guest);
             await _guestRepo.SaveAsync ();
 
-            return Ok ();
+            return (guest);
         }
 
         public async Task<int> DeleteGuestById (int id) {

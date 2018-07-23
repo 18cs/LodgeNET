@@ -71,16 +71,12 @@ namespace LodgeNET.API.Controllers
                 return Unauthorized ();
             }
 
-            var user = await _authRepo.GetFirstOrDefault(u => u.Id == updatedUserDto.Id);
-
-            if (user == null) {
-                ModelState.AddModelError("error", "Unable to update user");
-                return BadRequest(ModelState);
+            try {
+                await _userService.UpdateUser(updatedUserDto);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-            updatedUserDto.UserName = updatedUserDto.UserName.ToUpper();
-
-            _mapper.Map(updatedUserDto, user);
-            await _authRepo.SaveAsync();
 
             return Ok();
         }
@@ -99,7 +95,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpGet("pendingAcctCount")]
-        public Task<IActionResult> GetPendingAcctCount()
+        public async Task<IActionResult> GetPendingAcctCount()
         {
             var acctCnt = await _userService.GetPendingAcctCount();
             return Ok(acctCnt);

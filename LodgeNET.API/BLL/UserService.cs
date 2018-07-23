@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
 
@@ -55,15 +56,15 @@ namespace LodgeNET.API.BLL
             var user = await _authRepo.GetFirstOrDefault(u => u.Id == updatedUserDto.Id);
 
             if (user == null) {
-                ModelState.AddModelError("error", "Unable to update user");
-                return BadRequest(ModelState);
+                throw new System.ArgumentException ("Unable to update user", string.Empty);
             }
+            
             updatedUserDto.UserName = updatedUserDto.UserName.ToUpper();
 
             _mapper.Map(updatedUserDto, user);
             await _authRepo.SaveAsync();
 
-            return Ok();
+            return (user);
         }
 
         public async Task<int> DeleteUserById(int id)
@@ -81,7 +82,7 @@ namespace LodgeNET.API.BLL
             return (id);
         }
 
-        public Task<int> GetPendingAcctCount()
+        public async Task<int> GetPendingAcctCount()
         {
             //TODOBLL
             var acctCnt = await _authRepo.GetCount(u => u.Approved == false);
