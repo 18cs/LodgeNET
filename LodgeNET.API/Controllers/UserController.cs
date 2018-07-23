@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using LodgeNET.API.Dtos;
 using System.Security.Claims;
+using LodgeNET.API.BLL;
 
 namespace LodgeNET.API.Controllers
 {
@@ -20,11 +21,15 @@ namespace LodgeNET.API.Controllers
         private readonly IAuthRepository _authRepo;
         private IMapper _mapper { get; set; }
 
+        private UserService _userService;
+
         public UserController(IAuthRepository repo,
-                            IMapper mapper)
+                            IMapper mapper,
+                            UserService userService)
         {
             _mapper = mapper;
             _authRepo = repo;
+            _userService = userService;
         }
 
         // [HttpGet]
@@ -38,12 +43,7 @@ namespace LodgeNET.API.Controllers
 
         [HttpGet("users")]
         public async Task<IActionResult> GetUsers([FromQuery] UserUserParams userParams) {
-            var users = await _authRepo.GetUsersPaginiation(
-                userParams,
-                new Expression<Func<User, object>>[] {
-                    u => u.AccountType,
-                    u => u.Rank
-                });
+            var users = await _userService.GetUsersPagination(userParams);
             var usersToReturn = _mapper.Map<IEnumerable<UserForEditDto>>(users);
 
              Response.AddPagination(users.CurrentPage,
@@ -58,7 +58,7 @@ namespace LodgeNET.API.Controllers
 
         public async Task<IActionResult> GetUser(int id)
         {
-            var user = await _authRepo.GetByID(id);
+            var user = await _userService.GetUserByID(id);
 
             return Ok(user);
         }
@@ -88,24 +88,20 @@ namespace LodgeNET.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUserById(int id)
         {
-            var user = await _authRepo.GetFirstOrDefault(u => u.Id == id);
-
-            if ( user == null ) {
-                ModelState.AddModelError("error", "Unable to delete user");
-                return BadRequest(ModelState);
+            try {
+                await _userService.DeleteUserById(id);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
 
-            await _authRepo.Delete(user.Id);
-
-            await _authRepo.SaveAsync();
-
-            return Ok();
+            return Ok ();
         }
 
         [HttpGet("pendingAcctCount")]
-        public IActionResult GetPendingAcctCount()
+        public Task<IActionResult> GetPendingAcctCount()
         {
-            var acctCnt = _authRepo.GetCount(u => u.Approved == false);
+            var acctCnt = await _userService.GetPendingAcctCount();
             return Ok(acctCnt);
         }
     }

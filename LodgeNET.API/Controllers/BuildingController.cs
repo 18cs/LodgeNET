@@ -19,23 +19,12 @@ using Microsoft.IdentityModel.Tokens;
 namespace LodgeNET.API.Controllers {
     [Route ("api/[controller]")]
     public class BuildingController : Controller {
-        private readonly IBuildingRepository _repo;
-        private readonly IGenericRepository<BuildingCategory> _buildingCategoryRepo;
-        private readonly IGenericRepository<Stay> _stayRepo;
-        private readonly IGenericRepository<Room> _roomRepo;
         private readonly IMapper _mapper;
         private readonly BuildingService _buildingService;
-        public BuildingController (IBuildingRepository repo,
-            IGenericRepository<BuildingCategory> buildingCategoryRepo,
-            IGenericRepository<Stay> stayRepo,
-            IGenericRepository<Room> roomRepo,
+        public BuildingController (
             IMapper mapper,
             BuildingService buildingService) {
             _mapper = mapper;
-            _repo = repo;
-            _buildingCategoryRepo = buildingCategoryRepo;
-            _stayRepo = stayRepo;
-            _roomRepo = roomRepo;
             _buildingService = buildingService;
         }
 
@@ -92,19 +81,16 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("dashboard")]
         public async Task<IActionResult> buildingDashboardData () {
-            var buildingListResult = await _repo.GetAsync ();
-            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync();
+            var buildingListResult = await _buildingService.GetAllBuildings();
+            var buildingTypeListResult = await _buildingService.GetAllBuildingTypes();
             var buildingsDataDto = new BuildingsDataDto () {
                 BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>> (buildingListResult),
                 BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>> (buildingTypeListResult.ToList())
             };
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList) {
-                b.CurrentGuests = _stayRepo.GetCount (s => s.CheckedOut == false &&
-                    s.CheckedIn == true &&
-                    !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                    s.BuildingId == b.Id);
-                b.Capacity = _roomRepo.GetSum (r => r.Capacity, r => r.BuildingId == b.Id);
+                b.CurrentGuests = await _buildingService.GetCurrentGuests(b.Id);
+                b.Capacity = await _buildingService.GetCapacity(b.Id);
 
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
@@ -118,79 +104,48 @@ namespace LodgeNET.API.Controllers {
 
         [HttpPost ("edit")]
         public async Task<IActionResult> SaveBuilding ([FromBody] BuildingDataDto building) {
-            var bldg = await _repo.GetFirstOrDefault (b => b.Id == building.Id);
-
-            if (bldg != null) {
-                bldg.Name = building.Name;
-                bldg.BuildingCategoryId = building.BuildingCategoryId;
-            }
-
-            await _repo.SaveAsync ();
+            var bldg = await _buildingService.SaveBuilding(building);
 
             return Ok ();
         }
 
         [HttpPost ("add")]
         public async Task<IActionResult> AddBuilding ([FromBody] Building building) {
-            if ((await _repo.GetFirstOrDefault (b => b.Number == building.Number)) != null) {
-                ModelState.AddModelError ("BuildingNumber", "Building Number already exists");
+            try { 
+                await _buildingService.AddBuilding(building); 
+            } 
+            catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            if (!ModelState.IsValid) {
-                return BadRequest (ModelState);
-            }
-
-            building.BuildingCategory = null;
-
-            await _repo.Insert (building);
-
-            await _repo.SaveAsync ();
 
             return Ok ();
         }
 
         [HttpPost ("edittype")]
         public async Task<IActionResult> SaveBuildingType ([FromBody] BuildingCategoryDataDto buildingType) {
-            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault (b => b.Id == buildingType.Id);
-
-            if (bldgType != null) {
-                bldgType.Type = buildingType.Type;
-            }
-
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingService.SaveBuildingType(buildingType);
 
             return Ok ();
         }
 
         [HttpPost ("addtype")]
         public async Task<IActionResult> AddBuildingType ([FromBody] BuildingCategory buildingType) {
-            var bldgTypeToAdd = _mapper.Map<BuildingCategory> (buildingType);
-
-            await _buildingCategoryRepo.Insert (bldgTypeToAdd);
-
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingService.AddBuildingType(buildingType);
 
             return Ok ();
         }
 
         [HttpDelete ("buildingtype/{id}")]
         public async Task<IActionResult> DeleteBuildingTypeById (int id) {
-            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault (b => b.Id == id);
-
-            await _buildingCategoryRepo.Delete (bldgType.Id);
-
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingService.DeleteBuildingTypeById(id);
 
             return Ok ();
         }
 
         [HttpDelete ("{id}")]
         public async Task<IActionResult> DeleteBuildingById (int id) {
-            var bldg = await _repo.GetFirstOrDefault (b => b.Id == id);
-
-            await _repo.Delete (bldg.Id);
-
-            await _repo.SaveAsync ();
+            await _buildingService.DeleteBuildingById(id);
 
             return Ok ();
         }

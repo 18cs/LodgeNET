@@ -83,7 +83,7 @@ namespace LodgeNET.API.DAL
             return false;
         }
 
-        public async Task<PagedList<User>> GetUsersPaginiation(
+        public async Task<PagedList<User>> GetUsersPagination(
             UserUserParams userParams, 
             Expression<Func<User, object>>[] includeProperties = null,
             Expression<Func<User, bool>> filter = null

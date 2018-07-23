@@ -80,26 +80,26 @@ namespace LodgeNET.API.DAL {
             }
         }
 
-        public virtual int GetCount (Expression<Func<TEntity, bool>> filter = null) {
+        public async virtual Task<int> GetCount (Expression<Func<TEntity, bool>> filter = null) {
             int countResult;
             IQueryable<TEntity> query = _context.Set<TEntity> ();
 
             if (filter != null) {
-                countResult = query.Where (filter).Count ();
+                countResult = await query.Where (filter).CountAsync ();
             } else {
-                countResult = query.Count ();
+                countResult = await query.CountAsync ();
             }
             return countResult;
         }
 
-        public virtual int GetSum (Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null) {
+        public async virtual Task<int> GetSum (Expression<Func<TEntity, int>> sumOf, Expression<Func<TEntity, bool>> filter = null) {
             int sumResult;
             IQueryable<TEntity> query = _context.Set<TEntity> ();
 
             if (filter != null) {
-                sumResult = query.Where (filter).Sum (sumOf);
+                sumResult = await query.Where (filter).SumAsync (sumOf);
             } else {
-                sumResult = query.Sum (sumOf);
+                sumResult = await query.SumAsync (sumOf);
             }
             return sumResult;
         }

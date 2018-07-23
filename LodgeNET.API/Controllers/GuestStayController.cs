@@ -4,6 +4,7 @@ using System.Linq.Expressions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Dtos;
 using LodgeNET.API.Helpers;
@@ -22,35 +23,30 @@ namespace LodgeNET.API.Controllers {
         private IGenericRepository<Service> _serviceRepo;
         private IGuestStayRepo _guestStayRepo;
         private IMapper _mapper;
+        private GuestStayService _guestStayService;
         public GuestStayController (IRoomRepository roomsRepo,
             IGenericRepository<Stay> staysRepo,
             IGuestRepository guestRepo,
             IGenericRepository<Service> serviceRepo,
             IGuestStayRepo guestStayRepo,
-            IMapper mapper) {
+            IMapper mapper,
+            GuestStayService guestStayService) {
             _roomsRepo = roomsRepo;
             _staysRepo = staysRepo;
             _guestRepo = guestRepo;
             _serviceRepo = serviceRepo;
             _guestStayRepo = guestStayRepo;
             _mapper = mapper;
+            _guestStayService = guestStayService;
         }
 
         [HttpGet ("availableRooms")]
         public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomUserParams userParams) {
-            var rooms = await _roomsRepo.GetRooms (userParams);
+            var rooms = await _guestStayService.GetAvailableRoomsPagination(userParams);
             var roomsToReturn = _mapper.Map<IEnumerable<RoomForCheckinDto>> (rooms);
 
             foreach (var room in roomsToReturn) {
-                room.CurrentGuestCount = _staysRepo.GetCount (s => s.CheckedOut == false &&
-                    s.CheckedIn == true &&
-                    !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                    s.RoomId == room.Id);
-
-                // if (room.CurrentGuestCount >= room.Capacity)
-                // {
-
-                // }
+                room.CurrentGuestCount = await _guestStayService.GetAvailableRoomCount(room.Id);
             }
 
             Response.AddPagination (rooms.CurrentPage,
@@ -63,62 +59,34 @@ namespace LodgeNET.API.Controllers {
 
         [HttpPost ("editroom")]
         public async Task<IActionResult> EditRoom ([FromBody] Room room) {
-            var rm = await _roomsRepo.GetFirstOrDefault (b => b.Id == room.Id);
-
-            if (rm != null) {
-                rm.RoomNumber = room.RoomNumber;
-                rm.SurgeMultiplier = room.SurgeMultiplier;
-                rm.Capacity = room.Capacity;
-                rm.SquareFootage = room.SquareFootage;
-                rm.Floor = room.Floor;
-                rm.BuildingId = room.BuildingId;
-            }
-
-            await _roomsRepo.SaveAsync ();
+            await _guestStayService.EditRoom(room);
 
             return Ok ();
         }
 
         [HttpPost ("addroom")]
         public async Task<IActionResult> AddRoom ([FromBody] Room room) {
-            if ((await _roomsRepo.GetFirstOrDefault (
-                    r => r.RoomNumber == room.RoomNumber && 
-                    r.BuildingId == room.BuildingId)) != null) {
-                ModelState.AddModelError ("BuildingNumber", "Building Number already exists");
+            try { 
+                await _guestStayService.AddRoom(room); 
+            } 
+            catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            if (!ModelState.IsValid) {
-                return BadRequest (ModelState);
-            }
-
-            room.Building = null;
-
-            await _roomsRepo.Insert (room);
-
-            await _roomsRepo.SaveAsync ();
 
             return Ok ();
         }
 
         [HttpDelete ("room/{id}")]
         public async Task<IActionResult> DeleteRoomById (int id) {
-            var room = await _roomsRepo.GetFirstOrDefault (b => b.Id == id);
-
-            await _roomsRepo.Delete (room.Id);
-
-            await _roomsRepo.SaveAsync ();
+            await _guestStayService.DeleteRoomById(id);
 
             return Ok ();
         }
 
         [HttpGet ("getrooms")]
         public async Task<IActionResult> GetRooms ([FromQuery] RoomUserParams userParams) {
-            var rms = await _roomsRepo.GetRoomsPagination (
-                userParams,
-                new Expression<Func<Room, object>>[] {
-                    r => r.Building
-                });
-            // var rmsToReturn = _mapper.Map<IEnumerable<Room>>(rms);
+            var rms = await _guestStayService.GetRooms(userParams);
 
             Response.AddPagination (rms.CurrentPage,
                 rms.PageSize,
@@ -126,17 +94,11 @@ namespace LodgeNET.API.Controllers {
                 rms.TotalPages);
 
             return Ok (rms);
-
-            // OLD CODE
-            //
-            // var buildings = await _repo.GetAsync();
-
-            // return Ok(buildings);
         }
 
         [HttpPost ("checkin")]
         public async Task<IActionResult> CheckinGuest ([FromBody] GuestStayForCheckInDto guestStayDto) {
-
+            //TODOBLL
             var guest = await _guestRepo.GetFirstOrDefault (g => g.DodId == guestStayDto.DodId);
 
             if (guest == null) {
@@ -172,29 +134,25 @@ namespace LodgeNET.API.Controllers {
 
         [HttpPost ("checkout")]
         public async Task<IActionResult> CheckOutGuest ([FromBody] Stay guestStayDto) {
-            var guestStay = await _staysRepo.GetFirstOrDefault (s => s.Id == guestStayDto.Id);
-
-            if (guestStay == null) {
-                ModelState.AddModelError ("Guest", "Guest stay not found");
-                return BadRequest (ModelState);
+            try {
+                await _guestStayService.CheckOutGuest(guestStayDto);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            guestStay.CheckOutDate = DateTime.Today;
-
-            guestStay.CheckedOut = true;
-            await _staysRepo.SaveAsync ();
 
             return Ok ();
         }
 
         [HttpGet ("existentguest")]
         public async Task<IActionResult> GetExistentGuest (int dodId) {
-            var guest = await _guestRepo.GetFirstOrDefault (g => g.DodId == dodId, new Expression<Func<Guest, object>>[] { g => g.Rank, g => g.Unit });
+            var guest = await _guestStayService.GetExistentGuest(dodId);
 
             if (guest == null) {
                 return Ok ();
             }
 
+            //TODOBLL
             var guestStayForRetrieve = _mapper.Map<GuestForCheckinDto> (guest);
             guestStayForRetrieve.Service = await _serviceRepo
                 .GetFirstOrDefault (
@@ -209,16 +167,7 @@ namespace LodgeNET.API.Controllers {
         [HttpGet ("getgueststays")]
         public async Task<IActionResult> GetGuestStays ([FromQuery] GuestStayRetUserParams guestStayParams) {
             var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForEditDto>> (
-                await _guestStayRepo.GetGuestStays (
-                    guestStayParams,
-                    new Expression<Func<Stay, object>>[] {
-                        s => s.Guest,
-                            s => s.Guest.Rank,
-                            s => s.Guest.Unit,
-                            s => s.Room,
-                            s => s.Building
-                    }
-                ));
+                await _guestStayService.GetGuestStays (guestStayParams));
             return Ok (guestStaysToReturn);
         }
 
@@ -229,7 +178,7 @@ namespace LodgeNET.API.Controllers {
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-
+            //TODOBLL
             var gueststay = await _guestStayRepo.GetFirstOrDefault (s => s.Id == guestStayDto.Id);
 
             if (gueststay == null) {
@@ -250,11 +199,7 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("getguests")]
         public async Task<IActionResult> GetGuests ([FromQuery] GuestUserParams userParams) {
-            var guests = await _guestRepo.GetGuestPagination (userParams,
-                new Expression<Func<Guest, object>>[] {
-                    g => g.Rank,
-                        g => g.Unit
-                });
+            var guests = await _guestStayService.GetGuestsPagination(userParams);
 
             var guestsToReturn = _mapper.Map<IEnumerable<GuestForEditDto>> (guests);
 
@@ -273,7 +218,7 @@ namespace LodgeNET.API.Controllers {
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-
+            //TODOBLL
             var guest = await _guestRepo.GetFirstOrDefault (g => g.Id == updatedGuestDto.Id);
 
             if (guest == null) {
@@ -289,15 +234,12 @@ namespace LodgeNET.API.Controllers {
 
         [HttpDelete ("deleteguest/{id}")]
         public async Task<IActionResult> DeleteGuestById (int id) {
-            var guest = await _guestRepo.GetFirstOrDefault (g => g.Id == id);
-
-            if (guest == null) {
-                ModelState.AddModelError ("error", "Unable to delete guest");
-                return BadRequest (ModelState);
+            try {
+                await _guestStayService.DeleteGuestById(id);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            await _guestRepo.Delete (guest);
-            await _guestRepo.SaveAsync ();
 
             return Ok ();
         }

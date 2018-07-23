@@ -1,6 +1,8 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Models;
@@ -15,18 +17,21 @@ namespace LodgeNET.API.Controllers
     {
         private IMapper _mapper { get; set; }
         private readonly IUnitRepository _unitRepo;
+
+        private readonly UnitService _unitService;
         public UnitController(IUnitRepository unitRepo,
-                            IMapper mapper)
+                            IMapper mapper,
+                            UnitService unitService)
         {
             _unitRepo = unitRepo;
             _mapper = mapper;
+            _unitService = unitService;
         }
 
         [HttpGet("pagination")]
         public async Task<IActionResult> GetUnitsPagination([FromQuery] UnitUserParams userParams)
         {
-            var units = await _unitRepo.GetUnitPagination(
-                userParams);
+            var units = await _unitService.GetUnitsPagination(userParams);
 
              Response.AddPagination(units.CurrentPage,
                 units.PageSize,
@@ -38,7 +43,7 @@ namespace LodgeNET.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetUnits() {
-            var units = await _unitRepo.GetAsync();
+            var units = await _unitService.GetUnits();
 
             return Ok(units);
         }
@@ -46,7 +51,7 @@ namespace LodgeNET.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUnit(int id)
         {
-            var unit = await _unitRepo.GetByID(id);
+            var unit = await _unitService.GetUnit(id);
 
             return Ok(unit);
         }
@@ -58,7 +63,7 @@ namespace LodgeNET.API.Controllers
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-
+            //TODOBLL
             var unit = await _unitRepo.GetFirstOrDefault(u => u.Id == updateUnit.Id);
 
             if (unit == null) {
@@ -74,16 +79,13 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpDelete ("deleteunit/{id}")]
-        public async Task<IActionResult> DeleteGuestById (int id) {
-            var unit = await _unitRepo.GetFirstOrDefault (u => u.Id == id);
-
-            if (unit == null) {
-                ModelState.AddModelError ("error", "Unable to delete unit");
-                return BadRequest (ModelState);
+        public async Task<IActionResult> DeleteUnitById (int id) {
+            try {
+                await _unitService.DeleteUnitById(id);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            await _unitRepo.Delete (unit);
-            await _unitRepo.SaveAsync ();
 
             return Ok ();
         }

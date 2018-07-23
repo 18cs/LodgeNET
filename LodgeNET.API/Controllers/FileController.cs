@@ -66,7 +66,6 @@ namespace LodgeNET.API.Controllers {
             string folderName = "Upload";
             string webRootPath = _hostingEnvironment.WebRootPath;
             string newPath = System.IO.Path.Combine (webRootPath, folderName);
-            StringBuilder sb = new StringBuilder ();
             if (!Directory.Exists (newPath)) {
                 Directory.CreateDirectory (newPath);
             }
@@ -86,7 +85,6 @@ namespace LodgeNET.API.Controllers {
                     }
                     IRow headerRow = sheet.GetRow (0); //Get Header Row
                     int cellCount = headerRow.LastCellNum;
-                    sb.Append ("<table class='table'><tr>");
                     for (int j = 0; j < cellCount; j++) {
                         NPOI.SS.UserModel.ICell cell = headerRow.GetCell (j);
                         if (cell == null || string.IsNullOrWhiteSpace (cell.ToString ())) continue;
