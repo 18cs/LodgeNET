@@ -64,16 +64,12 @@ namespace LodgeNET.API.Controllers
                 return Unauthorized ();
             }
             //TODOBLL
-            var unit = await _unitRepo.GetFirstOrDefault(u => u.Id == updateUnit.Id);
-
-            if (unit == null) {
-                ModelState.AddModelError("error", "Unable to update user");
-                return BadRequest(ModelState);
+            try {
+                await _unitService.Update(updateUnit);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            unit.Name = updateUnit.Name;
-            unit.ParentUnitId = updateUnit.ParentUnitId;
-            await _unitRepo.SaveAsync();
 
             return Ok();
         }
