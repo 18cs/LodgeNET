@@ -38,7 +38,7 @@ namespace LodgeNET.API.BLL
             _rankRepo = rankRepo;
             _mapper = mapper;
         }
-        public FileRowForUploadDto ParseUnaccompaniedExcelRow(IRow row, ArrayList headers)
+        public async Task<FileRowForUploadDto> ParseUnaccompaniedExcelRow(IRow row, ArrayList headers)
         {
             var rowForUpload = new FileRowForUploadDto();
             for (int j = row.FirstCellNum; j < headers.Count; j++)
@@ -55,7 +55,7 @@ namespace LodgeNET.API.BLL
                 if (headers[j].Equals("BLDG") && rowForUpload.BuildingId == 0)
                 {
                     int.TryParse(row.GetCell(j).ToString(), out int rowBldgNum);
-                    ParseBuilding(rowBldgNum, rowForUpload);
+                    await ParseBuilding(rowBldgNum, rowForUpload);
                 }
 
                 if (headers[j].Equals("ROOM"))
@@ -71,15 +71,15 @@ namespace LodgeNET.API.BLL
                         }
 
                         int.TryParse(row.GetCell(bldgIndex).ToString(), out int rowBldgNum);
-                        ParseBuilding(rowBldgNum, rowForUpload);
+                        await ParseBuilding(rowBldgNum, rowForUpload);
                     }
 
                     if (rowForUpload.BuildingId != 0)
                     {
-                        rowForUpload.RoomId = _roomRepo.GetFirstOrDefault(
+                        rowForUpload.RoomId = (await _roomRepo.GetFirstOrDefault(
                             r => r.RoomNumber == rowForUpload.RoomNumber &&
                             r.BuildingId == rowForUpload.BuildingId
-                        )?.Result?.Id ?? 0;
+                        ))?.Id ?? 0;
                     }
                 }
 
@@ -98,7 +98,7 @@ namespace LodgeNET.API.BLL
 
         public async Task<FileRowForUploadDto> ParseDataRow(FileRowForUploadDto fileRow)
         {
-            ParseBuilding(fileRow.BuildingNumber, fileRow);
+            await ParseBuilding(fileRow.BuildingNumber, fileRow);
 
             if (fileRow.BuildingId != 0)
             {
@@ -118,7 +118,7 @@ namespace LodgeNET.API.BLL
             return fileRow;
         }
 
-        public FileRowForUploadDto ParseDlsReportRow(string dataRow)
+        public async Task<FileRowForUploadDto> ParseDlsReportRow(string dataRow)
         {
             var rowForUpload = new FileRowForUploadDto();
 
@@ -126,12 +126,11 @@ namespace LodgeNET.API.BLL
                 return null;
 
             string[] stayData = dataRow.Split(" ");
-            
 
-            ParseDlsRoom(stayData[0], rowForUpload);
+            await ParseDlsRoom(stayData[0], rowForUpload);
             
             rowForUpload.LastName = stayData[1];
-            ParseDlsRank(rowForUpload, stayData);
+            await ParseDlsRank(rowForUpload, stayData);
             
             //removes tailing ',' from lastname
             rowForUpload.LastName = rowForUpload.LastName.Remove(stayData[1].Length - 1).ToUpper();
@@ -157,7 +156,7 @@ namespace LodgeNET.API.BLL
             }
             return rowForUpload;
         }
-        public async void SaveFileRowAsync(FileRowForUploadDto rowForUpload)
+        public async Task SaveFileRowAsync(FileRowForUploadDto rowForUpload)
         {
             //TODO add unit parse
             var guest = new Guest();
@@ -188,10 +187,10 @@ namespace LodgeNET.API.BLL
             await _stayRepo.SaveAsync();
         }
 
-        private void ParseBuilding(int rowBldgNum, FileRowForUploadDto rowForUpload)
+        private async Task ParseBuilding(int rowBldgNum, FileRowForUploadDto rowForUpload)
         {
             rowForUpload.BuildingNumber = rowBldgNum;
-            rowForUpload.BuildingId = _buildingRepo.GetFirstOrDefault(b => b.Number == rowForUpload.BuildingNumber)?.Result?.Id ?? 0;
+            rowForUpload.BuildingId = (await _buildingRepo.GetFirstOrDefault(b => b.Number == rowForUpload.BuildingNumber))?.Id ?? 0;
         }
 
         private Unit GetRowUnit(string unitName)
@@ -228,7 +227,7 @@ namespace LodgeNET.API.BLL
             return _unitRepo.GetFirst(u => unitNameSections.All(u.Name.ToUpper().Contains));
         }
 
-        private async void ParseDlsRoom(string roomNumber, FileRowForUploadDto rowForUpload)
+        private async Task ParseDlsRoom(string roomNumber, FileRowForUploadDto rowForUpload)
         {
             var room = await _roomRepo.GetFirstOrDefault(
                                     r => r.RoomNumber.Equals(roomNumber,StringComparison.CurrentCultureIgnoreCase) 
@@ -242,9 +241,10 @@ namespace LodgeNET.API.BLL
                 rowForUpload.BuildingId = room.BuildingId;
                 rowForUpload.BuildingNumber = room.Building.Number;
             }
+            // return rowForUpload;
         }
 
-        private async void ParseDlsRank(FileRowForUploadDto rowForUpload, string[] stayData)
+        private async Task ParseDlsRank(FileRowForUploadDto rowForUpload, string[] stayData)
         {
             Rank rank;
             // accounts to spaced (two) last names

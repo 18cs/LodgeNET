@@ -22,16 +22,8 @@ namespace LodgeNET.API.BLL
             _authRepo = repo;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetUsers()
-        // {
-        //     var users = await _authRepo.GetAsync();
-
-        //     return Ok(users);
-            
-        // }
-
-        public async Task<PagedList<User>> GetUsersPagination(UserUserParams userParams) {
+        public async Task<PagedList<User>> GetUsersPagination(UserUserParams userParams) 
+        {
             var users = await _authRepo.GetUsersPagination(
                 userParams,
                 new Expression<Func<User, object>>[] {
@@ -42,7 +34,6 @@ namespace LodgeNET.API.BLL
             return (users);
         }
 
-
         public async Task<User> GetUserByID(int id)
         {
             var user = await _authRepo.GetByID(id);
@@ -50,9 +41,8 @@ namespace LodgeNET.API.BLL
             return (user);
         }
 
-        public async Task<User> UpdateUser(UserForEditDto updatedUserDto) {
-
-
+        public async Task<User> UpdateUser(UserForEditDto updatedUserDto) 
+        {
             var user = await _authRepo.GetFirstOrDefault(u => u.Id == updatedUserDto.Id);
 
             if (user == null) {
@@ -84,7 +74,6 @@ namespace LodgeNET.API.BLL
 
         public async Task<int> GetPendingAcctCount()
         {
-            //TODOBLL
             var acctCnt = await _authRepo.GetCount(u => u.Approved == false);
             return (acctCnt);
         }

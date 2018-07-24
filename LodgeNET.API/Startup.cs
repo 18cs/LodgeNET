@@ -22,6 +22,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using LodgeNET.API.DAL.Repos;
 using LodgeNET.API.BLL;
+using LodgeNET.API.Utilities.IO.FileIO;
 
 namespace LodgeNET.API {
     public class Startup {
@@ -40,6 +41,11 @@ namespace LodgeNET.API {
             services.AddTransient<Seed>();
             services.AddTransient<AuthService>();
             services.AddTransient<BuildingService>();
+            services.AddTransient<FileService>();
+            services.AddTransient<GuestStayService>();
+            services.AddTransient<UnitService>();
+            services.AddTransient<UserService>();
+            services.AddTransient<FileReader>();
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

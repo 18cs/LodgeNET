@@ -32,7 +32,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpPost("unaccompaniedFile")]
-        public IActionResult UploadUnaccompaniedFile(int userId, FileForUploadDto fileDto)
+        public async Task<IActionResult> UploadUnaccompaniedFile(int userId, FileForUploadDto fileDto)
         {
             ArrayList returnRows = new ArrayList();
             IFormFile file = Request.Form.Files[0];
@@ -60,7 +60,7 @@ namespace LodgeNET.API.Controllers
                     IRow row = sheet.GetRow(i);
                     if (row == null || row.Cells.All(d => d.CellType == CellType.Blank)) continue;
 
-                    var rowForUpload = _fileService.ParseUnaccompaniedExcelRow(row, headers);
+                    var rowForUpload = await _fileService.ParseUnaccompaniedExcelRow(row, headers);
 
                     //stay buildingId is nullable
                     if (rowForUpload.RoomId == 0 ||
@@ -73,7 +73,7 @@ namespace LodgeNET.API.Controllers
                     }
                     else
                     {
-                        _fileService.SaveFileRowAsync(rowForUpload);
+                        await _fileService.SaveFileRowAsync(rowForUpload);
                     }
                 }
 
@@ -113,14 +113,14 @@ namespace LodgeNET.API.Controllers
                 else
                 {
                     //TODO add unit parse
-                    _fileService.SaveFileRowAsync(fileRow);
+                    await _fileService.SaveFileRowAsync(fileRow);
                 }
             }
             return Ok(returnRows);
         }
 
         [HttpPost("lodgingFile")]
-        public IActionResult UploadLodgeingFile(int userId, FileForUploadDto fileDto)
+        public async Task<IActionResult> UploadLodgeingFile(int userId, FileForUploadDto fileDto)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
@@ -137,7 +137,7 @@ namespace LodgeNET.API.Controllers
 
                 foreach (string guestStay in guestStays)
                 {
-                    var rowForUpload = _fileService.ParseDlsReportRow(guestStay);
+                    var rowForUpload = _fileService.ParseDlsReportRow(guestStay).Result;
                     if (rowForUpload == null)
                         continue;
 
@@ -152,7 +152,7 @@ namespace LodgeNET.API.Controllers
                     }
                     else
                     {
-                        _fileService.SaveFileRowAsync(rowForUpload);
+                        await _fileService.SaveFileRowAsync(rowForUpload);
                     }
                 }
             }

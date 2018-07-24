@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -66,7 +67,7 @@ namespace LodgeNET.API.BLL {
             return (building);
         }
 
-        public async Task<IActionResult> buildingDashboardData () {
+        public async Task<BuildingsDataDto> buildingDashboardData () {
             var buildingListResult = await _repo.GetAsync ();
             var buildingTypeListResult = await _buildingCategoryRepo.GetAsync ();
             var buildingsDataDto = new BuildingsDataDto () {
