@@ -57,6 +57,12 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
 import { AccountTypeGuard } from './_guards/accounttype.guard';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { PendingscandialogComponent } from './_utilities/pendingscandialog/pendingscandialog.component';
+import { ManageuploadsComponent } from './authapp/fileupload/manageuploads/manageuploads.component';
+import { ReportsComponent } from './authapp/reports/reports.component';
+import { GuestsbyserviceComponent } from './authapp/reports/guestsbyservice/guestsbyservice.component';
+import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
+import { GuestsbybuildingComponent } from './authapp/reports/guestsbybuilding/guestsbybuilding.component';
+import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.component';
 
 export function getAccessToken(): string {
   return localStorage.getItem('token');
@@ -104,7 +110,13 @@ export const jwtConfig = {
     UnitdialogComponent,
     ViewbuildingtypesComponent,
     RoomsdialogComponent,
-    PendingscandialogComponent
+    PendingscandialogComponent,
+    ManageuploadsComponent,
+    ReportsComponent,
+    InhouseComponent,
+    GuestsbybuildingComponent,
+    GuestsbyserviceComponent,
+    VacantroomsComponent
 ],
   imports: [
     BrowserModule,

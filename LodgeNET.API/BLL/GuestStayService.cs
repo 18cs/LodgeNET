@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.Dtos;
+using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 
 namespace LodgeNET.API.BLL {
     public class GuestStayService {
@@ -154,6 +154,19 @@ namespace LodgeNET.API.BLL {
 
         public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayRetUserParams guestStayParams) {
             return await _guestStayRepo.GetGuestStays (
+                    guestStayParams,
+                    new Expression<Func<Stay, object>>[] {
+                        s => s.Guest,
+                            s => s.Guest.Rank,
+                            s => s.Guest.Unit,
+                            s => s.Room,
+                            s => s.Building
+                    }
+                );
+        }
+
+        public async Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayRetUserParams guestStayParams) {
+            return await _guestStayRepo.GetGuestStaysPagination (
                     guestStayParams,
                     new Expression<Func<Stay, object>>[] {
                         s => s.Guest,

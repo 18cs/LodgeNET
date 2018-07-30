@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
-using LodgeNET.API.Dtos;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.DAL.Models;
+using LodgeNET.API.Helpers;
 
 namespace LodgeNET.API.ConfigHelpers
 {
@@ -42,6 +43,7 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(guest => guest.Rank.ServiceId));
             CreateMap<GuestForEditDto, Guest>();
             CreateMap<GuestStayForEditDto, Stay>();
+            CreateMap<PagedList<Stay>, PagedList<GuestStayForEditDto>>();
         }
     }
 }

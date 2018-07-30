@@ -4,6 +4,7 @@ import { GueststayService } from '../../_services/gueststay.service';
 import { AlertifyService } from '../../_services/alertify.service';
 import { GuestStayEdit } from '../../_models/guestStayEdit';
 import { Router } from '@angular/router';
+import { GuestStayParams } from '../../_models/params/guestStayParams';
 
 @Component({
   selector: 'app-checkout',
@@ -45,7 +46,7 @@ export class CheckoutComponent implements OnInit {
       return;
     }
 
-    this.guestStayService.getGuestStays(this.dodId, this.lastName, this.roomNumber, null, true)
+    this.guestStayService.getGuestStays({dodId : this.dodId, lastName : this.lastName, roomNumber : this.roomNumber, guestId : null, currentStaysOnly : true} as GuestStayParams)
       .subscribe((guestStays: GuestStayEdit[]) => {
         if (guestStays.length > 1) {
           this.guestStayList = guestStays;

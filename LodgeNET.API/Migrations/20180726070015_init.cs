@@ -137,41 +137,6 @@ namespace LodgeNET.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Guests",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Chalk = table.Column<int>(nullable: true),
-                    CommPhone = table.Column<string>(nullable: true),
-                    DodId = table.Column<int>(nullable: true),
-                    DsnPhone = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true),
-                    Gender = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    MiddleInitial = table.Column<string>(maxLength: 1, nullable: true),
-                    RankId = table.Column<int>(nullable: true),
-                    UnitId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Guests", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Guests_Ranks_RankId",
-                        column: x => x.RankId,
-                        principalTable: "Ranks",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Guests_Units_UnitId",
-                        column: x => x.UnitId,
-                        principalTable: "Units",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -211,6 +176,69 @@ namespace LodgeNET.API.Migrations
                         name: "FK_Users_Units_UnitId",
                         column: x => x.UnitId,
                         principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Uploads",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DateUploaded = table.Column<DateTime>(nullable: false),
+                    FileName = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Uploads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Uploads_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Guests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Chalk = table.Column<int>(nullable: true),
+                    CommPhone = table.Column<string>(nullable: true),
+                    DodId = table.Column<int>(nullable: true),
+                    DsnPhone = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    Gender = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    MiddleInitial = table.Column<string>(maxLength: 1, nullable: true),
+                    RankId = table.Column<int>(nullable: true),
+                    UnitId = table.Column<int>(nullable: true),
+                    UploadId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Guests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Guests_Ranks_RankId",
+                        column: x => x.RankId,
+                        principalTable: "Ranks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Guests_Units_UnitId",
+                        column: x => x.UnitId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Guests_Uploads_UploadId",
+                        column: x => x.UploadId,
+                        principalTable: "Uploads",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -270,6 +298,11 @@ namespace LodgeNET.API.Migrations
                 column: "UnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Guests_UploadId",
+                table: "Guests",
+                column: "UploadId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ranks_ServiceId",
                 table: "Ranks",
                 column: "ServiceId");
@@ -300,6 +333,11 @@ namespace LodgeNET.API.Migrations
                 column: "ParentUnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Uploads_UserId",
+                table: "Uploads",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_AccountTypeId",
                 table: "Users",
                 column: "AccountTypeId");
@@ -321,13 +359,22 @@ namespace LodgeNET.API.Migrations
                 name: "Stays");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "Guests");
 
             migrationBuilder.DropTable(
                 name: "Rooms");
+
+            migrationBuilder.DropTable(
+                name: "Uploads");
+
+            migrationBuilder.DropTable(
+                name: "Buildings");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "BuildingCategories");
 
             migrationBuilder.DropTable(
                 name: "AccountTypes");
@@ -339,13 +386,7 @@ namespace LodgeNET.API.Migrations
                 name: "Units");
 
             migrationBuilder.DropTable(
-                name: "Buildings");
-
-            migrationBuilder.DropTable(
                 name: "Services");
-
-            migrationBuilder.DropTable(
-                name: "BuildingCategories");
         }
     }
 }

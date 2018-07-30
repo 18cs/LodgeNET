@@ -1,6 +1,6 @@
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 
-namespace LodgeNET.API.Dtos
+namespace LodgeNET.API.DAL.Dtos
 {
     public class GuestForCheckinDto
     {

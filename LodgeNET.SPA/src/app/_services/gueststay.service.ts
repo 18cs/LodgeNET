@@ -11,6 +11,7 @@ import { GuestStayDto } from '../_models/guestStayDto';
 import { Guest } from '../_models/guest';
 import { GuestParams } from '../_models/params/guestParams';
 import { RoomParams } from '../_models/params/roomParams';
+import { GuestStayParams } from '../_models/params/guestStayParams';
 
 @Injectable()
 export class GueststayService {
@@ -150,30 +151,68 @@ export class GueststayService {
         return this.http.get<GuestStayCheckIn>(this.baseUrl + 'gueststay/existentguest', {params});
     }
 
-    getGuestStays(dodId?, lastName?, roomNumber?, guestId?, currentStaysOnly?) {
+    getGuestStays(guestStayParams: GuestStayParams) {
         let params = new HttpParams();
 
-        if (dodId != null) {
-            params = params.append('dodId', dodId);
+        if (guestStayParams.dodId != null) {
+            params = params.append('dodId', guestStayParams.dodId.toString());
         }
 
-        if (lastName != null) {
-            params = params.append('lastName', lastName);
+        if (guestStayParams.lastName != null) {
+            params = params.append('lastName', guestStayParams.lastName);
         }
 
-        if (roomNumber != null) {
-            params = params.append('roomNumber', roomNumber);
+        if (guestStayParams.roomNumber != null) {
+            params = params.append('roomNumber', guestStayParams.roomNumber);
         }
 
-        if (guestId != null) {
-            params = params.append('guestId', guestId);
+        if (guestStayParams.guestId != null) {
+            params = params.append('guestId', guestStayParams.guestId.toString());
         }
 
-        if(currentStaysOnly != null) {
-            params = params.append('currentStaysOnly', currentStaysOnly);
+        if(guestStayParams.currentStaysOnly != null) {
+            params = params.append('currentStaysOnly', guestStayParams.currentStaysOnly.toString());
         }
 
         return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', {params});
+    }
+
+    getGuestStaysPagination(page?, itemsPerPage?, userParams?: GuestStayParams): Observable<PaginatedResult<GuestStayEdit[]>> {
+        const paginatedResult: PaginatedResult<GuestStayEdit[]> = new PaginatedResult<GuestStayEdit[]>();
+            let params = new HttpParams();
+
+            if (page != null && itemsPerPage != null) {
+                params = params.append('pageNumber', page);
+                params = params.append('pageSize', itemsPerPage);
+            }
+
+            if (userParams != null) {
+                if (userParams.currentStaysOnly != null) {
+                    params = params.append('currentStaysOnly', userParams.currentStaysOnly.toString());
+                }
+
+                if(userParams.dodId != null) {
+                    params = params.append('dodId', userParams.dodId.toString());
+                }
+
+                if(userParams.guestId != null) {
+                    params = params.append('guestId', userParams.guestId.toString());
+                }
+
+                params = params.append('roomNumber', userParams.roomNumber);
+                params = params.append('lastName', userParams.lastName);
+            }
+
+            return this.http.
+                get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststayspagination', { observe: 'response', params })
+                .map((response) => {
+                    paginatedResult.result = response.body;
+                    if (response.headers.get('Pagination') != null) {
+                        paginatedResult.pagination = JSON.parse(
+                            response.headers.get('Pagination'));
+                    }
+                    return paginatedResult;
+                });
     }
 
     updateGuestStay(model: any) {

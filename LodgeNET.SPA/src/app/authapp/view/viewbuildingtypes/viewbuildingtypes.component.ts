@@ -51,17 +51,6 @@ export class ViewbuildingtypesComponent implements OnInit {
           this.showSpinner = false;          
         });
     }
-
-    // OLD CODE
-    //
-    // this.buildingService.getBuildingTypes().subscribe(
-    //   (buildingTypeList: BuildingType[]) => {
-    //     this.buildingTypeList = buildingTypeList;
-    //   },
-    //   error => {
-    //     this.alertify.error(error);
-    //   }
-    // );
   }
 
   pageChanged(event: any): void {

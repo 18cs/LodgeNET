@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Newtonsoft.Json;
 
 namespace LodgeNET.API.DAL.SeedData

@@ -16,6 +16,7 @@ import {map, startWith} from 'rxjs/operators';
 import { GuestParams } from '../../../_models/params/guestParams';
 import { GueststaydialogComponent } from '../dialogcomponents/gueststaydialog/gueststaydialog.component';
 import { AuthService } from '../../../_services/auth.service';
+import { GuestStayParams } from '../../../_models/params/guestStayParams';
 
 @Component({
   selector: 'app-viewguests',
@@ -180,7 +181,7 @@ export class ViewguestsComponent implements OnInit {
   }
 
   loadGuestStays(guestId: number) {
-    this.guestStayService.getGuestStays(null, null, null, guestId).subscribe(
+    this.guestStayService.getGuestStays({guestId: guestId} as GuestStayParams).subscribe(
       (guestStayList: GuestStayEdit[]) => {
         this.guestStayList = guestStayList;
       },

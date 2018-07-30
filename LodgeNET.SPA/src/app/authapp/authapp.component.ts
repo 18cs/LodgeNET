@@ -10,9 +10,11 @@ export class AuthappComponent implements OnInit {
   @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
   @ViewChild('checkinoutdropdown') checkinoutDropDown: ElementRef;
   @ViewChild('viewdropdown') viewDropdown: ElementRef;
+  @ViewChild('reportsdropdown') reportsDropdown: ElementRef;
   isUploadDropdownOpen = false;
   isCheckinOutDropdownOpen = false;
   isViewDropdownOpen = false;
+  isReportsDropdownOpen = false;
 
   constructor(public authService: AuthService) { }
 
@@ -23,6 +25,10 @@ export class AuthappComponent implements OnInit {
     if (this.authService.accountType !== 'Viewer') {
       if (!this.uploadDropdown.nativeElement.contains(eventData.target)) {
       this.isUploadDropdownOpen = false;
+      }
+
+      if (!this.reportsDropdown.nativeElement.contains(eventData.target)) {
+        this.isReportsDropdownOpen = false;
       }
 
     if (!this.checkinoutDropDown.nativeElement.contains(eventData.target)) {

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL {

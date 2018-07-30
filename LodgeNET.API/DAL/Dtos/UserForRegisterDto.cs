@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LodgeNET.API.Dtos
+namespace LodgeNET.API.DAL.Dtos
 {
     public class UserForRegisterDto
     {

@@ -26,6 +26,11 @@ import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 import { UnitsResolverService } from './_resolvers/units-resolver.service';
 import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
+import { ReportsComponent } from './authapp/reports/reports.component';
+import { GuestsbybuildingComponent } from './authapp/reports/guestsbybuilding/guestsbybuilding.component';
+import { GuestsbyserviceComponent } from './authapp/reports/guestsbyservice/guestsbyservice.component';
+import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.component';
+import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
 
  const appRoutes: Routes =
 //   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -68,6 +73,13 @@ import { BuildingsResolverService } from './_resolvers/buildings-resolver.servic
       {path: 'units', component: ViewunitsComponent, resolve: { units: UnitsResolverService }},
       {path: 'users/:approved', component: ViewusersComponent},
       {path: 'users', component: ViewusersComponent}
+    ]},
+    {path: 'reports', component: ReportsComponent, children: [
+      {path: '', redirectTo: 'inhouse', pathMatch: 'full'},
+      {path: 'inhouse', component: InhouseComponent},
+      {path: 'guestsbybuilding', component: GuestsbybuildingComponent},
+      {path: 'guestsbyservice', component: GuestsbyserviceComponent},
+      {path: 'vacantrooms', component: VacantroomsComponent}
     ]},
     {path: 'checkout', component: CheckoutComponent, canActivate: [AccountTypeGuard],
       data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }}

@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LodgeNET.API.Models
+namespace LodgeNET.API.DAL.Models
 {
     public class Stay
     {

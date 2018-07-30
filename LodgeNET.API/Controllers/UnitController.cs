@@ -5,7 +5,7 @@ using AutoMapper;
 using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

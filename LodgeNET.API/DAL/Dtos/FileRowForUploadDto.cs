@@ -1,6 +1,6 @@
 using System;
 
-namespace LodgeNET.API.Dtos
+namespace LodgeNET.API.DAL.Dtos
 {
     public class FileRowForUploadDto
     {

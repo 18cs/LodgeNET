@@ -1,7 +1,7 @@
 using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
-using LodgeNET.API.Dtos;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.DAL.Models;
 using NUnit.Framework;
 
 namespace Tests

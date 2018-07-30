@@ -7,8 +7,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.Dtos;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.DAL.Models;
 using NPOI.SS.UserModel;
 
 namespace LodgeNET.API.BLL

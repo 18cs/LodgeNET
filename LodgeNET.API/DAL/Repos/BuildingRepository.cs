@@ -1,5 +1,5 @@
 using LodgeNET.API.DAL;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq.Expressions;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LodgeNET.API.BLL;
-using LodgeNET.API.Dtos;
+using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.Utilities.IO.FileIO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 
 namespace LodgeNET.API.BLL
 {
@@ -36,7 +36,7 @@ namespace LodgeNET.API.BLL
 
             return (unit);
         }
-        
+
         public async Task<Unit> Update(Unit updateUnit) {
             var unit = await _unitRepo.GetFirstOrDefault(u => u.Id == updateUnit.Id);
 

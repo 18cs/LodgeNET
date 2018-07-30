@@ -11,7 +11,7 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180516055240_init")]
+    [Migration("20180726070015_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,7 +21,7 @@ namespace LodgeNET.API.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("LodgeNET.API.Models.AccountType", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.AccountType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -33,7 +33,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("AccountTypes");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Building", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Building", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -51,7 +51,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Buildings");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.BuildingCategory", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.BuildingCategory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -63,7 +63,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("BuildingCategories");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Guest", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Guest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -91,16 +91,20 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int?>("UnitId");
 
+                    b.Property<int?>("UploadId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RankId");
 
                     b.HasIndex("UnitId");
 
+                    b.HasIndex("UploadId");
+
                     b.ToTable("Guests");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Rank", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Rank", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -120,7 +124,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Ranks");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Room", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Room", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -146,7 +150,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Rooms");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Service", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -158,7 +162,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Services");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Stay", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Stay", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -192,7 +196,7 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Stays");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Unit", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Unit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -208,7 +212,25 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Units");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.User", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Upload", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateUploaded");
+
+                    b.Property<string>("FileName");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Uploads");
+                });
+
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -253,77 +275,88 @@ namespace LodgeNET.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Building", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Building", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.BuildingCategory", "BuildingCategory")
+                    b.HasOne("LodgeNET.API.DAL.Models.BuildingCategory", "BuildingCategory")
                         .WithMany()
                         .HasForeignKey("BuildingCategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Guest", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Guest", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.Rank", "Rank")
+                    b.HasOne("LodgeNET.API.DAL.Models.Rank", "Rank")
                         .WithMany()
                         .HasForeignKey("RankId");
 
-                    b.HasOne("LodgeNET.API.Models.Unit", "Unit")
+                    b.HasOne("LodgeNET.API.DAL.Models.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
+
+                    b.HasOne("LodgeNET.API.DAL.Models.Upload", "Upload")
+                        .WithMany()
+                        .HasForeignKey("UploadId");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Rank", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Rank", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.Service", "Service")
+                    b.HasOne("LodgeNET.API.DAL.Models.Service", "Service")
                         .WithMany("Ranks")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Room", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Room", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.Building", "Building")
+                    b.HasOne("LodgeNET.API.DAL.Models.Building", "Building")
                         .WithMany()
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Stay", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Stay", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.Building", "Building")
+                    b.HasOne("LodgeNET.API.DAL.Models.Building", "Building")
                         .WithMany()
                         .HasForeignKey("BuildingId");
 
-                    b.HasOne("LodgeNET.API.Models.Guest", "Guest")
+                    b.HasOne("LodgeNET.API.DAL.Models.Guest", "Guest")
                         .WithMany()
                         .HasForeignKey("GuestId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LodgeNET.API.Models.Room", "Room")
+                    b.HasOne("LodgeNET.API.DAL.Models.Room", "Room")
                         .WithMany()
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.Unit", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Unit", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.Unit", "ParentUnit")
+                    b.HasOne("LodgeNET.API.DAL.Models.Unit", "ParentUnit")
                         .WithMany()
                         .HasForeignKey("ParentUnitId");
                 });
 
-            modelBuilder.Entity("LodgeNET.API.Models.User", b =>
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.Upload", b =>
                 {
-                    b.HasOne("LodgeNET.API.Models.AccountType", "AccountType")
+                    b.HasOne("LodgeNET.API.DAL.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("LodgeNET.API.DAL.Models.User", b =>
+                {
+                    b.HasOne("LodgeNET.API.DAL.Models.AccountType", "AccountType")
                         .WithMany()
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("LodgeNET.API.Models.Rank", "Rank")
+                    b.HasOne("LodgeNET.API.DAL.Models.Rank", "Rank")
                         .WithMany()
                         .HasForeignKey("RankId");
 
-                    b.HasOne("LodgeNET.API.Models.Unit", "Unit")
+                    b.HasOne("LodgeNET.API.DAL.Models.Unit", "Unit")
                         .WithMany()
                         .HasForeignKey("UnitId");
                 });

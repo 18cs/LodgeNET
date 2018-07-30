@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using LodgeNET.API.DAL;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using AutoMapper;
-using LodgeNET.API.Dtos;
+using LodgeNET.API.DAL.Dtos;
 using System.Security.Claims;
 using LodgeNET.API.BLL;
 

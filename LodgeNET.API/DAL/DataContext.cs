@@ -1,4 +1,4 @@
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL
@@ -17,6 +17,7 @@ namespace LodgeNET.API.DAL
         public DbSet<Stay> Stays { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Upload> Uploads {get; set;}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

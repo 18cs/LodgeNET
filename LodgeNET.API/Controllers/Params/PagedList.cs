@@ -22,6 +22,8 @@ namespace LodgeNET.API.Helpers
             this.AddRange(items); 
         }
 
+        public PagedList(){}
+
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {
             var count = await source.CountAsync();

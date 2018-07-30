@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace LodgeNET.API.Models
+namespace LodgeNET.API.DAL.Models
 {
     public class AccountType
     {

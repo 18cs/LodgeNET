@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
-using LodgeNET.API.Dtos;
+using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -171,6 +171,13 @@ namespace LodgeNET.API.Controllers {
             return Ok (guestStaysToReturn);
         }
 
+        [HttpGet ("getgueststayspagination")]
+        public async Task<IActionResult> GetGuestStaysPagination ([FromQuery] GuestStayRetUserParams guestStayParams) {
+            var guestStaysPaginationToReturn = _mapper.Map<PagedList<GuestStayForEditDto>> (
+                await _guestStayService.GetGuestStaysPagination (guestStayParams));
+            return Ok (guestStaysPaginationToReturn);
+        }
+
         [HttpPost ("updategueststay")]
         public async Task<IActionResult> UpdateGuestStay ([FromBody] GuestStayForEditDto guestStayDto) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
@@ -178,7 +185,7 @@ namespace LodgeNET.API.Controllers {
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-            //TODOBLL
+            
             var gueststay = await _guestStayRepo.GetFirstOrDefault (s => s.Id == guestStayDto.Id);
 
             if (gueststay == null) {
@@ -214,11 +221,11 @@ namespace LodgeNET.API.Controllers {
         [HttpPost ("updateguest")]
         public async Task<IActionResult> UpdateGuest ([FromBody] GuestForEditDto updatedGuestDto) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
-            //TODO add account type verification for tasks
+            
             if (currentUserId == 0) {
                 return Unauthorized ();
             }
-            //TODOBLL
+            
             try {
                 await _guestStayService.UpdateGuest(updatedGuestDto);
             } catch (ArgumentException e) { 

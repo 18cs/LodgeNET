@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.Dtos;
+using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.Helpers;
-using LodgeNET.API.Models;
+using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LodgeNET.API.BLL {
