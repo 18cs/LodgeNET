@@ -20,10 +20,10 @@ namespace LodgeNET.API.DAL {
                 var stays = _context.Stays.AsQueryable ();
 
                 if (includeProperties != null)
-                    this.ProcessProperties(stays, includeProperties);
+                    stays = this.ProcessProperties(stays, includeProperties);
                 
                 if (filter != null)
-                    this.ProcessFilter(stays, userParams, filter);
+                    stays = this.ProcessFilter(stays, userParams, filter);
 
                 return await stays.ToListAsync ();
             }
@@ -34,21 +34,22 @@ namespace LodgeNET.API.DAL {
                 var stays = _context.Stays.AsQueryable ();
                 
                 if (includeProperties != null)
-                    this.ProcessProperties(stays, includeProperties);
+                    stays = this.ProcessProperties(stays, includeProperties);
                 
                 if (filter != null)
-                    this.ProcessFilter(stays, userParams, filter);
+                    stays = this.ProcessFilter(stays, userParams, filter);
 
                 return await PagedList<Stay>.CreateAsync (stays, userParams.PageNumber, userParams.PageSize);
             }
 
-            private void ProcessProperties (IQueryable<Stay> stays, Expression<Func<Stay, object>>[] includeProperties) {
+            private IQueryable<Stay> ProcessProperties (IQueryable<Stay> stays, Expression<Func<Stay, object>>[] includeProperties) {
                 foreach (Expression<Func<Stay, object>> includeProperty in includeProperties) {
                     stays = stays.Include<Stay, object> (includeProperty);
                 }
+                return stays;
             }
 
-            private void ProcessFilter (IQueryable<Stay> stays, GuestStayRetUserParams userParams, Expression<Func<Stay, bool>> filter) {
+            private IQueryable<Stay> ProcessFilter (IQueryable<Stay> stays, GuestStayRetUserParams userParams, Expression<Func<Stay, bool>> filter) {
                 stays = stays.Where (filter);
 
                 if (userParams.DodId != null) {
@@ -70,6 +71,7 @@ namespace LodgeNET.API.DAL {
                 if (userParams.CurrentStaysOnly) {
                     stays = stays.Where (s => (s.CheckedOut == false && s.CheckedIn == true));
                 }
+                return stays;
             }
         }
 }

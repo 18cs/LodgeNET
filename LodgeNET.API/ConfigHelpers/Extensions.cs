@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -22,5 +26,12 @@ namespace LodgeNET.API.Helpers
                 response.Headers.Add("Pagination", JsonConvert.SerializeObject(paginationHeader, camelCaseFormatter));
                 response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
             }
+
+        public static PagedList<TDestination> ToMappedPagedList<TSource, TDestination>(this PagedList<TSource> list)
+        {
+            IEnumerable<TDestination> sourceList = Mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(list);
+            PagedList<TDestination> pagedResult = PagedList<TDestination>.Create( sourceList.AsQueryable(), list.CurrentPage, list.PageSize );
+            return pagedResult;
+        }
     }
 }

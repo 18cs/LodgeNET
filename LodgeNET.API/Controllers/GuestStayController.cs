@@ -173,8 +173,8 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("getgueststayspagination")]
         public async Task<IActionResult> GetGuestStaysPagination ([FromQuery] GuestStayRetUserParams guestStayParams) {
-            var guestStaysPaginationToReturn = _mapper.Map<PagedList<GuestStayForEditDto>> (
-                await _guestStayService.GetGuestStaysPagination (guestStayParams));
+            var stayPagList = await _guestStayService.GetGuestStaysPagination (guestStayParams);
+            var guestStaysPaginationToReturn = stayPagList.ToMappedPagedList<Stay, GuestStayForEditDto>(); 
             return Ok (guestStaysPaginationToReturn);
         }
 
