@@ -20,11 +20,11 @@
       <tbody *ngFor="let guestStay of guestStayList; let i = index;">
         <tr>
           <th scope="row">{{ guestStay.guest.firstName +' '+ guestStay.guest.lastName }}</th>
-          <td>{{ guestStay.guest.rank }}</td>
+          <td>{{ guestStay.guest.rank.rankName }}</td>
           <td>{{ guestStay.guest.chalk }}</td>
-          <td>{{ guestStay.guest.unit }}</td>
-          <td>{{ guestStay.guest.service }}</td>
-          <td>{{ guestStay.building +', '+ guestStay.room }}</td>
+          <td>{{ guestStay.guest.unit.name }}</td>
+          <td>{{ guestStay.guest.service.serviceName }}</td>
+          <td>{{ guestStay.building.name +', '+ guestStay.room.roomNumber }}</td>
           <td>{{ guestStay.checkInDate }}</td>
           <td>{{ guestStay.checkOutDate }}</td>
         </tr>
