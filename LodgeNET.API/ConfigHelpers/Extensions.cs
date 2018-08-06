@@ -31,6 +31,11 @@ namespace LodgeNET.API.Helpers
         {
             IEnumerable<TDestination> sourceList = Mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(list);
             PagedList<TDestination> pagedResult = PagedList<TDestination>.Create( sourceList.AsQueryable(), list.CurrentPage, list.PageSize );
+            pagedResult.TotalCount = list.TotalCount;
+            pagedResult.TotalPages = list.TotalPages;
+            pagedResult.PageSize = list.PageSize;
+            pagedResult.CurrentPage = list.CurrentPage;
+
             return pagedResult;
         }
     }

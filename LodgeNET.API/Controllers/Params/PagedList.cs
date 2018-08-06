@@ -22,7 +22,7 @@ namespace LodgeNET.API.Helpers
             this.AddRange(items); 
         }
 
-        public PagedList(){}
+        // public PagedList(){}
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> source, int pageNumber, int pageSize)
         {

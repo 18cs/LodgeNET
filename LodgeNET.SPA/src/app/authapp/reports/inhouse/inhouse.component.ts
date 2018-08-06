@@ -38,7 +38,6 @@ export class InhouseComponent implements OnInit {
         .subscribe((paginatedResult: PaginatedResult<GuestStayEdit[]>) => {
           this.showSpinner = false;
           this.guestStayList = paginatedResult.result;
-          console.log(paginatedResult);
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
