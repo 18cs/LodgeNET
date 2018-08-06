@@ -3,4 +3,4 @@
 bin/
 obj/
 wwwroot/
-LodgeNET.API/appsettings.json
+appsettings.json

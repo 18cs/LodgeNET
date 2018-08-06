@@ -33,8 +33,6 @@ namespace LodgeNET.API.Helpers
             PagedList<TDestination> pagedResult = PagedList<TDestination>.Create( sourceList.AsQueryable(), list.CurrentPage, list.PageSize );
             pagedResult.TotalCount = list.TotalCount;
             pagedResult.TotalPages = list.TotalPages;
-            pagedResult.PageSize = list.PageSize;
-            pagedResult.CurrentPage = list.CurrentPage;
 
             return pagedResult;
         }

@@ -48,6 +48,7 @@ export class InhouseComponent implements OnInit {
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     }
+    
   }
 
   pageChanged(event: any): void {
