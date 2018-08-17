@@ -97,6 +97,13 @@ namespace LodgeNET.API.Controllers {
             return Ok (rms);
         }
 
+        [HttpGet ("getroomsexport")]
+        public async Task<IActionResult> GetRoomsExport([FromQuery] RoomUserParams userParams) {
+            var rooms = _mapper.Map<IEnumerable<RoomForExportDto>> (
+                await _guestStayService.GetRooms(userParams));
+            return Ok(rooms);
+        }
+
         [HttpPost ("checkin")]
         public async Task<IActionResult> CheckinGuest ([FromBody] GuestStayForCheckInDto guestStayDto) {
             //TODOBLL
@@ -143,14 +150,14 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpGet ("getgueststays")]
-        public async Task<IActionResult> GetGuestStays ([FromQuery] GuestStayRetUserParams guestStayParams) {
+        public async Task<IActionResult> GetGuestStays ([FromQuery] GuestStayUserParams guestStayParams) {
             var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForEditDto>> (
                 await _guestStayService.GetGuestStays (guestStayParams));
             return Ok (guestStaysToReturn);
         }
 
         [HttpGet ("getgueststayspagination")]
-        public async Task<IActionResult> GetGuestStaysPagination ([FromQuery] GuestStayRetUserParams guestStayParams) {
+        public async Task<IActionResult> GetGuestStaysPagination ([FromQuery] GuestStayUserParams guestStayParams) {
             var stayPagList = await _guestStayService.GetGuestStaysPagination (guestStayParams);
 
             Response.AddPagination (stayPagList.CurrentPage,
@@ -159,6 +166,13 @@ namespace LodgeNET.API.Controllers {
                 stayPagList.TotalPages);
 
             return Ok (stayPagList);
+        }
+
+        [HttpGet ("getgueststaysexport")]
+        public async Task<IActionResult> GetGuestStaysExport ([FromQuery] GuestStayUserParams guestStayParams) {
+            var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForExportDto>> (
+                await _guestStayService.GetGuestStays (guestStayParams));
+            return Ok (guestStaysToReturn);
         }
 
         //TODO move to BLL

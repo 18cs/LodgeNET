@@ -14,7 +14,7 @@ namespace LodgeNET.API.DAL {
         public GuestStayRepo (DataContext context) : base (context) { }
 
         public async Task<IEnumerable<Stay>> GetGuestStays (
-            GuestStayRetUserParams userParams,
+            GuestStayUserParams userParams,
             Expression<Func<Stay, object>>[] includeProperties = null,
             Expression<Func<Stay, bool>> filter = null) {
             var stays = _context.Stays.AsQueryable ();
@@ -28,7 +28,7 @@ namespace LodgeNET.API.DAL {
             return await stays.ToListAsync ();
         }
         public async Task<PagedList<Stay>> GetGuestStaysPagination (
-            GuestStayRetUserParams userParams,
+            GuestStayUserParams userParams,
             Expression<Func<Stay, object>>[] includeProperties = null,
             Expression<Func<Stay, bool>> filter = null) {
             var stays = _context.Stays.AsQueryable ();
@@ -48,7 +48,7 @@ namespace LodgeNET.API.DAL {
             return stays;
         }
 
-        private IQueryable<Stay> ProcessFilter (IQueryable<Stay> stays, GuestStayRetUserParams userParams, Expression<Func<Stay, bool>> filter) {
+        private IQueryable<Stay> ProcessFilter (IQueryable<Stay> stays, GuestStayUserParams userParams, Expression<Func<Stay, bool>> filter) {
             if (filter != null)
                 stays = stays.Where (filter);
 

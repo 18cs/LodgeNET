@@ -9,11 +9,11 @@ namespace LodgeNET.API.DAL
 {
     public interface IGuestStayRepo : IGenericRepository<Stay>
     {
-         Task<IEnumerable<Stay>> GetGuestStays (GuestStayRetUserParams userParams,
+         Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams userParams,
           Expression<Func<Stay, object>>[] includeProperties = null,
           Expression<Func<Stay, bool>> filter = null);
 
-          Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayRetUserParams userParams,
+          Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayUserParams userParams,
           Expression<Func<Stay, object>>[] includeProperties = null,
           Expression<Func<Stay, bool>> filter = null);
     }

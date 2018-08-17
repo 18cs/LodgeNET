@@ -43,6 +43,40 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(guest => guest.Rank.ServiceId));
             CreateMap<GuestForEditDto, Guest>();
             CreateMap<GuestStayForEditDto, Stay>();
+            CreateMap<Stay, GuestStayForExportDto>()
+                .ForMember(exportDto => exportDto.DodId,
+                    opt => opt.MapFrom(stay => stay.Guest.DodId))
+                .ForMember(exportDto => exportDto.FirstName,
+                    opt => opt.MapFrom(stay => stay.Guest.FirstName))
+                .ForMember(exportDto => exportDto.MiddleInitial,
+                    opt => opt.MapFrom(stay => stay.Guest.MiddleInitial))
+                .ForMember(exportDto => exportDto.LastName,
+                    opt => opt.MapFrom(stay => stay.Guest.LastName))
+                .ForMember(exportDto => exportDto.Gender,
+                    opt => opt.MapFrom(stay => stay.Guest.Gender))
+                .ForMember(exportDto => exportDto.Email,
+                    opt => opt.MapFrom(stay => stay.Guest.Email))
+                .ForMember(exportDto => exportDto.CommPhone,
+                    opt => opt.MapFrom(stay => stay.Guest.CommPhone))
+                .ForMember(exportDto => exportDto.DsnPhone,
+                    opt => opt.MapFrom(stay => stay.Guest.DsnPhone))
+                .ForMember(exportDto => exportDto.Chalk,
+                    opt => opt.MapFrom(stay => stay.Guest.Chalk))
+                .ForMember(exportDto => exportDto.Rank,
+                    opt => opt.MapFrom(stay => stay.Guest.Rank.RankName))
+                .ForMember(exportDto => exportDto.Unit,
+                    opt => opt.MapFrom(stay => stay.Guest.Unit.Name))
+                .ForMember(exportDto => exportDto.RoomNumber,
+                    opt => opt.MapFrom(stay => stay.Room.RoomNumber))
+                .ForMember(exportDto => exportDto.BuildingName,
+                    opt => opt.MapFrom(stay => stay.Building.Number))
+                .ForMember(exportDto => exportDto.BuildingName,
+                    opt => opt.MapFrom(stay => stay.Building.Name));
+            CreateMap<Room, RoomForExportDto>()
+                .ForMember(exportDTO => exportDTO.BuildingName,
+                    opt => opt.MapFrom(room => room.Building.Name))
+                .ForMember(exportDTO => exportDTO.BuildingNumber,
+                    opt => opt.MapFrom(room => room.Building.Number));
         }
     }
 }

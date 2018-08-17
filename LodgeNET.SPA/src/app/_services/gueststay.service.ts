@@ -12,6 +12,8 @@ import { Guest } from '../_models/guest';
 import { GuestParams } from '../_models/params/guestParams';
 import { RoomParams } from '../_models/params/roomParams';
 import { GuestStayParams } from '../_models/params/guestStayParams';
+import { GuestStayExport } from '../_models/export/guestStayExport';
+import { RoomExport } from '../_models/export/roomExport';
 
 @Injectable()
 export class GueststayService {
@@ -68,7 +70,7 @@ export class GueststayService {
     }
 
     //TODO look to remove and use getRoomsPagination with params
-    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
+    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable<PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
@@ -108,42 +110,56 @@ export class GueststayService {
         }
 
         if (userParams != null) {
-            if (userParams.buildingId != null) {
-                params = params.append('buildingId', userParams.buildingId.toString());
-            }
-
-            if (userParams.roomNumber != null) {
-                params = params.append('roomNumber', userParams.roomNumber.toString());
-            }
-
-            return this.http.
-                get<Room[]>(this.baseUrl + 'gueststay/getroomspagination', { observe: 'response', params })
-                .map((response) => {
-                    paginatedResult.result = response.body;
-                    if (response.headers.get('Pagination') != null) {
-                        paginatedResult.pagination = JSON.parse(
-                            response.headers.get('Pagination'));
-                    }
-                    return paginatedResult;
-                });
+            params = this.processRoomUserParams(userParams);
         }
+
+        return this.http.
+            get<Room[]>(this.baseUrl + 'gueststay/getroomspagination', { observe: 'response', params })
+            .map((response) => {
+                paginatedResult.result = response.body;
+                if (response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(
+                        response.headers.get('Pagination'));
+                }
+                return paginatedResult;
+            });
     }
 
     getRooms(userParams?: RoomParams): Observable<Room[]> {
         let params = new HttpParams();
 
         if (userParams != null) {
-            if (userParams.buildingId != null) {
-                params = params.append('buildingId', userParams.buildingId.toString());
-            }
-
-            if (userParams.onlyAvailableRooms != null) {
-                params = params.append('onlyAvailableRooms', userParams.onlyAvailableRooms.toString());
-            }
-            params = params.append('roomNumber', userParams.roomNumber.toString());
+            params = this.processRoomUserParams(userParams);
         }
 
         return this.http.get<Room[]>(this.baseUrl + 'gueststay/getrooms', { params });
+    }
+
+    getRoomsExport(userParams?: RoomParams): Observable<RoomExport[]> {
+        let params = new HttpParams();
+
+        if (userParams != null) {
+            params = this.processRoomUserParams(userParams);
+        }
+
+        return this.http.get<RoomExport[]>(this.baseUrl + 'gueststay/getroomsexport', { params });
+    }
+
+    private processRoomUserParams(userParams: RoomParams): HttpParams {
+        let params = new HttpParams();
+
+        if (userParams.buildingId != null) {
+            params = params.append('buildingId', userParams.buildingId.toString());
+        }
+
+        if (userParams.onlyAvailableRooms != null) {
+            params = params.append('onlyAvailableRooms', userParams.onlyAvailableRooms.toString());
+        }
+
+        if (userParams.roomNumber != null) {
+            params = params.append('roomNumber', userParams.roomNumber);
+        }
+        return params;
     }
 
     saveRoomEdit(model: Room) {
@@ -173,6 +189,41 @@ export class GueststayService {
     }
 
     getGuestStays(guestStayParams: GuestStayParams) {
+        let params = this.processGuestStaysParams(guestStayParams);
+        return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', { params });
+    }
+
+    getGuestStaysPagination(page?, itemsPerPage?, userParams?: GuestStayParams): Observable<PaginatedResult<GuestStayEdit[]>> {
+        const paginatedResult: PaginatedResult<GuestStayEdit[]> = new PaginatedResult<GuestStayEdit[]>();
+        let params = new HttpParams();
+
+        if (page != null && itemsPerPage != null) {
+            params = params.append('pageNumber', page);
+            params = params.append('pageSize', itemsPerPage);
+        }
+
+        if (userParams != null) {
+            params = this.processGuestStaysParams(userParams);
+        }
+
+        return this.http.
+            get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststayspagination', { observe: 'response', params })
+            .map((response) => {
+                paginatedResult.result = response.body;
+                if (response.headers.get('Pagination') != null) {
+                    paginatedResult.pagination = JSON.parse(
+                        response.headers.get('Pagination'));
+                }
+                return paginatedResult;
+            });
+    }
+
+    getGuestStaysExport(guestStayParams: GuestStayParams) {
+        let params = this.processGuestStaysParams(guestStayParams);
+        return this.http.get<GuestStayExport[]>(this.baseUrl + 'gueststay/getgueststaysexport', { params });
+    }
+
+    private processGuestStaysParams(guestStayParams: GuestStayParams): HttpParams {
         let params = new HttpParams();
 
         if (guestStayParams.dodId != null) {
@@ -194,55 +245,7 @@ export class GueststayService {
         if (guestStayParams.currentStaysOnly != null) {
             params = params.append('currentStaysOnly', guestStayParams.currentStaysOnly.toString());
         }
-
-        return this.http.get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststays', { params });
-    }
-
-    getGuestStaysPagination(page?, itemsPerPage?, userParams?: GuestStayParams): Observable<PaginatedResult<GuestStayEdit[]>> {
-        const paginatedResult: PaginatedResult<GuestStayEdit[]> = new PaginatedResult<GuestStayEdit[]>();
-        let params = new HttpParams();
-
-        if (page != null && itemsPerPage != null) {
-            params = params.append('pageNumber', page);
-            params = params.append('pageSize', itemsPerPage);
-        }
-
-        if (userParams != null) {
-            if (userParams.currentStaysOnly != null) {
-                params = params.append('currentStaysOnly', userParams.currentStaysOnly.toString());
-            }
-
-            if (userParams.dodId != null) {
-                params = params.append('dodId', userParams.dodId.toString());
-            }
-
-            if (userParams.guestId != null) {
-                params = params.append('guestId', userParams.guestId.toString());
-            }
-
-            if (userParams.roomNumber != null) {
-                params = params.append('roomNumber', userParams.roomNumber);
-            }
-
-            if (userParams.lastName != null) {
-                params = params.append('lastName', userParams.lastName);
-            }
-
-            if (userParams.buildingId != null) {
-                params = params.append('buildingId', userParams.buildingId.toString());
-            }
-        }
-
-        return this.http.
-            get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststayspagination', { observe: 'response', params })
-            .map((response) => {
-                paginatedResult.result = response.body;
-                if (response.headers.get('Pagination') != null) {
-                    paginatedResult.pagination = JSON.parse(
-                        response.headers.get('Pagination'));
-                }
-                return paginatedResult;
-            });
+        return params;
     }
 
     updateGuestStay(model: any) {

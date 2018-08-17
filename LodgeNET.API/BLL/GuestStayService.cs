@@ -153,7 +153,7 @@ namespace LodgeNET.API.BLL {
             return await _guestRepo.GetFirstOrDefault (g => g.DodId == dodId, new Expression<Func<Guest, object>>[] { g => g.Rank, g => g.Unit });
         }
 
-        public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayRetUserParams guestStayParams) {
+        public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams guestStayParams) {
             return await _guestStayRepo.GetGuestStays (
                     guestStayParams,
                     new Expression<Func<Stay, object>>[] {
@@ -166,7 +166,7 @@ namespace LodgeNET.API.BLL {
                 );
         }
 
-        public async Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayRetUserParams guestStayParams) {
+        public async Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayUserParams guestStayParams) {
             return await _guestStayRepo.GetGuestStaysPagination (
                     guestStayParams,
                     new Expression<Func<Stay, object>>[] {
