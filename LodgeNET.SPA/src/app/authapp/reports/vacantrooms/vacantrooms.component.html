@@ -1,10 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
     <form class="form-inline section-thin" novalidate (ngSubmit)="onSearch()">
-      <mat-form-field class="col-lg-3" appearance="outline" floatLabel="'auto'">
-        <mat-label>Room Number</mat-label>
-        <input matInput placeholder="Room Number Filter" [(ngModel)]="filterParams.roomNumber" name="roomNumber">
-      </mat-form-field>
       <mat-form-field class="col-lg-3">
         <input matInput placeholder="Building Name" [formControl]="buildingName" (focusout)="onbuildingFocusOut()" [matAutocomplete]="bldgAuto"
           [(ngModel)]="selectedBuildingName">
@@ -15,22 +11,21 @@
         </mat-option>
       </mat-autocomplete>
       <button type="button" class="btn btn-secondary filterfield-pad" (click)="onReset()">Reset</button>
-      <button type="submit" class="btn btn-success float-right filterfield-pad">Filter</button>
+      <button type="submit" class="btn btn-success float-right filterfield-pad">Search</button>
     </form>
   </div>
 </div>
 <br />
-<div class="row">
+<div class="row" *ngIf="filterByBldg">
   <div class="col-lg-12">
-    <h1 class="text-left">Vacant Rooms Report</h1>
-    <h5 class="text-right" *ngIf="pagination != null;">Vacant Rooms Found: {{ pagination.totalItems }}</h5>
+    <h1 class="text-left">{{ selectedBuildingTitle }} Vacant Rooms Report</h1>
+    <h5 class="text-right" *ngIf="pagination != null;">Vacant Rooms Found : {{ pagination.totalItems }}</h5>
     <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
     <table class="table table-hover">
       <caption *ngIf="pagination?.totalItems == 0">No Vacant Rooms Found</caption>
       <thead>
         <tr class="table-default">
           <th scope="col">Room Number</th>
-          <th scope="col">Building</th>
           <th scope="col">Floor</th>
           <th scope="col">Capacity</th>
           <th scope="col">Surge Multiplier</th>
@@ -39,14 +34,11 @@
       </thead>
       <tbody *ngFor="let room of roomList; let i = index;">
         <tr>
-          <th scope="row">{{ guestStay.guest.firstName +' '+ guestStay.guest.lastName }}</th>
-          <td>{{ guestStay.guest?.rank?.rankName }}</td>
-          <td>{{ guestStay.guest?.chalk }}</td>
-          <td>{{ guestStay.guest?.unit?.name }}</td>
-          <td>{{ guestStay.guest?.service?.serviceName }}</td>
-          <td>{{ guestStay.building.name +', Room: '+ guestStay.room.roomNumber }}</td>
-          <td>{{ guestStay.checkInDate | date }}</td>
-          <td>{{ guestStay?.checkOutDate || '' | date }}</td>
+          <th scope="row">{{ room.roomNumber }}</th>
+          <td>{{ room.floor }}</td>
+          <td>{{ room.capacity}}</td>
+          <td>{{ room.surgeMultiplier }}</td>
+          <td>{{ room.squareFootage }}</td>
         </tr>
       </tbody>
     </table>

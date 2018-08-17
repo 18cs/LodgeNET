@@ -77,9 +77,9 @@ import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
     {path: 'reports', component: ReportsComponent, children: [
       {path: '', redirectTo: 'inhouse', pathMatch: 'full'},
       {path: 'inhouse', component: InhouseComponent},
-      {path: 'guestsbybuilding', component: GuestsbybuildingComponent},
+      {path: 'guestsbybuilding', component: GuestsbybuildingComponent, resolve: { buildings: BuildingsResolverService }},
       {path: 'guestsbyservice', component: GuestsbyserviceComponent},
-      {path: 'vacantrooms', component: VacantroomsComponent}
+      {path: 'vacantrooms', component: VacantroomsComponent, resolve: { buildings: BuildingsResolverService }}
     ]},
     {path: 'checkout', component: CheckoutComponent, canActivate: [AccountTypeGuard],
       data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }}

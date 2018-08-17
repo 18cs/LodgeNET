@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Data } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { map, startWith } from 'rxjs/operators';
 import { Building } from '../../../_models/building';
 import { FormControl } from '@angular/forms';
 import { RoomParams } from '../../../_models/params/roomParams';
@@ -21,11 +22,13 @@ export class VacantroomsComponent implements OnInit {
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = false;
+  filterByBldg = false;
   filterParams: RoomParams;
   filteredOptions: Observable<Building[]>;
   buildingName = new FormControl();
   selectedBuilding: Building;
   selectedBuildingName: string;
+  selectedBuildingTitle: string;
   roomList: Room[];
   buildingList: Building[];
 
@@ -39,11 +42,20 @@ export class VacantroomsComponent implements OnInit {
 
   ngOnInit() {
     this.loadVacantRooms();
+    this.route.data.subscribe((data: Data) => {
+      this.buildingList = data['buildings'];
+    });
     this.initFilterParams();
+
+    this.filteredOptions = this.buildingName.valueChanges
+    .pipe(
+      startWith(''),
+      map(val => this.buildingFilter(val))
+    );
   }
 
   initFilterParams() {
-    this.filterParams = { buildingId: null, onlyAvailableRooms: false, roomNumber: null };
+    this.filterParams = { buildingId: null, onlyAvailableRooms: true, roomNumber: null };
   }
 
   buildingFilter(val: string): Building[] {
@@ -84,7 +96,28 @@ export class VacantroomsComponent implements OnInit {
           this.showSpinner = false;
         });
     }
+  }
 
+  onSearch() {
+    if(this.selectedBuilding != null) {
+      this.filterParams.buildingId = this.selectedBuilding.id;
+      this.filterByBldg = true;
+      this.loadVacantRooms();
+      this.selectedBuildingTitle = this.selectedBuildingName;
+    }
+  }
+
+  onReset() {
+    this.initFilterParams();
+    this.selectedBuilding = null;
+    this.selectedBuildingName = '';
+    this.filterByBldg = false;
+    this.loadVacantRooms();
+  }
+
+  pageChanged(event: any): void {
+    this.pagination.currentPage = event.page;
+    this.loadVacantRooms();
   }
 
 }
