@@ -28,7 +28,7 @@ namespace LodgeNET.API.Controllers
             _unitService = unitService;
         }
 
-        [HttpGet("pagination")]
+        [HttpGet("getunitpagination")]
         public async Task<IActionResult> GetUnitsPagination([FromQuery] UnitUserParams userParams)
         {
             var units = await _unitService.GetUnitsPagination(userParams);

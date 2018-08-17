@@ -7,6 +7,7 @@ import { GuestStayEdit } from '../../../_models/guestStayEdit';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute, Data } from '@angular/router';
 import { GuestStayParams } from '../../../_models/params/guestStayParams';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-inhouse',
@@ -19,25 +20,21 @@ export class InhouseComponent implements OnInit {
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = true;
-  filterParams: GuestStayParams;
+  filterParams: GuestStayParams = { dodId: null, lastName: null, roomNumber: null, guestId: null, currentStaysOnly: true };
 
   constructor(
     private guestStayService: GueststayService,
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fileExport: FileexportService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadCurrentGuests();
-    this.initFilterParams();
   }
 
-  initFilterParams() {
-    this.filterParams = { dodId: null, lastName: null, roomNumber: null, guestId: null, currentStaysOnly: true };
-  }
-
-  loadCurrentGuests() {
+  loadCurrentGuests(): void {
     this.showSpinner = true;
     if (this.pagination == null) {
       this.guestStayService.getGuestStaysPagination(this.pageNumber, this.pageSize, this.filterParams)
@@ -60,6 +57,13 @@ export class InhouseComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadCurrentGuests();
+  }
+
+  exportAsXLSX(): void {
+    this.guestStayService.getGuestStays(this.filterParams)
+      .subscribe((guestStays: GuestStayEdit[]) => {
+        this.fileExport.exportAsExcelFile(guestStays, 'InHouseReport');
+      }, error => { this.alertify.error(error);});
   }
 
 }

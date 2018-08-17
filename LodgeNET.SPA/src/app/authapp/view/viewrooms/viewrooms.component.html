@@ -44,9 +44,6 @@
       <tbody *ngFor="let room of roomList; let i = index;">
         <tr>
           <th scope="row">{{ room.roomNumber }}</th>
-          <!-- <ng-container *ngFor="let bldg of buildingList;">
-            <td *ngIf="bldg.id === roomList[i].buildingId">{{ bldg.name }}</td>
-          </ng-container> -->
           <td>{{ room?.building?.name }}</td>
           <td>{{ room.floor }}</td>
           <td>{{ room.capacity }}</td>
