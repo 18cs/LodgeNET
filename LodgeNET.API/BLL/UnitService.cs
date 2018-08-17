@@ -11,11 +11,14 @@ namespace LodgeNET.API.BLL
     {
         private IMapper _mapper { get; set; }
         private readonly IUnitRepository _unitRepo;
+        private readonly IGenericRepository<Service> _serviceRepo;
         public UnitService(IUnitRepository unitRepo,
+                            IGenericRepository<Service> serviceRepo,
                             IMapper mapper)
         {
             _unitRepo = unitRepo;
             _mapper = mapper;
+            _serviceRepo = serviceRepo;
         }
         public async Task<PagedList<Unit>> GetUnitsPagination(UnitUserParams userParams)
         {
@@ -28,6 +31,12 @@ namespace LodgeNET.API.BLL
             var units = await _unitRepo.GetAsync();
 
             return (units);
+        }
+
+        public async Task<IEnumerable<Service>> GetServices() {
+            var services = await _serviceRepo.GetAsync();
+
+            return (services);
         }
 
         public async Task<Unit> GetUnit(int id)

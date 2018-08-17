@@ -48,6 +48,13 @@ namespace LodgeNET.API.Controllers
             return Ok(units);
         }
 
+        [HttpGet("service")]
+        public async Task<IActionResult> GetServices() {
+            var services = await _unitService.GetServices();
+
+            return Ok(services);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUnit(int id)
         {

@@ -43,7 +43,6 @@ export class VacantroomsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadVacantRooms();
     this.route.data.subscribe((data: Data) => {
       this.buildingList = data['buildings'];
     });
@@ -104,7 +103,10 @@ export class VacantroomsComponent implements OnInit {
     if(this.selectedBuilding != null) {
       this.filterParams.buildingId = this.selectedBuilding.id;
       this.filterByBldg = true;
-      this.pagination.currentPage = 1;
+      
+      if (this.pagination != null)
+        this.pagination.currentPage = 1;
+
       this.loadVacantRooms();
       this.selectedBuildingTitle = this.selectedBuildingName;
     }

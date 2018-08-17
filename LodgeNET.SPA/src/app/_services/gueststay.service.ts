@@ -115,6 +115,7 @@ export class GueststayService {
             if (userParams.roomNumber != null) {
                 params = params.append('roomNumber', userParams.roomNumber.toString());
             }
+        }
 
             return this.http.
                 get<Room[]>(this.baseUrl + 'gueststay/getroomspagination', { observe: 'response', params })
@@ -126,7 +127,6 @@ export class GueststayService {
                     }
                     return paginatedResult;
                 });
-        }
     }
 
     getRooms(userParams?: RoomParams): Observable<Room[]> {
