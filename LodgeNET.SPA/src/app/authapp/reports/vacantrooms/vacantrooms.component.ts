@@ -11,6 +11,7 @@ import { RoomParams } from '../../../_models/params/roomParams';
 import { GueststayService } from '../../../_services/gueststay.service';
 import { BuildingService } from '../../../_services/building.service';
 import { Room } from '../../../_models/room';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-vacantrooms',
@@ -37,7 +38,8 @@ export class VacantroomsComponent implements OnInit {
     private buildingService: BuildingService,
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private fileExport: FileexportService
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class VacantroomsComponent implements OnInit {
     );
   }
 
-  initFilterParams() {
+  initFilterParams(): void {
     this.filterParams = { buildingId: null, onlyAvailableRooms: true, roomNumber: null };
   }
 
@@ -63,20 +65,20 @@ export class VacantroomsComponent implements OnInit {
       building.name.toLowerCase().includes(val.toLowerCase()));
   }
 
-  onBuildingSelected(bldg: Building) {
+  onBuildingSelected(bldg: Building): void {
     this.selectedBuilding = bldg;
   }
 
-  onbuildingFocusOut() {
+  onbuildingFocusOut(): void {
     if(this.selectedBuilding != null ) {
       this.selectedBuildingName = this.selectedBuilding.name;
     }
   }
 
-  loadVacantRooms() {
+  loadVacantRooms(): void {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.guestStayService.getRooms(this.pageNumber, this.pageSize, this.filterParams)
+      this.guestStayService.getRoomsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.showSpinner = false;
           this.roomList = paginatedResult.result;
@@ -86,7 +88,7 @@ export class VacantroomsComponent implements OnInit {
           this.showSpinner = false;
         });
     } else {
-      this.guestStayService.getRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.guestStayService.getRoomsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.roomList = paginatedResult.result;
           this.showSpinner = false;
@@ -98,7 +100,7 @@ export class VacantroomsComponent implements OnInit {
     }
   }
 
-  onSearch() {
+  onSearch(): void {
     if(this.selectedBuilding != null) {
       this.filterParams.buildingId = this.selectedBuilding.id;
       this.filterByBldg = true;
@@ -108,7 +110,7 @@ export class VacantroomsComponent implements OnInit {
     }
   }
 
-  onReset() {
+  onReset(): void {
     this.initFilterParams();
     this.selectedBuilding = null;
     this.selectedBuildingName = '';
@@ -119,6 +121,13 @@ export class VacantroomsComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadVacantRooms();
+  }
+
+  exportAsXLSX(): void {
+    this.guestStayService.getRooms(this.filterParams)
+      .subscribe((rooms: Room[]) => {
+        this.fileExport.exportAsExcelFile(rooms, 'VacantRoomsReport');
+      }, error => { this.alertify.error(error);});
   }
 
 }

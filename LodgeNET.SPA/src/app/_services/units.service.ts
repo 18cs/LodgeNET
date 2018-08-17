@@ -42,7 +42,7 @@ export class UnitsService {
             }
         }
 
-        return this.http.get<Unit[]>(this.baseUrl + 'unit/pagination', { observe: 'response', params })
+        return this.http.get<Unit[]>(this.baseUrl + 'unit/getunitpagination', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 

@@ -1,5 +1,5 @@
 export interface RoomParams {
     buildingId?: number;
-    onlyAvailableRooms: boolean;
+    onlyAvailableRooms?: boolean;
     roomNumber?: string;
 }

@@ -78,7 +78,7 @@ export class ViewroomsComponent implements OnInit {
   loadRooms() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.guestStayService.getRooms(this.pageNumber, this.pageSize, this.filterParams)
+      this.guestStayService.getRoomsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.showSpinner = false;
           this.roomList = paginatedResult.result;
@@ -88,7 +88,7 @@ export class ViewroomsComponent implements OnInit {
           this.showSpinner = false;
         });
     } else {
-      this.guestStayService.getRooms(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.guestStayService.getRoomsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Room[]>) => {
           this.roomList = paginatedResult.result;
           this.showSpinner = false;

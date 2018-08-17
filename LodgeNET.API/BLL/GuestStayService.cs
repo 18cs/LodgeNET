@@ -30,12 +30,6 @@ namespace LodgeNET.API.BLL {
             _mapper = mapper;
         }
 
-        public async Task<PagedList<Room>> GetAvailableRoomsPagination (RoomUserParams userParams) {
-            var rooms = await _roomsRepo.GetRoomsPagination (userParams);
-
-            return (rooms);
-        }
-
         public async Task<int> GetAvailableRoomCount (int id) {
             var roomCount = await _staysRepo.GetCount (s => s.CheckedOut == false &&
                 s.CheckedIn == true &&
@@ -45,6 +39,24 @@ namespace LodgeNET.API.BLL {
             return (roomCount);
         }
 
+        public async Task<PagedList<Room>> GetRoomsPagination (RoomUserParams userParams) {
+            var rooms = await _roomsRepo.GetRoomsPagination (userParams,
+                null,
+                new Expression<Func<Room, object>>[] {
+                    r => r.Building
+                });
+            return (rooms);
+        }
+
+        public async Task<IEnumerable<Room>> GetRooms (RoomUserParams userParams) {
+            var rooms = await _roomsRepo.GetRooms (
+                userParams,
+                null,
+                new Expression<Func<Room, object>>[] {
+                    r => r.Building
+                });
+            return (rooms);
+        }
         public async Task<Room> EditRoom (Room room) {
             var rm = await _roomsRepo.GetFirstOrDefault (b => b.Id == room.Id);
 
@@ -86,17 +98,6 @@ namespace LodgeNET.API.BLL {
             await _roomsRepo.SaveAsync ();
 
             return (room);
-        }
-
-        public async Task<PagedList<Room>> GetRooms (RoomUserParams userParams) {
-            var rms = await _roomsRepo.GetRoomsPagination (
-                userParams,
-                null,
-                new Expression<Func<Room, object>>[] {
-                    r => r.Building
-                });
-
-            return (rms);
         }
 
         public async Task<Stay> CheckinGuest (GuestStayForCheckInDto guestStayDto) {

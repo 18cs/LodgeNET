@@ -67,7 +67,8 @@ export class GueststayService {
         return this.http.delete(this.baseUrl + 'gueststay/deleteguest/' + id);
     }
 
-    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable<PaginatedResult<Room[]>> {
+    //TODO look to remove and use getRoomsPagination with params
+    getAvaliableRooms(page?, itemsPerPage?, buildingId?, onlyAvailableRooms?): Observable< PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
@@ -97,7 +98,7 @@ export class GueststayService {
             });
     }
 
-    getRooms(page?, itemsPerPage?, userParams?: RoomParams): Observable<PaginatedResult<Room[]>> {
+    getRoomsPagination(page?, itemsPerPage?, userParams?: RoomParams): Observable<PaginatedResult<Room[]>> {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
@@ -115,18 +116,34 @@ export class GueststayService {
                 params = params.append('roomNumber', userParams.roomNumber.toString());
             }
 
+            return this.http.
+                get<Room[]>(this.baseUrl + 'gueststay/getroomspagination', { observe: 'response', params })
+                .map((response) => {
+                    paginatedResult.result = response.body;
+                    if (response.headers.get('Pagination') != null) {
+                        paginatedResult.pagination = JSON.parse(
+                            response.headers.get('Pagination'));
+                    }
+                    return paginatedResult;
+                });
+        }
+    }
+
+    getRooms(userParams?: RoomParams): Observable<Room[]> {
+        let params = new HttpParams();
+
+        if (userParams != null) {
+            if (userParams.buildingId != null) {
+                params = params.append('buildingId', userParams.buildingId.toString());
+            }
+
+            if (userParams.onlyAvailableRooms != null) {
+                params = params.append('onlyAvailableRooms', userParams.onlyAvailableRooms.toString());
+            }
+            params = params.append('roomNumber', userParams.roomNumber.toString());
         }
 
-        return this.http.
-            get<Room[]>(this.baseUrl + 'gueststay/getrooms', { observe: 'response', params })
-            .map((response) => {
-                paginatedResult.result = response.body;
-                if (response.headers.get('Pagination') != null) {
-                    paginatedResult.pagination = JSON.parse(
-                        response.headers.get('Pagination'));
-                }
-                return paginatedResult;
-            });
+        return this.http.get<Room[]>(this.baseUrl + 'gueststay/getrooms', { params });
     }
 
     saveRoomEdit(model: Room) {
@@ -207,7 +224,7 @@ export class GueststayService {
                 params = params.append('roomNumber', userParams.roomNumber);
             }
 
-            if (userParams.roomNumber != null) {
+            if (userParams.lastName != null) {
                 params = params.append('lastName', userParams.lastName);
             }
 
