@@ -5,6 +5,8 @@ namespace LodgeNET.API.DAL.Dtos
 {
     public class GuestStayForEditDto
     {
+        //REVIEW FOR REMOVE, SAME AS STAY DATA MODEL
+        
         public int Id { get; set; }
         public int GuestId { get; set; }     
         public Guest Guest { get; set; }

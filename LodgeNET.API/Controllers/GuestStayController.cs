@@ -99,35 +99,12 @@ namespace LodgeNET.API.Controllers {
         [HttpPost ("checkin")]
         public async Task<IActionResult> CheckinGuest ([FromBody] GuestStayForCheckInDto guestStayDto) {
             //TODOBLL
-            var guest = await _guestRepo.GetFirstOrDefault (g => g.DodId == guestStayDto.DodId);
-
-            if (guest == null) {
-                guest = _mapper.Map<Guest> (guestStayDto);
-            } else {
-                guestStayDto.GuestId = guest.Id;
-                _mapper.Map (guestStayDto, guest);
+            try {
+                await _guestStayService.CheckinGuest(guestStayDto);
+            } catch (ArgumentException e) { 
+                ModelState.AddModelError("Exception", e.Message); 
+                return BadRequest(ModelState); 
             }
-
-            if (await _guestRepo.IsGuestCheckedIn (guest.Id)) {
-                ModelState.AddModelError ("Guest", "Guest Already Checked In");
-                return BadRequest (ModelState);
-            }
-
-            if (guest.Id != 0) {
-                await _guestRepo.SaveAsync ();
-            } else {
-                await _guestRepo.Insert (guest);
-                await _guestRepo.SaveAsync ();
-            }
-
-            var room = await _roomsRepo.GetFirstOrDefault (r => r.Id == guestStayDto.RoomId);
-            var stay = _mapper.Map<Stay> (guestStayDto);
-
-            stay.GuestId = guest.Id;
-            stay.BuildingId = room.BuildingId;
-            stay.CheckedIn = true;
-            await _staysRepo.Insert (stay);
-            await _staysRepo.SaveAsync ();
 
             return Ok ();
         }
@@ -174,14 +151,18 @@ namespace LodgeNET.API.Controllers {
         [HttpGet ("getgueststayspagination")]
         public async Task<IActionResult> GetGuestStaysPagination ([FromQuery] GuestStayRetUserParams guestStayParams) {
             var stayPagList = await _guestStayService.GetGuestStaysPagination (guestStayParams);
-            var guestStaysPaginationToReturn = stayPagList.ToMappedPagedList<Stay, GuestStayForEditDto>(); 
+            // var guestStaysPaginationToReturn = stayPagList.ToMappedPagedList<Stay, GuestStayForEditDto>(); 
 
-            Response.AddPagination (guestStaysPaginationToReturn.CurrentPage,
-                guestStaysPaginationToReturn.PageSize,
-                guestStaysPaginationToReturn.TotalCount,
-                guestStaysPaginationToReturn.TotalPages);
+            // Response.AddPagination (guestStaysPaginationToReturn.CurrentPage,
+            //     guestStaysPaginationToReturn.PageSize,
+            //     guestStaysPaginationToReturn.TotalCount,
+            //     guestStaysPaginationToReturn.TotalPages);
+            Response.AddPagination (stayPagList.CurrentPage,
+                stayPagList.PageSize,
+                stayPagList.TotalCount,
+                stayPagList.TotalPages);
 
-            return Ok (guestStaysPaginationToReturn);
+            return Ok (stayPagList);
         }
 
         [HttpPost ("updategueststay")]

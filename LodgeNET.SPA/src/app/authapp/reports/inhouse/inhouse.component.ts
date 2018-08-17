@@ -6,6 +6,7 @@ import { GueststayService } from '../../../_services/gueststay.service';
 import { GuestStayEdit } from '../../../_models/guestStayEdit';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute, Data } from '@angular/router';
+import { GuestStayParams } from '../../../_models/params/guestStayParams';
 
 @Component({
   selector: 'app-inhouse',
@@ -18,7 +19,7 @@ export class InhouseComponent implements OnInit {
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = true;
-  filterParams: GuestParams;
+  filterParams: GuestStayParams;
 
   constructor(
     private guestStayService: GueststayService,
@@ -29,6 +30,11 @@ export class InhouseComponent implements OnInit {
 
   ngOnInit() {
     this.loadCurrentGuests();
+    this.initFilterParams();
+  }
+
+  initFilterParams() {
+    this.filterParams = { dodId: null, lastName: null, roomNumber: null, guestId: null, currentStaysOnly: true };
   }
 
   loadCurrentGuests() {

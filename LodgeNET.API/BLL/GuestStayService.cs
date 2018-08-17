@@ -174,7 +174,7 @@ namespace LodgeNET.API.BLL {
                             s => s.Guest.Unit,
                             s => s.Room,
                             s => s.Building
-                    }
+                    }, null
                 );
         }
 

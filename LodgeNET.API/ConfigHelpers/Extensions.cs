@@ -29,8 +29,9 @@ namespace LodgeNET.API.Helpers
 
         public static PagedList<TDestination> ToMappedPagedList<TSource, TDestination>(this PagedList<TSource> list)
         {
+            const int FIRSTPAGE = 1;
             IEnumerable<TDestination> sourceList = Mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(list);
-            PagedList<TDestination> pagedResult = PagedList<TDestination>.Create( sourceList.AsQueryable(), list.CurrentPage, list.PageSize );
+            PagedList<TDestination> pagedResult = PagedList<TDestination>.Create( sourceList.AsQueryable(), FIRSTPAGE, list.PageSize );
             pagedResult.TotalCount = list.TotalCount;
             pagedResult.TotalPages = list.TotalPages;
 
