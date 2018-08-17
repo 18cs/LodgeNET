@@ -17,22 +17,17 @@ namespace LodgeNET.API.Controllers {
     [Route ("api/[controller]")]
     public class GuestStayController : Controller {
 
-        private IRoomRepository _roomsRepo;
-        private IGenericRepository<Stay> _staysRepo;
         private IGuestRepository _guestRepo;
         private IGenericRepository<Service> _serviceRepo;
         private IGuestStayRepo _guestStayRepo;
         private IMapper _mapper;
         private GuestStayService _guestStayService;
-        public GuestStayController (IRoomRepository roomsRepo,
-            IGenericRepository<Stay> staysRepo,
+        public GuestStayController (
             IGuestRepository guestRepo,
             IGenericRepository<Service> serviceRepo,
             IGuestStayRepo guestStayRepo,
             IMapper mapper,
             GuestStayService guestStayService) {
-            _roomsRepo = roomsRepo;
-            _staysRepo = staysRepo;
             _guestRepo = guestRepo;
             _serviceRepo = serviceRepo;
             _guestStayRepo = guestStayRepo;
@@ -42,7 +37,7 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("availableRooms")]
         public async Task<IActionResult> GetAvaliableRooms ([FromQuery] RoomUserParams userParams) {
-            var rooms = await _guestStayService.GetAvailableRoomsPagination(userParams);
+            var rooms = await _guestStayService.GetRoomsPagination(userParams);
             var roomsToReturn = _mapper.Map<IEnumerable<RoomForCheckinDto>> (rooms);
 
             foreach (var room in roomsToReturn) {
@@ -86,7 +81,13 @@ namespace LodgeNET.API.Controllers {
 
         [HttpGet ("getrooms")]
         public async Task<IActionResult> GetRooms ([FromQuery] RoomUserParams userParams) {
-            var rms = await _guestStayService.GetRooms(userParams);
+            var rooms = await _guestStayService.GetRooms(userParams);
+            return Ok(rooms);
+        } 
+
+        [HttpGet ("getroomspagination")]
+        public async Task<IActionResult> GetRoomsPagination ([FromQuery] RoomUserParams userParams) {
+            var rms = await _guestStayService.GetRoomsPagination(userParams);
 
             Response.AddPagination (rms.CurrentPage,
                 rms.PageSize,
@@ -160,6 +161,7 @@ namespace LodgeNET.API.Controllers {
             return Ok (stayPagList);
         }
 
+        //TODO move to BLL
         [HttpPost ("updategueststay")]
         public async Task<IActionResult> UpdateGuestStay ([FromBody] GuestStayForEditDto guestStayDto) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
