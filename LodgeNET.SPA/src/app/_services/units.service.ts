@@ -8,6 +8,7 @@ import { Unit } from '../_models/unit';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UnitParams } from '../_models/params/unitParams';
 import { PaginatedResult } from '../_models/pagination';
+import { Service } from '../_models/service';
 
 @Injectable()
 export class UnitsService {
@@ -56,6 +57,10 @@ export class UnitsService {
 
     getUnits() {
         return this.http.get<Unit[]>(this.baseUrl + 'unit');
+    }
+
+    getServices() {
+        return this.http.get<Service[]>(this.baseUrl + 'unit/service');
     }
 
     updateUnit(model: any) {

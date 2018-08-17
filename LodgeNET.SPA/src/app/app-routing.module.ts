@@ -24,6 +24,7 @@ import { CheckoutComponent } from './authapp/checkout/checkout.component';
 import { LostComponent } from './home/lost/lost.component';
 import { FormdataResolver } from './_resolvers/formdata-resolver.service';
 import { UnitsResolverService } from './_resolvers/units-resolver.service';
+import { ServicesResolverService } from './_resolvers/services-resolver.service';
 import { ViewbuildingtypesComponent } from './authapp/view/viewbuildingtypes/viewbuildingtypes.component';
 import { BuildingsResolverService } from './_resolvers/buildings-resolver.service';
 import { ReportsComponent } from './authapp/reports/reports.component';
@@ -78,7 +79,7 @@ import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
       {path: '', redirectTo: 'inhouse', pathMatch: 'full'},
       {path: 'inhouse', component: InhouseComponent},
       {path: 'guestsbybuilding', component: GuestsbybuildingComponent, resolve: { buildings: BuildingsResolverService }},
-      {path: 'guestsbyservice', component: GuestsbyserviceComponent},
+      {path: 'guestsbyservice', component: GuestsbyserviceComponent, resolve: { services: ServicesResolverService }},
       {path: 'vacantrooms', component: VacantroomsComponent, resolve: { buildings: BuildingsResolverService }}
     ]},
     {path: 'checkout', component: CheckoutComponent, canActivate: [AccountTypeGuard],

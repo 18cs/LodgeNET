@@ -64,6 +64,7 @@ import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
 import { GuestsbybuildingComponent } from './authapp/reports/guestsbybuilding/guestsbybuilding.component';
 import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.component';
 import { FileexportService } from './_services/fileexport.service';
+import { ServicesResolverService } from './_resolvers/services-resolver.service';
 
 export function getAccessToken(): string {
   return localStorage.getItem('token');
@@ -146,6 +147,7 @@ export const jwtConfig = {
     FormdataResolver,
     UnitsResolverService,
     BuildingsResolverService,
+    ServicesResolverService,
     ErrorInterceptorProvider,
     FileexportService
   ],
