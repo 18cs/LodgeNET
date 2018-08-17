@@ -4,4 +4,5 @@ export class GuestStayParams {
     roomNumber?: string;
     guestId?: number;
     currentStaysOnly?: boolean;
+    buildingId?: number;
 }

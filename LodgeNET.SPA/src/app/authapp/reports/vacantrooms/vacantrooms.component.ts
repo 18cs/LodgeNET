@@ -102,6 +102,7 @@ export class VacantroomsComponent implements OnInit {
     if(this.selectedBuilding != null) {
       this.filterParams.buildingId = this.selectedBuilding.id;
       this.filterByBldg = true;
+      this.pagination.currentPage = 1;
       this.loadVacantRooms();
       this.selectedBuildingTitle = this.selectedBuildingName;
     }
@@ -112,7 +113,7 @@ export class VacantroomsComponent implements OnInit {
     this.selectedBuilding = null;
     this.selectedBuildingName = '';
     this.filterByBldg = false;
-    this.loadVacantRooms();
+    // this.loadVacantRooms();
   }
 
   pageChanged(event: any): void {

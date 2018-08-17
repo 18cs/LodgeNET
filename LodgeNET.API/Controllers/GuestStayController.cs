@@ -153,10 +153,6 @@ namespace LodgeNET.API.Controllers {
             var stayPagList = await _guestStayService.GetGuestStaysPagination (guestStayParams);
             // var guestStaysPaginationToReturn = stayPagList.ToMappedPagedList<Stay, GuestStayForEditDto>(); 
 
-            // Response.AddPagination (guestStaysPaginationToReturn.CurrentPage,
-            //     guestStaysPaginationToReturn.PageSize,
-            //     guestStaysPaginationToReturn.TotalCount,
-            //     guestStaysPaginationToReturn.TotalPages);
             Response.AddPagination (stayPagList.CurrentPage,
                 stayPagList.PageSize,
                 stayPagList.TotalCount,
