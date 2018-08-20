@@ -34,20 +34,6 @@ import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.
 import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
 
  const appRoutes: Routes =
-//   {path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-//   {path: 'dashboard',
-//     component: DashboardComponent,
-//     pathMatch: 'full',
-//     canActivate: [AuthGuard],
-//     data: { authGuardRedirect: 'home' }},
-//   {path: 'home', component: HomeComponent },
-//   {path: 'users', component: UsersComponent, children: [
-//     {path: '', redirectTo: 'login',  pathMatch: 'full'},
-//     {path: 'login', component: LoginComponent},
-//     {path: 'signup', component: SignupComponent}
-//   ]},
-//   {path: 'upload', component: FileUploadComponent}  //could be /data/upload
-// ];
 [
   {path: '', component: AuthappComponent, canActivate: [AuthGuard],
   data: { authGuardRedirect: 'home' }, children: [

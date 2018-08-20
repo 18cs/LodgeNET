@@ -8,6 +8,7 @@ import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute, Data } from '@angular/router';
 import { GuestStayParams } from '../../../_models/params/guestStayParams';
 import { FileexportService } from '../../../_services/fileexport.service';
+import { GuestStayDisplay } from '../../../_models/display/guestStayDisplay';
 
 @Component({
   selector: 'app-inhouse',
@@ -60,8 +61,8 @@ export class InhouseComponent implements OnInit {
   }
 
   exportAsXLSX(): void {
-    this.guestStayService.getGuestStays(this.filterParams)
-      .subscribe((guestStays: GuestStayEdit[]) => {
+    this.guestStayService.getGuestStaysDisplay(this.filterParams)
+      .subscribe((guestStays: GuestStayDisplay[]) => {
         this.fileExport.exportAsExcelFile(guestStays, 'InHouseReport');
       }, error => { this.alertify.error(error);});
   }

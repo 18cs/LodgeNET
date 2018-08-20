@@ -11,6 +11,8 @@ import { BuildingService } from '../../../_services/building.service';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute, Data } from '@angular/router';
+import { FileexportService } from '../../../_services/fileexport.service';
+import { GuestStayDisplay } from '../../../_models/display/guestStayDisplay';
 
 @Component({
   selector: 'app-guestsbybuilding',
@@ -36,10 +38,11 @@ export class GuestsbybuildingComponent implements OnInit {
     private buildingService: BuildingService,
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private fileExport: FileexportService
+  ) { }
 
   ngOnInit() {
-    this.loadGuests();
     this.route.data.subscribe((data: Data) => {
       this.buildingList = data['buildings'];
     });
@@ -94,7 +97,11 @@ export class GuestsbybuildingComponent implements OnInit {
     if(this.selectedBuilding != null) {
       this.filterParams.buildingId = this.selectedBuilding.id;
       this.filterByBldg = true;
-      this.pagination.currentPage = 1;
+
+      if(this.pagination != null) {
+        this.pagination.currentPage = 1;
+      }
+      
       this.loadGuests();
       this.selectedBuildingTitle = this.selectedBuildingName;
     }
@@ -113,4 +120,10 @@ export class GuestsbybuildingComponent implements OnInit {
     this.loadGuests();
   }
 
+  exportAsXLSX(): void {
+    this.guestStayService.getGuestStaysDisplay(this.filterParams)
+      .subscribe((guestStays: GuestStayDisplay[]) => {
+        this.fileExport.exportAsExcelFile(guestStays, this.selectedBuildingName.replace(' ', '_') + '_Guests');
+      }, error => { this.alertify.error(error);});
+  }
 }

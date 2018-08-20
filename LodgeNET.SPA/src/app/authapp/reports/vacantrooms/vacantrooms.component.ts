@@ -12,6 +12,7 @@ import { GueststayService } from '../../../_services/gueststay.service';
 import { BuildingService } from '../../../_services/building.service';
 import { Room } from '../../../_models/room';
 import { FileexportService } from '../../../_services/fileexport.service';
+import { RoomDisplay } from '../../../_models/display/roomDisplay';
 
 @Component({
   selector: 'app-vacantrooms',
@@ -126,9 +127,9 @@ export class VacantroomsComponent implements OnInit {
   }
 
   exportAsXLSX(): void {
-    this.guestStayService.getRooms(this.filterParams)
-      .subscribe((rooms: Room[]) => {
-        this.fileExport.exportAsExcelFile(rooms, 'VacantRoomsReport');
+    this.guestStayService.getRoomsDisplay(this.filterParams)
+      .subscribe((rooms: RoomDisplay[]) => {
+        this.fileExport.exportAsExcelFile(rooms, 'VacantRoomsReport_' + this.selectedBuildingName.replace(' ', '_'));
       }, error => { this.alertify.error(error);});
   }
 

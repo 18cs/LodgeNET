@@ -1,6 +1,6 @@
 namespace LodgeNET.API.Helpers
 {
-    public class GuestStayRetUserParams : PagUserParams
+    public class GuestStayUserParams : PagUserParams
     {
         public int? DodId { get; set; }
         public string LastName { get; set; }

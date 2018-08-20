@@ -11,6 +11,8 @@ import { GueststayService } from '../../../_services/gueststay.service';
 import { AuthService } from '../../../_services/auth.service';
 import { ActivatedRoute, Data } from '@angular/router';
 import { Service } from '../../../_models/service';
+import { FileexportService } from '../../../_services/fileexport.service';
+import { GuestStayDisplay } from '../../../_models/display/guestStayDisplay';
 
 @Component({
   selector: 'app-guestsbyservice',
@@ -37,14 +39,11 @@ export class GuestsbyserviceComponent implements OnInit {
     private buildingService: BuildingService,
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private fileExport: FileexportService
+  ) { }
 
   ngOnInit() {
-    this.loadGuests();
-    // this.route.data.subscribe((data: Data) => {
-    //   this.buildingList = data['buildings'];
-    // });
-    console.log('ss');
     this.route.data.subscribe((data: Data) => {
       this.serviceList = data['services'];
     });
@@ -99,7 +98,11 @@ export class GuestsbyserviceComponent implements OnInit {
     if(this.selectedService != null) {
       this.filterParams.buildingId = this.selectedService.id;
       this.filterByService = true;
-      this.pagination.currentPage = 1;
+
+      if (this.pagination != null) {
+        this.pagination.currentPage = 1;
+      }
+      
       this.loadGuests();
       this.selectedServiceTitle = this.selectedServiceName;
     }
@@ -116,6 +119,13 @@ export class GuestsbyserviceComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadGuests();
+  }
+
+  exportAsXLSX(): void {
+    this.guestStayService.getGuestStaysDisplay(this.filterParams)
+      .subscribe((guestStays: GuestStayDisplay[]) => {
+        this.fileExport.exportAsExcelFile(guestStays, this.selectedServiceName.replace(' ', '_') + '_Guests');
+      }, error => { this.alertify.error(error);});
   }
 
 }
