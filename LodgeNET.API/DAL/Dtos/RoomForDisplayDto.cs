@@ -1,6 +1,6 @@
 namespace LodgeNET.API.DAL.Dtos
 {
-    public class RoomForExportDto
+    public class RoomForDisplayDto
     {
         public string RoomNumber { get; set; }
         public int SurgeMultiplier { get; set; }

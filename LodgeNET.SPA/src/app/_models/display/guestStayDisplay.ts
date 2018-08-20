@@ -1,4 +1,4 @@
-export interface GuestStayExport {
+export interface GuestStayDisplay {
     dodId?: number;
     firstName?: string;
     middleInitial?: string;
@@ -13,4 +13,6 @@ export interface GuestStayExport {
     roomNumber?: string;
     buildingNumber?: number;
     buildingName?: string;
+    checkInDate: string;
+    checkOutDate?: string;
 }

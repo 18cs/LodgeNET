@@ -12,8 +12,8 @@ import { Guest } from '../_models/guest';
 import { GuestParams } from '../_models/params/guestParams';
 import { RoomParams } from '../_models/params/roomParams';
 import { GuestStayParams } from '../_models/params/guestStayParams';
-import { GuestStayExport } from '../_models/export/guestStayExport';
-import { RoomExport } from '../_models/export/roomExport';
+import { GuestStayDisplay } from '../_models/display/guestStayDisplay';
+import { RoomDisplay } from '../_models/display/roomDisplay';
 
 @Injectable()
 export class GueststayService {
@@ -135,14 +135,14 @@ export class GueststayService {
         return this.http.get<Room[]>(this.baseUrl + 'gueststay/getrooms', { params });
     }
 
-    getRoomsExport(userParams?: RoomParams): Observable<RoomExport[]> {
+    getRoomsDisplay(userParams?: RoomParams): Observable<RoomDisplay[]> {
         let params = new HttpParams();
 
         if (userParams != null) {
             params = this.processRoomUserParams(userParams);
         }
 
-        return this.http.get<RoomExport[]>(this.baseUrl + 'gueststay/getroomsexport', { params });
+        return this.http.get<RoomDisplay[]>(this.baseUrl + 'gueststay/getroomsdisplay', { params });
     }
 
     private processRoomUserParams(userParams: RoomParams): HttpParams {
@@ -218,9 +218,9 @@ export class GueststayService {
             });
     }
 
-    getGuestStaysExport(guestStayParams: GuestStayParams) {
+    getGuestStaysDisplay(guestStayParams: GuestStayParams) {
         let params = this.processGuestStaysParams(guestStayParams);
-        return this.http.get<GuestStayExport[]>(this.baseUrl + 'gueststay/getgueststaysexport', { params });
+        return this.http.get<GuestStayDisplay[]>(this.baseUrl + 'gueststay/getgueststaysdisplay', { params });
     }
 
     private processGuestStaysParams(guestStayParams: GuestStayParams): HttpParams {
@@ -245,6 +245,11 @@ export class GueststayService {
         if (guestStayParams.currentStaysOnly != null) {
             params = params.append('currentStaysOnly', guestStayParams.currentStaysOnly.toString());
         }
+
+        if (guestStayParams.buildingId != null) {
+            params = params.append('buildingId', guestStayParams.buildingId.toString());
+        }
+        
         return params;
     }
 

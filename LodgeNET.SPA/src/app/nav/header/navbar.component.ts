@@ -27,13 +27,7 @@ export class NavbarComponent implements OnInit {
   isUploadDropdownOpen = false;
   isNavbarOpen = false;
 
-  ngOnInit() {
-    // this.authService.GetPendingAcctCount().subscribe(
-    //   (acctNum: number) => {
-    //     this.pendingAcctCount = acctNum;
-    //   }
-    // );
-  }
+  ngOnInit() {}
 
   toggleUserDropDown() {
     this.isUserDropdownOpen = !this.isUserDropdownOpen;

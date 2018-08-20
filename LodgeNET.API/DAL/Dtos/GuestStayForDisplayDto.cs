@@ -1,5 +1,7 @@
+using System;
+
 namespace LodgeNET.API.DAL.Dtos {
-    public class GuestStayForExportDto {
+    public class GuestStayForDisplayDto {
         public int? DodId { get; set; }
         public string FirstName { get; set; }
         public string MiddleInitial { get; set; }
@@ -10,9 +12,12 @@ namespace LodgeNET.API.DAL.Dtos {
         public string DsnPhone { get; set; }
         public int? Chalk { get; set; }
         public string Rank { get; set; }
+        public string Service { get; set; }
         public string Unit { get; set; }
         public string RoomNumber { get; set; }
         public int? BuildingNumber { get; set; }
         public string BuildingName { get; set; }
+        public DateTime CheckInDate { get; set; }
+        public DateTime? CheckOutDate { get; set; }
     }
 }

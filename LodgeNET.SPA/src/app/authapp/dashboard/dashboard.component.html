@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody *ngFor="let building of buildingDashboard?.buildingTypeList; let i = index;">
-    <tr class="table-active" (click)="tableCollapseToggle(building.id)">
+    <tr class="table-active" (click)="tableCollapseToggle(building.id)" style="cursor:pointer;">
       <th scope="row">{{ building.type }}</th>
       <td>{{ building.currentGuests +' / '+ building.capacity }}</td>
       <td [ngClass]="{

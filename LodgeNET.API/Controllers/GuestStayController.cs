@@ -97,9 +97,9 @@ namespace LodgeNET.API.Controllers {
             return Ok (rms);
         }
 
-        [HttpGet ("getroomsexport")]
-        public async Task<IActionResult> GetRoomsExport([FromQuery] RoomUserParams userParams) {
-            var rooms = _mapper.Map<IEnumerable<RoomForExportDto>> (
+        [HttpGet ("getroomsdisplay")]
+        public async Task<IActionResult> GetRoomsDisplay([FromQuery] RoomUserParams userParams) {
+            var rooms = _mapper.Map<IEnumerable<RoomForDisplayDto>> (
                 await _guestStayService.GetRooms(userParams));
             return Ok(rooms);
         }
@@ -168,9 +168,9 @@ namespace LodgeNET.API.Controllers {
             return Ok (stayPagList);
         }
 
-        [HttpGet ("getgueststaysexport")]
-        public async Task<IActionResult> GetGuestStaysExport ([FromQuery] GuestStayUserParams guestStayParams) {
-            var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForExportDto>> (
+        [HttpGet ("getgueststaysdisplay")]
+        public async Task<IActionResult> GetGuestStaysDisplay ([FromQuery] GuestStayUserParams guestStayParams) {
+            var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForDisplayDto>> (
                 await _guestStayService.GetGuestStays (guestStayParams));
             return Ok (guestStaysToReturn);
         }

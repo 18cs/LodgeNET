@@ -43,7 +43,7 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(guest => guest.Rank.ServiceId));
             CreateMap<GuestForEditDto, Guest>();
             CreateMap<GuestStayForEditDto, Stay>();
-            CreateMap<Stay, GuestStayForExportDto>()
+            CreateMap<Stay, GuestStayForDisplayDto>()
                 .ForMember(exportDto => exportDto.DodId,
                     opt => opt.MapFrom(stay => stay.Guest.DodId))
                 .ForMember(exportDto => exportDto.FirstName,
@@ -64,6 +64,8 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(stay => stay.Guest.Chalk))
                 .ForMember(exportDto => exportDto.Rank,
                     opt => opt.MapFrom(stay => stay.Guest.Rank.RankName))
+                .ForMember(exportDto => exportDto.Service,
+                    opt => opt.MapFrom(stay => stay.Guest.Rank.Service.ServiceName))
                 .ForMember(exportDto => exportDto.Unit,
                     opt => opt.MapFrom(stay => stay.Guest.Unit.Name))
                 .ForMember(exportDto => exportDto.RoomNumber,
@@ -72,7 +74,7 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(stay => stay.Building.Number))
                 .ForMember(exportDto => exportDto.BuildingName,
                     opt => opt.MapFrom(stay => stay.Building.Name));
-            CreateMap<Room, RoomForExportDto>()
+            CreateMap<Room, RoomForDisplayDto>()
                 .ForMember(exportDTO => exportDTO.BuildingName,
                     opt => opt.MapFrom(room => room.Building.Name))
                 .ForMember(exportDTO => exportDTO.BuildingNumber,

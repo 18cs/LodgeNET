@@ -1,4 +1,4 @@
-export interface RoomExport {
+export interface RoomDisplay {
     roomNuber?: string;
     surgeMultiplier?: number;
     capacity?: number;

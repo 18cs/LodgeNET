@@ -22,8 +22,7 @@ namespace LodgeNET.API.DAL {
             if (includeProperties != null)
                 stays = this.ProcessProperties (stays, includeProperties);
 
-            if (filter != null)
-                stays = this.ProcessFilter (stays, userParams, filter);
+            stays = this.ProcessFilter (stays, userParams, filter);
 
             return await stays.ToListAsync ();
         }
