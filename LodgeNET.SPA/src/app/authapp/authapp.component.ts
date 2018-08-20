@@ -1,5 +1,6 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
+import { UPLOADTYPES } from './fileupload/fileupload.component';
 
 @Component({
   selector: 'app-authapp',
@@ -15,10 +16,13 @@ export class AuthappComponent implements OnInit {
   isCheckinOutDropdownOpen = false;
   isViewDropdownOpen = false;
   isReportsDropdownOpen = false;
+  UPLOADTYPES;
 
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    this.UPLOADTYPES = UPLOADTYPES;
+    console.log(UPLOADTYPES.unaccompanied);
   }
 
   @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {

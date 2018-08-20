@@ -38,6 +38,7 @@ export class InhouseComponent implements OnInit {
   loadCurrentGuests(): void {
     this.showSpinner = true;
     if (this.pagination == null) {
+      console.log('null');
       this.guestStayService.getGuestStaysPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<GuestStayEdit[]>) => {
           this.showSpinner = false;
@@ -45,6 +46,8 @@ export class InhouseComponent implements OnInit {
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
+      console.log('!null');
+      
       this.guestStayService.getGuestStaysPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<GuestStayEdit[]>) => {
           this.showSpinner = false;
@@ -52,11 +55,12 @@ export class InhouseComponent implements OnInit {
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     }
-    
   }
 
   pageChanged(event: any): void {
+    console.log(this.pagination);
     this.pagination.currentPage = event.page;
+    console.log(this.pagination);
     this.loadCurrentGuests();
   }
 
