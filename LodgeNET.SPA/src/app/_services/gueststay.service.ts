@@ -104,13 +104,13 @@ export class GueststayService {
         const paginatedResult: PaginatedResult<Room[]> = new PaginatedResult<Room[]>();
         let params = new HttpParams();
 
+        if (userParams != null) {
+            params = this.processRoomUserParams(userParams);
+        }
+
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
-        }
-
-        if (userParams != null) {
-            params = this.processRoomUserParams(userParams);
         }
 
         return this.http.
@@ -197,13 +197,13 @@ export class GueststayService {
         const paginatedResult: PaginatedResult<GuestStayEdit[]> = new PaginatedResult<GuestStayEdit[]>();
         let params = new HttpParams();
 
+        if (userParams != null) {
+            params = this.processGuestStaysParams(userParams);
+        }
+
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
-        }
-
-        if (userParams != null) {
-            params = this.processGuestStaysParams(userParams);
         }
 
         return this.http.

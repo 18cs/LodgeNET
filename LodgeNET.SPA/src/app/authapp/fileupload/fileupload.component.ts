@@ -12,6 +12,12 @@ import { FileuploadService } from '../../_services/fileupload.service';
 import { LodgingDialogComponent } from './dialogcomponents/lodgingDialog/lodgingDialog.component';
 import { UploadParams } from '../../_models/params/uploadParams';
 
+export const UPLOADTYPES = {
+  unaccompanied: 'unaccompanied',
+  lodging: 'lodging',
+  manifest: 'manifest'
+}
+
 @Component({
   selector: 'app-fileupload',
   templateUrl: './fileupload.component.html',
@@ -29,6 +35,12 @@ export class FileuploadComponent implements OnInit {
   itemsPerPage = 10;
   showSpinner = false;
   userParams: UploadParams = {userId: 0, fileName: '', dateUploaded: null, uploadId: 0};
+
+  uploadTypeData = { 
+      warningMessage: '',
+      acceptedFileTypes: [],
+      url: ''
+   }
 
   constructor(
     private alertify: AlertifyService,
