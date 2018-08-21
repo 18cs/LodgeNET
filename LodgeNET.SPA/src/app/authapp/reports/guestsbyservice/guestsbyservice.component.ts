@@ -57,7 +57,7 @@ export class GuestsbyserviceComponent implements OnInit {
   }
 
   initFilterParams() {
-    this.filterParams = { dodId: null, lastName: null, roomNumber: null, guestId: null, currentStaysOnly: true, buildingId: null };
+    this.filterParams = { dodId: null, lastName: null, roomNumber: null, guestId: null, currentStaysOnly: true, buildingId: null, serviceId: null };
   }
 
   serviceFilter(val: string): Service[] {
@@ -96,7 +96,7 @@ export class GuestsbyserviceComponent implements OnInit {
 
   onSearch() {
     if(this.selectedService != null) {
-      this.filterParams.buildingId = this.selectedService.id;
+      this.filterParams.serviceId = this.selectedService.id;
       this.filterByService = true;
 
       if (this.pagination != null) {
@@ -113,7 +113,6 @@ export class GuestsbyserviceComponent implements OnInit {
     this.selectedService = null;
     this.selectedServiceName = '';
     this.filterByService = false;
-    this.loadGuests();
   }
 
   pageChanged(event: any): void {

@@ -49,6 +49,7 @@ namespace LodgeNET.API {
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddScoped<IGuestStayRepo, GuestStayRepo>();

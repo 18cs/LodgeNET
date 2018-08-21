@@ -240,7 +240,8 @@ namespace LodgeNET.API.Migrations
                         column: x => x.UploadId,
                         principalTable: "Uploads",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                        
                 });
 
             migrationBuilder.CreateTable(

@@ -249,6 +249,10 @@ export class GueststayService {
         if (guestStayParams.buildingId != null) {
             params = params.append('buildingId', guestStayParams.buildingId.toString());
         }
+
+        if (guestStayParams.serviceId != null) {
+            params = params.append('serviceId', guestStayParams.serviceId.toString());
+        }
         
         return params;
     }

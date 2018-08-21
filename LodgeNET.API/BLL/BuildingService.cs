@@ -121,9 +121,9 @@ namespace LodgeNET.API.BLL {
 
             building.BuildingCategory = null;
 
-            await _repo.Insert (building);
+            await _repo.Insert(building);
 
-            await _repo.SaveAsync ();
+            await _repo.SaveAsync();
 
             return (building);
         }

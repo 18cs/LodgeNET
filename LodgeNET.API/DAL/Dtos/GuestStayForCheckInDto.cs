@@ -10,13 +10,13 @@ namespace LodgeNET.API.DAL.Dtos
         public string LastName { get; set; }
         public string Gender { get; set; }
         public int ServiceId { get; set; }
-        public int RankId { get; set; }
+        public int? RankId { get; set; }
         public int UnitId { get; set; }
         public int? Chalk { get; set; }
         public string Email { get; set; }
         public string DsnPhone { get; set; }
         public string CommPhone { get; set; }
         public int RoomId { get; set; }
-        public int GuestId { get; set; }
+        public int? GuestId { get; set; }
     }
 }

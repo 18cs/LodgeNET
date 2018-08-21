@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Pagination } from '../../../_models/pagination';
+import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { Upload } from '../../../_models/upload';
+import { FileuploadService } from '../../../_services/fileupload.service';
+import { UploadParams } from '../../../_models/params/uploadParams';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-manageuploads',
@@ -15,50 +18,49 @@ export class ManageuploadsComponent implements OnInit {
   pageNumber = 1;
   pagination: Pagination;
   showSpinner = false;
+  filterParams: UploadParams;
+  filteredOptions: Observable<Upload[]>;
+  uploads: Upload[];
 
   constructor(
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uploadService: FileuploadService
   ) { }
 
   ngOnInit() {
+    this.loadUploads();
   }
 
   loadUploads() {
     this.showSpinner = true;
-    // if (this.pagination == null) {
-    //   this.authService.GetUsers(this.pageNumber, this.pageSize, this.filterParams)
-    //     .subscribe((paginatedResult: PaginatedResult<User[]>) => {
-    //       this.showSpinner = false;
-    //       this.users = paginatedResult.result;
-    //       this.pagination = paginatedResult.pagination;
-    //     }, error => { 
-    //       this.alertify.error(error);
-    //       this.showSpinner = false; 
-    //     });
-    // } else {
-    //   this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
-    //     .subscribe((paginatedResult: PaginatedResult<User[]>) => {
-    //       this.showSpinner = false;
-    //       this.users = paginatedResult.result;
-    //       this.pagination = paginatedResult.pagination;
-    //     }, error => { 
-    //       this.alertify.error(error);
-    //       this.showSpinner = false; 
-    //     });
-    // }
-  }
-
-  onSearch() {
-    this.pagination.currentPage = 1;
-    this.loadUsers();
+    console.log(this.uploads);
+    if (this.pagination == null) {
+      this.uploadService.getUploadsPagination(this.pageNumber, this.pageSize, this.filterParams)
+        .subscribe((paginatedResult: PaginatedResult<Upload[]>) => {
+          this.showSpinner = false;
+          this.uploads = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+        }, error => { 
+          this.alertify.error(error);
+          this.showSpinner = false; 
+        });
+    } else {
+      this.uploadService.getUploadsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+        .subscribe((paginatedResult: PaginatedResult<Upload[]>) => {
+          this.showSpinner = false;
+          this.uploads = paginatedResult.result;
+          this.pagination = paginatedResult.pagination;
+        }, error => { 
+          this.alertify.error(error);
+          this.showSpinner = false;
+        });
+    }
   }
 
   onReset() {
-    //this.initFilterParams();
-    this.initFilterParams();
-    this.loadUsers();
+    this.loadUploads();
   }
 
   pageChanged(event: any): void {
@@ -66,21 +68,17 @@ export class ManageuploadsComponent implements OnInit {
     this.loadUploads();
   }
 
-  onUserSelect(upload: Upload) {
-    this.selectedUser = user;
-  }
-
   onDelete(upload: Upload) {
     this.alertify.confirm(
-      'Are you sure you wish to delete ' + user.userName + '?',
+      'Are you sure you wish to delete ' + upload.fileName + '?',
       () => {
-        this.authService.deleteUser(user.id).subscribe(
+        this.uploadService.deleteUpload(upload.id).subscribe(
           () => {
-            this.alertify.success(user.userName + ' successfully deleted');
-            let userIndex = this.users.indexOf(user);
+            this.alertify.success(upload.fileName + ' successfully deleted');
+            let uploadIndex = this.uploads.indexOf(upload);
 
-            if (userIndex !== -1) {
-              this.users.splice(userIndex, 1);
+            if (uploadIndex !== -1) {
+              this.uploads.splice(uploadIndex, 1);
             }
           },
           error => this.alertify.error(error)

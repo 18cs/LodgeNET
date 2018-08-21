@@ -173,6 +173,7 @@ namespace LodgeNET.API.BLL {
                     new Expression<Func<Stay, object>>[] {
                         s => s.Guest,
                             s => s.Guest.Rank,
+                            s => s.Guest.Rank.Service,
                             s => s.Guest.Unit,
                             s => s.Room,
                             s => s.Building

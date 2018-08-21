@@ -5,7 +5,7 @@ export interface GuestStayDto {
     lastName: string;
     gender?: string;
     serviceId: number;
-    rankId: number;
+    rankId?: number;
     unitId: number;
     chalk?: number;
     email: string;

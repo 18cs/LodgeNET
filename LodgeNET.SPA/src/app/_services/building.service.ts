@@ -149,7 +149,7 @@ export class BuildingService {
 
   deleteBuildingTypeById(buildingTypeId: number) {
     return this.http
-      .delete(this.baseUrl + 'building/buildingtype/' + buildingTypeId);
+      .delete(this.baseUrl + 'building/buildingtype' + '/' + buildingTypeId);
   }
 
   // private jwt(){

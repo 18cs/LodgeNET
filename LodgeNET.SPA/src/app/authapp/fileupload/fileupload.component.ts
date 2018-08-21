@@ -10,6 +10,7 @@ import { UnitsService } from '../../_services/units.service';
 import { Unit } from '../../_models/unit';
 import { FileuploadService } from '../../_services/fileupload.service';
 import { LodgingDialogComponent } from './dialogcomponents/lodgingDialog/lodgingDialog.component';
+import { UploadParams } from '../../_models/params/uploadParams';
 
 @Component({
   selector: 'app-fileupload',
@@ -27,6 +28,7 @@ export class FileuploadComponent implements OnInit {
   currentPage: number;
   itemsPerPage = 10;
   showSpinner = false;
+  userParams: UploadParams = {userId: 0, fileName: '', dateUploaded: null, uploadId: 0};
 
   constructor(
     private alertify: AlertifyService,
@@ -88,7 +90,15 @@ export class FileuploadComponent implements OnInit {
       let json = JSON.parse(response);
       this.showHideSpinner();
       this.totalFileRows = json;
+      console.log(item);
+      console.log(response);
+
+      console.log(status);
+
+      console.log(headers);
+      
       if (this.totalFileRows.length > 0) {
+        // this.userParams.uploadId = JSON.parse(headers.get('uploadId'))
         this.alertify.warning('Problem with some records');
         this.changePaginationDisplay();
         this.currentPage = 1;
@@ -162,7 +172,8 @@ export class FileuploadComponent implements OnInit {
 
   OnSubmitClick() {
     this.showHideSpinner();
-    this.fileuploadService.uploadUnaccomData(this.totalFileRows).subscribe(
+    //TODO Returned row method
+    this.fileuploadService.uploadUnaccomData(this.totalFileRows, this.userParams).subscribe(
       (fileRows: FileRow[]) => {
         this.showHideSpinner();
         this.totalFileRows = fileRows;

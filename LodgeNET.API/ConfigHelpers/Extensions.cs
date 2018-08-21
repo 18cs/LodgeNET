@@ -37,5 +37,10 @@ namespace LodgeNET.API.Helpers
 
             return pagedResult;
         }
+
+        // public static void AddUploadId(this HttpResponse response, int uploadId)
+        // {
+        //     response.Headers.Add("UploadId", uploadId.ToString());
+        // }
     }
 }

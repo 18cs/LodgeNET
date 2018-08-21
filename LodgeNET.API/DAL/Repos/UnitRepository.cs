@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
+using LodgeNET.API.Helpers;
 using Microsoft.EntityFrameworkCore;
 
 namespace LodgeNET.API.DAL.Repos {
@@ -47,7 +47,7 @@ namespace LodgeNET.API.DAL.Repos {
         }
 
         public Unit GetFirst (
-            Func<Unit, bool> filter, 
+            Func<Unit, bool> filter,
             Expression<Func<Unit, object>>[] includeProperties = null) {
             var units = _context.Units.AsQueryable ();
 
@@ -57,7 +57,7 @@ namespace LodgeNET.API.DAL.Repos {
                 }
             }
 
-            var unit = units.Where(filter).FirstOrDefault();
+            var unit = units.Where (filter).FirstOrDefault ();
 
             return unit;
         }
