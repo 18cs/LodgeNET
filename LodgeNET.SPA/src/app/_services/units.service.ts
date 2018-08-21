@@ -9,6 +9,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UnitParams } from '../_models/params/unitParams';
 import { PaginatedResult } from '../_models/pagination';
 import { Service } from '../_models/service';
+import { UnitDisplay } from '../_models/display/unitDisplay';
 
 @Injectable()
 export class UnitsService {
@@ -16,31 +17,17 @@ export class UnitsService {
     constructor(private http: HttpClient) { }
     baseUrl = environment.apiUrl;
 
-    getUnitsPag(page?, itemsPerPage?, userParams?: UnitParams) {
+    getUnitsPagination(page?, itemsPerPage?, userParams?: UnitParams) {
         const paginatedResult: PaginatedResult<Unit[]> = new PaginatedResult<Unit[]>();
         let params = new HttpParams();
+
+        if (userParams != null) {
+            params = this.processUnitUserParams(userParams);
+        }
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
-        }
-
-        if (userParams != null) {
-            if (userParams.unitId != null) {
-                params = params.append('unitId', userParams.unitId.toString());
-            }
-
-            if (userParams.parentUnitId) {
-                params = params.append('parentUnitId', userParams.parentUnitId.toString());
-            }
-
-            if (userParams.includeParentUnit) {
-                params = params.append('includeParentUnit', userParams.includeParentUnit.toString());
-            }
-
-            if (userParams.unitName != null) {
-                params = params.append('unitName', userParams.unitName);
-            }
         }
 
         return this.http.get<Unit[]>(this.baseUrl + 'unit/getunitpagination', { observe: 'response', params })
@@ -55,8 +42,41 @@ export class UnitsService {
             });
     }
 
-    getUnits() {
-        return this.http.get<Unit[]>(this.baseUrl + 'unit');
+    getUnits(userParams?: UnitParams): Observable<Unit[]> {
+        let params = new HttpParams();
+        if (userParams != null) {
+            params = this.processUnitUserParams(userParams);
+        }
+        return this.http.get<Unit[]>(this.baseUrl + 'unit/getunits', { params });
+    }
+
+    getUnitsDisplay(userParams?: UnitParams) {
+        let params = new HttpParams();
+        if (userParams != null) {
+            params = this.processUnitUserParams(userParams);
+        }
+
+        return this.http.get<UnitDisplay[]>(this.baseUrl + 'unit/getunitsdisplay', { params });
+    }
+
+    private processUnitUserParams(userParams: UnitParams): HttpParams {
+        let params = new HttpParams();
+        if (userParams.unitId != null) {
+            params = params.append('unitId', userParams.unitId.toString());
+        }
+
+        if (userParams.parentUnitId) {
+            params = params.append('parentUnitId', userParams.parentUnitId.toString());
+        }
+
+        if (userParams.includeParentUnit) {
+            params = params.append('includeParentUnit', userParams.includeParentUnit.toString());
+        }
+
+        if (userParams.unitName != null) {
+            params = params.append('unitName', userParams.unitName);
+        }
+        return params;
     }
 
     getServices() {

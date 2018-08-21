@@ -17,6 +17,8 @@ import { GuestParams } from '../../../_models/params/guestParams';
 import { GueststaydialogComponent } from '../dialogcomponents/gueststaydialog/gueststaydialog.component';
 import { AuthService } from '../../../_services/auth.service';
 import { GuestStayParams } from '../../../_models/params/guestStayParams';
+import { GuestDisplay } from '../../../_models/display/guestDisplay';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-viewguests',
@@ -53,7 +55,8 @@ export class ViewguestsComponent implements OnInit {
     private alertify: AlertifyService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private fileExport: FileexportService
   ) {}
 
 
@@ -111,14 +114,14 @@ export class ViewguestsComponent implements OnInit {
   loadGuests() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.guestStayService.getGuests(this.pageNumber, this.pageSize, this.filterParams)
+      this.guestStayService.getGuestsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
           this.showSpinner = false;
           this.guestList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
-      this.guestStayService.getGuests(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.guestStayService.getGuestsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Guest[]>) => {
           this.showSpinner = false;
           this.guestList = paginatedResult.result;
@@ -191,4 +194,10 @@ export class ViewguestsComponent implements OnInit {
     );
   }
 
+  exportAsXLSX(): void {
+    this.guestStayService.getGuestsDisplay (this.filterParams)
+      .subscribe((guests: GuestDisplay[]) => {
+        this.fileExport.exportAsExcelFile(guests, 'Guests_Report');
+      }, error => { this.alertify.error(error);});
+  }
 }

@@ -23,14 +23,11 @@ namespace LodgeNET.API.BLL
         public async Task<PagedList<Unit>> GetUnitsPagination(UnitUserParams userParams)
         {
             var units = await _unitRepo.GetUnitPagination(userParams);
-
             return (units);
         }
 
-        public async Task<IEnumerable<Unit>> GetUnits() {
-            var units = await _unitRepo.GetAsync();
-
-            return (units);
+        public async Task<IEnumerable<Unit>> GetUnits(UnitUserParams userParams) {
+            return (await _unitRepo.GetUnits(userParams));
         }
 
         public async Task<IEnumerable<Service>> GetServices() {

@@ -6,6 +6,8 @@ import { User } from '../../../_models/user';
 import { UserParams } from '../../../_models/params/userParams';
 import { AccountType } from '../../../_models/accountType';
 import { ActivatedRoute, Params } from '@angular/router';
+import { FileexportService } from '../../../_services/fileexport.service';
+import { UserDisplay } from '../../../_models/display/userDisplay';
 
 @Component({
   selector: 'app-viewusers',
@@ -26,7 +28,9 @@ export class ViewusersComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private alertify: AlertifyService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private fileExport: FileexportService
+  ) { }
 
   ngOnInit() {
     this.initFilterParams();    
@@ -44,7 +48,7 @@ export class ViewusersComponent implements OnInit {
   loadUsers() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.authService.GetUsers(this.pageNumber, this.pageSize, this.filterParams)
+      this.authService.GetUsersPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.showSpinner = false;
           this.users = paginatedResult.result;
@@ -54,7 +58,7 @@ export class ViewusersComponent implements OnInit {
           this.showSpinner = false; 
         });
     } else {
-      this.authService.GetUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.authService.GetUsersPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<User[]>) => {
           this.showSpinner = false;
           this.users = paginatedResult.result;
@@ -115,5 +119,12 @@ export class ViewusersComponent implements OnInit {
           error => this.alertify.error(error)
         );
       })
+  }
+
+  exportAsXLSX(): void {
+    this.authService.getUsersDisplay(this.filterParams)
+      .subscribe((users: UserDisplay[]) => {
+        this.fileExport.exportAsExcelFile(users, 'Users_Report');
+      }, error => { this.alertify.error(error);});
   }
 }

@@ -13,6 +13,7 @@ import { PaginatedResult } from '../_models/pagination';
 import { User } from '../_models/user';
 import { UserParams } from '../_models/params/userParams';
 import { AccountType } from '../_models/accountType';
+import { UserDisplay } from '../_models/display/userDisplay';
 
 @Injectable()
 export class AuthService {
@@ -80,31 +81,21 @@ export class AuthService {
             });
     }
 
-    GetUsers(page?, itemsPerPage?, userParams?: UserParams): Observable<PaginatedResult<User[]>> {
+    GetUsersPagination(page?, itemsPerPage?, userParams?: UserParams): Observable<PaginatedResult<User[]>> {
         const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<User[]>();
         let params = new HttpParams();
+
+        if (userParams != null) {
+            params = this.processUserUserParams(userParams);
+        }
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
         }
 
-        if (userParams != null) {
-            if (userParams.accountTypeId != null) {
-                params = params.append('accountTypeId', userParams.accountTypeId.toString());
-            }
-
-            if (userParams.userName != null) {
-                params = params.append('userName', userParams.userName);
-            }
-
-            if (userParams.approved != null) {
-                params = params.append('approved', userParams.approved.toString());
-            }
-        }
-
         return this.http.
-            get<User[]>(this.baseUrl + 'user/users', { observe: 'response', params })
+            get<User[]>(this.baseUrl + 'user/getuserspagination', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 
@@ -114,7 +105,31 @@ export class AuthService {
                 }
                 return paginatedResult;
             });
+    }
 
+    getUsersDisplay(userParams?: UserParams): Observable<UserDisplay[]> {
+        let params = new HttpParams();
+        if (userParams != null) {
+            params = this.processUserUserParams(userParams);
+        }
+        return this.http.get<UserDisplay[]>(this.baseUrl + 'user/getusersdisplay', { params });
+    }
+
+    private processUserUserParams(userParams: UserParams): HttpParams {
+        let params = new HttpParams();
+
+        if (userParams.accountTypeId != null) {
+            params = params.append('accountTypeId', userParams.accountTypeId.toString());
+        }
+
+        if (userParams.userName != null) {
+            params = params.append('userName', userParams.userName);
+        }
+
+        if (userParams.approved != null) {
+            params = params.append('approved', userParams.approved.toString());
+        }
+        return params;
     }
 
     getAccountTypes() {

@@ -14,6 +14,7 @@ import { RoomParams } from '../_models/params/roomParams';
 import { GuestStayParams } from '../_models/params/guestStayParams';
 import { GuestStayDisplay } from '../_models/display/guestStayDisplay';
 import { RoomDisplay } from '../_models/display/roomDisplay';
+import { GuestDisplay } from '../_models/display/guestDisplay';
 
 @Injectable()
 export class GueststayService {
@@ -25,28 +26,21 @@ export class GueststayService {
 
     constructor(private http: HttpClient) { }
 
-    getGuests(page?, itemsPerPage?, userParams?: GuestParams) {
+    getGuestsPagination(page?, itemsPerPage?, userParams?: GuestParams) {
         const paginatedResult: PaginatedResult<Guest[]> = new PaginatedResult<Guest[]>();
         let params = new HttpParams();
+
+        if (userParams != null) {
+            params = this.processGuestParams(userParams);
+        }
 
         if (page != null && itemsPerPage != null) {
             params = params.append('pageNumber', page);
             params = params.append('pageSize', itemsPerPage);
         }
 
-        if (userParams != null) {
-            params = params.append('lastName', userParams.lastName);
-            params = params.append('serviceId', userParams.serviceId.toString());
-            params = params.append('rankId', userParams.rankId.toString());
-            params = params.append('gender', userParams.gender);
-            params = params.append('unitId', userParams.unitId.toString());
-            if (userParams.dodId != null) {
-                params = params.append('dodId', userParams.dodId.toString());
-            }
-        }
-
         return this.http.
-            get<Guest[]>(this.baseUrl + 'gueststay/getguests', { observe: 'response', params })
+            get<Guest[]>(this.baseUrl + 'gueststay/getguestspagination', { observe: 'response', params })
             .map((response) => {
                 paginatedResult.result = response.body;
 
@@ -56,6 +50,27 @@ export class GueststayService {
                 }
                 return paginatedResult;
             });
+    }
+
+    getGuestsDisplay(userParams?: GuestParams) {
+        let params = new HttpParams();
+        if (userParams != null) {
+            params = this.processGuestParams(userParams);
+        }
+        return this.http.get<GuestDisplay[]>(this.baseUrl + 'gueststay/getguestsdisplay', { params });
+    }
+
+    private processGuestParams(userParams: GuestParams): HttpParams {
+        let params = new HttpParams();
+        params = params.append('lastName', userParams.lastName);
+        params = params.append('serviceId', userParams.serviceId.toString());
+        params = params.append('rankId', userParams.rankId.toString());
+        params = params.append('gender', userParams.gender);
+        params = params.append('unitId', userParams.unitId.toString());
+        if (userParams.dodId != null) {
+            params = params.append('dodId', userParams.dodId.toString());
+        }
+        return params;
     }
 
     updateGuest(model: any) {
@@ -163,7 +178,6 @@ export class GueststayService {
     }
 
     saveRoomEdit(model: Room) {
-
         return this.http.post(this.baseUrl + 'gueststay/editroom', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')

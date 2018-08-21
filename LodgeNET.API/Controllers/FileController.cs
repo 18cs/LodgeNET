@@ -119,8 +119,78 @@ namespace LodgeNET.API.Controllers
             return Ok(returnRows);
         }
 
+        [HttpPost("manifestFile")]
+        public async Task<IActionResult> ManifestFile(int userId, FileForUploadDto fileDto)
+        {
+            // var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            // if (currentUserId == 0)
+            // {
+            //     return Unauthorized();
+            // }
+            // ArrayList returnRows = new ArrayList();
+            // IFormFile file = Request.Form.Files[0];
+
+            // string folderName = "Upload";
+            // string webRootPath = _hostingEnvironment.WebRootPath;
+            // string newPath = System.IO.Path.Combine(webRootPath, folderName);
+            // if (!Directory.Exists(newPath))
+            // {
+            //     Directory.CreateDirectory(newPath);
+            // }
+            // if (file.Length > 0)
+            // {
+            //     string sFileExtension = System.IO.Path.GetExtension(file.FileName).ToLower();
+            //     string fullPath = System.IO.Path.Combine(newPath, file.FileName);
+            //     using (var stream = new FileStream(fullPath, FileMode.Create))
+            //     {
+            //         file.CopyTo(stream);
+            //     }
+
+            //     var sheets = _fileReader.GetExcelSheets(fullPath);
+            //     foreach (var sheet in sheets)
+            //     {
+            //         var headers = _fileReader.GetExcelSheetHeaders(sheet, 3);
+
+            //         if (!headers.Contains("Personal ID")) continue;
+
+            //         for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
+            //         {
+            //             IRow row = sheet.GetRow(i);
+            //             if (row == null || row.Cells.All(d => d.CellType == CellType.Blank)) continue;
+
+            //             var rowForUpload = await _fileService.ParseManifestExcelRow(row, headers);
+
+            //             //if (rowForUpload == null) continue;
+
+            //             //stay buildingId is nullable
+            //             if (rowForUpload.RoomId == 0 ||
+            //                 rowForUpload.BuildingId == 0 ||
+            //                 rowForUpload.FirstName == null ||
+            //                 rowForUpload.LastName == null ||
+            //                 rowForUpload.UnitId == 0)
+            //             {
+            //                 returnRows.Add(rowForUpload);
+            //             }
+            //             else
+            //             {
+            //                 await _fileService.SaveFileRowAsync(rowForUpload);
+            //             }
+            //         }
+            //     }
+
+            //     if (System.IO.File.Exists(fullPath))
+            //     {
+            //         System.IO.File.Delete(fullPath);
+            //     }
+            // }
+            // return Ok(returnRows);
+            return Ok();
+
+        }
+
         [HttpPost("lodgingFile")]
-        public async Task<IActionResult> UploadLodgeingFile(int userId, FileForUploadDto fileDto)
+        public async Task<IActionResult> UploadLodgingFile(int userId, FileForUploadDto fileDto)
         {
             var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 

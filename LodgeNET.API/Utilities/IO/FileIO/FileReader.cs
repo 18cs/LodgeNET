@@ -36,10 +36,43 @@ namespace LodgeNET.API.Utilities.IO.FileIO
             return sheet;
         }
 
-        public ArrayList GetExcelSheetHeaders(ISheet sheet)
+        public List<ISheet> GetExcelSheets(string fullPath)
+        {
+            List<ISheet> sheets = new List<ISheet>();
+            string filename = System.IO.Path.GetFileName(fullPath);
+            string sFileExtension = System.IO.Path.GetExtension(filename).ToLower();
+            using (var stream = new FileStream(fullPath, FileMode.Open))
+            {
+                // file.CopyTo (stream);
+                stream.Position = 0;
+                int i = 0;
+                if (sFileExtension == ".xls")
+                {
+                    HSSFWorkbook hssfwb = new HSSFWorkbook(stream); //This will read the Excel 97-2000 formats 
+                    while(hssfwb.GetSheetAt(i) != null)
+                    {
+                        sheets.Add((hssfwb.GetSheetAt(i)));
+                        i++;
+                    }
+                }
+                else
+                {
+                    XSSFWorkbook hssfwb = new XSSFWorkbook(stream); //This will read 2007 Excel format  
+                    while(hssfwb.GetSheetAt(i) != null)
+                    {
+                        sheets.Add((hssfwb.GetSheetAt(i)));
+                        i++;
+                    }   
+                }
+            }
+
+            return sheets;
+        }
+
+        public ArrayList GetExcelSheetHeaders(ISheet sheet, int headerRowIndex = 0)
         {
             ArrayList headers = new ArrayList();
-            IRow headerRow = sheet.GetRow(0); //Get Header Row
+            IRow headerRow = sheet.GetRow(headerRowIndex); //Get Header Row
             int cellCount = headerRow.LastCellNum;
             for (int j = 0; j < cellCount; j++)
             {

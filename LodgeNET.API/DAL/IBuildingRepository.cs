@@ -8,6 +8,12 @@ using LodgeNET.API.DAL.Models;
 namespace LodgeNET.API.DAL {
     public interface IBuildingRepository: IGenericRepository<Building>
     {
+        Task<IEnumerable<Building>> GetBuildings(
+            BuildingUserParams userParams,
+            Expression<Func<Building, object>>[] includeProperties = null,
+            Expression<Func<Building, bool>> filter = null
+        );
+
         Task<PagedList<BuildingCategory>> GetBuildingTypesPagination (
             PagUserParams userParams,
             Expression<Func<BuildingCategory, object>>[] includeProperties = null,

@@ -34,11 +34,12 @@ export class FileuploadComponent implements OnInit {
   itemsPerPage = 10;
   showSpinner = false;
 
-  uploadTypeData = { 
-      warningMessage: '',
-      acceptedFileTypes: [],
-      url: ''
-   }
+  uploadTypeData = {
+    warningMessage: '',
+    acceptedFileTypes: [],
+    url: '',
+    title: ''
+  }
 
   constructor(
     private alertify: AlertifyService,
@@ -47,14 +48,15 @@ export class FileuploadComponent implements OnInit {
     private dialog: MatDialog,
     private unitsService: UnitsService,
     private fileuploadService: FileuploadService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.type = this.route.snapshot.params['type'];
     this.totalFileRows = []; // uploader.queue has error when fileRows isn't init
     this.fileRows = [];
     this.route.params.subscribe((params: Params) => {
-      this.type = params['type'];
+      // this.type = params['type'];
+      this.setUpLoadType(params['type']);
       this.initializeUploader();
     });
 
@@ -65,36 +67,39 @@ export class FileuploadComponent implements OnInit {
     this.hasBaseDropZoneOver = e;
   }
 
-  initializeUploader() {
-    if (this.type === 'unaccompanied') {
-      this.uploader = new FileUploader({
-        url: this.baseUrl + 'file/unaccompaniedFile',
-        authToken: 'Bearer ' + localStorage.getItem('token'),
-        isHTML5: true,
-        allowedFileType: ['xls'],
-        removeAfterUpload: true,
-        autoUpload: false,
-        maxFileSize: 10 * 1024 * 1024
-      }); // maxFileSize = 10MB
-
-      this.uploader.onWhenAddingFileFailed = () => {
-        this.alertify.warning('Please select a XLSX file');
-      };
-    } else {
-      this.uploader = new FileUploader({
-        url: this.baseUrl + 'file/lodgingFile',
-        authToken: 'Bearer ' + localStorage.getItem('token'),
-        isHTML5: true,
-        allowedFileType: ['pdf'],
-        removeAfterUpload: true,
-        autoUpload: false,
-        maxFileSize: 10 * 1024 * 1024
-      }); // maxFileSize = 10MB
-
-      this.uploader.onWhenAddingFileFailed = () => {
-        this.alertify.warning('Please select a PDF file');
-      };
+  setUpLoadType(uploadType: string) {
+    if (uploadType == UPLOADTYPES.unaccompanied) {
+      this.uploadTypeData.acceptedFileTypes = ['xls'];
+      this.uploadTypeData.url = this.baseUrl + 'file/unaccompaniedFile';
+      this.uploadTypeData.warningMessage = 'Please select a XLSX file';
+      this.uploadTypeData.title = 'Upload Unaccompanied File';
+    } else if (uploadType == UPLOADTYPES.lodging) {
+      this.uploadTypeData.acceptedFileTypes = ['pdf'];
+      this.uploadTypeData.url = this.baseUrl + 'file/lodgingFile';
+      this.uploadTypeData.warningMessage = 'Please select a PDF file';
+      this.uploadTypeData.title = 'Upload Lodging File';
+    } else if (uploadType == UPLOADTYPES.manifest) {
+      this.uploadTypeData.acceptedFileTypes = ['xls'];
+      this.uploadTypeData.url = this.baseUrl + 'file/manifestFile'
+      this.uploadTypeData.warningMessage = 'Please select a XLSX file';
+      this.uploadTypeData.title = 'Upload Manifest File';
     }
+  }
+
+  initializeUploader() {
+    this.uploader = new FileUploader({
+      url: this.uploadTypeData.url,
+      authToken: 'Bearer ' + localStorage.getItem('token'),
+      isHTML5: true,
+      allowedFileType: this.uploadTypeData.acceptedFileTypes,
+      removeAfterUpload: true,
+      autoUpload: false,
+      maxFileSize: 10 * 1024 * 1024
+    }); // maxFileSize = 10MB
+
+    this.uploader.onWhenAddingFileFailed = () => {
+      this.alertify.warning(this.uploadTypeData.warningMessage);
+    };
 
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       let json = JSON.parse(response);

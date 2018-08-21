@@ -13,6 +13,8 @@ import { RoomParams } from '../../../_models/params/roomParams';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Data } from '@angular/router';
 import { AuthService } from '../../../_services/auth.service';
+import { RoomDisplay } from '../../../_models/display/roomDisplay';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-viewrooms',
@@ -38,7 +40,8 @@ export class ViewroomsComponent implements OnInit {
     private alertify: AlertifyService,
     private dialog: MatDialog,
     private route: ActivatedRoute,
-    public authService: AuthService
+    public authService: AuthService,
+    private fileExport: FileexportService
   ) { }
 
   ngOnInit() {
@@ -207,4 +210,10 @@ export class ViewroomsComponent implements OnInit {
     this.loadRooms();
   }
 
+  exportAsXLSX(): void {
+    this.guestStayService.getRoomsDisplay (this.filterParams)
+      .subscribe((rooms: RoomDisplay[]) => {
+        this.fileExport.exportAsExcelFile(rooms, 'Rooms_Report');
+      }, error => { this.alertify.error(error);});
+  }
 }

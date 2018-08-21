@@ -6,17 +6,17 @@
         <input matInput placeholder="User Name Filter" [(ngModel)]="filterParams.userName" name="userName">
       </mat-form-field>
       <mat-form-field class="col-lg-3">
-          <mat-select [(value)]="filterParams.approved" placeholder="Approved Filter">
-            <mat-option [value]="null">None</mat-option>
-            <mat-option *ngFor="let approved of approvedList" [value]="approved.value">{{ approved.display }}</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <mat-form-field class="col-lg-3">
-            <mat-select [(value)]="filterParams.accountTypeId" placeholder="Account Type Filter">
-              <mat-option [value]="null">None</mat-option>
-              <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.id">{{ accountType.type }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-select [(value)]="filterParams.approved" placeholder="Approved Filter">
+          <mat-option [value]="null">None</mat-option>
+          <mat-option *ngFor="let approved of approvedList" [value]="approved.value">{{ approved.display }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="col-lg-3">
+        <mat-select [(value)]="filterParams.accountTypeId" placeholder="Account Type Filter">
+          <mat-option [value]="null">None</mat-option>
+          <mat-option *ngFor="let accountType of accountTypes" [value]="accountType.id">{{ accountType.type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
       <button type="button" class="btn btn-secondary filterfield-pad" (click)="onReset()">Reset</button>
       <button type="submit" class="btn btn-success float-right filterfield-pad">Filter</button>
     </form>
@@ -25,7 +25,16 @@
 <br />
 <div class="row" *ngIf="selectedUser == null">
   <div class="col-lg-12">
-    <h1 class="text-left">Users</h1>
+    <div class="row">
+      <div class="col-lg-6">
+        <h1 class="text-left">Users</h1>
+      </div>
+      <div class="col-lg-1 offset-lg-5">
+        <button class="btn btn-success btn-sm" (click)="exportAsXLSX()">
+          <i class="fa fa-file-excel-o fa-lg"></i> Export
+        </button>
+      </div>
+    </div>
     <h5 class="text-right" *ngIf="pagination != null;">Users Found: {{ pagination.totalItems }}</h5>
     <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
     <table class="table table-hover">

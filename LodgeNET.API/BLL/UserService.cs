@@ -7,6 +7,7 @@ using LodgeNET.API.DAL;
 using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
+using System.Collections;
 
 namespace LodgeNET.API.BLL
 {
@@ -20,6 +21,19 @@ namespace LodgeNET.API.BLL
         {
             _mapper = mapper;
             _authRepo = repo;
+        }
+
+        public async Task<IEnumerable<User>> GetUsers(UserUserParams userParams)
+        {
+            var users = await _authRepo.GetUsers(
+                userParams,
+                new Expression<Func<User, object>>[] {
+                    u => u.AccountType,
+                    u => u.Rank,
+                    u => u.Unit
+                });
+
+            return (users);
         }
 
         public async Task<PagedList<User>> GetUsersPagination(UserUserParams userParams) 

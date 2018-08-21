@@ -129,26 +129,6 @@ namespace LodgeNET.API.Controllers {
             return Ok ();
         }
 
-        [HttpGet ("existentguest")]
-        public async Task<IActionResult> GetExistentGuest (int dodId) {
-            var guest = await _guestStayService.GetExistentGuest(dodId);
-
-            if (guest == null) {
-                return Ok ();
-            }
-
-            //TODOBLL
-            var guestStayForRetrieve = _mapper.Map<GuestForCheckinDto> (guest);
-            guestStayForRetrieve.Service = await _serviceRepo
-                .GetFirstOrDefault (
-                    s => s.Id == guestStayForRetrieve.Rank.ServiceId,
-                    new Expression<Func<Service, object>>[] {
-                        s => s.Ranks
-                    });
-
-            return Ok (guestStayForRetrieve);
-        }
-
         [HttpGet ("getgueststays")]
         public async Task<IActionResult> GetGuestStays ([FromQuery] GuestStayUserParams guestStayParams) {
             var guestStaysToReturn = _mapper.Map<IEnumerable<GuestStayForEditDto>> (
@@ -202,8 +182,29 @@ namespace LodgeNET.API.Controllers {
             return Ok ();
         }
 
-        [HttpGet ("getguests")]
-        public async Task<IActionResult> GetGuests ([FromQuery] GuestUserParams userParams) {
+        [HttpGet ("existentguest")]
+        public async Task<IActionResult> GetExistentGuest (int dodId) {
+            var guest = await _guestStayService.GetExistentGuest(dodId);
+
+            if (guest == null) {
+                return Ok ();
+            }
+
+            //TODOBLL
+            var guestStayForRetrieve = _mapper.Map<GuestForCheckinDto> (guest);
+            guestStayForRetrieve.Service = await _serviceRepo
+                .GetFirstOrDefault (
+                    s => s.Id == guestStayForRetrieve.Rank.ServiceId,
+                    new Expression<Func<Service, object>>[] {
+                        s => s.Ranks
+                    });
+
+            return Ok (guestStayForRetrieve);
+        }
+
+        [HttpGet ("getguestspagination")]
+        public async Task<IActionResult> GetGuestsPagination ([FromQuery] GuestUserParams userParams) 
+        {
             var guests = await _guestStayService.GetGuestsPagination(userParams);
 
             var guestsToReturn = _mapper.Map<IEnumerable<GuestForEditDto>> (guests);
@@ -214,6 +215,15 @@ namespace LodgeNET.API.Controllers {
                 guests.TotalPages);
 
             return Ok (guestsToReturn);
+        }
+
+        [HttpGet("getguestsdisplay")]
+        public async Task<IActionResult> GetGuestsDisplay([FromQuery] GuestUserParams userParams) 
+        {
+            var guests = _mapper.Map<IEnumerable<GuestForDisplayDto>>(
+                await _guestStayService.GuestGuests(userParams)
+            );
+            return Ok(guests);
         }
 
         [HttpPost ("updateguest")]

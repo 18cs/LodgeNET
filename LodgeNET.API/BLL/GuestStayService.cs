@@ -199,14 +199,25 @@ namespace LodgeNET.API.BLL {
             return (gueststay);
         }
 
-        public async Task<PagedList<Guest>> GetGuestsPagination (GuestUserParams userParams) {
+        public async Task<PagedList<Guest>> GetGuestsPagination (GuestUserParams userParams) 
+        {
             var guests = await _guestRepo.GetGuestPagination (userParams,
                 new Expression<Func<Guest, object>>[] {
                     g => g.Rank,
-                        g => g.Unit
+                    g => g.Unit
                 });
 
             return (guests);
+        }
+
+        public async Task<IEnumerable<Guest>> GuestGuests (GuestUserParams userParams)
+        {
+            return await _guestRepo.GetGuests(
+                    userParams,
+                    new Expression<Func<Guest, object>>[] {
+                        g => g.Rank,
+                        g => g.Unit
+                });
         }
 
         public async Task<Guest> UpdateGuest (GuestForEditDto updatedGuestDto) {

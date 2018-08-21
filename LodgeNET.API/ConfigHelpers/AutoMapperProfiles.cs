@@ -79,6 +79,25 @@ namespace LodgeNET.API.ConfigHelpers
                     opt => opt.MapFrom(room => room.Building.Name))
                 .ForMember(exportDTO => exportDTO.BuildingNumber,
                     opt => opt.MapFrom(room => room.Building.Number));
+            CreateMap<Building, BuildingForDisplay>()
+                .ForMember(exportDto => exportDto.Type,
+                    opt => opt.MapFrom(building => building.BuildingCategory.Type));
+            CreateMap<BuildingCategory, BuildingTypeForDisplayDto>();
+            CreateMap<Guest, GuestForDisplayDto>()
+                .ForMember(exportDto => exportDto.Rank,
+                    opt => opt.MapFrom(guest => guest.Rank.RankName))
+                .ForMember(exportDto => exportDto.UnitName,
+                    opt => opt.MapFrom(guest => guest.Unit.Name));
+            CreateMap<Unit, UnitForDisplayDto>()
+                .ForMember(exportDto => exportDto.ParentUnit,
+                    opt => opt.MapFrom(unit => unit.ParentUnit.Name));
+            CreateMap<User, UserForDisplayDto>()
+                .ForMember(exportDto => exportDto.AccountType,
+                    opt => opt.MapFrom(user => user.AccountType.Type))
+                    .ForMember(exportDto => exportDto.Unit,
+                    opt => opt.MapFrom(user => user.Unit.Name))
+                    .ForMember(exportDto => exportDto.Rank,
+                    opt => opt.MapFrom(user => user.Rank.RankName));                
         }
     }
 }

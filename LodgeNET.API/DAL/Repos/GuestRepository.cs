@@ -21,6 +21,22 @@ namespace LodgeNET.API.DAL {
             return false;
         }
 
+        public async Task<IEnumerable<Guest>> GetGuests (
+            GuestUserParams userParams,
+            Expression<Func<Guest, object>>[] includeProperties = null,
+            Expression<Func<Guest, bool>> filter = null
+        ) {
+             var guests = _context.Guests.AsQueryable ();
+             if (includeProperties != null) {
+                foreach (Expression<Func<Guest, object>> includeProperty in includeProperties) {
+                    guests = guests.Include<Guest, object> (includeProperty);
+                }
+            }
+
+            guests = ProcessGuestFilter(guests, userParams, filter);
+            return await guests.ToListAsync();
+        }
+
         public async Task<PagedList<Guest>> GetGuestPagination (
             GuestUserParams userParams,
             Expression<Func<Guest, object>>[] includeProperties = null,
@@ -33,6 +49,13 @@ namespace LodgeNET.API.DAL {
                 }
             }
 
+            guests = ProcessGuestFilter(guests, userParams, filter);
+
+            return await PagedList<Guest>.CreateAsync (guests, userParams.PageNumber, userParams.PageSize);
+        }
+
+        private IQueryable<Guest> ProcessGuestFilter(IQueryable<Guest> guests, GuestUserParams userParams, Expression<Func<Guest, bool>> filter = null) 
+        {
             if (filter != null) {
                 guests = guests.Where (filter);
             }
@@ -60,8 +83,7 @@ namespace LodgeNET.API.DAL {
             if (!String.IsNullOrWhiteSpace (userParams.Gender)) {
                 guests = guests.Where (g => g.Gender.Equals (userParams.Gender));
             }
-
-            return await PagedList<Guest>.CreateAsync (guests, userParams.PageNumber, userParams.PageSize);
+            return guests;
         }
 
     }

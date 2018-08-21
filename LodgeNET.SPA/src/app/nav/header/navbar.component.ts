@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
 import { AlertifyService } from '../../_services/alertify.service';
+import { UPLOADTYPES } from '../../authapp/fileupload/fileupload.component';
 
 @Component({
   selector: 'app-navbar',
@@ -18,11 +19,14 @@ export class NavbarComponent implements OnInit {
   @ViewChild('uploaddropdown') uploadDropdown: ElementRef;
 
   pendingAcctCount: number;
+  UPLOADTYPES;
 
   constructor(
     public authService: AuthService,
     private alertify: AlertifyService
-  ) {}
+  ) {
+    this.UPLOADTYPES = UPLOADTYPES;
+  }
   isUserDropdownOpen = false;
   isUploadDropdownOpen = false;
   isNavbarOpen = false;

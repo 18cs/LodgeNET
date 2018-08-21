@@ -24,9 +24,9 @@
         <a #uploaddropdown (click)="isUploadDropdownOpen = !isUploadDropdownOpen" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="true" style="cursor: pointer;">Upload</a>
           <div class="dropdown-menu" [ngClass]="{show: isUploadDropdownOpen}">
-            <a class="dropdown-item" routerLink="/upload/lodging" href=""  routerLinkActive="active">Lodging Data</a>
-            <a class="dropdown-item" routerLink="/upload/unaccompanied" href=""  routerLinkActive="active">Dorms Data</a>
-            <a class="dropdown-item" routerLink="/upload/manifest" href=""  routerLinkActive="active">Manifest Data</a>
+            <a class="dropdown-item" [routerLink]="['/upload', UPLOADTYPES.lodging]" href=""  routerLinkActive="active">Lodging Data</a>
+            <a class="dropdown-item" [routerLink]="['/upload', UPLOADTYPES.unaccompanied]" href=""  routerLinkActive="active">Dorms Data</a>
+            <a class="dropdown-item" [routerLink]="['/upload', UPLOADTYPES.manifest]" href=""  routerLinkActive="active">Manifest Data</a>
             <a class="dropdown-item" href="">Manage Uploads</a>
           </div>
       </li>

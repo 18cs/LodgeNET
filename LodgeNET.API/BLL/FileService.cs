@@ -38,6 +38,14 @@ namespace LodgeNET.API.BLL
             _rankRepo = rankRepo;
             _mapper = mapper;
         }
+
+        // public async Task<FileRowForUploadDto> ParseManifestExcelRow(IRow row, ArrayList headers)
+        // {
+        //     // if (!headers.Contains("Personal ID")) return null;
+
+
+        // }
+
         public async Task<FileRowForUploadDto> ParseUnaccompaniedExcelRow(IRow row, ArrayList headers)
         {
             var rowForUpload = new FileRowForUploadDto();

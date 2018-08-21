@@ -83,6 +83,21 @@ namespace LodgeNET.API.DAL
             return false;
         }
 
+        public async Task<IEnumerable<User>> GetUsers(
+            UserUserParams userParams, 
+            Expression<Func<User, object>>[] includeProperties = null,
+            Expression<Func<User, bool>> filter = null
+        ) {
+            var users = _context.Users.AsQueryable();
+
+            if (includeProperties != null) {
+                users = ProcessUserProperties(users, includeProperties);   
+            }
+            users = ProcessUserFilter(users, userParams, filter);
+
+            return await users.ToListAsync();
+        }
+
         public async Task<PagedList<User>> GetUsersPagination(
             UserUserParams userParams, 
             Expression<Func<User, object>>[] includeProperties = null,
@@ -91,11 +106,23 @@ namespace LodgeNET.API.DAL
             var users = _context.Users.AsQueryable();
 
             if (includeProperties != null) {
-                foreach (Expression<Func<User, object>> includeProperty in includeProperties) {
-                    users = users.Include<User, object> (includeProperty);
-                }
+                users = ProcessUserProperties(users, includeProperties);   
             }
+            users = ProcessUserFilter(users, userParams, filter);
+            
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+        }
 
+        private IQueryable<User> ProcessUserProperties(IQueryable<User> users, Expression<Func<User, object>>[] includeProperties)
+        {
+            foreach (Expression<Func<User, object>> includeProperty in includeProperties) {
+                users = users.Include<User, object> (includeProperty);
+            }
+            return users;
+        }
+
+        private IQueryable<User> ProcessUserFilter(IQueryable<User> users, UserUserParams userParams, Expression<Func<User, bool>> filter)
+        {
             if(filter != null)
             {
                 users = users.Where(filter);
@@ -112,8 +139,7 @@ namespace LodgeNET.API.DAL
             if (!String.IsNullOrWhiteSpace(userParams.UserName)) {
                 users = users.Where(u => u.UserName.Equals(userParams.UserName));
             }
-
-            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+            return users;
         }
     }
 }

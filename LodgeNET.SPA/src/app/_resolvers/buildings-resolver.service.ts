@@ -11,7 +11,7 @@ constructor(private buildingService: BuildingService) { }
 
 resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<Building[]> | Promise<Building[]> | Building[] {
-        return this.buildingService.getAllBuildings();
+        return this.buildingService.getBuildings();
     }
 
 }

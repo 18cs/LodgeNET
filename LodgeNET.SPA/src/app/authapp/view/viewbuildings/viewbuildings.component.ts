@@ -9,6 +9,8 @@ import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { BuildingCategory } from '../../../_models/buildingCategory';
 import { BuildingParams } from '../../../_models/params/buildingParams';
 import { AuthService } from '../../../_services/auth.service';
+import { BuildingDisplay } from '../../../_models/display/buildingDisplay';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-viewbuildings',
@@ -33,7 +35,8 @@ export class ViewbuildingsComponent implements OnInit {
     private buildingService: BuildingService,
     private alertify: AlertifyService,
     private dialog: MatDialog,
-    public authService: AuthService
+    public authService: AuthService,
+    private fileExport: FileexportService
   ) {}
 
   ngOnInit() {
@@ -45,7 +48,7 @@ export class ViewbuildingsComponent implements OnInit {
   loadBuildings() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.buildingService.getBuildings(this.pageNumber, this.pageSize, this.filterParams)
+      this.buildingService.getBuildingsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
           this.buildingList = paginatedResult.result;
           this.showSpinner = false;
@@ -55,7 +58,7 @@ export class ViewbuildingsComponent implements OnInit {
           this.showSpinner = false;
         });
     } else {
-      this.buildingService.getBuildings(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.buildingService.getBuildingsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Building[]>) => {
           this.buildingList = paginatedResult.result;
           this.showSpinner = false;
@@ -68,7 +71,7 @@ export class ViewbuildingsComponent implements OnInit {
   }
 
   getAllBuildingTypes() {
-    this.buildingService.getAllBuildingTypes().subscribe(
+    this.buildingService.getBuildingTypes().subscribe(
         (buildingTypeList: BuildingCategory[]) => {
           this.buildingTypeList = buildingTypeList;
         },
@@ -91,18 +94,6 @@ export class ViewbuildingsComponent implements OnInit {
     this.initFilterParams();
     this.loadBuildings();
   }
-
-  // tableCollapseToggle(buildingId: number) {
-  //   if (buildingId === 1) {
-  //     this.isLodgingOpen = !this.isLodgingOpen;
-  //   } else if (buildingId === 2) {
-  //     this.isVacentHousingOpen = !this.isVacentHousingOpen;
-  //   } else if (buildingId === 3) {
-  //     this.isUnaccompaniedHousingOpen = !this.isUnaccompaniedHousingOpen;
-  //   } else if (buildingId === 4) {
-  //     this.isEmergencyQuartersOpen = !this.isEmergencyQuartersOpen;
-  //   }
-  // }
 
   openAddDialog() {
     const dialogConfig = new MatDialogConfig();
@@ -192,5 +183,12 @@ export class ViewbuildingsComponent implements OnInit {
   pageChanged(event: any): void {
     this.pagination.currentPage = event.page;
     this.loadBuildings();
+  }
+
+  exportAsXLSX(): void {
+    this.buildingService.getBuildingsDisplay (this.filterParams)
+      .subscribe((buildings: BuildingDisplay[]) => {
+        this.fileExport.exportAsExcelFile(buildings, 'Buildings_Report');
+      }, error => { this.alertify.error(error);});
   }
 }

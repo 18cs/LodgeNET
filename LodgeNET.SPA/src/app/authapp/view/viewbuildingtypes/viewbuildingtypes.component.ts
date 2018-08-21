@@ -6,6 +6,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material';
 import { BuildingtypesdialogComponent } from '../dialogcomponents/buildingtypesdialog/buildingtypesdialog.component';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
+import { BuildingTypeDisplay } from '../../../_models/display/buildingTypeDisplay';
+import { FileexportService } from '../../../_services/fileexport.service';
 
 @Component({
   selector: 'app-viewbuildingtypes',
@@ -24,7 +26,8 @@ export class ViewbuildingtypesComponent implements OnInit {
     private buildingService: BuildingService,
     private alertify: AlertifyService,
     private dialog: MatDialog,
-    public authService: AuthService
+    public authService: AuthService,
+    private fileExport: FileexportService
   ) {}
 
   ngOnInit() {
@@ -34,14 +37,14 @@ export class ViewbuildingtypesComponent implements OnInit {
   loadBuildingTypes() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.buildingService.getBuildingTypes(this.pageNumber, this.pageSize)
+      this.buildingService.getBuildingTypesPagination(this.pageNumber, this.pageSize)
         .subscribe((paginatedResult: PaginatedResult<BuildingType[]>) => {
           this.buildingTypeList = paginatedResult.result;
           this.showSpinner = false;
           this.pagination = paginatedResult.pagination;
         }, error => { this.alertify.error(error); });
     } else {
-      this.buildingService.getBuildingTypes(this.pagination.currentPage, this.pagination.itemsPerPage)
+      this.buildingService.getBuildingTypesPagination(this.pagination.currentPage, this.pagination.itemsPerPage)
         .subscribe((paginatedResult: PaginatedResult<BuildingType[]>) => {
           this.buildingTypeList = paginatedResult.result;
           this.showSpinner = false;
@@ -102,7 +105,6 @@ export class ViewbuildingtypesComponent implements OnInit {
     } as BuildingType
     };
 
-
     const dialogRef = this.dialog.open(BuildingtypesdialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(data => {
       if (data != null) {
@@ -143,4 +145,10 @@ export class ViewbuildingtypesComponent implements OnInit {
     }
   }
 
+  exportAsXLSX(): void {
+    this.buildingService.getBuildingTypesDisplay ()
+      .subscribe((buildingTypes: BuildingTypeDisplay[]) => {
+        this.fileExport.exportAsExcelFile(buildingTypes, 'Buildings_Report');
+      }, error => { this.alertify.error(error);});
+  }
 }

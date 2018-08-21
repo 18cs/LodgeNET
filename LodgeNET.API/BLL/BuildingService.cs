@@ -10,27 +10,48 @@ using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LodgeNET.API.BLL {
-    public class BuildingService {
-        private readonly IBuildingRepository _repo;
+namespace LodgeNET.API.BLL
+{
+    public class BuildingService
+    {
+        private readonly IBuildingRepository _buildingsRepo;
         private readonly IGenericRepository<BuildingCategory> _buildingCategoryRepo;
         private readonly IGenericRepository<Stay> _stayRepo;
         private readonly IGenericRepository<Room> _roomRepo;
         private readonly IMapper _mapper;
-        public BuildingService (IBuildingRepository repo,
+        public BuildingService(IBuildingRepository buildingsRepo,
             IGenericRepository<BuildingCategory> buildingCategoryRepo,
             IGenericRepository<Stay> stayRepo,
             IGenericRepository<Room> roomRepo,
-            IMapper mapper) {
+            IMapper mapper)
+        {
             _mapper = mapper;
-            _repo = repo;
+            _buildingsRepo = buildingsRepo;
             _buildingCategoryRepo = buildingCategoryRepo;
             _stayRepo = stayRepo;
             _roomRepo = roomRepo;
         }
 
-        public async Task<PagedList<Building>> GetBuildingsPagination (BuildingUserParams pageParams) {
-            var bldgs = await _repo.GetBuildingsPagination (
+        public async Task<Building> GetBuilding(int id)
+        {
+            var building = await _buildingsRepo.GetByID(id);
+
+            return (building);
+        }
+
+        public async Task<IEnumerable<Building>> GetBuildings(BuildingUserParams userParams = null)
+        {
+            var buildings = await _buildingsRepo.GetBuildings(
+                userParams,
+                new Expression<Func<Building, object>>[] {
+                    b => b.BuildingCategory
+                });
+            return (buildings);
+        }
+
+        public async Task<PagedList<Building>> GetBuildingsPagination(BuildingUserParams pageParams)
+        {
+            var bldgs = await _buildingsRepo.GetBuildingsPagination(
                 pageParams,
                 new Expression<Func<Building, object>>[] {
                     b => b.BuildingCategory
@@ -39,132 +60,136 @@ namespace LodgeNET.API.BLL {
             return (bldgs);
         }
 
-        public async Task<PagedList<BuildingCategory>> GetBuildingTypes (PagUserParams userParams) {
-            var buildingTypes = await _repo.GetBuildingTypesPagination (
+        public async Task<PagedList<BuildingCategory>> GetBuildingTypesPagiantion(PagUserParams userParams)
+        {
+            var buildingTypes = await _buildingsRepo.GetBuildingTypesPagination(
                 userParams
             );
 
             return (buildingTypes);
         }
 
-        public async Task<IEnumerable<Building>> GetAllBuildings () {
+        public async Task<IEnumerable<BuildingCategory>> GetBuildingTypes()
+        {
 
-            var buildings = await _repo.GetAsync ();
-
-            return (buildings);
-        }
-
-        public async Task<IEnumerable<BuildingCategory>> GetAllBuildingTypes () {
-
-            var buildingTypes = await _buildingCategoryRepo.GetAsync ();
+            var buildingTypes = await _buildingCategoryRepo.GetAsync();
 
             return (buildingTypes);
         }
 
-        public async Task<Building> GetBuilding (int id) {
-            var building = await _repo.GetByID (id);
-
-            return (building);
-        }
-
-        public async Task<BuildingsDataDto> buildingDashboardData () {
-            var buildingListResult = await _repo.GetAsync ();
-            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync ();
-            var buildingsDataDto = new BuildingsDataDto () {
-                BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>> (buildingListResult),
-                BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>> (buildingTypeListResult.ToList ())
+        public async Task<BuildingsDataDto> buildingDashboardData()
+        {
+            var buildingListResult = await _buildingsRepo.GetAsync();
+            var buildingTypeListResult = await _buildingCategoryRepo.GetAsync();
+            var buildingsDataDto = new BuildingsDataDto()
+            {
+                BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>>(buildingListResult),
+                BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>>(buildingTypeListResult.ToList())
             };
 
-            foreach (BuildingDataDto b in buildingsDataDto.BuildingList) {
-                b.CurrentGuests = await _stayRepo.GetCount (s => s.CheckedOut == false &&
-                    s.CheckedIn == true &&
-                    !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                    s.BuildingId == b.Id);
-                b.Capacity = await _roomRepo.GetSum (r => r.Capacity, r => r.BuildingId == b.Id);
+            foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
+            {
+                b.CurrentGuests = await _stayRepo.GetCount(s => s.CheckedOut == false &&
+                   s.CheckedIn == true &&
+                   !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+                   s.BuildingId == b.Id);
+                b.Capacity = await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
 
-                var bcat = buildingsDataDto.BuildingTypeList.Find (t => t.Id == b.BuildingCategoryId);
-                if (bcat != null) {
+                var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
+                if (bcat != null)
+                {
                     bcat.Capacity += b.Capacity;
                     bcat.CurrentGuests += b.CurrentGuests;
                 }
             }
             return (buildingsDataDto);
         }
-        public async Task<int> GetCurrentGuests (int id) {
-            return await _stayRepo.GetCount (s => s.CheckedOut == false &&
-                s.CheckedIn == true &&
-                !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                s.BuildingId == id);
+        public async Task<int> GetCurrentGuests(int id)
+        {
+            return await _stayRepo.GetCount(s => s.CheckedOut == false &&
+               s.CheckedIn == true &&
+               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               s.BuildingId == id);
         }
 
-        public async Task<int> GetCapacity(int id) {
-            return await _roomRepo.GetSum (r => r.Capacity, r => r.BuildingId == id);
+        public async Task<int> GetCapacity(int id)
+        {
+            return await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == id);
         }
 
-        public async Task<Building> SaveBuilding (BuildingDataDto building) {
-            var bldg = await _repo.GetFirstOrDefault (b => b.Id == building.Id);
+        public async Task<Building> SaveBuilding(BuildingDataDto building)
+        {
+            var bldg = await _buildingsRepo.GetFirstOrDefault(b => b.Id == building.Id);
 
-            if (bldg != null) {
+            if (bldg != null)
+            {
                 bldg.Name = building.Name;
                 bldg.BuildingCategoryId = building.BuildingCategoryId;
             }
 
-            await _repo.SaveAsync ();
+            await _buildingsRepo.SaveAsync();
 
             return (bldg);
         }
 
-        public async Task<Building> AddBuilding (Building building) {
-            if ((await _repo.GetFirstOrDefault (b => b.Number == building.Number)) != null) {
-                throw new System.ArgumentException ("Building Number already exists", string.Empty);
+        public async Task<Building> AddBuilding(Building building)
+        {
+            if ((await _buildingsRepo.GetFirstOrDefault(b => b.Number == building.Number)) != null)
+            {
+                throw new System.ArgumentException("Building Number already exists", string.Empty);
             }
 
             building.BuildingCategory = null;
 
-            await _repo.Insert (building);
+            await _buildingsRepo.Insert(building);
 
-            await _repo.SaveAsync ();
+            await _buildingsRepo.SaveAsync();
 
             return (building);
         }
 
-        public async Task<BuildingCategory> SaveBuildingType (BuildingCategoryDataDto buildingType) {
-            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault (b => b.Id == buildingType.Id);
+        public async Task<BuildingCategory> SaveBuildingType(BuildingCategoryDataDto buildingType)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == buildingType.Id);
 
-            if (bldgType != null) {
+            if (bldgType != null)
+            {
                 bldgType.Type = buildingType.Type;
             }
 
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingCategoryRepo.SaveAsync();
 
             return (bldgType);
         }
 
-        public async Task<BuildingCategory> AddBuildingType (BuildingCategory buildingType) {
-            var bldgTypeToAdd = _mapper.Map<BuildingCategory> (buildingType);
+        public async Task<BuildingCategory> AddBuildingType(BuildingCategory buildingType)
+        {
+            var bldgTypeToAdd = _mapper.Map<BuildingCategory>(buildingType);
 
-            await _buildingCategoryRepo.Insert (bldgTypeToAdd);
+            await _buildingCategoryRepo.Insert(bldgTypeToAdd);
 
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingCategoryRepo.SaveAsync();
 
             return (bldgTypeToAdd);
         }
 
-        public async Task<BuildingCategory> DeleteBuildingTypeById (int id) {
-            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault (b => b.Id == id);
+        public async Task<BuildingCategory> DeleteBuildingTypeById(int id)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == id);
 
-            await _buildingCategoryRepo.Delete (bldgType.Id);
+            await _buildingCategoryRepo.Delete(bldgType.Id);
 
-            await _buildingCategoryRepo.SaveAsync ();
+            await _buildingCategoryRepo.SaveAsync();
 
             return (bldgType);
         }
-        public async Task<Building> DeleteBuildingById (int id) {
-            var bldg = await _repo.GetFirstOrDefault (b => b.Id == id);
+        public async Task<Building> DeleteBuildingById(int id)
+        {
+            var bldg = await _buildingsRepo.GetFirstOrDefault(b => b.Id == id);
 
-            await _repo.Delete (bldg.Id);
+            await _buildingsRepo.Delete(bldg.Id);
 
-            await _repo.SaveAsync ();
+            await _buildingsRepo.SaveAsync();
 
             return (bldg);
         }

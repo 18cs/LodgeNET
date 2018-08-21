@@ -22,7 +22,6 @@ export class AuthappComponent implements OnInit {
 
   ngOnInit() {
     this.UPLOADTYPES = UPLOADTYPES;
-    console.log(UPLOADTYPES.unaccompanied);
   }
 
   @HostListener('document:click', ['$event']) documentclicked(eventData: Event) {

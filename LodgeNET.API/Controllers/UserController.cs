@@ -32,17 +32,17 @@ namespace LodgeNET.API.Controllers
             _userService = userService;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetUsers()
-        // {
-        //     var users = await _authRepo.GetAsync();
+        [HttpGet("getusersdisplay")]
+        public async Task<IActionResult> GetUsersDisplay([FromQuery] UserUserParams userParams)
+        {
+            var users = _mapper.Map<IEnumerable<UserForDisplayDto>>(
+              await _userService.GetUsers(userParams)
+            );
+            return Ok(users);
+        }
 
-        //     return Ok(users);
-            
-        // }
-
-        [HttpGet("users")]
-        public async Task<IActionResult> GetUsers([FromQuery] UserUserParams userParams) {
+        [HttpGet("getuserspagination")]
+        public async Task<IActionResult> GetUsersPagination([FromQuery] UserUserParams userParams) {
             var users = await _userService.GetUsersPagination(userParams);
             var usersToReturn = _mapper.Map<IEnumerable<UserForEditDto>>(users);
 

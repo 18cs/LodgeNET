@@ -11,6 +11,8 @@ import { Observable } from 'rxjs/Observable';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../../_services/auth.service';
+import { FileexportService } from '../../../_services/fileexport.service';
+import { UnitDisplay } from '../../../_models/display/unitDisplay';
 
 @Component({
   selector: 'app-viewunits',
@@ -36,7 +38,8 @@ export class ViewunitsComponent implements OnInit {
     private alertify: AlertifyService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private fileExport: FileexportService
   ) { }
 
   ngOnInit() {
@@ -54,13 +57,13 @@ export class ViewunitsComponent implements OnInit {
   }
 
   initFilterParams() {
-    this.filterParams = { includeParentUnit: true } as UnitParams;
+    this.filterParams = { includeParentUnit: true,  };
   }
 
   loadUnits() {
     this.showSpinner = true;
     if (this.pagination == null) {
-      this.unitsService.getUnitsPag(this.pageNumber, this.pageSize, this.filterParams)
+      this.unitsService.getUnitsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Unit[]>) => {
           this.units = paginatedResult.result;
           this.showSpinner = false;
@@ -70,7 +73,7 @@ export class ViewunitsComponent implements OnInit {
           this.showSpinner = false;
         });
     } else {
-      this.unitsService.getUnitsPag(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
+      this.unitsService.getUnitsPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Unit[]>) => {
           this.units = paginatedResult.result;
           this.showSpinner = false;
@@ -162,6 +165,13 @@ export class ViewunitsComponent implements OnInit {
         );
       }
     });
+  }
+
+  exportAsXLSX(): void {
+    this.unitsService.getUnitsDisplay(this.filterParams)
+      .subscribe((units: UnitDisplay[]) => {
+        this.fileExport.exportAsExcelFile(units, 'Units_Report');
+      }, error => { this.alertify.error(error);});
   }
 
 }

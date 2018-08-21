@@ -8,6 +8,8 @@ using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using LodgeNET.API.DAL.Dtos;
 
 namespace LodgeNET.API.Controllers
 {
@@ -41,10 +43,19 @@ namespace LodgeNET.API.Controllers
             return Ok(units);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetUnits() {
-            var units = await _unitService.GetUnits();
+        [HttpGet("getunits")]
+        public async Task<IActionResult> GetUnits([FromQuery] UnitUserParams userParams) 
+        {
+            var units = await _unitService.GetUnits(userParams);
+            return Ok(units);
+        }
 
+        [HttpGet("getunitsdisplay")]
+        public async Task<IActionResult> GetUnitsDisplay([FromQuery] UnitUserParams userParams) 
+        {
+            var units = _mapper.Map<IEnumerable<UnitForDisplayDto>>(
+                await _unitService.GetUnits(userParams)
+            );
             return Ok(units);
         }
 
