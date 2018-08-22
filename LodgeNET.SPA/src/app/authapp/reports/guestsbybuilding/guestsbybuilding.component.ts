@@ -112,7 +112,6 @@ export class GuestsbybuildingComponent implements OnInit {
     this.selectedBuilding = null;
     this.selectedBuildingName = '';
     this.filterByBldg = false;
-    this.loadGuests();
   }
 
   pageChanged(event: any): void {

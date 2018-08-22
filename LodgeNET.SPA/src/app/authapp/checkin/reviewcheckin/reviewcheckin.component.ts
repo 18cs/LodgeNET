@@ -23,6 +23,7 @@ export class ReviewcheckinComponent implements OnInit {
       this.router.navigate(['../guestinfo'], {relativeTo: this.route});
     }
     this.guestStay = this.gueststayService.guestStay;
+    console.log(this.guestStay);
   }
 
   onCancel() {

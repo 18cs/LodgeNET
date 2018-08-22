@@ -37,7 +37,7 @@ namespace LodgeNET.API {
         {
             // var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection ("AppSettings:Token").Value);
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
             services.AddTransient<Seed>();
             services.AddTransient<AuthService>();
             services.AddTransient<BuildingService>();
@@ -49,6 +49,7 @@ namespace LodgeNET.API {
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IFileRepository, FileRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IGuestRepository, GuestRepository>();
             services.AddScoped<IGuestStayRepo, GuestStayRepo>();

@@ -32,6 +32,7 @@ import { GuestsbybuildingComponent } from './authapp/reports/guestsbybuilding/gu
 import { GuestsbyserviceComponent } from './authapp/reports/guestsbyservice/guestsbyservice.component';
 import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.component';
 import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
+import { ManageuploadsComponent } from './authapp/fileupload/manageuploads/manageuploads.component';
 
  const appRoutes: Routes =
 [
@@ -39,6 +40,8 @@ import { InhouseComponent } from './authapp/reports/inhouse/inhouse.component';
   data: { authGuardRedirect: 'home' }, children: [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard',  component: DashboardComponent},
+    {path: 'upload/manage', component: ManageuploadsComponent, canActivate: [AccountTypeGuard],
+      data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }},
     {path: 'upload/:type', component: FileuploadComponent, canActivate: [AccountTypeGuard],
       data: { accountTypeRedirect: 'home', unauthorizedAccountType: 'Viewer' }},
     {path: 'upload', redirectTo: 'upload/lodging',  pathMatch: 'full', canActivate: [AccountTypeGuard],

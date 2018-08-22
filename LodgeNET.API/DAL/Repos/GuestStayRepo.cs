@@ -74,6 +74,11 @@ namespace LodgeNET.API.DAL {
             if (userParams.BuildingId != null) {
                 stays = stays.Where (s => s.BuildingId == userParams.BuildingId);
             }
+
+            if (userParams.ServiceId != null) {
+                stays = stays.Where (s => s.Guest.Rank.ServiceId == userParams.ServiceId);
+            }
+
             return stays;
         }
     }

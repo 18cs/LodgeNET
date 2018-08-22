@@ -9,6 +9,7 @@ using AutoMapper;
 using LodgeNET.API.DAL;
 using LodgeNET.API.DAL.Dtos;
 using LodgeNET.API.DAL.Models;
+using LodgeNET.API.Helpers;
 using NPOI.SS.UserModel;
 
 namespace LodgeNET.API.BLL
@@ -16,6 +17,7 @@ namespace LodgeNET.API.BLL
     public class FileService
     {
         private readonly IGenericRepository<Building> _buildingRepo;
+        private readonly IFileRepository _fileRepo;
         private readonly IGenericRepository<Room> _roomRepo;
         private readonly IUnitRepository _unitRepo;
         private readonly IGenericRepository<Guest> _guestRepo;
@@ -23,6 +25,7 @@ namespace LodgeNET.API.BLL
         private readonly IGenericRepository<Rank> _rankRepo;
         private IMapper _mapper;
         public FileService(IGenericRepository<Building> buildingRepo,
+                            IFileRepository fileRepo,
                             IGenericRepository<Room> roomRepo,
                             IUnitRepository unitRepo,
                             IGenericRepository<Guest> guestRepo,
@@ -31,6 +34,7 @@ namespace LodgeNET.API.BLL
                             IMapper mapper)
         {
             _buildingRepo = buildingRepo;
+            _fileRepo = fileRepo;
             _roomRepo = roomRepo;
             _unitRepo = unitRepo;
             _guestRepo = guestRepo;
@@ -39,14 +43,33 @@ namespace LodgeNET.API.BLL
             _mapper = mapper;
         }
 
-        // public async Task<FileRowForUploadDto> ParseManifestExcelRow(IRow row, ArrayList headers)
-        // {
-        //     // if (!headers.Contains("Personal ID")) return null;
+        public async Task<PagedList<Upload>> GetUploadsPagination(UploadUserParams userParams)
+        {
+            var uploads = await _fileRepo.GetUploadsPagination(userParams,
+            new Expression<Func<Upload, object>>[] {
+                u => u.User
+            });
 
+            return (uploads);
+        }
 
-        // }
+        public async Task<int> AddUpload (Upload upload) {
+            await _fileRepo.Insert(upload);
+            await _fileRepo.SaveAsync();
+            return (upload.Id);
+        }
 
-        public async Task<FileRowForUploadDto> ParseUnaccompaniedExcelRow(IRow row, ArrayList headers)
+        public async Task<Upload> DeleteUpload (int id) {
+            var upload = await _fileRepo.GetFirstOrDefault (u => u.Id == id);
+
+            await _fileRepo.Delete(upload.Id);
+
+            await _fileRepo.SaveAsync ();
+
+            return (upload);
+        }
+
+        public async Task<FileRowForUploadDto> ParseUnaccompaniedExcelRow(IRow row, ArrayList headers, int uploadId = 0)
         {
             var rowForUpload = new FileRowForUploadDto();
             for (int j = row.FirstCellNum; j < headers.Count; j++)
@@ -100,6 +123,8 @@ namespace LodgeNET.API.BLL
                         rowForUpload.UnitName = unit.Name;
                     }
                 }
+                 if (uploadId != 0 )
+                    rowForUpload.UploadId = uploadId;
             }
             return rowForUpload;
         }
@@ -126,7 +151,7 @@ namespace LodgeNET.API.BLL
             return fileRow;
         }
 
-        public async Task<FileRowForUploadDto> ParseDlsReportRow(string dataRow)
+        public async Task<FileRowForUploadDto> ParseDlsReportRow(string dataRow, int uploadId = 0)
         {
             var rowForUpload = new FileRowForUploadDto();
 
@@ -162,8 +187,13 @@ namespace LodgeNET.API.BLL
                     break;
                 }
             }
+
+            if(uploadId != 0)
+                rowForUpload.UploadId = uploadId;
+
             return rowForUpload;
         }
+
         public async Task SaveFileRowAsync(FileRowForUploadDto rowForUpload)
         {
             //TODO add unit parse
@@ -293,5 +323,7 @@ namespace LodgeNET.API.BLL
 
             return firstnameIndex;
         }
+
+        
     }
 }

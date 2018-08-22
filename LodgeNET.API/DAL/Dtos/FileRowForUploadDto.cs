@@ -16,6 +16,6 @@ namespace LodgeNET.API.DAL.Dtos
          public DateTime? CheckOutDate { get; set; }
          public bool CheckedIn { get; set; }
          public int? RankId { get; set; }
-         
+         public int? UploadId { get; set; }         
     }
 }
