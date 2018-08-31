@@ -9,7 +9,7 @@ using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 
 namespace LodgeNET.API.Controllers
 {

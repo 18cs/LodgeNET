@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.DAL.Dtos;
-using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
+using LodgeNET.API.Dtos;
+using LodgeNET.API.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LodgeNET.API.BLL
@@ -60,6 +60,14 @@ namespace LodgeNET.API.BLL
             return (bldgs);
         }
 
+        public async Task<IEnumerable<BuildingCategory>> GetBuildingTypes()
+        {
+
+            var buildingTypes = await _buildingCategoryRepo.GetAsync();
+
+            return (buildingTypes);
+        }
+
         public async Task<PagedList<BuildingCategory>> GetBuildingTypesPagiantion(PagUserParams userParams)
         {
             var buildingTypes = await _buildingsRepo.GetBuildingTypesPagination(
@@ -69,14 +77,7 @@ namespace LodgeNET.API.BLL
             return (buildingTypes);
         }
 
-        public async Task<IEnumerable<BuildingCategory>> GetBuildingTypes()
-        {
-
-            var buildingTypes = await _buildingCategoryRepo.GetAsync();
-
-            return (buildingTypes);
-        }
-
+        //TODO use other class methods to calculate
         public async Task<BuildingsDataDto> buildingDashboardData()
         {
             var buildingListResult = await _buildingsRepo.GetAsync();
@@ -84,7 +85,7 @@ namespace LodgeNET.API.BLL
             var buildingsDataDto = new BuildingsDataDto()
             {
                 BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>>(buildingListResult),
-                BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>>(buildingTypeListResult.ToList())
+                BuildingTypeList = _mapper.Map<List<BuildingTypeDataDto>>(buildingTypeListResult.ToList())
             };
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
@@ -104,17 +105,54 @@ namespace LodgeNET.API.BLL
             }
             return (buildingsDataDto);
         }
-        public async Task<int> GetCurrentGuests(int id)
+        public async Task<int> GetBuildingCurrentGuests(int buildingId)
         {
             return await _stayRepo.GetCount(s => s.CheckedOut == false &&
                s.CheckedIn == true &&
                !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
-               s.BuildingId == id);
+               s.BuildingId == buildingId);
         }
 
-        public async Task<int> GetCapacity(int id)
+        public async Task<int> GetBuildingTypeCurrentGuests(int buildingTypeId)
         {
-            return await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == id);
+            return await _stayRepo.GetCount(s => s.CheckedOut == false &&
+               s.CheckedIn == true &&
+               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               s.Building.BuildingCategoryId == buildingTypeId);
+        }
+
+        public async Task<int> GetBuildingTypeCurrentGuests(string buildingType)
+        {
+            return await _stayRepo.GetCount(s => s.CheckedOut == false &&
+               s.CheckedIn == true &&
+               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               s.Building.BuildingCategory.Type == buildingType);
+        }
+
+        public async Task<int> GetBuildingCurrentGuestsPerService(int buildingTypeId, int serviceId)
+        {
+            return await _stayRepo.GetCount(s => s.CheckedOut == false &&
+               s.CheckedIn == true &&
+               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               s.Building.BuildingCategoryId == buildingTypeId &&
+               s.Guest.Rank.ServiceId == serviceId);
+        }
+
+        public async Task<int> GetBuildingCapacity(int buildingId)
+        {
+            return await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == buildingId);
+        }
+
+        public async Task<int> GetBuildingTypeCapacity(int buildingTypeId)
+        {
+            return await _roomRepo.GetSum(r => r.Capacity,
+                r => r.Building.BuildingCategoryId == buildingTypeId);
+        }
+
+        public async Task<int> GetBuildingTypeCapacity(string buildingType)
+        {
+            return await _roomRepo.GetSum(r => r.Capacity,
+                r => r.Building.BuildingCategory.Type == buildingType);
         }
 
         public async Task<Building> SaveBuilding(BuildingDataDto building)
@@ -148,7 +186,7 @@ namespace LodgeNET.API.BLL
             return (building);
         }
 
-        public async Task<BuildingCategory> SaveBuildingType(BuildingCategoryDataDto buildingType)
+        public async Task<BuildingCategory> SaveBuildingType(BuildingTypeDataDto buildingType)
         {
             var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Id == buildingType.Id);
 

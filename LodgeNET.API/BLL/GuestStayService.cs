@@ -4,9 +4,9 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.DAL.Dtos;
-using LodgeNET.API.Helpers;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
+using LodgeNET.API.Helpers;
 
 namespace LodgeNET.API.BLL {
     public class GuestStayService {
@@ -35,7 +35,7 @@ namespace LodgeNET.API.BLL {
                 s.CheckedIn == true &&
                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
                 s.RoomId == id);
-            
+
             return (roomCount);
         }
 
@@ -153,36 +153,38 @@ namespace LodgeNET.API.BLL {
             return await _guestRepo.GetFirstOrDefault (g => g.DodId == dodId, new Expression<Func<Guest, object>>[] { g => g.Rank, g => g.Unit });
         }
 
-        public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams guestStayParams) {
+        public async Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams guestStayParams = null, Expression<Func<Stay, bool>> filter = null) {
             return await _guestStayRepo.GetGuestStays (
-                    guestStayParams,
-                    new Expression<Func<Stay, object>>[] {
-                        s => s.Guest,
-                            s => s.Guest.Rank,
-                            s => s.Guest.Rank.Service,
-                            s => s.Guest.Unit,
-                            s => s.Room,
-                            s => s.Building
-                    }
-                );
+                guestStayParams,
+                new Expression<Func<Stay, object>>[] {
+                    s => s.Guest,
+                        s => s.Guest.Rank,
+                        s => s.Guest.Rank.Service,
+                        s => s.Guest.Unit,
+                        s => s.Room,
+                        s => s.Building,
+                        s => s.Building.BuildingCategory
+                },
+                filter
+            );
         }
 
         public async Task<PagedList<Stay>> GetGuestStaysPagination (GuestStayUserParams guestStayParams) {
             return await _guestStayRepo.GetGuestStaysPagination (
-                    guestStayParams,
-                    new Expression<Func<Stay, object>>[] {
-                        s => s.Guest,
-                            s => s.Guest.Rank,
-                            s => s.Guest.Rank.Service,
-                            s => s.Guest.Unit,
-                            s => s.Room,
-                            s => s.Building
-                    }, null
-                );
+                guestStayParams,
+                new Expression<Func<Stay, object>>[] {
+                    s => s.Guest,
+                        s => s.Guest.Rank,
+                        s => s.Guest.Rank.Service,
+                        s => s.Guest.Unit,
+                        s => s.Room,
+                        s => s.Building
+                }, null
+            );
         }
 
         public async Task<Stay> UpdateGuestStay (GuestStayForEditDto guestStayDto) {
-            
+
             var gueststay = await _guestStayRepo.GetFirstOrDefault (s => s.Id == guestStayDto.Id);
 
             if (gueststay == null) {
@@ -200,23 +202,21 @@ namespace LodgeNET.API.BLL {
             return (gueststay);
         }
 
-        public async Task<PagedList<Guest>> GetGuestsPagination (GuestUserParams userParams) 
-        {
+        public async Task<PagedList<Guest>> GetGuestsPagination (GuestUserParams userParams) {
             var guests = await _guestRepo.GetGuestPagination (userParams,
                 new Expression<Func<Guest, object>>[] {
                     g => g.Rank,
-                    g => g.Unit
+                        g => g.Unit
                 });
 
             return (guests);
         }
 
-        public async Task<IEnumerable<Guest>> GuestGuests (GuestUserParams userParams)
-        {
-            return await _guestRepo.GetGuests(
-                    userParams,
-                    new Expression<Func<Guest, object>>[] {
-                        g => g.Rank,
+        public async Task<IEnumerable<Guest>> GuestGuests (GuestUserParams userParams) {
+            return await _guestRepo.GetGuests (
+                userParams,
+                new Expression<Func<Guest, object>>[] {
+                    g => g.Rank,
                         g => g.Unit
                 });
         }
@@ -245,6 +245,13 @@ namespace LodgeNET.API.BLL {
             await _guestRepo.SaveAsync ();
 
             return (id);
+        }
+
+        public async Task<int> GetServiceCurrentGuests (int serviceId) {
+            return await _staysRepo.GetCount (s => s.CheckedOut == false &&
+                s.CheckedIn == true &&
+                !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                s.Guest.Rank.ServiceId == serviceId);
         }
     }
 }

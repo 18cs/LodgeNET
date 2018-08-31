@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.BLL;
 using LodgeNET.API.DAL;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -75,7 +75,7 @@ namespace LodgeNET.API.Controllers
         public async Task<IActionResult> GetBuildingTypesPagination([FromQuery] PagUserParams userParams)
         {
             var buildingTypes = await _buildingService.GetBuildingTypesPagiantion(userParams);
-            var bldgTypesToReturn = _mapper.Map<IEnumerable<BuildingCategoryDataDto>>(buildingTypes);
+            var bldgTypesToReturn = _mapper.Map<IEnumerable<BuildingTypeDataDto>>(buildingTypes);
 
             Response.AddPagination(buildingTypes.CurrentPage,
                 buildingTypes.PageSize,
@@ -109,13 +109,13 @@ namespace LodgeNET.API.Controllers
             var buildingsDataDto = new BuildingsDataDto()
             {
                 BuildingList = _mapper.Map<IEnumerable<BuildingDataDto>>(buildingListResult),
-                BuildingTypeList = _mapper.Map<List<BuildingCategoryDataDto>>(buildingTypeListResult.ToList())
+                BuildingTypeList = _mapper.Map<List<BuildingTypeDataDto>>(buildingTypeListResult.ToList())
             };
 
             foreach (BuildingDataDto b in buildingsDataDto.BuildingList)
             {
-                b.CurrentGuests = await _buildingService.GetCurrentGuests(b.Id);
-                b.Capacity = await _buildingService.GetCapacity(b.Id);
+                b.CurrentGuests = await _buildingService.GetBuildingCurrentGuests(b.Id);
+                b.Capacity = await _buildingService.GetBuildingCapacity(b.Id);
 
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
@@ -152,7 +152,7 @@ namespace LodgeNET.API.Controllers
         }
 
         [HttpPost("edittype")]
-        public async Task<IActionResult> SaveBuildingType([FromBody] BuildingCategoryDataDto buildingType)
+        public async Task<IActionResult> SaveBuildingType([FromBody] BuildingTypeDataDto buildingType)
         {
             await _buildingService.SaveBuildingType(buildingType);
 

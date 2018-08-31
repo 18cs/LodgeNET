@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using LodgeNET.API.BLL;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;

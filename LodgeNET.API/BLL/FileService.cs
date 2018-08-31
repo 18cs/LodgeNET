@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
 using LodgeNET.API.Helpers;
 using NPOI.SS.UserModel;

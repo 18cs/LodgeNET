@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 using System;
 using System.Collections.Generic;
 using AutoMapper;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using System.Security.Claims;
 using LodgeNET.API.BLL;
 

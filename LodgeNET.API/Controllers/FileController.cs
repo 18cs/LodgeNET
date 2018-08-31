@@ -5,7 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LodgeNET.API.BLL;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
 using LodgeNET.API.Helpers;
 using LodgeNET.API.Utilities.IO.FileIO;

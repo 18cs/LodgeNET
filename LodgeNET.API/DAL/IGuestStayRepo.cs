@@ -9,7 +9,7 @@ namespace LodgeNET.API.DAL
 {
     public interface IGuestStayRepo : IGenericRepository<Stay>
     {
-         Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams userParams,
+         Task<IEnumerable<Stay>> GetGuestStays (GuestStayUserParams userParams = null,
           Expression<Func<Stay, object>>[] includeProperties = null,
           Expression<Func<Stay, bool>> filter = null);
 
