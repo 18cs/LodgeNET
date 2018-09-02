@@ -22710,5 +22710,1909 @@
     "SquareFootage": 800,
     "Floor": 1,
     "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5400A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5400B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5400C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5400D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5402A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5402B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5402D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5402E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5404C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5404D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5406A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5406B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5406C",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5406D",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5407A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5407B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5407D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5407E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5407F",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5408A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5408B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5408C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5408D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5408E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5410A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5410B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5410D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5410E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5410F",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5411A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5411B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5411C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5411D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5412A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5412B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5412C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5412D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5413A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5413B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5413C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5413D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5414A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5414C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5415B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5415C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5415D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5416F",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417C",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417D",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417E",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5417F",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5418F",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5420A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5420B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5420C",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5420D",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5422F",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5423A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5423C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5423D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5424C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5424D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5424E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5429A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5429B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5429D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5430A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5430B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5430C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5430D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5431A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5431B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5431C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5431D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5432B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5432C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433C",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433E",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5433F",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5434A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5434B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5434C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5434D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5435A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5435C",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5435D",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5436D",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5436E",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "9906A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9906B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9907B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9909",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9911",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9915A",
+    "SurgeMultiplier": 1,
+    "Capacity": 16,
+    "SquareFootage": 800,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9919",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9920A",
+    "SurgeMultiplier": 1,
+    "Capacity": 16,
+    "SquareFootage": 800,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9924A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9925A",
+    "SurgeMultiplier": 1,
+    "Capacity": 16,
+    "SquareFootage": 800,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9926A",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "9926B",
+    "SurgeMultiplier": 1,
+    "Capacity": 11,
+    "SquareFootage": 550,
+    "Floor": 1,
+    "BuildingId": 21
+  },
+  {
+    "RoomNumber": "60",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "61",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "62",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "63",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "64",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "65",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "66",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "67",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "68",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "69",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "70",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "71",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "72",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "73",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "74",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "75",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "76",
+    "SurgeMultiplier": 1,
+    "Capacity": 36,
+    "SquareFootage": 1800,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "77",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "78",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "79",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "80",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "81",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "82",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "83",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "84",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "85",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "86",
+    "SurgeMultiplier": 1,
+    "Capacity": 22,
+    "SquareFootage": 1100,
+    "Floor": 1,
+    "BuildingId": 22
+  },
+  {
+    "RoomNumber": "2442D",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2442E",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2443A",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2443B",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2443C",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2443E",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "2443F",
+    "SurgeMultiplier": 1,
+    "Capacity": 18,
+    "SquareFootage": 900,
+    "Floor": 1,
+    "BuildingId": 23
+  },
+  {
+    "RoomNumber": "5300A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5300B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5301A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5301B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5302B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5303A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5303B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5304A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5304B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5305A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5305B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5306A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5306B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5307A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5307B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5308B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5309A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5309B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5310A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5310B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5312B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5314A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5314B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5316A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5316B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5318A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5320A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5320B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5322A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5322B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5323A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5323B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5324A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5324B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5325A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5325B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5326A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5327B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5328A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5328B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5329A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5329B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5330A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5331A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5331B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5332A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5332B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5333B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5334A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5334B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5335A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5335B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5336A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5336B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5337A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5337B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5338A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5339A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5339B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5341A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5341B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5342A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5342B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5343A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5343B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5344A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5344B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5345A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5345B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5346A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5346B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5347A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5347B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5348B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5349A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5349B",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5350A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5350B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5351A",
+    "SurgeMultiplier": 1,
+    "Capacity": 15,
+    "SquareFootage": 750,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5352A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5353A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5353B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5354A",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
+  },
+  {
+    "RoomNumber": "5354B",
+    "SurgeMultiplier": 1,
+    "Capacity": 19,
+    "SquareFootage": 950,
+    "Floor": 1,
+    "BuildingId": 19
   }
 ]
