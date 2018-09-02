@@ -39,8 +39,8 @@
           <th scope="col">Room Number</th>
           <th scope="col">Floor</th>
           <th scope="col">Capacity</th>
-          <th scope="col">Surge Multiplier</th>
-          <th scope="col">Square Ft</th>
+          <th scope="col">Surge Capacity</th>
+          <th scope="col">Livable Square Ft</th>
         </tr>
       </thead>
       <tbody *ngFor="let room of roomList; let i = index;">
@@ -48,7 +48,7 @@
           <th scope="row">{{ room.roomNumber }}</th>
           <td>{{ room.floor }}</td>
           <td>{{ room.capacity}}</td>
-          <td>{{ room.surgeMultiplier }}</td>
+          <td>{{ room.surgeCapacity }}</td>
           <td>{{ room.squareFootage }}</td>
         </tr>
       </tbody>

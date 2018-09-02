@@ -41,8 +41,8 @@
           <th scope="col">Building</th>
           <th scope="col">Floor</th>
           <th scope="col">Capacity</th>
-          <th scope="col">Surge Multiplier</th>
-          <th scope="col">Square Ft</th>
+          <th scope="col">Surge Capacity</th>
+          <th scope="col">Livable Square Ft</th>
           <th scope="col" *ngIf="authService.accountType == 'Admin'">
             <button class="btn btn-success btn-sm" (click)="openAddDialog()">
               <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Room"></i>
@@ -56,7 +56,7 @@
           <td>{{ room?.building?.name }}</td>
           <td>{{ room.floor }}</td>
           <td>{{ room.capacity }}</td>
-          <td>{{ room.surgeMultiplier }}</td>
+          <td>{{ room.surgeCapacity }}</td>
           <td>{{ room.squareFootage }}</td>
           <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(room)">

@@ -1,6 +1,6 @@
 export interface RoomDisplay {
     roomNuber?: string;
-    surgeMultiplier?: number;
+    surgeCapacity?: number;
     capacity?: number;
     squareFootage?: number;
     buildingName?: string;

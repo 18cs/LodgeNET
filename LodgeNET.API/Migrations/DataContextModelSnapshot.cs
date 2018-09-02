@@ -140,7 +140,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int>("SquareFootage");
 
-                    b.Property<int>("SurgeMultiplier");
+                    b.Property<int>("SurgeCapacity");
 
                     b.HasKey("Id");
 
