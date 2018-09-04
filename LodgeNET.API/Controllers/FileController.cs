@@ -118,7 +118,7 @@ namespace LodgeNET.API.Controllers {
             return Ok (returnRows);
         }
 
-        // [HttpPost("exmanifestFile")]
+        // [HttpPost("exmanifestfile")]
         // public async Task<IActionResult> UploadExManifestFile(int userId, FileForUploadDto fileDto)
         // {
         //     var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -161,7 +161,7 @@ namespace LodgeNET.API.Controllers {
 
         //                 var rowForUpload = await _fileService.ParseManifestExcelRow(row, headers);
 
-        //                 //if (rowForUpload == null) continue;
+        //                 if (rowForUpload == null) continue;
 
         //                 //stay buildingId is nullable
         //                 if (rowForUpload.RoomId == 0 ||

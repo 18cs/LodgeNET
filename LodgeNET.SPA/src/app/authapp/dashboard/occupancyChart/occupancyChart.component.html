@@ -1,1 +1,6 @@
-<div [chart]="chart"></div>
+<div class="row">
+    <div class="col-lg-11">
+        <div [chart]="chart"></div>
+        <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
+    </div>
+</div>

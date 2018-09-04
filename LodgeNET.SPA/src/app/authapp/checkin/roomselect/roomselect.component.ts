@@ -6,6 +6,7 @@ import { GueststayService } from '../../../_services/gueststay.service';
 import { PaginatedResult, Pagination } from '../../../_models/pagination';
 import { Room } from '../../../_models/room';
 import { ActivatedRoute, Router } from '@angular/router';
+import { GuestStayEdit } from '../../../_models/guestStayEdit';
 
 @Component({
   selector: 'app-roomselect',
@@ -89,6 +90,15 @@ export class RoomselectComponent implements OnInit, OnDestroy {
     if (this.selectedRoom != null) {
       this.alertify.warning('Guest can only have one room');
     } else {
+    this.gueststayService.getGuestStays({roomId: room.id, currentStaysOnly: true }).subscribe(
+      (guestStays: GuestStayEdit[]) =>  {
+        if (guestStays.filter(g => g.guest.gender != this.gueststayService.guestStay.gender)) {
+          console.log(guestStays);
+          this.alertify.error('Room has guest of opposite gender');
+          this.gueststayService.hasGenderConfliction = true;
+        }
+      }
+    );     
       this.selectedRoom = room;
       this.gueststayService.setIsRoomSelected(true);
     }

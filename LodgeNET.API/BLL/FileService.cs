@@ -129,6 +129,11 @@ namespace LodgeNET.API.BLL
             return rowForUpload;
         }
 
+        // public async Task<FileRowForUploadDto> ParseManifestExcelRow(IRow row, ArrayList headers)
+        // {
+
+        // }
+
         public async Task<FileRowForUploadDto> ParseDataRow(FileRowForUploadDto fileRow)
         {
             await ParseBuilding(fileRow.BuildingNumber, fileRow);
