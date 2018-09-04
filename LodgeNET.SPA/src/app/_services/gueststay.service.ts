@@ -196,6 +196,9 @@ export class GueststayService {
         return this.http.delete(this.baseUrl + 'gueststay/room/' + roomId);
     }
 
+    
+
+    //TODO look to remove
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);
