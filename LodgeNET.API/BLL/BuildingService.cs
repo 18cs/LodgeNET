@@ -155,6 +155,7 @@ namespace LodgeNET.API.BLL
             if (bldgType != null)
             {
                 bldgType.Type = buildingType.Type;
+                bldgType.InSurge = buildingType.InSurge;
             }
 
             await _buildingCategoryRepo.SaveAsync();
