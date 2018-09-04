@@ -62,7 +62,7 @@ export class RoomsdialogComponent implements OnInit {
       'building': new FormControl(),
       'floor': new FormControl(this.room.floor, Validators.required),
       'capacity': new FormControl(this.room.capacity, Validators.required),
-      'surge': new FormControl(this.room.surgeMultiplier, Validators.required),
+      'surge': new FormControl(this.room.surgeCapacity, Validators.required),
       'sqft': new FormControl(this.room.squareFootage, Validators.required)
     });
 
@@ -74,7 +74,7 @@ export class RoomsdialogComponent implements OnInit {
     this.room.building = this.selectedBuilding;
     this.room.floor = this.form.value['floor'];
     this.room.capacity = this.form.value['capacity'];
-    this.room.surgeMultiplier = this.form.value['surge'];
+    this.room.surgeCapacity = this.form.value['surge'];
     this.room.squareFootage = this.form.value['sqft'];
     this.dialogRef.close(this.room);
   }

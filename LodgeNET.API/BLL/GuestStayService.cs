@@ -62,7 +62,7 @@ namespace LodgeNET.API.BLL {
 
             if (rm != null) {
                 rm.RoomNumber = room.RoomNumber;
-                rm.SurgeMultiplier = room.SurgeMultiplier;
+                rm.SurgeCapacity = room.SurgeCapacity;
                 rm.Capacity = room.Capacity;
                 rm.SquareFootage = room.SquareFootage;
                 rm.Floor = room.Floor;

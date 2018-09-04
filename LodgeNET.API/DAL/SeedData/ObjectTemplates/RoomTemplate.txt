@@ -3,7 +3,7 @@
   {
     index: '{{index()}}',
     RoomNumber: '{{integer(100, 10000)}}',
-    SurgeMultiplier: '{{integer(2)}}',
+    SurgeCapacity: '{{integer(2)}}',
     Capacity: '{{integer(2)}}',
     SquareFootage: '{{integer(2)}}',
     Floor: '{{integer(2)}}',

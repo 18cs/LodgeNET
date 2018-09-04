@@ -129,7 +129,7 @@ export class ViewroomsComponent implements OnInit {
       buildingList: this.buildingList,
       room: {
         roomNumber: '',
-        surgeMultiplier: 0,
+        surgeCapacity: 0,
         capacity: 0,
         squareFootage: 0,
         floor: 0,

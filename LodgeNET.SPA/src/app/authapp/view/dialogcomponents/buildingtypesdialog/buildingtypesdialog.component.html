@@ -1,14 +1,17 @@
 <h2 mat-dialog-title>{{ title }}</h2>
 
 <mat-dialog-content [formGroup]="form">
-
+    <mat-slide-toggle color="primary" formControlName="surgeToggle" overflow="hidden">
+        In Surge
+    </mat-slide-toggle>
+    <br>
+    <br>
     <mat-form-field>
         <input matInput placeholder="Building Type" formControlName="type">
     </mat-form-field>
-</mat-dialog-content>
 
+</mat-dialog-content>
 <mat-dialog-actions>
     <button class="btn btn-danger btn-sm" (click)="close()">Close</button>&emsp;&emsp;
     <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
-
 </mat-dialog-actions>

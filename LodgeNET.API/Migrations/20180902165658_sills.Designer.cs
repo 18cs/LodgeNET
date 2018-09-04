@@ -11,8 +11,8 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180726070015_init")]
-    partial class init
+    [Migration("20180902165658_sills")]
+    partial class sills
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,8 @@ namespace LodgeNET.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("InSurge");
 
                     b.Property<string>("Type");
 
@@ -221,7 +223,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<string>("FileName");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -342,7 +344,8 @@ namespace LodgeNET.API.Migrations
                 {
                     b.HasOne("LodgeNET.API.DAL.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LodgeNET.API.DAL.Models.User", b =>

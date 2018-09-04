@@ -7,5 +7,6 @@ namespace LodgeNET.API.DAL.Models
         [Key]
         public int Id { get; set; }
         public string Type { get; set; }
+        public bool InSurge { get; set; }
     }
 }

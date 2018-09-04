@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import {
   FormGroup,
@@ -34,11 +35,13 @@ export class BuildingtypesdialogComponent implements OnInit {
   formInit() {
     this.form = new FormGroup({
       'type': new FormControl(this.buildingType.type, Validators.required),
+      'surgeToggle': new FormControl(this.buildingType.inSurge)
     });
   }
 
   save() {
     this.buildingType.type = this.form.value['type'];
+    this.buildingType.inSurge = this.form.value['surgeToggle'];
     this.dialogRef.close(this.buildingType);
   }
 

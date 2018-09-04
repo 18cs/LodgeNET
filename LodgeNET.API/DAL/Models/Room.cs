@@ -8,7 +8,7 @@ namespace LodgeNET.API.DAL.Models
         [Key]
         public int Id { get; set; }
         public string RoomNumber { get; set; }
-        public int SurgeMultiplier { get; set; }
+        public int SurgeCapacity { get; set; }
         public int Capacity { get; set; }
         public int SquareFootage { get; set; }
         public int Floor { get; set; }

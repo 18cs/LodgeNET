@@ -123,7 +123,7 @@ namespace LodgeNET.API.Migrations
                     RoomNumber = table.Column<string>(nullable: true),
                     RoomType = table.Column<string>(nullable: true),
                     SquareFootage = table.Column<int>(nullable: false),
-                    SurgeMultiplier = table.Column<int>(nullable: false)
+                    SurgeCapacity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

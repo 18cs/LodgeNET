@@ -3,7 +3,7 @@ import { Building } from "./building";
 export interface Room {
     id: number;
     roomNumber: string;
-    surgeMultiplier: number;
+    surgeCapacity: number;
     capacity: number;
     squareFootage: number;
     floor: number;

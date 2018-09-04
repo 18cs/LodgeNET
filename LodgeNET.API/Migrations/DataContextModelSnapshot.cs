@@ -55,6 +55,8 @@ namespace LodgeNET.API.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("InSurge");
+
                     b.Property<string>("Type");
 
                     b.HasKey("Id");
@@ -140,7 +142,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int>("SquareFootage");
 
-                    b.Property<int>("SurgeMultiplier");
+                    b.Property<int>("SurgeCapacity");
 
                     b.HasKey("Id");
 
@@ -220,7 +222,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<string>("FileName");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -341,7 +343,8 @@ namespace LodgeNET.API.Migrations
                 {
                     b.HasOne("LodgeNET.API.DAL.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LodgeNET.API.DAL.Models.User", b =>
