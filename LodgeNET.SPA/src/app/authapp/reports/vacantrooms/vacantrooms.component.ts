@@ -3,7 +3,7 @@ import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { ActivatedRoute, Data } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Building } from '../../../_models/building';
 import { FormControl } from '@angular/forms';

@@ -1,3 +1,6 @@
+
+import {throwError as observableThrowError,  Observable } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 import { 
     HttpInterceptor, 
@@ -7,7 +10,6 @@ import {
     HttpErrorResponse, 
     HTTP_INTERCEPTORS 
 } from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -15,12 +17,12 @@ export class ErrorInterceptor implements HttpInterceptor {
         req: HttpRequest<any>, 
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        return next.handle(req).catch(error => {
+        return next.handle(req).pipe(catchError(error => {
             console.log(error);
             if (error instanceof HttpErrorResponse) {
                 const applicationError = error.headers.get('Application-Error');
                 if (applicationError) {
-                    return Observable.throw(applicationError);
+                    return observableThrowError(applicationError);
                 }
                 const serverError = error.error;
                 let modelStateErrors = '';
@@ -31,11 +33,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                         }
                     }
                 }
-                return Observable.throw(
+                return observableThrowError(
                     modelStateErrors || serverError || 'Server Error'
                 );
             }
-        })
+        }))
     }
 }
 

@@ -6,9 +6,7 @@ import {
   FormControl
 } from '@angular/forms';
 import { map, startWith, debounceTime } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  fromEvent ,  Subscription } from 'rxjs';
 import { GuestStayCheckIn } from '../../_models/guestStayCheckIn';
 import { disableDebugTools } from '@angular/platform-browser';
 

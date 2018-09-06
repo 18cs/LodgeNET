@@ -7,7 +7,7 @@ import { Building } from '../../../_models/building';
 import { AlertifyService } from '../../../_services/alertify.service';
 import { BuildingService } from '../../../_services/building.service';
 import { GueststayService } from '../../../_services/gueststay.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { RoomParams } from '../../../_models/params/roomParams';
 import { FormControl } from '@angular/forms';

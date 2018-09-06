@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { GuestStayParams } from '../../../_models/params/guestStayParams';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Building } from '../../../_models/building';
 import { FormControl } from '@angular/forms';

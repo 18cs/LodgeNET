@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { FileRow } from '../_models/fileRow';
 import { environment } from '../../environments/environment';
 import { Upload } from '../_models/upload';
@@ -47,7 +48,7 @@ export class FileuploadService {
         }
 
         return this.http.get<Upload[]>(this.baseUrl + 'file/getuploadspagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
 
                 if (response.headers.get('Pagination') != null) {
@@ -55,7 +56,7 @@ export class FileuploadService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     deleteUpload(uploadId: number) {

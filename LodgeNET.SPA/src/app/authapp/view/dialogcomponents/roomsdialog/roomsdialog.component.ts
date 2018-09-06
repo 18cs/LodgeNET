@@ -7,7 +7,7 @@ import {
   FormBuilder
 } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { Room } from '../../../../_models/room';
 import { Building } from '../../../../_models/building';
 

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Unit } from '../_models/unit';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { UnitParams } from '../_models/params/unitParams';
@@ -31,7 +29,7 @@ export class UnitsService {
         }
 
         return this.http.get<Unit[]>(this.baseUrl + 'unit/getunitpagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
 
                 if (response.headers.get('Pagination') != null) {
@@ -39,7 +37,7 @@ export class UnitsService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getUnits(userParams?: UnitParams): Observable<Unit[]> {

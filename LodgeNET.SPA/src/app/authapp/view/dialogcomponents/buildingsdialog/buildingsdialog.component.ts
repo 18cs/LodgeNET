@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Building } from '../../../../_models/building';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BuildingCategory } from '../../../../_models/buildingCategory';
 
 @Component({

@@ -7,7 +7,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UnitdialogComponent } from '../dialogcomponents/unitdialog/unitdialog.component';
 import { UnitParams } from '../../../_models/params/unitParams';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../../_services/auth.service';
