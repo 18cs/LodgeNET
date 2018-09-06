@@ -46,6 +46,7 @@ namespace LodgeNET.API {
             services.AddTransient<UnitService>();
             services.AddTransient<UserService>();
             services.AddTransient<FileReader>();
+            services.AddTransient<DataService>();
             services.AddCors();
             services.AddAutoMapper();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));

@@ -81,9 +81,9 @@ export class FileuploadComponent implements OnInit {
       this.uploadTypeData.warningMessage = 'Please select a PDF file';
       this.uploadTypeData.title = 'Upload Lodging File';
     } else if (uploadType == UPLOADTYPES.manifest) {
-      this.uploadTypeData.acceptedFileTypes = ['xls'];
+      this.uploadTypeData.acceptedFileTypes = ['pdf'];
       this.uploadTypeData.url = this.baseUrl + 'file/manifestFile'
-      this.uploadTypeData.warningMessage = 'Please select a XLSX file';
+      this.uploadTypeData.warningMessage = 'Please select a PDF file';
       this.uploadTypeData.title = 'Upload Manifest File';
     }
   }

@@ -65,6 +65,9 @@ import { GuestsbybuildingComponent } from './authapp/reports/guestsbybuilding/gu
 import { VacantroomsComponent } from './authapp/reports/vacantrooms/vacantrooms.component';
 import { FileexportService } from './_services/fileexport.service';
 import { ServicesResolverService } from './_resolvers/services-resolver.service';
+import { ChartModule } from 'angular-highcharts';
+import { OccupancyChartComponent } from './authapp/dashboard/occupancyChart/occupancyChart.component';
+import { DataService } from './_services/data.service';
 
 export function getAccessToken(): string {
   return localStorage.getItem('token');
@@ -118,7 +121,8 @@ export const jwtConfig = {
     InhouseComponent,
     GuestsbybuildingComponent,
     GuestsbyserviceComponent,
-    VacantroomsComponent
+    VacantroomsComponent,
+    OccupancyChartComponent
 ],
   imports: [
     BrowserModule,
@@ -132,7 +136,8 @@ export const jwtConfig = {
     }),
     PaginationModule.forRoot(),
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartModule 
   ],
   providers: [
     AuthService,
@@ -149,7 +154,8 @@ export const jwtConfig = {
     BuildingsResolverService,
     ServicesResolverService,
     ErrorInterceptorProvider,
-    FileexportService
+    FileexportService,
+    DataService
   ],
   bootstrap: [AppComponent],
   entryComponents: [BuildingsdialogComponent,

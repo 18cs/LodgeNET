@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using LodgeNET.API.DAL;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
 using LodgeNET.API.Helpers;
 using NPOI.SS.UserModel;
@@ -128,6 +128,11 @@ namespace LodgeNET.API.BLL
             }
             return rowForUpload;
         }
+
+        // public async Task<FileRowForUploadDto> ParseManifestExcelRow(IRow row, ArrayList headers)
+        // {
+
+        // }
 
         public async Task<FileRowForUploadDto> ParseDataRow(FileRowForUploadDto fileRow)
         {

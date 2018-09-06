@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using AutoMapper;
-using LodgeNET.API.DAL.Dtos;
+using LodgeNET.API.Dtos;
 using LodgeNET.API.DAL.Models;
 using LodgeNET.API.Helpers;
 
@@ -15,7 +15,7 @@ namespace LodgeNET.API.ConfigHelpers
                 .ForMember(user => user.UnitId,
                     opt => opt.MapFrom(dto => dto.UserUnit));
             CreateMap<Building, BuildingDataDto>();
-            CreateMap<BuildingCategory, BuildingCategoryDataDto>();
+            CreateMap<BuildingCategory, BuildingTypeDataDto>();
             CreateMap<Room, RoomForCheckinDto>();
             CreateMap<Stay, GuestStayForEditDto>();
             CreateMap<GuestStayForCheckInDto, Stay>();

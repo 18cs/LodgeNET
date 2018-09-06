@@ -32,6 +32,18 @@ export class ReviewcheckinComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.gueststayService.hasGenderConfliction) {
+      this.alertify.confirm('The selected room has a member of the opposite gender.' + 
+      '<br /><br />Would you still like to checkin the guest?', () => {
+          this.checkin();
+        });
+    }
+    else {
+      this.checkin();
+    }
+  }
+
+  private checkin() {
     this.gueststayService.checkinGuest().subscribe(() => {
       this.alertify.success('Check-In Successful');
       this.gueststayService.clearGuestStay();
@@ -40,5 +52,4 @@ export class ReviewcheckinComponent implements OnInit {
       this.alertify.error(error);
     });
   }
-
 }

@@ -148,7 +148,7 @@ export class ViewbuildingtypesComponent implements OnInit {
   exportAsXLSX(): void {
     this.buildingService.getBuildingTypesDisplay ()
       .subscribe((buildingTypes: BuildingTypeDisplay[]) => {
-        this.fileExport.exportAsExcelFile(buildingTypes, 'Buildings_Report');
+        this.fileExport.exportAsExcelFile(buildingTypes, 'BuildingTypes_Report');
       }, error => { this.alertify.error(error);});
   }
 }

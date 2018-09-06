@@ -24,6 +24,7 @@ export class GueststayService {
 
     isGuestInfoValid = false;
     isRoomSelected = false;
+    hasGenderConfliction = false;
 
     constructor(private http: HttpClient) { }
 
@@ -197,6 +198,9 @@ export class GueststayService {
         return this.http.delete(this.baseUrl + 'gueststay/room/' + roomId);
     }
 
+    
+
+    //TODO look to remove
     getExistentGuest(dodId) {
         let params = new HttpParams();
         params = params.append('dodId', dodId);
@@ -251,6 +255,10 @@ export class GueststayService {
 
         if (guestStayParams.roomNumber != null) {
             params = params.append('roomNumber', guestStayParams.roomNumber);
+        }
+
+        if (guestStayParams.roomId != null) {
+            params = params.append('roomId', guestStayParams.roomId.toString());
         }
 
         if (guestStayParams.guestId != null) {

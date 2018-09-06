@@ -14,7 +14,7 @@ namespace LodgeNET.API.DAL {
         public GuestStayRepo (DataContext context) : base (context) { }
 
         public async Task<IEnumerable<Stay>> GetGuestStays (
-            GuestStayUserParams userParams,
+            GuestStayUserParams userParams = null,
             Expression<Func<Stay, object>>[] includeProperties = null,
             Expression<Func<Stay, bool>> filter = null) {
             var stays = _context.Stays.AsQueryable ();
@@ -51,32 +51,38 @@ namespace LodgeNET.API.DAL {
             if (filter != null)
                 stays = stays.Where (filter);
 
-            if (userParams.DodId != null) {
-                stays = stays.Where (s => s.Guest.DodId == userParams.DodId);
-            }
+            if (userParams != null) {
+                if (userParams.DodId != null) {
+                    stays = stays.Where (s => s.Guest.DodId == userParams.DodId);
+                }
 
-            if (!String.IsNullOrWhiteSpace (userParams.LastName)) {
-                stays = stays.Where (s => s.Guest.LastName.Contains (userParams.LastName.ToUpper ()));
-            }
+                if (!String.IsNullOrWhiteSpace (userParams.LastName)) {
+                    stays = stays.Where (s => s.Guest.LastName.Contains (userParams.LastName.ToUpper ()));
+                }
 
-            if (userParams.RoomNumber != null) {
-                stays = stays.Where (s => s.Room.RoomNumber.Equals (userParams.RoomNumber));
-            }
+                if (userParams.RoomNumber != null) {
+                    stays = stays.Where (s => s.Room.RoomNumber.Equals (userParams.RoomNumber));
+                }
+                
+                if (userParams.RoomId != null) {
+                    stays = stays.Where (s => s.RoomId == userParams.RoomId);
+                }
 
-            if (userParams.GuestId != null) {
-                stays = stays.Where (s => s.Guest.Id == userParams.GuestId);
-            }
+                if (userParams.GuestId != null) {
+                    stays = stays.Where (s => s.Guest.Id == userParams.GuestId);
+                }
 
-            if (userParams.CurrentStaysOnly) {
-                stays = stays.Where (s => (s.CheckedOut == false && s.CheckedIn == true));
-            }
+                if (userParams.CurrentStaysOnly) {
+                    stays = stays.Where (s => (s.CheckedOut == false && s.CheckedIn == true));
+                }
 
-            if (userParams.BuildingId != null) {
-                stays = stays.Where (s => s.BuildingId == userParams.BuildingId);
-            }
+                if (userParams.BuildingId != null) {
+                    stays = stays.Where (s => s.BuildingId == userParams.BuildingId);
+                }
 
-            if (userParams.ServiceId != null) {
-                stays = stays.Where (s => s.Guest.Rank.ServiceId == userParams.ServiceId);
+                if (userParams.ServiceId != null) {
+                    stays = stays.Where (s => s.Guest.Rank.ServiceId == userParams.ServiceId);
+                }
             }
 
             return stays;
