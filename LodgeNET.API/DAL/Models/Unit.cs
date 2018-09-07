@@ -11,5 +11,6 @@ namespace LodgeNET.API.DAL.Models
         [ForeignKey("ParentUnitId")]
         public Unit ParentUnit { get; set; }
         public string Name { get; set; }
+        public string UnitAbbreviation { get; set; }
     }
 }

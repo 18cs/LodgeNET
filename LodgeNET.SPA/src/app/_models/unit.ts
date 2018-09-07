@@ -3,4 +3,5 @@ export interface Unit {
     name: string;
     parentUnit?: Unit;
     parentUnitId?: number;
+    unitAbbreviation?: string;
 }
