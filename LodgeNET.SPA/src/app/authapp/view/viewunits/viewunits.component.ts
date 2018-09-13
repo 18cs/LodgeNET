@@ -7,7 +7,7 @@ import { ActivatedRoute, Data } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material';
 import { UnitdialogComponent } from '../dialogcomponents/unitdialog/unitdialog.component';
 import { UnitParams } from '../../../_models/params/unitParams';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { AuthService } from '../../../_services/auth.service';
@@ -148,6 +148,7 @@ export class ViewunitsComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
+      title: 'Edit ' + unit.name,
       unit: unit,
       units: this.filterUnits
     };
@@ -157,7 +158,40 @@ export class ViewunitsComponent implements OnInit {
       if (data != null) {
         this.unitsService.updateUnit(data).subscribe(
           success => {
-            this.alertify.success('stay successfully updated.');
+            this.alertify.success(unit.name + ' successfully updated.');
+          },
+          error => {
+            this.alertify.error(error);
+          }
+        );
+      }
+    });
+  }
+
+  openAddDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      title: 'Add Unit',
+      unit: {
+        name: '',
+        parentUnit: null,
+        parentUnitId: null,
+        unitAbbreviation: ''
+        } as Unit,
+        units: this.filterUnits
+    };
+
+    const dialogRef = this.dialog.open(UnitdialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(data => {
+      if (data != null) {
+        this.unitsService.addUnit(data).subscribe(
+          success => {
+            this.alertify.success(data.name + ' successfully added.');
+            this.loadUnits();
           },
           error => {
             this.alertify.error(error);

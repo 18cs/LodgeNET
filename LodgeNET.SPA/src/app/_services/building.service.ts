@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BuildingTable } from '../_models/buildingTable';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -58,7 +59,7 @@ export class BuildingService {
         observe: 'response',
         params
       })
-      .map(response => {
+      .pipe(map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(
@@ -66,7 +67,7 @@ export class BuildingService {
           );
         }
         return paginatedResult;
-      });
+      }));
   }
 
   getBuildingsDisplay(userParams: BuildingParams): Observable<BuildingDisplay[]> {
@@ -103,7 +104,7 @@ export class BuildingService {
         observe: 'response',
         params
       })
-      .map(response => {
+      .pipe(map(response => {
         paginatedResult.result = response.body;
         if (response.headers.get('Pagination') != null) {
           paginatedResult.pagination = JSON.parse(
@@ -111,7 +112,7 @@ export class BuildingService {
           );
         }
         return paginatedResult;
-      });
+      }));
   }
 
   getBuildingTypes() {

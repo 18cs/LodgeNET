@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { PaginatedResult } from '../_models/pagination';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Room } from '../_models/room';
 import { GuestStayCheckIn } from '../_models/guestStayCheckIn';
 import { GuestStayEdit } from '../_models/guestStayEdit';
@@ -42,7 +43,7 @@ export class GueststayService {
 
         return this.http.
             get<Guest[]>(this.baseUrl + 'gueststay/getguestspagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
 
                 if (response.headers.get('Pagination') != null) {
@@ -50,7 +51,7 @@ export class GueststayService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getGuestsDisplay(userParams?: GuestParams) {
@@ -105,7 +106,7 @@ export class GueststayService {
 
         return this.http.
             get<Room[]>(this.baseUrl + 'gueststay/availableRooms', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
 
                 if (response.headers.get('Pagination') != null) {
@@ -113,7 +114,7 @@ export class GueststayService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getRoomsPagination(page?, itemsPerPage?, userParams?: RoomParams): Observable<PaginatedResult<Room[]>> {
@@ -131,14 +132,14 @@ export class GueststayService {
 
         return this.http.
             get<Room[]>(this.baseUrl + 'gueststay/getroomspagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
                 if (response.headers.get('Pagination') != null) {
                     paginatedResult.pagination = JSON.parse(
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getRooms(userParams?: RoomParams): Observable<Room[]> {
@@ -226,14 +227,14 @@ export class GueststayService {
 
         return this.http.
             get<GuestStayEdit[]>(this.baseUrl + 'gueststay/getgueststayspagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
                 if (response.headers.get('Pagination') != null) {
                     paginatedResult.pagination = JSON.parse(
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getGuestStaysDisplay(guestStayParams: GuestStayParams) {

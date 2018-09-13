@@ -17,6 +17,7 @@
       <thead>
         <tr class="table-default">
           <th scope="col">Building Type</th>
+          <th scope="col">In Surge</th>
           <th scope="col" *ngIf="authService.accountType == 'Admin'">
             <button class="btn btn-success btn-sm" (click)="openAddDialog()">
               <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Building Type"></i>
@@ -25,8 +26,9 @@
         </tr>
       </thead>
       <tbody *ngFor="let buildingType of buildingTypeList; let i = index;">
-        <tr class="table-secondary">
+        <tr class="table-secondary"> <!-- [ngClass]="{'table-success': buildingType.inSurge}" Put in row tag if you want to highlight green if in surge-->
           <th scope="row">{{ buildingType.type }}</th>
+          <td>{{ buildingType.inSurge ? "Yes" : "No" }}</td>
           <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(buildingType)">
               <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true" title="Edit {{ buildingType.type }}"></i>

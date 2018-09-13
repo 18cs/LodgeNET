@@ -101,7 +101,8 @@ export class ViewbuildingtypesComponent implements OnInit {
     dialogConfig.data = {
       title: 'Add Building Type',
       buildingType: {
-        type: ''
+        type: '',
+        inSurge: false
     } as BuildingType
     };
 

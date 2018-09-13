@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FileRow } from '../../../../_models/FileRow';
 import { Unit } from '../../../../_models/unit';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 
 @Component({

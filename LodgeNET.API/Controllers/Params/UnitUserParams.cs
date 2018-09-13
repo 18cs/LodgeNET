@@ -6,5 +6,6 @@ namespace LodgeNET.API.Helpers
         public int? ParentUnitId { get; set; }
         public bool IncludeParentUnit { get; set; }
         public string UnitName { get; set; }
+        public string UnitAbbreviation { get; set; }
     }
 }

@@ -35,13 +35,14 @@ export class BuildingtypesdialogComponent implements OnInit {
   formInit() {
     this.form = new FormGroup({
       'type': new FormControl(this.buildingType.type, Validators.required),
-      'surgeToggle': new FormControl(this.buildingType.inSurge)
+      'surgeToggle': new FormControl(this.buildingType.inSurge, Validators.required)
     });
   }
 
   save() {
     this.buildingType.type = this.form.value['type'];
     this.buildingType.inSurge = this.form.value['surgeToggle'];
+    console.log(this.buildingType);
     this.dialogRef.close(this.buildingType);
   }
 

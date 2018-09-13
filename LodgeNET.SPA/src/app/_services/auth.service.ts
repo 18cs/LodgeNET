@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { FormData } from '../_models/formData';
@@ -30,7 +28,7 @@ export class AuthService {
         return this.http.post<AuthUser>(this.baseUrl + 'auth/login', model, {
             headers: new HttpHeaders()
                 .set('Content-Type', 'application/json')
-        }).map(auth => {
+        }).pipe(map(auth => {
             if (auth) {
                 localStorage.setItem('token', auth.tokenString);
                 this.decodedToken = this.jwtHelperService.decodeToken(auth.tokenString);
@@ -41,7 +39,7 @@ export class AuthService {
                     this.GetPendingAcctCount();
                 }
             }
-        });
+        }));
     }
 
     logout() {
@@ -76,9 +74,9 @@ export class AuthService {
 
     GetPendingAcctCount() {
         return this.http.get<Number>(this.baseUrl + 'user/pendingAcctCount')
-            .map((count: number) => {
+            .pipe(map((count: number) => {
                 this.pendingAcctCount = count;
-            });
+            }));
     }
 
     GetUsersPagination(page?, itemsPerPage?, userParams?: UserParams): Observable<PaginatedResult<User[]>> {
@@ -96,7 +94,7 @@ export class AuthService {
 
         return this.http.
             get<User[]>(this.baseUrl + 'user/getuserspagination', { observe: 'response', params })
-            .map((response) => {
+            .pipe(map((response) => {
                 paginatedResult.result = response.body;
 
                 if (response.headers.get('Pagination') != null) {
@@ -104,7 +102,7 @@ export class AuthService {
                         response.headers.get('Pagination'));
                 }
                 return paginatedResult;
-            });
+            }));
     }
 
     getUsersDisplay(userParams?: UserParams): Observable<UserDisplay[]> {

@@ -37,13 +37,13 @@ export class InhouseComponent implements OnInit {
 
   loadCurrentGuests() {
     this.showSpinner = true;
-    console.log(this.pagination);
     if (this.pagination == null) {
       this.guestStayService.getGuestStaysPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<GuestStayEdit[]>) => {
           this.showSpinner = false;
           this.guestStayList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
+          console.log(paginatedResult.result);
         }, error => { this.alertify.error(error); });
     } else {
       this.guestStayService.getGuestStaysPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)

@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { Building } from '../../../../_models/building';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { BuildingCategory } from '../../../../_models/buildingCategory';
 
 @Component({
@@ -59,7 +59,7 @@ export class BuildingsdialogComponent implements OnInit {
     this.form = new FormGroup({
       'name': new FormControl(this.building.name, Validators.required),
       'number': new FormControl(this.building.number, Validators.required),
-      'buildingType': new FormControl()
+      'buildingType': new FormControl(this.building.buildingCategory,Validators.required)
     });
   }
 

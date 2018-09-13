@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Upload } from '../../../_models/upload';
 import { FileuploadService } from '../../../_services/fileupload.service';
 import { UploadParams } from '../../../_models/params/uploadParams';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-manageuploads',

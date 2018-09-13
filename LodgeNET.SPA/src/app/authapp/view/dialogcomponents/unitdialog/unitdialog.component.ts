@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Unit } from '../../../../_models/unit';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
@@ -13,16 +13,18 @@ import { map, startWith } from 'rxjs/operators';
 export class UnitdialogComponent implements OnInit {
   form: FormGroup;
   unit: Unit;
-
+  title: string;
   units: Unit[];
   selectedParentUnit: Unit;
   filteredOptions: Observable<Unit[]>;
   parentUnitName: string;
+  unitAbbreviation: string;
 
   constructor(
     private dialogRef: MatDialogRef<UnitdialogComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
+    this.title = data.title;
     this.unit = data.unit;
     this.units = data.units;
   }
@@ -41,17 +43,25 @@ export class UnitdialogComponent implements OnInit {
       this.selectedParentUnit = this.unit.parentUnit;
     }
 
+    this.unitAbbreviation = this.unit.unitAbbreviation;
+
     this.form = new FormGroup({
-      'unitName': new FormControl(this.unit.name),
+      'unitName': new FormControl(this.unit.name, Validators.required),
+      'unitAbbreviation': new FormControl(this.unit.unitAbbreviation),
       'parentUnit': new FormControl()
     });
   }
 
   save() {
     this.unit.name = this.form.value['unitName'];
-    if (this.unit.id != this.selectedParentUnit.id) {
-      this.unit.parentUnit = this.selectedParentUnit;
-      this.unit.parentUnitId = this.selectedParentUnit.id;
+    this.unit.unitAbbreviation = this.form.value['unitAbbreviation'];
+
+    if (this.selectedParentUnit != null)
+    {
+      if (this.unit.parentUnitId != this.selectedParentUnit.id) {
+        this.unit.parentUnit = this.selectedParentUnit;
+        this.unit.parentUnitId = this.selectedParentUnit.id;
+      }
     }
     this.dialogRef.close(this.unit);
   }
