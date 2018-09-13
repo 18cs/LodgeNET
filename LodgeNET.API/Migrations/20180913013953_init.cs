@@ -56,7 +56,8 @@ namespace LodgeNET.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(nullable: true),
-                    ParentUnitId = table.Column<int>(nullable: true)
+                    ParentUnitId = table.Column<int>(nullable: true),
+                    UnitAbbreviation = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
