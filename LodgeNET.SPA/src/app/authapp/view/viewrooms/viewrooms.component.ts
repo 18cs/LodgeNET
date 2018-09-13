@@ -132,7 +132,7 @@ export class ViewroomsComponent implements OnInit {
         surgeCapacity: 0,
         capacity: 0,
         squareFootage: 0,
-        floor: 0,
+        floor: 1,
         buildingId: 0,
         roomType: '',
         currentGuestCount: 0

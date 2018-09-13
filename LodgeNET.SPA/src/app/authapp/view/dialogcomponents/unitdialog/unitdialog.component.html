@@ -1,7 +1,11 @@
-<h2 mat-dialog-title>Edit {{unit.name}}</h2>
+<h2 mat-dialog-title>{{ title }}</h2>
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
     <input matInput placeholder="Unit Name" formControlName="unitName">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <input matInput placeholder="Unit Abbreviation" formControlName="unitAbbreviation">
   </mat-form-field>
   <br/>
   <mat-form-field>
@@ -16,5 +20,5 @@
 
 <mat-dialog-actions>
   <button class="btn btn-danger btn-sm" (click)="close()">Close</button>&emsp;&emsp;
-  <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
+  <button class="btn btn-primary btn-sm" type="submit" (click)="save()" [disabled]="!form.valid">Save</button>
 </mat-dialog-actions>

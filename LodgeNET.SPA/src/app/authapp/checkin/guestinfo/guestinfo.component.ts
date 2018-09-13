@@ -159,6 +159,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   onCancel() {
     this.gueststayService.clearGuestStay();
+    this.guestInfoForm.reset();
     this.router.navigate(['/']);
   }
 

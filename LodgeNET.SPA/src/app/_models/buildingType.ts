@@ -3,5 +3,6 @@ export interface BuildingType {
     type: string;
     currentGuests: number;
     capacity: number;
+    surgeCapacity: number;
     inSurge: boolean;
 }

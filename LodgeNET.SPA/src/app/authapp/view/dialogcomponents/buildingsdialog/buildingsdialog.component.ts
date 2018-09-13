@@ -59,7 +59,7 @@ export class BuildingsdialogComponent implements OnInit {
     this.form = new FormGroup({
       'name': new FormControl(this.building.name, Validators.required),
       'number': new FormControl(this.building.number, Validators.required),
-      'buildingType': new FormControl()
+      'buildingType': new FormControl(this.building.buildingCategory,Validators.required)
     });
   }
 

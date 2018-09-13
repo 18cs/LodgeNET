@@ -12,7 +12,7 @@ export interface GuestStayCheckIn {
     gender?: string;
     service?: Service;
     rank?: Rank;
-    guestUnit?: Unit;
+    guestUnit?: Unit; 
     chalk?: number;
     email?: string;
     dsnPhone?: number;

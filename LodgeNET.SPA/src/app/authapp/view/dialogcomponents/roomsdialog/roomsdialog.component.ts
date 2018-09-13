@@ -59,7 +59,7 @@ export class RoomsdialogComponent implements OnInit {
 
     this.form = new FormGroup({
       'number': new FormControl(this.room.roomNumber, Validators.required),
-      'building': new FormControl(),
+      'building': new FormControl(this.room.building, Validators.required),
       'floor': new FormControl(this.room.floor, Validators.required),
       'capacity': new FormControl(this.room.capacity, Validators.required),
       'surge': new FormControl(this.room.surgeCapacity, Validators.required),

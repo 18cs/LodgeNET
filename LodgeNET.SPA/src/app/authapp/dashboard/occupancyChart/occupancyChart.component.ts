@@ -11,14 +11,12 @@ import { DataService } from '../../../_services/data.service';
 })
 export class OccupancyChartComponent implements OnInit {
   chart: Chart;
-  showSpinner = true;
 
   constructor(private dataService: DataService) { }
 
   ngOnInit() {
     this.dataService.getBuildingTypeOccupancyChart()
       .subscribe((result: ChartData<ServiceOccupancySeries>) => {
-        this.showSpinner = false;
         this.chart = new Chart({
           chart: {
             type: 'bar'
@@ -50,7 +48,7 @@ export class OccupancyChartComponent implements OnInit {
           },
           series: result.series
         })
-      }, () =>{this.showSpinner = false;});
+      }, () =>{});
   }
 
 }

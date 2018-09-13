@@ -43,6 +43,22 @@ namespace LodgeNET.API.BLL
             return (unit);
         }
 
+        public async Task<Unit> AddUnit(Unit unit)
+        {
+            if ((await _unitRepo.GetFirstOrDefault(u => u.Name == unit.Name)) != null)
+            {
+                throw new System.ArgumentException("Unit already exists", string.Empty);
+            }
+
+            unit.ParentUnit = null;
+
+            await _unitRepo.Insert(unit);
+
+            await _unitRepo.SaveAsync();
+
+            return (unit);
+        }
+
         public async Task<Unit> Update(Unit updateUnit) {
             var unit = await _unitRepo.GetFirstOrDefault(u => u.Id == updateUnit.Id);
 

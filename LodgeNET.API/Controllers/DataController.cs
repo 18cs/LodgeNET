@@ -64,7 +64,14 @@ namespace LodgeNET.API.Controllers
                 {
                     if (series.Name.Equals(VACENT))
                     {
-                        series.Data.Add((await _buildingService.GetBuildingTypeCapacity(column)) - (await _buildingService.GetBuildingTypeCurrentGuests(column)));
+                        var bldgType = await _buildingService.GetBuildingType(column);
+
+                        if (!bldgType.InSurge)
+                        {
+                            series.Data.Add((await _buildingService.GetBuildingTypeCapacity(column)) - (await _buildingService.GetBuildingTypeCurrentGuests(column)));
+                        } else {
+                            series.Data.Add((await _buildingService.GetBuildingTypeSurgeCapacity(column)) - (await _buildingService.GetBuildingTypeCurrentGuests(column)));
+                        }
                     }
                     else if (series.Name.Equals(UNKNOWN))
                     {

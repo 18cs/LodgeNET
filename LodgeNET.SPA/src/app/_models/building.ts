@@ -8,5 +8,6 @@ export interface Building {
     buildingCategory?: BuildingCategory;
     currentGuests?: number;
     capacity?: number;
+    surgeCapacity?: number;
 }
 

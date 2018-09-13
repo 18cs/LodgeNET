@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.buildingService.buildingDashboardData().subscribe(
       (buildingDashboard: BuildingTable) => {
         this.buildingDashboard = buildingDashboard;
+        console.log(this.buildingDashboard)
         this.showSpinner = false;
       },
       error => {
@@ -67,22 +68,42 @@ export class DashboardComponent implements OnInit {
 
     this.buildingDashboard.buildingTypeList.forEach(type => {
       totalCurrentGuest += type.currentGuests;
+
+      //Check surge TODO
       totalCapacity += type.capacity;
     });
 
     return (totalCurrentGuest / totalCapacity * 100).toFixed(2);
   }
 
-  getTotalOccupancy() {
-    let totalCapacitys = 0;
+  getTotalOccupancyInHouse() {//TODO CHANGE THESE 3 METHODS
     let totalCurrentGuests = 0;
 
     this.buildingDashboard.buildingTypeList.forEach(cat => {
       totalCurrentGuests += cat.currentGuests;
+    });
+
+    return totalCurrentGuests;
+  }
+
+  getTotalOccupancyCapacity() {//TODO CHANGE THESE 3 METHODS
+    let totalCapacitys = 0;
+
+    this.buildingDashboard.buildingTypeList.forEach(cat => {
       totalCapacitys += cat.capacity;
     });
 
-    return totalCurrentGuests + ' / ' + totalCapacitys;
+    return totalCapacitys;
+  }
+
+  getTotalOccupancySurgeCapacity() {//TODO CHANGE THESE 3 METHODS
+    let totalSurgeCapacitys = 0;
+
+    this.buildingDashboard.buildingTypeList.forEach(cat => {
+      totalSurgeCapacitys += cat.surgeCapacity;
+    });
+
+    return totalSurgeCapacitys;
   }
 
   showConditionCheck(buildingId: number) {

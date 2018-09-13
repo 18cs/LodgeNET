@@ -38,13 +38,19 @@
       <thead>
         <tr>
           <th scope="col">Unit Name</th>
+          <th scope="col">Abbreviation</th>
           <th scope="col">Parent Unit</th>
-          <th scope="col"></th>
+          <th scope="col" *ngIf="authService.accountType == 'Admin'">
+            <button class="btn btn-success btn-sm" (click)="openAddDialog()">
+              <i class="fa fa-plus fa-lg" aria-hidden="true" title="Add New Unit"></i>
+            </button>
+          </th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let unit of units">
           <th scope="row">{{ unit.name }}</th>
+          <td>{{unit?.unitAbbreviation}}</td>
           <td>{{unit?.parentUnit?.name}}</td>
           <td *ngIf="authService.accountType == 'Admin'">
             <button class="editbutton btn btn-primary btn-sm" (click)="openUnitDialog(unit)">

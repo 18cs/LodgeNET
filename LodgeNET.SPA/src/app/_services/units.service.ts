@@ -81,6 +81,13 @@ export class UnitsService {
         return this.http.get<Service[]>(this.baseUrl + 'unit/service');
     }
 
+    addUnit(model: Unit) {
+        return this.http
+          .post(this.baseUrl + 'unit/add', model, {
+            headers: new HttpHeaders().set('Content-Type', 'application/json')
+          });
+      }
+
     updateUnit(model: any) {
         return this.http.post(this.baseUrl + 'unit/update', model, {
             headers: new HttpHeaders()

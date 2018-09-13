@@ -34,7 +34,7 @@
           <td>{{ guestStay.guest?.rank?.rankName }}</td>
           <td>{{ guestStay.guest?.chalk }}</td>
           <td>{{ guestStay.guest?.unit?.name }}</td>
-          <td>{{ guestStay.guest?.service?.serviceName }}</td>
+          <td>{{ guestStay.guest?.rank?.service?.serviceName }}</td>
           <td>{{ guestStay.building.name +', Room: '+ guestStay.room.roomNumber }}</td>
           <td>{{ guestStay.checkInDate | date }}</td>
           <td>{{ guestStay?.checkOutDate || '' | date }}</td>

@@ -74,6 +74,22 @@ namespace LodgeNET.API.Controllers
             return Ok(unit);
         }
 
+        [HttpPost("add")]
+        public async Task<IActionResult> AddBuilding([FromBody] Unit unit)
+        {
+            try
+            {
+                await _unitService.AddUnit(unit);
+            }
+            catch (ArgumentException e)
+            {
+                ModelState.AddModelError("Exception", e.Message);
+                return BadRequest(ModelState);
+            }
+
+            return Ok();
+        }
+
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromBody] Unit updateUnit) {
              var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);

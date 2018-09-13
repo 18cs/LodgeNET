@@ -62,13 +62,19 @@ namespace LodgeNET.API.BLL
 
         public async Task<IEnumerable<BuildingCategory>> GetBuildingTypes()
         {
-
             var buildingTypes = await _buildingCategoryRepo.GetAsync();
 
             return (buildingTypes);
         }
 
-        public async Task<PagedList<BuildingCategory>> GetBuildingTypesPagiantion(PagUserParams userParams)
+        public async Task<BuildingCategory> GetBuildingType(string BuildingType)
+        {
+            var bldgType = await _buildingCategoryRepo.GetFirstOrDefault(b => b.Type == BuildingType);
+
+            return (bldgType);
+        }
+
+        public async Task<PagedList<BuildingCategory>> GetBuildingTypesPagination(PagUserParams userParams)
         {
             var buildingTypes = await _buildingsRepo.GetBuildingTypesPagination(
                 userParams
@@ -95,12 +101,14 @@ namespace LodgeNET.API.BLL
                    !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
                    s.BuildingId == b.Id);
                 b.Capacity = await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
+                b.SurgeCapacity = await _roomRepo.GetSum(r => r.SurgeCapacity, r => r.BuildingId == b.Id);
 
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
                 {
                     bcat.Capacity += b.Capacity;
                     bcat.CurrentGuests += b.CurrentGuests;
+                    bcat.SurgeCapacity += b.SurgeCapacity;
                 }
             }
             return (buildingsDataDto);
@@ -143,6 +151,11 @@ namespace LodgeNET.API.BLL
             return await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == buildingId);
         }
 
+        public async Task<int> GetBuildingSurgeCapacity(int buildingId)
+        {
+            return await _roomRepo.GetSum(r => r.SurgeCapacity, r => r.BuildingId == buildingId);
+        }
+
         public async Task<int> GetBuildingTypeCapacity(int buildingTypeId)
         {
             return await _roomRepo.GetSum(r => r.Capacity,
@@ -152,6 +165,12 @@ namespace LodgeNET.API.BLL
         public async Task<int> GetBuildingTypeCapacity(string buildingType)
         {
             return await _roomRepo.GetSum(r => r.Capacity,
+                r => r.Building.BuildingCategory.Type == buildingType);
+        }
+
+        public async Task<int> GetBuildingTypeSurgeCapacity(string buildingType)
+        {
+            return await _roomRepo.GetSum(r => r.SurgeCapacity,
                 r => r.Building.BuildingCategory.Type == buildingType);
         }
 

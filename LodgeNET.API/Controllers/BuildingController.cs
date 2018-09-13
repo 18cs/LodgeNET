@@ -74,7 +74,7 @@ namespace LodgeNET.API.Controllers
         [HttpGet("getbuildingtypespagination")]
         public async Task<IActionResult> GetBuildingTypesPagination([FromQuery] PagUserParams userParams)
         {
-            var buildingTypes = await _buildingService.GetBuildingTypesPagiantion(userParams);
+            var buildingTypes = await _buildingService.GetBuildingTypesPagination(userParams);
             var bldgTypesToReturn = _mapper.Map<IEnumerable<BuildingTypeDataDto>>(buildingTypes);
 
             Response.AddPagination(buildingTypes.CurrentPage,
@@ -116,10 +116,12 @@ namespace LodgeNET.API.Controllers
             {
                 b.CurrentGuests = await _buildingService.GetBuildingCurrentGuests(b.Id);
                 b.Capacity = await _buildingService.GetBuildingCapacity(b.Id);
+                b.SurgeCapacity = await _buildingService.GetBuildingSurgeCapacity(b.Id);
 
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
                 {
+                    bcat.SurgeCapacity += b.SurgeCapacity;
                     bcat.Capacity += b.Capacity;
                     bcat.CurrentGuests += b.CurrentGuests;
                 }

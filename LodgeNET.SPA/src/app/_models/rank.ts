@@ -5,5 +5,6 @@ export interface Rank {
     grade: number;
     rankName: string;
     serviceId: number;
+    service: Service;
     tier: string;
 }
