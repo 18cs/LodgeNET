@@ -138,20 +138,23 @@ namespace LodgeNET.API.BLL {
                 if (row.GetCell (j) == null)
                     continue;
 
-                if (headers[j].ToString ().Equals ("ATTACHED PAS", StringComparison.OrdinalIgnoreCase)) { }
-                //rowForUpload.LastName = row.GetCell(j).ToString();
+                if (headers[j].ToString ().Equals ("ATTACHED PAS", StringComparison.OrdinalIgnoreCase)) 
+                { 
+                    var yup = row.GetCell(j).ToString().Trim();
+                    var unit = await GetRowUnitAbbreviation(yup);
+                    if(unit != null)
+                    {
+                        rowForUpload.UnitId = unit.Id;
+                        rowForUpload.UnitName = unit.Name;
+                    }
+                }
 
                 if (headers[j].ToString ().Equals ("NAME", StringComparison.OrdinalIgnoreCase)) {
                     var name = row.GetCell (j).ToString ().Trim ();
                     var commaIndex = name.IndexOf (',');
                     rowForUpload.LastName = name.Substring (0, commaIndex);
                     var endOfFirstName = (name.IndexOf (' ', commaIndex + 2) == -1) ? name.Length : name.IndexOf (' ', commaIndex + 2);
-                    try {
-
-                        rowForUpload.FirstName = name.Substring ((commaIndex + 2), (endOfFirstName - (commaIndex + 2)));
-                    } catch (Exception e) {
-                        int yup = 1;
-                    }
+                    rowForUpload.FirstName = name.Substring ((commaIndex + 2), (endOfFirstName - (commaIndex + 2)));
                 }
 
                 if (headers[j].ToString ().Equals ("Grade", StringComparison.OrdinalIgnoreCase)) {
@@ -326,71 +329,6 @@ namespace LodgeNET.API.BLL {
                         !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
                         !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0
                 );
-
-                //if (buildingType.InSurge) {
-                //     building = (await _buildingRepo.GetBuildings (null, null,
-                //         b =>
-                //         b.BuildingCategoryId == buildingType.Id &&
-                //         b.Rooms.Where (
-                //             r => r.Stays.Where (
-                //                 s => s.CheckedOut == false &&
-                //                 s.CheckedIn == true &&
-                //                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
-                //             ).Count () < r.SurgeCapacity).Count () != 0 &&
-                //         b.Rooms.Where (
-                //             r => r.Stays.Where (
-                //                 s => s.CheckedOut == false &&
-                //                 s.CheckedIn == true &&
-                //                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                //                 !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0).Count () != 0,
-                //         true,
-                //         b => b.OrderBy (x => x.BuildingCategoryId).ThenBy (x => x.Number))).FirstOrDefault ();
-
-                //     room = building.Rooms.FirstOrDefault (
-                //         r => (r.Stays.Where (
-                //             s => s.CheckedOut == false &&
-                //             s.CheckedIn == true &&
-                //             !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
-                //         ).Count () < r.SurgeCapacity) &&
-                //         r.Stays.Where (
-                //             s => s.CheckedOut == false &&
-                //             s.CheckedIn == true &&
-                //             !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                //             !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0
-                //     );
-                // }
-                // else {
-                //     building = (await _buildingRepo.GetBuildings (null, null,
-                //         b =>
-                //         b.BuildingCategoryId == buildingType.Id &&
-                //         b.Rooms.Where (
-                //             r => r.Stays.Where (
-                //                 s => s.CheckedOut == false &&
-                //                 s.CheckedIn == true &&
-                //                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
-                //             ).Count () < r.Capacity).Count () != 0 &&
-                //         b.Rooms.Where (
-                //             r => r.Stays.Where (
-                //                 s => s.CheckedOut == false &&
-                //                 s.CheckedIn == true &&
-                //                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                //                 !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0).Count () != 0,
-                //         true,
-                //         b => b.OrderBy (x => x.BuildingCategoryId).ThenBy (x => x.Number))).FirstOrDefault ();
-
-                //     room = building.Rooms.FirstOrDefault (
-                //         r => (r.Stays.Where (
-                //             s => s.CheckedOut == false &&
-                //             s.CheckedIn == true &&
-                //             !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
-                //         ).Count () < r.Capacity) &&
-                //         r.Stays.Where (
-                //             s => s.CheckedOut == false &&
-                //             s.CheckedIn == true &&
-                //             !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
-                //             !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0
-                //     );
-                // }
                 if (room != null)
                     break;
             }
@@ -429,6 +367,11 @@ namespace LodgeNET.API.BLL {
         private async Task ParseBuilding (int rowBldgNum, FileRowForUploadDto rowForUpload) {
             rowForUpload.BuildingNumber = rowBldgNum;
             rowForUpload.BuildingId = (await _buildingRepo.GetFirstOrDefault (b => b.Number == rowForUpload.BuildingNumber))?.Id ?? 0;
+        }
+
+        private async Task<Unit> GetRowUnitAbbreviation(string unitAbbreviation)
+        {
+            return await _unitRepo.GetFirstOrDefault (u => unitAbbreviation.Equals(u.UnitAbbreviation, StringComparison.OrdinalIgnoreCase));
         }
 
         private Unit GetRowUnit (string unitName) {
