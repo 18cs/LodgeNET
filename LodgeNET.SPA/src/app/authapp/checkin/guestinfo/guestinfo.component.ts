@@ -64,6 +64,8 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   private initForm() {
     let guestStay = this.gueststayService.guestStay;
 
+    console.log(guestStay);
+
     if (guestStay.guestUnit) {
       this.onUnitSelected(guestStay.guestUnit);
     }
@@ -159,6 +161,7 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
 
   onCancel() {
     this.gueststayService.clearGuestStay();
+    this.selectedUnit = { id: 0, name: '' };
     this.guestInfoForm.reset();
     this.router.navigate(['/']);
   }

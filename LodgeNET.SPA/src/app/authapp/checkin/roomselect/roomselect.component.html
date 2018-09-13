@@ -26,15 +26,19 @@
       <thead>
         <tr>
           <th scope="col">Room Number</th>
+          <th scope="col">In-house</th>
           <th scope="col">Capacity</th>
+          <th scope="col">Surge Capacity</th>
           <th scope="col">Floor</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let room of rooms" (click)="onRoomSelected(room)">
           <th scope="row">{{room.roomNumber}}</th>
-          <td>{{room.currentGuestCount +'/'+ room.capacity}}</td>
-          <td>{{room.floor}}</td>
+          <td>{{ room.currentGuestCount }}</td>
+          <td>{{ room.capacity }}</td>
+          <td>{{ room.surgeCapacity }}</td>
+          <td>{{ room.floor }}</td>
         </tr>
       </tbody>
     </table>

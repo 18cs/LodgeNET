@@ -31,7 +31,6 @@ export class DashboardComponent implements OnInit {
     this.buildingService.buildingDashboardData().subscribe(
       (buildingDashboard: BuildingTable) => {
         this.buildingDashboard = buildingDashboard;
-        console.log(this.buildingDashboard)
         this.showSpinner = false;
       },
       error => {
