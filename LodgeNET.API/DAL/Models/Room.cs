@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -5,6 +6,7 @@ namespace LodgeNET.API.DAL.Models
 {
     public class Room
     {
+        public IEnumerable<Stay> Stays {get; private set;}
         [Key]
         public int Id { get; set; }
         public string RoomNumber { get; set; }

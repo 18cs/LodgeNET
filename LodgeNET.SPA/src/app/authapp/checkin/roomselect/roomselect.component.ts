@@ -31,9 +31,8 @@ export class RoomselectComponent implements OnInit, OnDestroy {
               private alertify: AlertifyService,
               private gueststayService: GueststayService,
               private router: Router,
-              private route: ActivatedRoute) { }
-
-
+              private route: ActivatedRoute
+            ) { }
 
   ngOnInit() {
     // TODO put the request into a resolver
@@ -92,7 +91,7 @@ export class RoomselectComponent implements OnInit, OnDestroy {
     } else {
     this.gueststayService.getGuestStays({roomId: room.id, currentStaysOnly: true }).subscribe(
       (guestStays: GuestStayEdit[]) =>  {
-        if (guestStays.filter(g => g.guest.gender != this.gueststayService.guestStay.gender)) {
+        if (guestStays.filter(g => g.guest.gender != this.gueststayService.guestStay.gender).length > 0) {
           console.log(guestStays);
           this.alertify.error('Room has guest of opposite gender');
           this.gueststayService.hasGenderConfliction = true;

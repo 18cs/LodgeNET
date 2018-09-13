@@ -91,7 +91,7 @@ namespace LodgeNET.API.Controllers {
         }
 
         [HttpPost ("DataRows")]
-        public async Task<IActionResult> UploadUnaccompaniedData (int userId, [FromBody] FileRowForUploadDto[] fileRows, [FromQuery]UploadUserParams userParams) {
+        public async Task<IActionResult> DataRows (int userId, [FromBody] FileRowForUploadDto[] fileRows, [FromQuery]UploadUserParams userParams) {
             var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
 
             if (currentUserId == 0) {
@@ -118,74 +118,112 @@ namespace LodgeNET.API.Controllers {
             return Ok (returnRows);
         }
 
-        // [HttpPost("exmanifestfile")]
-        // public async Task<IActionResult> UploadExManifestFile(int userId, FileForUploadDto fileDto)
-        // {
-        //     var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        [HttpPost("exmanifestfile")]
+        public async Task<IActionResult> UploadExManifestFile(int userId, FileForUploadDto fileDto, [FromQuery] ManifestFileUploadUserParams userParams)
+        {
+            var currentUserId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-        //     if (currentUserId == 0)
-        //     {
-        //         return Unauthorized();
-        //     }
+            if (currentUserId == 0)
+            {
+                return Unauthorized();
+            }
 
-        //     ArrayList returnRows = new ArrayList();
-        //     IFormFile file = Request.Form.Files[0];
+            ArrayList returnRows = new ArrayList();
+            IFormFile file = Request.Form.Files[0];
 
-        //     string folderName = "Upload";
-        //     string webRootPath = _hostingEnvironment.WebRootPath;
-        //     string newPath = System.IO.Path.Combine(webRootPath, folderName);
-        //     if (!Directory.Exists(newPath))
-        //     {
-        //         Directory.CreateDirectory(newPath);
-        //     }
-        //     if (file.Length > 0)
-        //     {
-        //         string sFileExtension = System.IO.Path.GetExtension(file.FileName).ToLower();
-        //         string fullPath = System.IO.Path.Combine(newPath, file.FileName);
-        //         using (var stream = new FileStream(fullPath, FileMode.Create))
-        //         {
-        //             file.CopyTo(stream);
-        //         }
+            string folderName = "Upload";
+            string webRootPath = _hostingEnvironment.WebRootPath;
+            string newPath = System.IO.Path.Combine(webRootPath, folderName);
+            if (!Directory.Exists(newPath))
+            {
+                Directory.CreateDirectory(newPath);
+            }
+            if (file.Length > 0)
+            {
+                var uploadToAdd = new Upload ();
+                uploadToAdd.FileName = fileDto.File.FileName;
+                uploadToAdd.DateUploaded = DateTime.Now;
+                uploadToAdd.UserId = currentUserId;
+                
+                int uploadId = await _fileService.AddUpload(uploadToAdd);
 
-        //         var sheets = _fileReader.GetExcelSheets(fullPath);
-        //         foreach (var sheet in sheets)
-        //         {
-        //             var headers = _fileReader.GetExcelSheetHeaders(sheet, 3);
+                string sFileExtension = System.IO.Path.GetExtension(file.FileName).ToLower();
+                string fullPath = System.IO.Path.Combine(newPath, file.FileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    file.CopyTo(stream);
+                }
 
-        //             if (!headers.Contains("Personal ID")) continue;
+                var sheets = _fileReader.GetExcelSheets(fullPath);
+                foreach (var sheet in sheets)
+                {
+                    var headers = _fileReader.GetExcelSheetHeaders(sheet, 2);
 
-        //             for (int i = (sheet.FirstRowNum + 1); i <= sheet.LastRowNum; i++) //Read Excel File
-        //             {
-        //                 IRow row = sheet.GetRow(i);
-        //                 if (row == null || row.Cells.All(d => d.CellType == CellType.Blank)) continue;
+                    if (!headers.Contains("PERSONAL ID")) continue;
 
-        //                 var rowForUpload = await _fileService.ParseManifestExcelRow(row, headers);
+                    for (int i = (sheet.FirstRowNum + 3); i <= sheet.LastRowNum; i++) //Read Excel File
+                    {
+                        IRow row = sheet.GetRow(i);
+                        if (row == null || 
+                            row.Cells.All(d => d.CellType == CellType.Blank) ||
+                            row.GetCell(0).StringCellValue.IndexOf("For Official Use", StringComparison.OrdinalIgnoreCase) >= 0 ) continue;
 
-        //                 if (rowForUpload == null) continue;
+                        var rowForUpload = await _fileService.ParseExManifestExcelRow(row, headers, uploadId);
 
-        //                 //stay buildingId is nullable
-        //                 if (rowForUpload.RoomId == 0 ||
-        //                     rowForUpload.BuildingId == 0 ||
-        //                     rowForUpload.FirstName == null ||
-        //                     rowForUpload.LastName == null ||
-        //                     rowForUpload.UnitId == 0)
-        //                 {
-        //                     returnRows.Add(rowForUpload);
-        //                 }
-        //                 else
-        //                 {
-        //                     await _fileService.SaveFileRowAsync(rowForUpload);
-        //                 }
-        //             }
-        //         }
+                        if (rowForUpload == null) continue;
 
-        //         if (System.IO.File.Exists(fullPath))
-        //         {
-        //             System.IO.File.Delete(fullPath);
-        //         }
-        //     }
-        //     return Ok(returnRows);
-        // }
+                        //stay buildingId is nullable
+                        if (rowForUpload.Gender == null ||
+                            rowForUpload.FirstName == null ||
+                            rowForUpload.LastName == null ||
+                            rowForUpload.UnitId == 0)
+                        {
+                            returnRows.Add(rowForUpload);
+                        }
+                        else
+                        {
+                            rowForUpload = await _fileService.AutoRoomDataRow(rowForUpload, userParams);
+                            await _fileService.SaveFileRowAsync(rowForUpload);
+                        }
+                    }
+                }
+
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
+            }
+            return Ok(returnRows);
+        }
+
+         [HttpPost ("manifestDataRows")]
+        public async Task<IActionResult> ExManifestDataRows (int userId, [FromBody] FileRowForUploadDto[] fileRows, [FromQuery]ManifestFileUploadUserParams userParams) {
+            var currentUserId = int.Parse (User.FindFirst (ClaimTypes.NameIdentifier).Value);
+
+            if (currentUserId == 0) {
+                return Unauthorized ();
+            }
+
+            ArrayList returnRows = new ArrayList ();
+
+            foreach (FileRowForUploadDto fileRow in fileRows) {
+                //TODOTEST
+                //await _fileService.SaveNewGuestFileRowAsync (fileRow, userParams);
+
+                if (fileRow.Gender == null ||
+                    fileRow.UnitId == 0 ||
+                    fileRow.FirstName == null ||
+                    fileRow.LastName == null) {
+                    returnRows.Add (fileRow);
+                } else {
+                    //TODO add unit parse
+                    var fileRowForUpload = await _fileService.AutoRoomDataRow(fileRow, userParams);
+                    await _fileService.SaveFileRowAsync (fileRowForUpload);
+                }
+            }
+
+            return Ok (returnRows);
+        }
 
         [HttpPost("lodgingFile")]
         public async Task<IActionResult> UploadLodgingFile(int userId, FileForUploadDto fileDto)

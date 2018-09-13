@@ -77,7 +77,8 @@ namespace LodgeNET.API.DAL {
                         s.BuildingId == userParams.BuildingId);
                 }
 
-                rooms = rooms.Where (r => (stays.Where (s => s.RoomId == r.Id).Count ()) < r.Capacity);
+                rooms = rooms.Where (r => (stays.Where (s => s.RoomId == r.Id).Count ()) < 
+                                            (r.Building.BuildingCategory.InSurge? r.SurgeCapacity : r.Capacity));
             }
             return rooms;
         }

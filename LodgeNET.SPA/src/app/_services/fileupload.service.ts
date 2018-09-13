@@ -23,6 +23,16 @@ export class FileuploadService {
             .set('Content-Type', 'application/json'), params: params});
     }
 
+    uploadExmanifestDataRows(fileRows: FileRow[], userParams?: UploadParams) {
+        let params = new HttpParams();
+
+        if (userParams != null)
+            params = params.append('uploadId', userParams.uploadId.toString());
+
+        return this.http.post(this.baseUrl + 'file/manifestDataRows', fileRows, {headers: new HttpHeaders()
+            .set('Content-Type', 'application/json'), params: params});
+    }
+
     getUploadsPagination(page?, itemsPerPage?, userParams?: UploadParams) {
         const paginatedResult: PaginatedResult<Upload[]> = new PaginatedResult<Upload[]>();
         let params = new HttpParams();

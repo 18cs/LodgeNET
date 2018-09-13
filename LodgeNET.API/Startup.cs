@@ -23,6 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using LodgeNET.API.DAL.Repos;
 using LodgeNET.API.BLL;
 using LodgeNET.API.Utilities.IO.FileIO;
+using LodgeNET.API.Utilities.Parsers;
 
 namespace LodgeNET.API {
     public class Startup {
@@ -46,6 +47,8 @@ namespace LodgeNET.API {
             services.AddTransient<UnitService>();
             services.AddTransient<UserService>();
             services.AddTransient<FileReader>();
+            services.AddTransient<RankParser>();
+            services.AddTransient<ServiceParser>();
             services.AddTransient<DataService>();
             services.AddCors();
             services.AddAutoMapper();

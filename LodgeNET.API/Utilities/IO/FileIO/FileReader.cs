@@ -45,23 +45,20 @@ namespace LodgeNET.API.Utilities.IO.FileIO
             {
                 // file.CopyTo (stream);
                 stream.Position = 0;
-                int i = 0;
                 if (sFileExtension == ".xls")
                 {
                     HSSFWorkbook hssfwb = new HSSFWorkbook(stream); //This will read the Excel 97-2000 formats 
-                    while(hssfwb.GetSheetAt(i) != null)
+                    for(int i=0; i < hssfwb.NumberOfSheets; i++)
                     {
                         sheets.Add((hssfwb.GetSheetAt(i)));
-                        i++;
                     }
                 }
                 else
                 {
                     XSSFWorkbook hssfwb = new XSSFWorkbook(stream); //This will read 2007 Excel format  
-                    while(hssfwb.GetSheetAt(i) != null)
+                    for(int i=0; i < hssfwb.NumberOfSheets; i++)
                     {
                         sheets.Add((hssfwb.GetSheetAt(i)));
-                        i++;
                     }   
                 }
             }

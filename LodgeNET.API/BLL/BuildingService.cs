@@ -94,7 +94,12 @@ namespace LodgeNET.API.BLL
                    s.CheckedIn == true &&
                    !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
                    s.BuildingId == b.Id);
-                b.Capacity = await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
+
+                if (buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId).InSurge) {
+                    b.Capacity = await _roomRepo.GetSum(r => r.SurgeCapacity, r => r.BuildingId == b.Id);
+                } else {
+                    b.Capacity = await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
+                }
 
                 var bcat = buildingsDataDto.BuildingTypeList.Find(t => t.Id == b.BuildingCategoryId);
                 if (bcat != null)
@@ -141,6 +146,11 @@ namespace LodgeNET.API.BLL
         public async Task<int> GetBuildingCapacity(int buildingId)
         {
             return await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == buildingId);
+        }
+
+        public async Task<int> GetBuildingSurgeCapacity(int buildingId)
+        {
+            return await _roomRepo.GetSum(r => r.SurgeCapacity, r => r.BuildingId == buildingId);
         }
 
         public async Task<int> GetBuildingTypeCapacity(int buildingTypeId)

@@ -28,6 +28,7 @@ namespace LodgeNET.API.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    InSurge = table.Column<bool>(nullable: false),
                     Type = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -188,7 +189,7 @@ namespace LodgeNET.API.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateUploaded = table.Column<DateTime>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -198,7 +199,7 @@ namespace LodgeNET.API.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -240,8 +241,7 @@ namespace LodgeNET.API.Migrations
                         column: x => x.UploadId,
                         principalTable: "Uploads",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                        
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

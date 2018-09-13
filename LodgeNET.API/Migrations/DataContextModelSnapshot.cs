@@ -310,7 +310,7 @@ namespace LodgeNET.API.Migrations
             modelBuilder.Entity("LodgeNET.API.DAL.Models.Room", b =>
                 {
                     b.HasOne("LodgeNET.API.DAL.Models.Building", "Building")
-                        .WithMany()
+                        .WithMany("Rooms")
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -327,7 +327,7 @@ namespace LodgeNET.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LodgeNET.API.DAL.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("Stays")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

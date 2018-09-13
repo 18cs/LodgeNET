@@ -11,11 +11,12 @@ import { Unit } from '../../_models/unit';
 import { FileuploadService } from '../../_services/fileupload.service';
 import { LodgingDialogComponent } from './dialogcomponents/lodgingDialog/lodgingDialog.component';
 import { UploadParams } from '../../_models/params/uploadParams';
+import { ExmanifestDialogComponent } from './dialogcomponents/exmanifestDialog/exmanifestDialog.component';
 
 export const UPLOADTYPES = {
   unaccompanied: 'unaccompanied',
   lodging: 'lodging',
-  manifest: 'manifest'
+  exmanifest: 'exmanifest'
 }
 
 @Component({
@@ -80,11 +81,11 @@ export class FileuploadComponent implements OnInit {
       this.uploadTypeData.url = this.baseUrl + 'file/lodgingFile';
       this.uploadTypeData.warningMessage = 'Please select a PDF file';
       this.uploadTypeData.title = 'Upload Lodging File';
-    } else if (uploadType == UPLOADTYPES.manifest) {
-      this.uploadTypeData.acceptedFileTypes = ['pdf'];
-      this.uploadTypeData.url = this.baseUrl + 'file/manifestFile'
-      this.uploadTypeData.warningMessage = 'Please select a PDF file';
-      this.uploadTypeData.title = 'Upload Manifest File';
+    } else if (uploadType == UPLOADTYPES.exmanifest) {
+      this.uploadTypeData.acceptedFileTypes = ['xls'];
+      this.uploadTypeData.url = this.baseUrl + 'file/exmanifestfile'
+      this.uploadTypeData.warningMessage = 'Please select a XLS file';
+      this.uploadTypeData.title = 'Upload Exercise Manifest File';
     }
   }
 
@@ -102,20 +103,11 @@ export class FileuploadComponent implements OnInit {
     this.uploader.onWhenAddingFileFailed = () => {
       this.alertify.warning(this.uploadTypeData.warningMessage);
     };
-
     this.uploader.onSuccessItem = (item, response, status, headers) => {
       let json = JSON.parse(response);
       this.showHideSpinner();
       this.totalFileRows = json;
-      console.log(item);
-      console.log(response);
-
-      console.log(status);
-
-      console.log(headers);
-      
       if (this.totalFileRows.length > 0) {
-        // this.userParams.uploadId = JSON.parse(headers.get('uploadId'))
         this.alertify.warning('Problem with some records');
         this.changePaginationDisplay();
         this.currentPage = 1;
@@ -129,10 +121,8 @@ export class FileuploadComponent implements OnInit {
         );
       } else {
         this.alertify.success('Upload Successful');
-        this.showHideSpinner();
       }
     };
-
     this.uploader.onErrorItem = (item, response, status, headers) => {
       this.alertify.error('File Upload Failed');
       this.showHideSpinner();
@@ -177,19 +167,40 @@ export class FileuploadComponent implements OnInit {
       units: this.units
     };
 
-    if (this.type === 'unaccompanied') {
+    if (this.type === UPLOADTYPES.unaccompanied) {
       const dialogRef = this.dialog.open(
         UnaccompanieddialogComponent,
         dialogConfig
       );
-    } else if (this.type === 'lodging') {
+    } else if (this.type === UPLOADTYPES.lodging) {
       const dialogRef = this.dialog.open(LodgingDialogComponent, dialogConfig);
-    }
+    } else if (this.type === UPLOADTYPES.exmanifest) {
+      const dialogRef = this.dialog.open(ExmanifestDialogComponent, dialogConfig)
+    }  
   }
 
   OnSubmitClick() {
     this.showHideSpinner();
     //TODO Returned row method
+    if(UPLOADTYPES.exmanifest) {
+      this.fileuploadService.uploadExmanifestDataRows(this.totalFileRows, this.userParams).subscribe(
+        (fileRows: FileRow[]) => {
+          this.showHideSpinner();
+          this.totalFileRows = fileRows;
+          if (this.totalFileRows.length > 0) {
+            this.changePaginationDisplay();
+            this.alertify.warning('Problem with some records');
+          } else {
+            this.alertify.success('Upload Successful');
+            this.router.navigate(['/']);
+          }
+        },
+        error => {
+          this.showHideSpinner();
+          this.alertify.error(error);
+        }
+      );
+    } else {
     this.fileuploadService.uploadUnaccomData(this.totalFileRows, this.userParams).subscribe(
       (fileRows: FileRow[]) => {
         this.showHideSpinner();
@@ -208,6 +219,7 @@ export class FileuploadComponent implements OnInit {
       }
     );
   }
+}
 
   OnDiscard() {
     this.totalFileRows = [];

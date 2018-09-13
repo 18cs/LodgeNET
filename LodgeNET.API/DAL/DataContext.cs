@@ -1,14 +1,12 @@
 using LodgeNET.API.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace LodgeNET.API.DAL
-{
-    public class DataContext : DbContext
-    {
-        public DataContext(DbContextOptions<DataContext> options) : base(options) {}
+namespace LodgeNET.API.DAL {
+    public class DataContext : DbContext {
+        public DataContext (DbContextOptions<DataContext> options) : base (options) { }
 
         public DbSet<AccountType> AccountTypes { get; set; }
-        public DbSet<Building> Buildings { get; set; } 
+        public DbSet<Building> Buildings { get; set; }
         public DbSet<BuildingCategory> BuildingCategories { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Rank> Ranks { get; set; }
@@ -17,10 +15,9 @@ namespace LodgeNET.API.DAL
         public DbSet<Stay> Stays { get; set; }
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<Upload> Uploads {get; set;}
+        public DbSet<Upload> Uploads { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        protected override void OnModelCreating (ModelBuilder modelBuilder) {
             // modelBuilder.Entity<GuestReservation>()
             //     .HasKey(t => new { t.GuestId, t.ReservationId});
 
@@ -29,13 +26,21 @@ namespace LodgeNET.API.DAL
             //     .WithMany(g => g.GuestReservations)
             //     .HasForeignKey(gr => gr.GuestId);
 
+            // modelBuilder.Entity<Building>()
+            //     .HasMany(typeof (Room), "Rooms")
+            //     .WithOne ().HasForeignKey("BuildingId");
+
             // modelBuilder.Entity<GuestReservation>()
             //     .HasOne(gr => gr.Reservation)
             //     .WithMany(r => r.GuestReservations)
             //     .HasForeignKey(gr => gr.ReservationId);
 
-            modelBuilder.Entity<Unit>()
-                .HasOne(u => u.ParentUnit);
+            modelBuilder.Entity<Building> ()
+                .HasMany (b => b.Rooms)
+                .WithOne (r => r.Building);
+
+            modelBuilder.Entity<Unit> ()
+                .HasOne (u => u.ParentUnit);
         }
     }
 }

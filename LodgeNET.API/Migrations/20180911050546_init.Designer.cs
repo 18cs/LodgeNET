@@ -11,7 +11,7 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180726070015_init")]
+    [Migration("20180911050546_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,8 @@ namespace LodgeNET.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("InSurge");
 
                     b.Property<string>("Type");
 
@@ -221,7 +223,7 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<string>("FileName");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
@@ -309,7 +311,7 @@ namespace LodgeNET.API.Migrations
             modelBuilder.Entity("LodgeNET.API.DAL.Models.Room", b =>
                 {
                     b.HasOne("LodgeNET.API.DAL.Models.Building", "Building")
-                        .WithMany()
+                        .WithMany("Rooms")
                         .HasForeignKey("BuildingId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -326,7 +328,7 @@ namespace LodgeNET.API.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("LodgeNET.API.DAL.Models.Room", "Room")
-                        .WithMany()
+                        .WithMany("Stays")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -342,7 +344,8 @@ namespace LodgeNET.API.Migrations
                 {
                     b.HasOne("LodgeNET.API.DAL.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("LodgeNET.API.DAL.Models.User", b =>

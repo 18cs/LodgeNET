@@ -22,17 +22,29 @@ namespace LodgeNET.API.DAL
         public async Task<IEnumerable<Building>> GetBuildings(
             BuildingUserParams userParams = null,
             Expression<Func<Building, object>>[] includeProperties = null,
-            Expression<Func<Building, bool>> filter = null
+            Expression<Func<Building, bool>> filter = null,
+            bool includeAllNestedProps = false,
+            Func<IQueryable<Building>, IOrderedQueryable<Building>> orderBy = null
         )
         {
             var buildings = _context.Buildings.AsQueryable();
 
-            if (includeProperties != null)
+            if (includeAllNestedProps) {
+                buildings = IncludeAllProperties(buildings);
+            }
+            else if (includeProperties != null)
                 buildings = ProcessProperties(buildings, includeProperties);
 
             buildings = ProcessFilter(buildings, userParams, filter);
 
-            return await buildings.ToListAsync();
+            if (orderBy != null)
+            {
+                return await orderBy(buildings).ToListAsync();
+            }
+            else
+            {
+                return await buildings.ToListAsync();
+            }
         }
 
         public async Task<PagedList<Building>> GetBuildingsPagination(
@@ -49,6 +61,15 @@ namespace LodgeNET.API.DAL
             buildings = ProcessFilter(buildings, userParams, filter);
 
             return await PagedList<Building>.CreateAsync(buildings, userParams.PageNumber, userParams.PageSize);
+        }
+
+        private IQueryable<Building> IncludeAllProperties(IQueryable<Building> buildings)
+        {
+            buildings = buildings.Include(b => b.Rooms)
+                .ThenInclude(r => r.Stays)
+                .ThenInclude(s => s.Guest)
+                .Include(b => b.BuildingCategory);
+            return buildings;
         }
 
         private IQueryable<Building> ProcessProperties(IQueryable<Building> buildings, Expression<Func<Building, object>>[] includeProperties)

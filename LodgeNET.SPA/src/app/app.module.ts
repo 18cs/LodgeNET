@@ -68,6 +68,7 @@ import { ServicesResolverService } from './_resolvers/services-resolver.service'
 import { ChartModule } from 'angular-highcharts';
 import { OccupancyChartComponent } from './authapp/dashboard/occupancyChart/occupancyChart.component';
 import { DataService } from './_services/data.service';
+import { ExmanifestDialogComponent } from './authapp/fileupload/dialogcomponents/exmanifestDialog/exmanifestDialog.component';
 
 export function getAccessToken(): string {
   return localStorage.getItem('token');
@@ -122,7 +123,8 @@ export const jwtConfig = {
     GuestsbybuildingComponent,
     GuestsbyserviceComponent,
     VacantroomsComponent,
-    OccupancyChartComponent
+    OccupancyChartComponent,
+    ExmanifestDialogComponent
 ],
   imports: [
     BrowserModule,
@@ -161,6 +163,7 @@ export const jwtConfig = {
   entryComponents: [BuildingsdialogComponent,
     UnaccompanieddialogComponent,
     LodgingDialogComponent,
+    ExmanifestDialogComponent,
     UnitdialogComponent,
     BuildingtypesdialogComponent,
     GueststaydialogComponent,

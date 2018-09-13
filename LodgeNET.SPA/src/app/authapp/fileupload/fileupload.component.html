@@ -54,6 +54,7 @@
     </div>
     <div class="col-lg-9" *ngIf="fileRows.length > 0">
         <h5 class="text-right">Number of Misformatted Records: {{ totalFileRows?.length }}</h5>
+        <mat-spinner *ngIf="showSpinner" class="center" mode="indeterminate"></mat-spinner>
         <table class="table table-hover" *ngIf="type == 'lodging'">
             <thead>
                 <tr>
@@ -99,6 +100,34 @@
                     <td [ngClass]="{'td-error': fileRow.firstName == null || fileRow.firstName == ''}">{{ fileRow.firstName }}</td>
                     <td [ngClass]="{'td-error': fileRow.buildingId == null || fileRow.buildingId == 0}">{{ fileRow.buildingNumber }}</td>
                     <td [ngClass]="{'td-error': fileRow.roomId == null || fileRow.roomId == 0}">{{ fileRow.roomNumber }}</td>
+                    <td [ngClass]="{'td-error': fileRow.unitId == null || fileRow.unitId == 0}">{{ fileRow.unitName }}</td>
+                    <td>
+                        <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(fileRow)">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" title="Edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-hover" *ngIf="type == 'exmanifest'">
+            <thead>
+                <tr>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Rank</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Unit</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let fileRow of fileRows; let i = index;">
+                <tr class="table-Default">
+                    <th scope="row" [ngClass]="{'td-error': fileRow.lastName == null || fileRow.lastName == ''}">{{ fileRow.lastName }}</th>
+                    <td [ngClass]="{'td-error': fileRow.firstName == null || fileRow.firstName == ''}">{{ fileRow.firstName }}</td>
+                    <td [ngClass]="{'td-error': fileRow.gender == null || fileRow.gender == ''}">{{ fileRow.gender }}</td>
+                    <td [ngClass]="{'td-error': fileRow.rankId == null || fileRow.rankId == 0}">{{ fileRow.rankName }}</td>
+                    <td [ngClass]="{'td-error': fileRow.serviceId == null || fileRow.serviceId == 0}">{{ fileRow.serviceName }}</td>
                     <td [ngClass]="{'td-error': fileRow.unitId == null || fileRow.unitId == 0}">{{ fileRow.unitName }}</td>
                     <td>
                         <button class="editbutton btn btn-primary btn-sm" (click)="openDialog(fileRow)">
