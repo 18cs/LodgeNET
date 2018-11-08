@@ -176,13 +176,12 @@ export class FileuploadComponent implements OnInit {
       const dialogRef = this.dialog.open(LodgingDialogComponent, dialogConfig);
     } else if (this.type === UPLOADTYPES.exmanifest) {
       const dialogRef = this.dialog.open(ExmanifestDialogComponent, dialogConfig)
-    }  
+    }
   }
 
   OnSubmitClick() {
     this.showHideSpinner();
-    //TODO Returned row method
-    if(UPLOADTYPES.exmanifest) {
+    if(this.type === UPLOADTYPES.exmanifest) {
       this.fileuploadService.uploadExmanifestDataRows(this.totalFileRows, this.userParams).subscribe(
         (fileRows: FileRow[]) => {
           this.showHideSpinner();

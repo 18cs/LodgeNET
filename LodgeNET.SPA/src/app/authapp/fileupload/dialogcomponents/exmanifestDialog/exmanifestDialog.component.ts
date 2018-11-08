@@ -24,7 +24,10 @@ export class ExmanifestDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data
   ) { 
     this.fileRow = data.dataRow;
+    console.log(this.fileRow);
     this.units = data.units;
+    
+    console.log(this.selectedUnit);
   }
 
   ngOnInit() {
@@ -43,7 +46,6 @@ export class ExmanifestDialogComponent implements OnInit {
 
   onUnitSelected(unit: Unit) {
     this.selectedUnit = unit;
-    console.log(this.form.value);
   }
 
   unitFocusOut() {
@@ -58,12 +60,17 @@ export class ExmanifestDialogComponent implements OnInit {
   }
 
   formInit() {
-    
+    this.selectedUnit = this.unitFilter(this.fileRow.unitName)[0];
+    if (this.selectedUnit != null)
+    {
+      this.unitName = this.selectedUnit.name;
+    }
+
     this.form = new FormGroup({
       'firstName': new FormControl(this.fileRow.firstName, Validators.required),
       'lastName': new FormControl(this.fileRow.lastName, Validators.required),
       'gender': new FormControl(this.fileRow.gender, Validators.required),
-      'unitName': new FormControl(this.fileRow.unitName, Validators.required)
+      'unitName': new FormControl(null, Validators.required)
     });
   }
 

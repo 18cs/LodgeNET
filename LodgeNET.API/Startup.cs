@@ -38,7 +38,7 @@ namespace LodgeNET.API {
         {
             // var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection ("AppSettings:Token").Value);
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
             services.AddTransient<Seed>();
             services.AddTransient<AuthService>();
             services.AddTransient<BuildingService>();
@@ -102,11 +102,11 @@ namespace LodgeNET.API {
             // seeder.SeedAccountTypes();
             // seeder.SeedBuildingCategories();
             // seeder.SeedBuildings();
-            // seeder.SeedServices();
+            // seder.SeedServices();
             // seeder.SeedRanks();
             // seeder.SeedRooms();
             // seeder.SeedUnits();
-            // seeder.SeedGuests();
+            // seeder.SeedGuests();e
             // seeder.SeedReservation();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();

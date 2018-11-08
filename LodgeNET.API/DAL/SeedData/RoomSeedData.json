@@ -5240,6 +5240,14 @@
     "BuildingId": 13
   },
   {
+    "RoomNumber": "2008",
+    "SurgeCapacity": 6,
+    "Capacity": 2,
+    "SquareFootage": 300,
+    "Floor": 1,
+    "BuildingId": 13
+  },
+  {
     "RoomNumber": "2012",
     "SurgeCapacity": 6,
     "Capacity": 2,
@@ -5385,6 +5393,14 @@
   },
   {
     "RoomNumber": "2064",
+    "SurgeCapacity": 6,
+    "Capacity": 2,
+    "SquareFootage": 300,
+    "Floor": 2,
+    "BuildingId": 13
+  },
+  {
+    "RoomNumber": "2065",
     "SurgeCapacity": 6,
     "Capacity": 2,
     "SquareFootage": 300,

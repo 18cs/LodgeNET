@@ -64,8 +64,6 @@ export class GuestinfoComponent implements OnInit, OnDestroy {
   private initForm() {
     let guestStay = this.gueststayService.guestStay;
 
-    console.log(guestStay);
-
     if (guestStay.guestUnit) {
       this.onUnitSelected(guestStay.guestUnit);
     }

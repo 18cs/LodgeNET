@@ -30,10 +30,6 @@ export class AuthappComponent implements OnInit {
       this.isUploadDropdownOpen = false;
       }
 
-      if (!this.reportsDropdown.nativeElement.contains(eventData.target)) {
-        this.isReportsDropdownOpen = false;
-      }
-
     if (!this.checkinoutDropDown.nativeElement.contains(eventData.target)) {
       this.isCheckinOutDropdownOpen = false;
     }
@@ -41,6 +37,10 @@ export class AuthappComponent implements OnInit {
 
     if (!this.viewDropdown.nativeElement.contains(eventData.target)) {
       this.isViewDropdownOpen = false;
+    }
+
+    if (!this.reportsDropdown.nativeElement.contains(eventData.target)) {
+      this.isReportsDropdownOpen = false;
     }
 
   }
