@@ -1,14 +1,18 @@
 [
     {
-      "Type": "Lodging"
+      "Type": "Lodging",
+      "inSurge": false
     },
     {
-      "Type": "Vacant Housing"
+      "Type": "Vacant Housing",
+      "inSurge": false
     },
     {
-      "Type": "Unaccompanied Housing"
+      "Type": "Unaccompanied Housing",
+      "inSurge": false
     },
     {
-      "Type": "Emergency Qtrs"
+      "Type": "Emergency Qtrs",
+      "inSurge": false
     }
   ]
