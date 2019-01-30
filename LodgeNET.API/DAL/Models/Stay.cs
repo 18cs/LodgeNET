@@ -27,7 +27,7 @@ namespace LodgeNET.API.DAL.Models
         public Stay()
         {
             DateCreated = DateTime.Now;
-            CheckInDate = DateTime.Today;
+            CheckInDate = DateTime.Now;
         }
     }
 }

@@ -225,7 +225,7 @@ namespace LodgeNET.API.BLL {
             var guest = await _guestRepo.GetFirstOrDefault (g => g.Id == updatedGuestDto.Id);
 
             if (guest == null) {
-                throw new System.ArgumentException ("Unable to update unit", string.Empty);
+                throw new System.ArgumentException ("Unable to update guest", string.Empty);
             }
 
             _mapper.Map (updatedGuestDto, guest);
@@ -253,5 +253,11 @@ namespace LodgeNET.API.BLL {
                 !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
                 s.Guest.Rank.ServiceId == serviceId);
         }
+
+        // public async Task<int> GetUploadCount (int id) {
+        //     var uploadCount = await _guestRepo.GetCount (g => g.UploadId == id);
+
+        //     return (uploadCount);
+        // }
     }
 }

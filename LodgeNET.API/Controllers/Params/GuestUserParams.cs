@@ -8,5 +8,6 @@ namespace LodgeNET.API.Helpers
         public string Gender { get; set; }
         public int? DodId { get; set; }
         public int? UnitId { get; set; }
+        public int? UploadId { get; set; }
     }
 }

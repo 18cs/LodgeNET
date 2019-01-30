@@ -3,6 +3,7 @@ import { Service } from './service';
 import { Rank } from './rank';
 import { Unit } from './unit';
 import { Room } from './room';
+import { Building } from './building';
 
 export interface GuestStayCheckIn {
     dodId?: number;
@@ -17,6 +18,7 @@ export interface GuestStayCheckIn {
     email?: string;
     dsnPhone?: number;
     commPhone?: number;
+    building?: Building;
     room?: Room;
     guestId?: number;
 }

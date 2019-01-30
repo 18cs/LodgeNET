@@ -37,6 +37,8 @@ namespace LodgeNET.API.DAL {
 
             stays = this.ProcessFilter (stays, userParams, filter);
 
+            stays = stays.OrderByDescending(s => s.CheckInDate);
+
             return await PagedList<Stay>.CreateAsync (stays, userParams.PageNumber, userParams.PageSize);
         }
 

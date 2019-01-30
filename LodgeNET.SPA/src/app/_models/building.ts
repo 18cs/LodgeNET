@@ -9,5 +9,6 @@ export interface Building {
     currentGuests?: number;
     capacity?: number;
     surgeCapacity?: number;
+    sector?: string;
 }
 

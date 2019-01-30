@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Pagination, PaginatedResult } from '../../../_models/pagination';
 import { AuthService } from '../../../_services/auth.service';
 import { AlertifyService } from '../../../_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Upload } from '../../../_models/upload';
 import { FileuploadService } from '../../../_services/fileupload.service';
 import { UploadParams } from '../../../_models/params/uploadParams';
 import { Observable } from 'rxjs';
+import { GueststayService } from '../../../_services/gueststay.service';
 
 @Component({
   selector: 'app-manageuploads',
@@ -26,16 +27,18 @@ export class ManageuploadsComponent implements OnInit {
     private authService: AuthService,
     private alertify: AlertifyService,
     private route: ActivatedRoute,
-    private uploadService: FileuploadService
+    private router: Router,
+    private uploadService: FileuploadService,
+    private guestStayService: GueststayService
   ) { }
 
   ngOnInit() {
     this.loadUploads();
+    this.guestStayService.loadByUploadId = 0;
   }
 
   loadUploads() {
     this.showSpinner = true;
-    console.log(this.uploads);
     if (this.pagination == null) {
       this.uploadService.getUploadsPagination(this.pageNumber, this.pageSize, this.filterParams)
         .subscribe((paginatedResult: PaginatedResult<Upload[]>) => {
@@ -85,5 +88,17 @@ export class ManageuploadsComponent implements OnInit {
         );
       })
   }
+
+  loadGuestsByUpload(uploadId: number) {
+    this.guestStayService.loadByUploadId = uploadId;
+    this.router.navigateByUrl('/view/guests');
+  }
+
+  // getUploadCount(uploadId: number) {
+  //   this.guestStayService.getUploadCount(uploadId).subscribe(
+  //     (uploadCount: number) => {
+  //       console.log(uploadCount);
+  //     });
+  // }
 
 }

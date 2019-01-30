@@ -1,19 +1,40 @@
 <h2 mat-dialog-title>Edit Stay</h2>
 <mat-dialog-content [formGroup]="form">
   <mat-form-field>
-    <input matInput [matDatepicker]="checkin" [max]="this.form.get('checkOutDate').value" placeholder="Choose Check In date" formControlName="checkInDate">
+    <input matInput placeholder="Building" formControlName="building" [matAutocomplete]="bldgAuto" (focusout)="buildingFocusOut()"
+      [(ngModel)]="selectedBuildingName">
+  </mat-form-field>
+  <mat-autocomplete #bldgAuto>
+    <mat-option *ngFor="let building of buildingList" [value]="building.name" (mousedown)="onBuildingSelected(building)">
+      {{ building.name }}
+    </mat-option>
+  </mat-autocomplete>
+  <br />
+  <mat-form-field>
+    <input matInput placeholder="Room" formControlName="room" [matAutocomplete]="roomAuto" (focusout)="roomFocusOut()" [(ngModel)]="selectedRoomNumber">
+  </mat-form-field>
+  <mat-autocomplete #roomAuto>
+    <mat-option *ngFor="let room of availableRooms" [value]="room.roomNumber" (mousedown)="onRoomSelected(room)">
+      {{ room.roomNumber }}
+    </mat-option>
+  </mat-autocomplete>
+  <br />
+  <mat-form-field>
+    <input matInput [matDatepicker]="checkin" [max]="this.form.get('checkOutDate').value" placeholder="Choose Check In date"
+      formControlName="checkInDate">
     <mat-datepicker-toggle matSuffix [for]="checkin"></mat-datepicker-toggle>
-    <mat-datepicker #checkin disabled="false"></mat-datepicker>       
+    <mat-datepicker #checkin disabled="false"></mat-datepicker>
   </mat-form-field>
   <br />
   <mat-form-field>
-    <input matInput [matDatepicker]="checkout" [min]="this.form.get('checkInDate').value" placeholder="Choose Check Out Date" formControlName="checkOutDate">
+    <input matInput [matDatepicker]="checkout" [min]="this.form.get('checkInDate').value" placeholder="Choose Check Out Date"
+      formControlName="checkOutDate">
     <mat-datepicker-toggle matSuffix [for]="checkout"></mat-datepicker-toggle>
-    <mat-datepicker #checkout disabled="false"></mat-datepicker>       
+    <mat-datepicker #checkout disabled="false"></mat-datepicker>
   </mat-form-field>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-  <button class="btn btn-danger btn-sm" (click)="close()">Close</button>
-  <button class="btn btn-primary btn-sm" (click)="save()">Save</button>
+  <button class="btn btn-danger btn-sm" autofocus (click)="close()">Close</button>
+  <button class="btn btn-primary btn-sm" (click)="save()" [disabled]="!form.valid">Save</button>
 </mat-dialog-actions>

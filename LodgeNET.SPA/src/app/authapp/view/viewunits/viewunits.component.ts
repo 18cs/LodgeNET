@@ -134,7 +134,7 @@ export class ViewunitsComponent implements OnInit {
 
   unitFilter(val: string): Unit[] {
     return this.filterUnits.filter(unit =>
-      unit.name.toLowerCase().includes(val.toLowerCase()));
+      (unit.name.toLowerCase().includes(val.toLowerCase()) || unit.unitAbbreviation.toLowerCase().includes(val.toLowerCase()))); //ABBREVIATION SEARCH
   }
 
   onUnitSelected(unit: Unit) {

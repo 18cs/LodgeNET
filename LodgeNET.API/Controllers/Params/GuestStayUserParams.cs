@@ -10,5 +10,6 @@ namespace LodgeNET.API.Helpers
         public bool CurrentStaysOnly { get; set; }
         public int? BuildingId { get; set; }
         public int? ServiceId { get; set; }
+        public int? UploadId { get; set; }
     }
 }

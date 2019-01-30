@@ -78,7 +78,8 @@ namespace LodgeNET.API.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BuildingCategoryId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Number = table.Column<int>(nullable: false)
+                    Number = table.Column<int>(nullable: false),
+                    Sector = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -190,6 +191,7 @@ namespace LodgeNET.API.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     DateUploaded = table.Column<DateTime>(nullable: false),
                     FileName = table.Column<string>(nullable: true),
+                    GuestsAdded = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -242,7 +244,7 @@ namespace LodgeNET.API.Migrations
                         column: x => x.UploadId,
                         principalTable: "Uploads",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

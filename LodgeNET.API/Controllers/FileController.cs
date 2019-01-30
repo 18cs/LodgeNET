@@ -52,6 +52,7 @@ namespace LodgeNET.API.Controllers {
                 uploadToAdd.FileName = fileDto.File.FileName;
                 uploadToAdd.DateUploaded = DateTime.Now;
                 uploadToAdd.UserId = currentUserId;
+                uploadToAdd.GuestsAdded = 0;
                 
                 int uploadId = await _fileService.AddUpload(uploadToAdd);
 
@@ -80,8 +81,11 @@ namespace LodgeNET.API.Controllers {
                         returnRows.Add (rowForUpload);
                     } else {
                         await _fileService.SaveFileRowAsync (rowForUpload);
+                        uploadToAdd.GuestsAdded += 1;
                     }
                 }
+
+                await _fileService.SaveUpload(uploadToAdd);
 
                 if (System.IO.File.Exists (fullPath)) {
                     System.IO.File.Delete (fullPath);
@@ -100,6 +104,10 @@ namespace LodgeNET.API.Controllers {
 
             ArrayList returnRows = new ArrayList ();
 
+            int uploadKickbacksId = fileRows[0].UploadId ?? default(int);
+
+            var uploadKickbacks = await _fileService.GetUploadById(uploadKickbacksId);
+
             foreach (FileRowForUploadDto fileRow in fileRows) {
                 //TODOTEST
                 await _fileService.ParseDataRow (fileRow);
@@ -112,8 +120,11 @@ namespace LodgeNET.API.Controllers {
                 } else {
                     //TODO add unit parse
                     await _fileService.SaveFileRowAsync (fileRow);
+                    uploadKickbacks.GuestsAdded += 1;
                 }
             }
+
+            await _fileService.SaveUpload(uploadKickbacks);
 
             return Ok (returnRows);
         }
@@ -144,6 +155,7 @@ namespace LodgeNET.API.Controllers {
                 uploadToAdd.FileName = fileDto.File.FileName;
                 uploadToAdd.DateUploaded = DateTime.Now;
                 uploadToAdd.UserId = currentUserId;
+                uploadToAdd.GuestsAdded = 0;
                 
                 int uploadId = await _fileService.AddUpload(uploadToAdd);
 
@@ -184,9 +196,12 @@ namespace LodgeNET.API.Controllers {
                         {
                             rowForUpload = await _fileService.AutoRoomDataRow(rowForUpload, userParams);
                             await _fileService.SaveFileRowAsync(rowForUpload);
+                            uploadToAdd.GuestsAdded += 1;
                         }
                     }
                 }
+
+                await _fileService.SaveUpload(uploadToAdd);
 
                 if (System.IO.File.Exists(fullPath))
                 {
@@ -206,6 +221,10 @@ namespace LodgeNET.API.Controllers {
 
             ArrayList returnRows = new ArrayList ();
 
+            int uploadKickbacksId = fileRows[0].UploadId ?? default(int);
+
+            var uploadKickbacks = await _fileService.GetUploadById(uploadKickbacksId);
+
             foreach (FileRowForUploadDto fileRow in fileRows) {
                 //TODOTEST
                 //await _fileService.SaveNewGuestFileRowAsync (fileRow, userParams);
@@ -219,8 +238,11 @@ namespace LodgeNET.API.Controllers {
                     //TODO add unit parse
                     var fileRowForUpload = await _fileService.AutoRoomDataRow(fileRow, userParams);
                     await _fileService.SaveFileRowAsync (fileRowForUpload);
+                    uploadKickbacks.GuestsAdded += 1;
                 }
             }
+
+            await _fileService.SaveUpload(uploadKickbacks);
 
             return Ok (returnRows);
         }
@@ -239,6 +261,7 @@ namespace LodgeNET.API.Controllers {
             uploadToAdd.FileName = fileDto.File.FileName;
             uploadToAdd.DateUploaded = DateTime.Now;
             uploadToAdd.UserId = currentUserId;
+            uploadToAdd.GuestsAdded = 0;
             
             int uploadId = await _fileService.AddUpload(uploadToAdd);
 
@@ -261,8 +284,11 @@ namespace LodgeNET.API.Controllers {
                         returnRows.Add (rowForUpload);
                     } else {
                         await _fileService.SaveFileRowAsync (rowForUpload);
+                        uploadToAdd.GuestsAdded += 1;
                     }
                 }
+
+                await _fileService.SaveUpload(uploadToAdd);
             }
             return Ok (returnRows);
         }

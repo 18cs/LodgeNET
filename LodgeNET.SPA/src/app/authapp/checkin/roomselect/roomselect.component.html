@@ -15,7 +15,7 @@
   <div class="col-lg-2 v-divider">
     <div class="btn-group-vertical btn-group-toggle" role="group" data-toggle="buttons">
       <div *ngFor="let building of buildingDashboard?.buildingList;">
-        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary" (click)="onClickBuilding(building.id)">{{ (building.name.length>20) ? (building.name | slice:0:17)+'...':(building.name)}}</button>
+        <button *ngIf="building.buildingCategoryId == buildingTypeIdSelected" type="button" class="btn btn-primary" (click)="onClickBuilding(building)">{{ (building.name.length>20) ? (building.name | slice:0:17)+'...':(building.name)}}</button>
       </div>
     </div>
   </div>

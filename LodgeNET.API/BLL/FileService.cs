@@ -75,10 +75,28 @@ namespace LodgeNET.API.BLL {
             var upload = await _fileRepo.GetFirstOrDefault (u => u.Id == id);
 
             await _fileRepo.Delete (upload.Id);
-
             await _fileRepo.SaveAsync ();
 
             return (upload);
+
+        }
+
+        public async Task<Upload> GetUploadById (int id) {
+            var upload = await _fileRepo.GetFirstOrDefault (u => u.Id == id);
+
+            return (upload);
+        }
+
+        public async Task SaveUpload(Upload upload)
+        {
+            var saveUpload = await _fileRepo.GetFirstOrDefault(u => u.Id == upload.Id);
+
+            if (saveUpload != null)
+            {
+                saveUpload.GuestsAdded = upload.GuestsAdded;
+            }
+
+            await _fileRepo.SaveAsync();
         }
 
         public async Task<FileRowForUploadDto> ParseUnaccompaniedExcelRow (IRow row, ArrayList headers, int uploadId = 0) {
@@ -157,7 +175,7 @@ namespace LodgeNET.API.BLL {
                     rowForUpload.FirstName = name.Substring ((commaIndex + 2), (endOfFirstName - (commaIndex + 2)));
                 }
 
-                if (headers[j].ToString ().Equals ("Grade", StringComparison.OrdinalIgnoreCase)) {
+                if ((headers[j].ToString ().Equals ("Grade", StringComparison.OrdinalIgnoreCase)) || (headers[j].ToString ().Equals ("Rank", StringComparison.OrdinalIgnoreCase))) {
 
                     var strRank = _rankConverter.Standardize (row.GetCell (j).ToString ().Trim ());
                     var rank = await _rankRepo.GetFirstOrDefault (r => r.RankName.Equals (strRank, StringComparison.OrdinalIgnoreCase));
@@ -170,6 +188,19 @@ namespace LodgeNET.API.BLL {
                     var service = await _serviceRepo.GetFirstOrDefault (s => s.ServiceName.Equals (strService, StringComparison.OrdinalIgnoreCase));
                     rowForUpload.ServiceId = service?.Id;
                     rowForUpload.ServiceName = service?.ServiceName;
+                }
+
+                if ((headers[j].ToString ().Equals ("Gender", StringComparison.OrdinalIgnoreCase)) || (headers[j].ToString ().Equals ("Sex", StringComparison.OrdinalIgnoreCase))) 
+                { 
+                    var gender = row.GetCell(j).ToString().Trim();
+                    
+                    if (gender.Equals("M", StringComparison.OrdinalIgnoreCase))
+                        gender = "Male";
+                    
+                    if (gender.Equals("F", StringComparison.OrdinalIgnoreCase))
+                        gender = "Female";
+
+                    rowForUpload.Gender = (gender.First().ToString().ToUpper() + gender.Substring(1));
                 }
             }
 
@@ -343,6 +374,10 @@ namespace LodgeNET.API.BLL {
             var stay = new Stay ();
             guest = _mapper.Map<Guest> (rowForUpload);
             stay = _mapper.Map<Stay> (rowForUpload);
+
+            if (guest.Gender == null) {
+                guest.Gender = "Male";
+            }
 
             if (guest.UnitId == 0) {
                 guest.UnitId = null;

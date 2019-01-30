@@ -13,4 +13,5 @@ export interface FileRow {
     serviceId: number;
     rankName: string;
     rankId: number;
+    uploadId?: number;
 }

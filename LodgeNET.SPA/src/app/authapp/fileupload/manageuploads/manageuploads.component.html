@@ -8,13 +8,15 @@
       <thead>
         <tr class="table-default">
           <th scope="col">File Name</th>
+          <th scope="col">Guests Added</th>
           <th scope="col">Date Uploaded</th>
           <th scope="col">Uploaded By</th>
         </tr>
       </thead>
       <tbody *ngFor="let upload of uploads; let i = index;">
         <tr class="table-secondary">
-          <th scope="row">{{ upload.fileName }}</th>
+          <th scope="row" (click)="loadGuestsByUpload(upload.id)">{{ upload.fileName }}</th>
+          <td>{{ upload.guestsAdded }}</td>
           <td>{{ upload.dateUploaded | date: 'MMMM dd yyyy, h:mm a' }}</td>
           <td>{{ upload.user.userName }}</td>
           <td *ngIf="authService.accountType == 'Admin'">

@@ -102,11 +102,11 @@ namespace LodgeNET.API {
             // seeder.SeedAccountTypes();
             // seeder.SeedBuildingCategories();
             // seeder.SeedBuildings();
-            // seder.SeedServices();
+            // seeder.SeedServices();
             // seeder.SeedRanks();
             // seeder.SeedRooms();
             // seeder.SeedUnits();
-            // seeder.SeedGuests();e
+            // seeder.SeedGuests();
             // seeder.SeedReservation();
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseAuthentication();

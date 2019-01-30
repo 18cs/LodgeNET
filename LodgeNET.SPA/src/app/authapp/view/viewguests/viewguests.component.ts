@@ -19,6 +19,8 @@ import { AuthService } from '../../../_services/auth.service';
 import { GuestStayParams } from '../../../_models/params/guestStayParams';
 import { GuestDisplay } from '../../../_models/display/guestDisplay';
 import { FileexportService } from '../../../_services/fileexport.service';
+import { Building } from '../../../_models/building';
+import { Room } from '../../../_models/room';
 
 @Component({
   selector: 'app-viewguests',
@@ -32,7 +34,7 @@ export class ViewguestsComponent implements OnInit {
   guestStayList: GuestStayEdit[];
   selectedGuest: Guest;
   selectedGuestStay: GuestStayEdit;
-  // type: string;
+  buildingList: Building[];
   showSpinner = false;
   pageSize = 10;
   pageNumber = 1;
@@ -41,7 +43,7 @@ export class ViewguestsComponent implements OnInit {
   unitName = new FormControl();
   unitFileValue = '';
   filteredOptions: Observable<Unit[]>;
-  filterParams: GuestParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: 0, unitId: 0};
+  filterParams: GuestParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: 0, unitId: 0, uploadId: 0};
   // // filter
   selectedService: Service;
   // selectedRank: Rank;
@@ -61,10 +63,13 @@ export class ViewguestsComponent implements OnInit {
 
 
   ngOnInit() {
+    if (this.guestStayService.loadByUploadId != 0)
+      this.filterParams.uploadId = this.guestStayService.loadByUploadId;
     this.loadGuests();
     this.initFilterParams();
     this.route.data.subscribe((data: Data) => {
       this.formData = data['formData'];
+      this.buildingList = data['buildings'];
     });
 
     this.filteredOptions = this.unitName.valueChanges
@@ -75,7 +80,7 @@ export class ViewguestsComponent implements OnInit {
   }
 
   initFilterParams() {
-    this.filterParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: null, unitId: 0};
+    this.filterParams = {lastName: '', serviceId: 0, rankId: 0, gender: '', dodId: null, unitId: 0, uploadId: 0};
   }
 
   onSearch() {
@@ -143,10 +148,11 @@ export class ViewguestsComponent implements OnInit {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
+    dialogConfig.autoFocus = false;
 
     dialogConfig.data = {
-      guestStay: guestStay
+      guestStay: guestStay,
+      buildingList: this.buildingList
     };
 
     const dialogRef = this.dialog.open(GueststaydialogComponent, dialogConfig);
@@ -154,7 +160,7 @@ export class ViewguestsComponent implements OnInit {
       if (data != null) {
         this.guestStayService.updateGuestStay(data).subscribe(
           success => {
-            this.alertify.success('stay successfully updated.');
+            this.alertify.success('Stay successfully updated.');
           },
           error => {
             this.alertify.error(error);

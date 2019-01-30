@@ -181,7 +181,9 @@ namespace LodgeNET.API.BLL
             if (bldg != null)
             {
                 bldg.Name = building.Name;
+                bldg.Number = building.Number;
                 bldg.BuildingCategoryId = building.BuildingCategoryId;
+                bldg.Sector = (building.Sector != null) ? building.Sector : "";
             }
 
             await _buildingsRepo.SaveAsync();

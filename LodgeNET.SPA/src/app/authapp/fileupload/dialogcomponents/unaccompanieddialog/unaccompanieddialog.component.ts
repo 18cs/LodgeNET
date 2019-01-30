@@ -44,6 +44,10 @@ export class UnaccompanieddialogComponent implements OnInit {
       'roomNum': new FormControl(this.fileRow.roomNumber, Validators.required),
       'unitName': new FormControl(this.fileRow.unitName, [Validators.required, this.unitConfirm.bind(this)])
     });
+
+    if (this.fileRow.unitName != null) {
+      this.unitName = this.fileRow.unitName;
+    }
   }
 
   unitFilter(val: string): Unit[] {
@@ -60,7 +64,7 @@ export class UnaccompanieddialogComponent implements OnInit {
   }
 
   unitConfirm(c: FormControl): {[s: string]: boolean} {
-    if (this.selectedUnit == null) {
+    if (this.selectedUnit === null) {
       return {'invalidUnit': true};
     }
     return null;

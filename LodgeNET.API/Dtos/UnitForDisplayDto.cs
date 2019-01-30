@@ -4,5 +4,6 @@ namespace LodgeNET.API.Dtos
     {
         public string Name { get; set; }
         public string ParentUnit { get; set; }
+        public string Abbreviation { get; set; }
     }
 }

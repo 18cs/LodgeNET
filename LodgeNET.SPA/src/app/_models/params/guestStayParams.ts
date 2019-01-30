@@ -7,4 +7,5 @@ export class GuestStayParams {
     currentStaysOnly?: boolean;
     buildingId?: number;
     serviceId?: number;
+    uploadId?: number;
 }

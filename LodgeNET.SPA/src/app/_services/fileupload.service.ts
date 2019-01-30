@@ -72,5 +72,5 @@ export class FileuploadService {
     deleteUpload(uploadId: number) {
         return this.http
           .delete(this.baseUrl + 'file/upload' + '/' + uploadId);
-      }
+    }
 }

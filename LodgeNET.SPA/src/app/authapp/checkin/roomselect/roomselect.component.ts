@@ -7,6 +7,7 @@ import { PaginatedResult, Pagination } from '../../../_models/pagination';
 import { Room } from '../../../_models/room';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GuestStayEdit } from '../../../_models/guestStayEdit';
+import { Building } from '../../../_models/building';
 
 @Component({
   selector: 'app-roomselect',
@@ -58,8 +59,9 @@ export class RoomselectComponent implements OnInit, OnDestroy {
     });
   }
 
-  onClickBuilding(buildingId: number) {
-    this.buildingSelectedId = buildingId;
+  onClickBuilding(building: Building) {
+    this.gueststayService.guestStay.building = building;
+    this.buildingSelectedId = building.id;
     this.loadRooms();
   }
 
@@ -92,7 +94,6 @@ export class RoomselectComponent implements OnInit, OnDestroy {
     this.gueststayService.getGuestStays({roomId: room.id, currentStaysOnly: true }).subscribe(
       (guestStays: GuestStayEdit[]) =>  {
         if (guestStays.filter(g => g.guest.gender != this.gueststayService.guestStay.gender).length > 0) {
-          console.log(guestStays);
           this.alertify.error('Room has guest of opposite gender');
           this.gueststayService.hasGenderConfliction = true;
         }

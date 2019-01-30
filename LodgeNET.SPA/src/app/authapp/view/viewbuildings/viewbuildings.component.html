@@ -35,6 +35,7 @@
         <tr class="table-default">
           <th scope="col">Building</th>
           <th scope="col">Number </th>
+          <th scope="col">Sector</th>
           <th scope="col">Type</th>
           <th scope="col" *ngIf="authService.accountType == 'Admin'">
             <button class="btn btn-success btn-sm" (click)="openAddDialog()">
@@ -47,6 +48,7 @@
         <tr>
           <th scope="row">{{ building.name }}</th>
           <td>{{ building.number }}</td>
+          <td>{{ building.sector }}</td>
           <td>{{ building.buildingCategory.type }}</td>
           <!-- <ng-container *ngFor="let bldgType of buildingTypeList;">
           <td *ngIf="bldgType.id == buildingList[i].buildingCategoryId">{{ bldgType.type }}</td>

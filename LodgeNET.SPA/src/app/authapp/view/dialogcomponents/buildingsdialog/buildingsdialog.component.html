@@ -11,6 +11,10 @@
     </mat-form-field>
     <br>
     <mat-form-field>
+        <input matInput placeholder="Sector" formControlName="sector" />
+    </mat-form-field>
+    <br>
+    <mat-form-field>
         <input matInput placeholder="Building Type" formControlName="buildingType" (focusout)="buildingTypeFocusOut()" [matAutocomplete]="bldgAuto" [(ngModel)]="selectedType">
     </mat-form-field>
     <mat-autocomplete #bldgAuto>

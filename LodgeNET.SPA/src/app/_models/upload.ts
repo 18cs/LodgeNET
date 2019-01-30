@@ -6,4 +6,5 @@ export class Upload {
     user: User;
     fileName: string;
     dateUploaded: Date;
+    guestsAdded: number;
 }

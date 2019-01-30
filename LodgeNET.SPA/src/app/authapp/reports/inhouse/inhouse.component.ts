@@ -43,7 +43,6 @@ export class InhouseComponent implements OnInit {
           this.showSpinner = false;
           this.guestStayList = paginatedResult.result;
           this.pagination = paginatedResult.pagination;
-          console.log(paginatedResult.result);
         }, error => { this.alertify.error(error); });
     } else {
       this.guestStayService.getGuestStaysPagination(this.pagination.currentPage, this.pagination.itemsPerPage, this.filterParams)

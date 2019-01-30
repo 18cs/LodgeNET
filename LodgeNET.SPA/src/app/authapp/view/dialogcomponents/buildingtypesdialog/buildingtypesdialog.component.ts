@@ -42,7 +42,6 @@ export class BuildingtypesdialogComponent implements OnInit {
   save() {
     this.buildingType.type = this.form.value['type'];
     this.buildingType.inSurge = this.form.value['surgeToggle'];
-    console.log(this.buildingType);
     this.dialogRef.close(this.buildingType);
   }
 

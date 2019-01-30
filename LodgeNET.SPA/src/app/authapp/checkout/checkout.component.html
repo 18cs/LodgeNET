@@ -43,7 +43,7 @@
         <td>{{ guestStay?.guest?.rank?.rankName }}</td>
         <td>{{ guestStay?.guest?.firstName }}</td>
         <td>{{ guestStay?.guest?.lastName }}</td>
-        <td>{{ guestStay?.checkInDate | date }}</td>
+        <td>{{ guestStay?.checkInDate | date: 'MMMM dd yyyy, h:mm a' }}</td>
       </tr>
     </tbody>
   </table>

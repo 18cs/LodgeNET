@@ -109,7 +109,7 @@
                     <tr *ngFor="let guestStay of guestStayList;">
                       <td>{{ guestStay?.building?.name }}</td>
                       <td>{{ guestStay?.room?.roomNumber }}</td>
-                      <td>{{ guestStay?.checkInDate | date }}</td>
+                      <td>{{ guestStay?.checkInDate | date: 'MMMM dd yyyy, h:mm a' }}</td>
                       <td>{{ guestStay?.checkOutDate || '' | date }}</td>
                       <td>{{ guestStay?.checkedOut }}</td>
                       <td *ngIf="authService.accountType !== 'Viewer'">&emsp;

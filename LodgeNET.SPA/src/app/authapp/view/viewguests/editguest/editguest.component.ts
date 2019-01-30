@@ -40,7 +40,8 @@ export class EditguestComponent implements OnInit {
     this.editGuestForm.addControl('id', new FormControl(this.guest.id));
 
     // saves network traffic cost
-    this.editGuestForm.value['unitId'] = this.selectedUnit.id;
+    if (this.selectedUnit.id != 0)
+      this.editGuestForm.value['unitId'] = this.selectedUnit.id;
     this.editGuestForm.value['service'] = this.selectedService.id;
 
     if (this.editGuestForm.value['gender'] != null) {
@@ -55,20 +56,21 @@ export class EditguestComponent implements OnInit {
     }, error => {
       this.alertify.error(error);
     });
+
   }
 
   private initForm() {
     this.editGuestForm = new FormGroup({
       'chalk': new FormControl(this.guest.chalk),
-      'dodId': new FormControl(this.guest.dodId, Validators.required),
+      'dodId': new FormControl(this.guest.dodId),
       'firstName': new FormControl(this.guest.firstName, Validators.required),
       'middleInitial': new FormControl(this.guest.middleInitial),
       'lastName': new FormControl(this.guest.lastName, Validators.required),
-      'service': new FormControl(this.selectedService, Validators.required),
-      'rankId': new FormControl(this.guest.rankId, Validators.required),
+      'service': new FormControl(this.selectedService),
+      'rankId': new FormControl(this.guest.rankId),
       'gender': new FormControl(this.guest.gender == 'Male' ? 0 : 1 , Validators.required),
-      'unitId': new FormControl(this.filterStatus, [Validators.required, this.unitConfirming.bind(this)]),
-      'email': new FormControl(this.guest.email, [Validators.required, Validators.email]),
+      'unitId': new FormControl(this.filterStatus), // this.unitConfirming.bind(this)
+      'email': new FormControl(this.guest.email, Validators.email),
       'dsnPhone': new FormControl(this.guest.dsnPhone),
       'commPhone': new FormControl(this.guest.commPhone),
     });

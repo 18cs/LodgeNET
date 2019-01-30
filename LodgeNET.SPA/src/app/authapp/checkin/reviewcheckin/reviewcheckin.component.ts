@@ -46,7 +46,7 @@ export class ReviewcheckinComponent implements OnInit {
     this.gueststayService.checkinGuest().subscribe(() => {
       this.alertify.success('Check-In Successful');
       this.gueststayService.clearGuestStay();
-      this.router.navigate(['/']);
+      this.router.navigate(['/checkin/guestinfo/']);
     }, error => {
       this.alertify.error(error);
     });

@@ -74,6 +74,10 @@ export class UnitsService {
         if (userParams.unitName != null) {
             params = params.append('unitName', userParams.unitName);
         }
+
+        if (userParams.unitAbbreviation != null) {
+            params = params.append('unitAbbreviation', userParams.unitAbbreviation);
+        }
         return params;
     }
 

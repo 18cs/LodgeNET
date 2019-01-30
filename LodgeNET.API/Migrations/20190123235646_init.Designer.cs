@@ -11,7 +11,7 @@ using System;
 namespace LodgeNET.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20180913013953_init")]
+    [Migration("20190123235646_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,6 +43,8 @@ namespace LodgeNET.API.Migrations
                     b.Property<string>("Name");
 
                     b.Property<int>("Number");
+
+                    b.Property<string>("Sector");
 
                     b.HasKey("Id");
 
@@ -224,6 +226,8 @@ namespace LodgeNET.API.Migrations
                     b.Property<DateTime>("DateUploaded");
 
                     b.Property<string>("FileName");
+
+                    b.Property<int>("GuestsAdded");
 
                     b.Property<int>("UserId");
 

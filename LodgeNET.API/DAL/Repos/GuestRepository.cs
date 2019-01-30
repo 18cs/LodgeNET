@@ -83,6 +83,10 @@ namespace LodgeNET.API.DAL {
             if (!String.IsNullOrWhiteSpace (userParams.Gender)) {
                 guests = guests.Where (g => g.Gender.Equals (userParams.Gender));
             }
+
+            if (userParams.UploadId != null && userParams.UploadId != 0) {
+                guests = guests.Where (g => g.UploadId == userParams.UploadId);
+            }
             return guests;
         }
 

@@ -10,6 +10,7 @@ namespace LodgeNET.API.DAL.Models {
         public int Id { get; set; }
         public int Number { get; set; }
         public string Name { get; set; }
+        public string Sector { get; set; }
         public int BuildingCategoryId { get; set; }
 
         [ForeignKey ("BuildingCategoryId")]

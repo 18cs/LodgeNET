@@ -43,6 +43,8 @@ namespace LodgeNET.API.Migrations
 
                     b.Property<int>("Number");
 
+                    b.Property<string>("Sector");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BuildingCategoryId");
@@ -223,6 +225,8 @@ namespace LodgeNET.API.Migrations
                     b.Property<DateTime>("DateUploaded");
 
                     b.Property<string>("FileName");
+
+                    b.Property<int>("GuestsAdded");
 
                     b.Property<int>("UserId");
 

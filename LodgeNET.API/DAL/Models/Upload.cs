@@ -14,5 +14,6 @@ namespace LodgeNET.API.DAL.Models
         public User User { get; set; }
         public DateTime DateUploaded { get; set; }
         public string FileName { get; set; }
+        public int GuestsAdded { get; set; }
     }
 }

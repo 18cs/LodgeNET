@@ -3,5 +3,6 @@ export interface UnitParams {
     unitName?: string;
     parentUnitId?: number;
     includeParentUnit?: boolean;
+    unitAbbreviation?: string;
 }
 

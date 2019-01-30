@@ -5,4 +5,5 @@ export interface GuestParams {
     gender: string;
     dodId?: number;
     unitId: number;
+    uploadId?: number;
 }

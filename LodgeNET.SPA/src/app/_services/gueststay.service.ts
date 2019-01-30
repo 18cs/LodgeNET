@@ -25,6 +25,7 @@ export class GueststayService {
     isGuestInfoValid = false;
     isRoomSelected = false;
     hasGenderConfliction = false;
+    loadByUploadId = 0;
 
     constructor(private http: HttpClient) { }
 
@@ -71,6 +72,9 @@ export class GueststayService {
         params = params.append('unitId', userParams.unitId.toString());
         if (userParams.dodId != null) {
             params = params.append('dodId', userParams.dodId.toString());
+        }
+        if (userParams.uploadId != null) {
+            params = params.append('uploadId', userParams.uploadId.toString());
         }
         return params;
     }
@@ -340,10 +344,10 @@ export class GueststayService {
             lastName: this.guestStay.lastName,
             gender: this.guestStay.gender,
             serviceId: this.guestStay.service.id,
-            rankId: this.guestStay.rank.id,
+            rankId: (this.guestStay.rank == null) ? null : this.guestStay.rank.id,
             unitId: this.guestStay.guestUnit.id,
             chalk: this.guestStay.chalk,
-            email: this.guestStay.email,
+            email: (this.guestStay.email == null) ? null: this.guestStay.email,
             dsnPhone: this.guestStay.dsnPhone == null ? null : this.guestStay.dsnPhone,
             commPhone: (this.guestStay.commPhone == null) ? null : this.guestStay.commPhone,
             roomId: this.guestStay.room.id,
@@ -367,4 +371,9 @@ export class GueststayService {
     clearGuestStay() {
         this.guestStay = { guestId: 0 };
     }
+
+    // getUploadCount(uploadId: number) {
+    //     return this.http.get<number>(this.baseUrl + 'gueststay/uploadCount/' + uploadId);
+    // }
+
 }

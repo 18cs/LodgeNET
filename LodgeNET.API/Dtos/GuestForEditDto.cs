@@ -19,5 +19,6 @@ namespace LodgeNET.API.Dtos
         public int? UnitId { get; set; }
         public Unit Unit { get; set; }
         public int? ServiceId { get; set; }
+        public int? UploadId { get; set; }
     }
 }

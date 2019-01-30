@@ -90,7 +90,7 @@ namespace LodgeNET.API.DAL.Repos
 
             if (!String.IsNullOrWhiteSpace(userParams.UnitName))
             {
-                units = units.Where(u => u.Name.Contains(userParams.UnitName));
+                units = units.Where(u => (u.Name.Contains(userParams.UnitName)||u.UnitAbbreviation.Contains(userParams.UnitName)));
             }
 
             if (userParams.IncludeParentUnit)

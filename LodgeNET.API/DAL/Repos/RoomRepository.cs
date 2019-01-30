@@ -73,7 +73,7 @@ namespace LodgeNET.API.DAL {
                 if (userParams.OnlyAvailableRooms == true && userParams.BuildingId != 0) {
                     stays = _context.Stays.Where (s => s.CheckedOut == false &&
                         s.CheckedIn == true &&
-                        !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                        !(DateTime.Compare (s.CheckInDate, DateTime.Now) > 0) &&
                         s.BuildingId == userParams.BuildingId);
                 }
 
