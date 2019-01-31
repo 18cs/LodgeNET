@@ -40,6 +40,10 @@ export class ExmanifestDialogComponent implements OnInit {
   }
 
   unitFilter(val: string): Unit[] {
+    if (val == null ) {
+      return this.units;
+    }
+
     return this.units.filter(unit =>
       unit.name.toLowerCase().includes(val.toLowerCase()));
   }
@@ -60,12 +64,12 @@ export class ExmanifestDialogComponent implements OnInit {
   }
 
   formInit() {
+    console.log(this.fileRow);
     this.selectedUnit = this.unitFilter(this.fileRow.unitName)[0];
     if (this.selectedUnit != null)
     {
       this.unitName = this.selectedUnit.name;
     }
-
     this.form = new FormGroup({
       'firstName': new FormControl(this.fileRow.firstName, Validators.required),
       'lastName': new FormControl(this.fileRow.lastName, Validators.required),

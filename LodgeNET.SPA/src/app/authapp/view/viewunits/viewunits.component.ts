@@ -38,7 +38,7 @@ export class ViewunitsComponent implements OnInit {
     private alertify: AlertifyService,
     private route: ActivatedRoute,
     private dialog: MatDialog,
-    private authService: AuthService,
+    public authService: AuthService,
     private fileExport: FileexportService
   ) { }
 

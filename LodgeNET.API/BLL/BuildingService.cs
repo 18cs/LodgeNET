@@ -98,7 +98,7 @@ namespace LodgeNET.API.BLL
             {
                 b.CurrentGuests = await _stayRepo.GetCount(s => s.CheckedOut == false &&
                    s.CheckedIn == true &&
-                   !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+                   !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                    s.BuildingId == b.Id);
                 b.Capacity = await _roomRepo.GetSum(r => r.Capacity, r => r.BuildingId == b.Id);
                 b.SurgeCapacity = await _roomRepo.GetSum(r => r.SurgeCapacity, r => r.BuildingId == b.Id);
@@ -117,7 +117,7 @@ namespace LodgeNET.API.BLL
         {
             return await _stayRepo.GetCount(s => s.CheckedOut == false &&
                s.CheckedIn == true &&
-               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                s.BuildingId == buildingId);
         }
 
@@ -125,7 +125,7 @@ namespace LodgeNET.API.BLL
         {
             return await _stayRepo.GetCount(s => s.CheckedOut == false &&
                s.CheckedIn == true &&
-               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                s.Building.BuildingCategoryId == buildingTypeId);
         }
 
@@ -133,7 +133,7 @@ namespace LodgeNET.API.BLL
         {
             return await _stayRepo.GetCount(s => s.CheckedOut == false &&
                s.CheckedIn == true &&
-               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                s.Building.BuildingCategory.Type == buildingType);
         }
 
@@ -141,7 +141,7 @@ namespace LodgeNET.API.BLL
         {
             return await _stayRepo.GetCount(s => s.CheckedOut == false &&
                s.CheckedIn == true &&
-               !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+               !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                s.Building.BuildingCategoryId == buildingTypeId &&
                s.Guest.Rank.ServiceId == serviceId);
         }

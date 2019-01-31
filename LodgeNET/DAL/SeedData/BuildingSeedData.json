@@ -2,291 +2,349 @@
     {
       "Name": "Bldg 300",
       "Number": 300,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 302",
       "Number": 302,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 304",
       "Number": 304,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 306",
       "Number": 306,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 322",
       "Number": 322,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 325",
       "Number": 325,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 328",
       "Number": 328,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 329",
       "Number": 329,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 330",
       "Number": 330,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 331",
       "Number": 331,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 332",
       "Number": 332,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 333",
       "Number": 333,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 437",
       "Number": 437,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 507",
       "Number": 507,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3N"
     },
     {
       "Name": "Bldg 508",
       "Number": 508,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3N"
     },
     {
       "Name": "Bldg 714",
       "Number": 714,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "2I"
     },
     {
       "Name": "Skoshi GO House",
       "Number": 78,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3J"
     },
     {
       "Name": "Tiger GO House",
       "Number": 2024,
-      "BuildingCategoryId": 1
+      "BuildingCategoryId": 1,
+      "Sector": "3N"
     },
     {
       "Name": "Sebille Manor",
       "Number": 2395,
-      "BuildingCategoryId": 2
+      "BuildingCategoryId": 2,
+      "Sector": "3N"
     },
     {
       "Name": "North Terrace",
       "Number": 2649,
-      "BuildingCategoryId": 2
+      "BuildingCategoryId": 2,
+      "Sector": "3N"
     },
     {
       "Name": "Open Source Center",
       "Number": 9906,
-      "BuildingCategoryId": 2
+      "BuildingCategoryId": 2,
+      "Sector": "3K"
     },
     {
       "Name": "Clark Vista",
       "Number": 60,
-      "BuildingCategoryId": 2
+      "BuildingCategoryId": 2,
+      "Sector": "3J"
     },
     {
       "Name": "Kadena Heights",
       "Number": 2442,
-      "BuildingCategoryId": 2
+      "BuildingCategoryId": 2,
+      "Sector": "3N"
     },
     {
       "Name": "Bldg 141",
       "Number": 141,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 145",
       "Number": 145,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 149",
       "Number": 149,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 151",
       "Number": 151,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 176",
       "Number": 176,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 177",
       "Number": 177,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "3L"
     },
     {
       "Name": "Bldg 613",
       "Number": 613,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "2I"
     },
     {
       "Name": "Bldg 629",
       "Number": 629,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "2I"
     },
     {
       "Name": "Bldg 630",
       "Number": 630,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "2I"
     },
     {
       "Name": "Bldg 700",
       "Number": 700,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "2I"
     },
     {
       "Name": "Bldg 758",
       "Number": 758,
-      "BuildingCategoryId": 3
+      "BuildingCategoryId": 3,
+      "Sector": "2I"
     },
     {
       "Name": "Risner Fitness Center",
       "Number": 109,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Teen Center Millenium",
       "Number": 499,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     },
     {
       "Name": "Teen Center Millenium Pool",
       "Number": 501,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     },
     {
       "Name": "Kadena Elementary School",
       "Number": 1991,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "2I"
     },
     {
       "Name": "Kadena Elementary School Pool",
       "Number": 1988,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "2I"
     },
     {
       "Name": "Kadena High School",
       "Number": 9490,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena High School (Annex)",
       "Number": 9493,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena Middle School (Admin Bldg)",
       "Number": 9397,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena Middle School (Library)",
       "Number": 9398,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena Middle School (Cafeteria)",
       "Number": 9399,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena Middle School (Music Bldg)",
       "Number": 9400,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Kadena Middle School (Gym)",
       "Number": 9401,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Bob Hope Primary School",
       "Number": 9480,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Amelia Earhart Intermediate School",
       "Number": 9481,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Amelia Earhart Intermediate School (Gym)",
       "Number": 9482,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Stearly Heights Elementary School",
       "Number": 2261,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     },
     {
       "Name": "Stearly Heights Elementary School (Gym/Cafeteria Bldg)",
       "Number": 2279,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     },
     {
       "Name": "Youth Center",
       "Number": 1849,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     },
     {
       "Name": "Education Center",
       "Number": 59,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3K"
     },
     {
       "Name": "PME Center/NCOA",
       "Number": 716,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "2I"
     },
     {
       "Name": "Himawari School Age Care",
       "Number": 439,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3L"
     },
     {
       "Name": "Shima No Ko School Age Care",
       "Number": 4081,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "1F"
     },
     {
       "Name": "Wakaba CDC",
       "Number": 132,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3K"
     },
     {
       "Name": "Niko Niko CDC",
       "Number": 334,
-      "BuildingCategoryId": 4
+      "BuildingCategoryId": 4,
+      "Sector": "3N"
     }
 ]

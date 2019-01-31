@@ -73,7 +73,7 @@ namespace LodgeNET.API.BLL {
 
         public async Task<Upload> DeleteUpload (int id) {
             var upload = await _fileRepo.GetFirstOrDefault (u => u.Id == id);
-
+            
             await _fileRepo.Delete (upload.Id);
             await _fileRepo.SaveAsync ();
 
@@ -337,13 +337,13 @@ namespace LodgeNET.API.BLL {
                         r => r.Stays.Where (
                             s => s.CheckedOut == false &&
                             s.CheckedIn == true &&
-                            !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
+                            !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0)
                         ).Count () < ((int) r.GetType ().GetProperty (capacityType).GetValue (r))).Count () != 0 &&
                     b.Rooms.Where (
                         r => r.Stays.Where (
                             s => s.CheckedOut == false &&
                             s.CheckedIn == true &&
-                            !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                            !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0) &&
                             !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0).Count () != 0,
                     true,
                     b => b.OrderBy (x => x.BuildingCategoryId).ThenBy (x => x.Number))).FirstOrDefault ();
@@ -352,12 +352,12 @@ namespace LodgeNET.API.BLL {
                     r => (r.Stays.Where (
                         s => s.CheckedOut == false &&
                         s.CheckedIn == true &&
-                        !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0)
+                        !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0)
                     ).Count () < ((int) r.GetType ().GetProperty (capacityType).GetValue (r))) &&
                     r.Stays.Where (
                         s => s.CheckedOut == false &&
                         s.CheckedIn == true &&
-                        !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                        !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0) &&
                         !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0
                 );
                 if (room != null)
@@ -388,9 +388,9 @@ namespace LodgeNET.API.BLL {
             }
 
             stay.CheckedIn = true;
-            stay.DateCreated = DateTime.Today;
+            stay.DateCreated = DateTime.Now;
             if (DateTime.Compare (stay.CheckInDate, DateTime.MinValue) == 0) {
-                stay.CheckInDate = DateTime.Today;
+                stay.CheckInDate = DateTime.Now;
             }
             await _guestRepo.Insert (guest);
             await _guestRepo.SaveAsync ();

@@ -38,7 +38,7 @@ namespace LodgeNET.API {
         {
             // var key = Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:Token").Value);
             var key = Encoding.ASCII.GetBytes(Configuration.GetSection ("AppSettings:Token").Value);
-            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("ProductionConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DevelopmentConnection")));
             services.AddTransient<Seed>();
             services.AddTransient<AuthService>();
             services.AddTransient<BuildingService>();

@@ -80,7 +80,7 @@ namespace LodgeNET.API.Controllers
                                 null,
                                 s => s.CheckedOut == false &&
                                 s.CheckedIn == true &&
-                                !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+                                !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                                 s.Building.BuildingCategory.Type.Equals(column) &&
                                 (s.Guest.RankId == null || s.Guest.RankId == 0))
                             ).Count()
@@ -92,7 +92,7 @@ namespace LodgeNET.API.Controllers
                             (await _guestStayService.GetGuestStays(null,
                                 s => s.CheckedOut == false &&
                                 s.CheckedIn == true &&
-                                !(DateTime.Compare(s.CheckInDate, DateTime.Today) > 0) &&
+                                !(DateTime.Compare(s.CheckInDate.Date, DateTime.Today) > 0) &&
                                 s.Guest.Rank.Service.ServiceName.Equals(series.Name) &&
                                 s.Building.BuildingCategory.Type.Equals(column))).Count()
                         );

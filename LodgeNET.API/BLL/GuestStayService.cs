@@ -33,7 +33,7 @@ namespace LodgeNET.API.BLL {
         public async Task<int> GetAvailableRoomCount (int id) {
             var roomCount = await _staysRepo.GetCount (s => s.CheckedOut == false &&
                 s.CheckedIn == true &&
-                !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0) &&
                 s.RoomId == id);
 
             return (roomCount);
@@ -250,7 +250,7 @@ namespace LodgeNET.API.BLL {
         public async Task<int> GetServiceCurrentGuests (int serviceId) {
             return await _staysRepo.GetCount (s => s.CheckedOut == false &&
                 s.CheckedIn == true &&
-                !(DateTime.Compare (s.CheckInDate, DateTime.Today) > 0) &&
+                !(DateTime.Compare (s.CheckInDate.Date, DateTime.Today) > 0) &&
                 s.Guest.Rank.ServiceId == serviceId);
         }
 
