@@ -144,6 +144,22 @@ namespace LodgeNET.API.BLL {
                         rowForUpload.UnitName = unit.Name;
                     }
                 }
+
+                if ((headers[j].ToString ().Equals ("Gender", StringComparison.OrdinalIgnoreCase)) || (headers[j].ToString ().Equals ("Sex", StringComparison.OrdinalIgnoreCase))) 
+                { 
+                    var gender = row.GetCell(j).ToString().Trim();
+                    
+                    if (gender.Equals("M", StringComparison.OrdinalIgnoreCase))
+                        gender = "Male";
+                    
+                    if (gender.Equals("F", StringComparison.OrdinalIgnoreCase))
+                        gender = "Female";
+
+                    rowForUpload.Gender = gender;
+
+                    //rowForUpload.Gender = (gender.First().ToString().ToUpper() + gender.Substring(1));
+                }
+
                 if (uploadId != 0)
                     rowForUpload.UploadId = uploadId;
             }
@@ -200,7 +216,9 @@ namespace LodgeNET.API.BLL {
                     if (gender.Equals("F", StringComparison.OrdinalIgnoreCase))
                         gender = "Female";
 
-                    rowForUpload.Gender = (gender.First().ToString().ToUpper() + gender.Substring(1));
+                    rowForUpload.Gender = gender;
+
+                    //rowForUpload.Gender = (gender.First().ToString().ToUpper() + gender.Substring(1));
                 }
             }
 
@@ -375,7 +393,7 @@ namespace LodgeNET.API.BLL {
             guest = _mapper.Map<Guest> (rowForUpload);
             stay = _mapper.Map<Stay> (rowForUpload);
 
-            if (guest.Gender == null) {
+            if ((guest.Gender == null) || (guest.Gender == "")) {
                 guest.Gender = "Male";
             }
 

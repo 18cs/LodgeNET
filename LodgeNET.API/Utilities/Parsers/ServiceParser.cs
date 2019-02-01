@@ -11,7 +11,8 @@ namespace LodgeNET.API.Utilities.Parsers
             AF = AIRFORCE,
             ARMY,
             NAVY,
-            USMC
+            USMC,
+            MARINECORPS = USMC
         }
 
         public Services GetServiceType(String strService)

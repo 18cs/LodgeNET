@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NPOI.SS.UserModel;
+using System.Text.RegularExpressions;
 
 namespace LodgeNET.API.Controllers {
     [Authorize]
@@ -169,6 +170,7 @@ namespace LodgeNET.API.Controllers {
                 var sheets = _fileReader.GetExcelSheets(fullPath);
                 foreach (var sheet in sheets)
                 {
+
                     var headers = _fileReader.GetExcelSheetHeaders(sheet, 2);
 
                     if (!headers.Contains("PERSONAL ID")) continue;
@@ -183,6 +185,12 @@ namespace LodgeNET.API.Controllers {
                         var rowForUpload = await _fileService.ParseExManifestExcelRow(row, headers, uploadId);
 
                         if (rowForUpload == null) continue;
+
+                        int.TryParse (Regex.Replace(sheet.SheetName, @"[^\d]", ""), out int chalkNumber);
+                        
+                        if (chalkNumber != 0)
+                            rowForUpload.Chalk = chalkNumber;
+
 
                         //stay buildingId is nullable
                         if (rowForUpload.Gender == null ||
