@@ -365,6 +365,9 @@ namespace LodgeNET.API.BLL {
                             !s.Guest.Gender.Equals (fileRow.Gender)).Count () == 0).Count () != 0,
                     true,
                     b => b.OrderBy (x => x.BuildingCategoryId).ThenBy (x => x.Number))).FirstOrDefault ();
+                
+                if (building == null)
+                    continue;
 
                 room = building.Rooms.FirstOrDefault (
                     r => (r.Stays.Where (
