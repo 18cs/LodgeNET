@@ -39,7 +39,7 @@
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.3.2",
     "rxjs-tslint": "^0.1.5",
-    "xlsx": "^0.13.4",
+    "xlsx": "^0.17.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {
